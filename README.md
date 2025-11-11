@@ -1,6 +1,6 @@
 # PyNetIM
 
-PyNetIM 是一个用于社交网络中影响力最大化的 Python 库，实现了多种经典算法和扩散模型。
+[PyNetIM](https://zzzkhj.github.io/PyNetIM/) 是一个用于社交网络中影响力最大化的 Python 库，实现了多种经典算法和扩散模型。
 
 ## 功能特点
 
