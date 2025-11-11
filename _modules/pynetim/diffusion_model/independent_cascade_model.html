@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pynetim.diffusion_model.independent_cascade_model &mdash; PyNetIM v0.2.2 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=eafc0fe6" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js?v=795308df"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=4825356b"></script>
+        <script src="../../../_static/translations.js?v=beaddf03"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            PyNetIM
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <p class="caption" role="heading"><span class="caption-text">使用指南</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">安装指南</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#id2">环境要求</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#pip">使用 pip 安装</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#id3">从源码安装</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#id4">验证安装</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">快速开始</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../quickstart.html#id2">基本示例</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../quickstart.html#id3">导入库</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../quickstart.html#id4">创建图</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../quickstart.html#id5">运行算法</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../quickstart.html#id6">扩散模拟</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples.html">使用示例</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../examples.html#id2">完整示例：社交网络影响力分析</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../examples.html#id3">更多示例</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API 文档</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../autoapi/index.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../autoapi/pynetim/index.html">pynetim</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../autoapi/pynetim/index.html#submodules">Submodules</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../autoapi/pynetim/algorithms/index.html">pynetim.algorithms</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../autoapi/pynetim/decorator/index.html">pynetim.decorator</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../autoapi/pynetim/diffusion_model/index.html">pynetim.diffusion_model</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../autoapi/pynetim/graph/index.html">pynetim.graph</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../autoapi/pynetim/utils/index.html">pynetim.utils</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../autoapi/pynetim/index.html#classes">Classes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../autoapi/pynetim/index.html#package-contents">Package Contents</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../autoapi/pynetim/index.html#pynetim.IMGraph"><code class="docutils literal notranslate"><span class="pre">IMGraph</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../autoapi/pynetim/index.html#pynetim.IndependentCascadeModel"><code class="docutils literal notranslate"><span class="pre">IndependentCascadeModel</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../autoapi/pynetim/index.html#pynetim.LinearThresholdModel"><code class="docutils literal notranslate"><span class="pre">LinearThresholdModel</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">PyNetIM</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">模块代码</a></li>
+      <li class="breadcrumb-item active">pynetim.diffusion_model.independent_cascade_model</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>pynetim.diffusion_model.independent_cascade_model 源代码</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">random</span>
+
+<span class="kn">from</span> <span class="nn">.run_monte_carlo_diffusion</span> <span class="kn">import</span> <span class="n">run_monte_carlo_diffusion</span>
+<span class="kn">from</span> <span class="nn">..graph</span> <span class="kn">import</span> <span class="n">IMGraph</span>
+<span class="kn">from</span> <span class="nn">.base_diffusion_model</span> <span class="kn">import</span> <span class="n">BaseDiffusionModel</span>
+
+
+<div class="viewcode-block" id="IndependentCascadeModel"><a class="viewcode-back" href="../../../pynetim.diffusion_model.html#pynetim.diffusion_model.independent_cascade_model.IndependentCascadeModel">[文档]</a><span class="k">class</span> <span class="nc">IndependentCascadeModel</span><span class="p">(</span><span class="n">BaseDiffusionModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    独立级联模型（Independent Cascade Model）。</span>
+
+<span class="sd">    实现了经典的独立级联传播模型，该模型是一种离散时间传播模型，</span>
+<span class="sd">    在每一轮中，已激活的节点尝试激活其未激活的邻居节点。</span>
+<span class="sd">    每条边都有固定的传播概率，当节点尝试传播时，根据概率决定是否成功激活邻居。</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        activated_nodes (set): 所有已被激活的节点集合</span>
+<span class="sd">        graph (IMGraph): 表示传播网络结构（继承自BaseDiffusionModel）</span>
+<span class="sd">        init_seeds (list): 初始种子集（继承自BaseDiffusionModel）</span>
+<span class="sd">        record_states (bool): 指示是否记录传播过程中的状态变化（继承自BaseDiffusionModel）</span>
+<span class="sd">        states (list): 当record_states为True时存储传播过程的状态历史（继承自BaseDiffusionModel）</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="IndependentCascadeModel.__init__"><a class="viewcode-back" href="../../../pynetim.diffusion_model.html#pynetim.diffusion_model.independent_cascade_model.IndependentCascadeModel.__init__">[文档]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">graph</span><span class="p">:</span> <span class="n">IMGraph</span><span class="p">,</span> <span class="n">init_seeds</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">record_states</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        初始化独立级联模型。</span>
+
+<div class="viewcode-block" id="IndependentCascadeModel.graph"><a class="viewcode-back" href="../../../pynetim.diffusion_model.html#pynetim.diffusion_model.independent_cascade_model.IndependentCascadeModel.graph">[文档]</a><span class="sd">        Args:</span></div>
+<div class="viewcode-block" id="IndependentCascadeModel.init_seeds"><a class="viewcode-back" href="../../../pynetim.diffusion_model.html#pynetim.diffusion_model.independent_cascade_model.IndependentCascadeModel.init_seeds">[文档]</a><span class="sd">            graph (IMGraph): 定义了节点和边的网络结构</span></div>
+<div class="viewcode-block" id="IndependentCascadeModel.record_states"><a class="viewcode-back" href="../../../pynetim.diffusion_model.html#pynetim.diffusion_model.independent_cascade_model.IndependentCascadeModel.record_states">[文档]</a><span class="sd">            init_seeds (list): 初始激活的节点集合</span></div>
+<span class="sd">            record_states (bool): 控制是否记录每一步的状态，默认为False</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">IndependentCascadeModel</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">init_seeds</span><span class="p">,</span> <span class="n">record_states</span><span class="p">)</span>
+<div class="viewcode-block" id="IndependentCascadeModel.activated_nodes"><a class="viewcode-back" href="../../../pynetim.diffusion_model.html#pynetim.diffusion_model.independent_cascade_model.IndependentCascadeModel.activated_nodes">[文档]</a>        <span class="bp">self</span><span class="o">.</span><span class="n">activated_nodes</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">init_seeds</span><span class="p">)</span></div></div>
+
+<div class="viewcode-block" id="IndependentCascadeModel.update"><a class="viewcode-back" href="../../../pynetim.diffusion_model.html#pynetim.diffusion_model.independent_cascade_model.IndependentCascadeModel.update">[文档]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">current_activated_nodes</span><span class="p">:</span> <span class="nb">set</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        执行一次传播更新。</span>
+
+<span class="sd">        在当前轮次中，所有新激活的节点尝试激活它们的未激活邻居节点。</span>
+<span class="sd">        成功激活的节点将在下一轮继续传播。</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            current_activated_nodes (set): 当前轮次需要尝试传播的已激活节点集合</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            set: 本轮新激活的节点集合</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># 执行一次传播过程</span>
+        <span class="n">new_activated_nodes</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">current_activated_nodes</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">neighbor</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">neighbors</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">neighbor</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">activated_nodes</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">edges</span><span class="p">[</span><span class="n">node</span><span class="p">,</span> <span class="n">neighbor</span><span class="p">][</span><span class="s1">&#39;weight&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">():</span>
+                        <span class="n">new_activated_nodes</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">neighbor</span><span class="p">)</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">activated_nodes</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">neighbor</span><span class="p">)</span>
+
+        <span class="c1"># 记录每轮的状态（应该记录所有已激活的节点）</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">record_states</span> <span class="ow">and</span> <span class="n">new_activated_nodes</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">states</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_activated_nodes</span><span class="o">.</span><span class="n">copy</span><span class="p">())</span>
+
+        <span class="k">return</span> <span class="n">new_activated_nodes</span></div>
+
+<div class="viewcode-block" id="IndependentCascadeModel.diffusion"><a class="viewcode-back" href="../../../pynetim.diffusion_model.html#pynetim.diffusion_model.independent_cascade_model.IndependentCascadeModel.diffusion">[文档]</a>    <span class="k">def</span> <span class="nf">diffusion</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">update_counts</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        执行完整的扩散过程。</span>
+
+<span class="sd">        进行指定轮次的传播更新，直到达到最大轮次或没有新的节点被激活。</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            update_counts (int, optional): 最大更新轮次数。如果为None则持续传播直到无新节点激活</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            set: 最终所有被激活的节点集合</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">current_activated_nodes</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">init_seeds</span><span class="p">)</span>
+        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">current_activated_nodes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">current_activated_nodes</span><span class="p">)</span>
+            <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">current_activated_nodes</span> <span class="ow">or</span> <span class="p">(</span><span class="n">update_counts</span> <span class="ow">and</span> <span class="n">count</span> <span class="o">&gt;=</span> <span class="n">update_counts</span><span class="p">):</span>
+                <span class="k">break</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">activated_nodes</span></div>
+
+<div class="viewcode-block" id="IndependentCascadeModel.run_monte_carlo_diffusion"><a class="viewcode-back" href="../../../pynetim.diffusion_model.html#pynetim.diffusion_model.independent_cascade_model.IndependentCascadeModel.run_monte_carlo_diffusion">[文档]</a>    <span class="k">def</span> <span class="nf">run_monte_carlo_diffusion</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">round</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">multi_process</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">processes</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">seed</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        执行蒙特卡洛模拟扩散过程。</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            round (int): 总模拟轮数</span>
+<span class="sd">            multi_process (bool): 是否启用多进程模式，默认为False</span>
+<span class="sd">            processes (int, optional): 多进程模式下的进程数，为None时使用CPU核心数</span>
+<span class="sd">            seed (int, optional): 模拟时的随机种子</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            float: 所有模拟轮次的平均激活节点数</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">run_monte_carlo_diffusion</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">round</span><span class="p">,</span> <span class="n">multi_process</span><span class="p">,</span> <span class="n">processes</span><span class="p">,</span> <span class="n">seed</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="IndependentCascadeModel.reset"><a class="viewcode-back" href="../../../pynetim.diffusion_model.html#pynetim.diffusion_model.independent_cascade_model.IndependentCascadeModel.reset">[文档]</a>    <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">init_seeds</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        重置模型状态。</span>
+
+<span class="sd">        将模型恢复到初始状态，如果启用状态记录则清空已记录的状态历史，</span>
+<span class="sd">        并重新设置初始种子节点状态。</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            init_seeds (list, optional): 新的初始种子节点集合，若为None则使用原有种子集</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">init_seeds</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">init_seeds</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">init_seeds</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">init_seeds</span> <span class="o">=</span> <span class="n">init_seeds</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">activated_nodes</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">init_seeds</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">record_states</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">states</span> <span class="o">=</span> <span class="p">[</span><span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">init_seeds</span><span class="p">)]</span></div></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2025, Kaijing Zhang。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

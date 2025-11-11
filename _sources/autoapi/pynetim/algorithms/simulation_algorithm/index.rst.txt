@@ -1,0 +1,115 @@
+pynetim.algorithms.simulation_algorithm
+=======================================
+
+.. py:module:: pynetim.algorithms.simulation_algorithm
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   pynetim.algorithms.simulation_algorithm.GreedyAlgorithm
+   pynetim.algorithms.simulation_algorithm.CELFAlgorithm
+
+
+Module Contents
+---------------
+
+.. py:class:: GreedyAlgorithm(graph: pynetim.graph.IMGraph, diffusion_model: pynetim.diffusion_model.BaseDiffusionModel)
+
+   Bases: :py:obj:`pynetim.algorithms.base_algorithm.BaseAlgorithm`
+
+
+   贪婪算法 (Greedy) 选择影响力最大化种子节点
+
+   该算法通过迭代地选择具有最大边际影响力的节点作为种子节点，
+   直到选够k个种子节点。每次选择都需要计算所有候选节点的边际增益。
+
+   .. attribute:: graph
+
+      输入图对象
+
+      :type: IMGraph
+
+   .. attribute:: diffusion_model_class
+
+      影响传播模型类
+
+      :type: BaseDiffusionModel
+
+
+   .. py:attribute:: diffusion_model_class
+
+
+   .. py:method:: run(k: int, round: int, multi_process=False, processes=None, show_progress=True, seed: int = None)
+
+      运行贪婪算法选择影响力最大化种子节点。
+
+      :param k: 种子节点数量
+      :type k: int
+      :param round: 每次计算边际增益的蒙特卡洛模拟次数
+      :type round: int
+      :param multi_process: 是否启用多进程模式，默认为False
+      :type multi_process: bool, optional
+      :param processes: 多进程模式下的进程数，为None时使用默认值
+      :type processes: int, optional
+      :param show_progress: 是否显示进度条，默认为True
+      :type show_progress: bool, optional
+      :param seed: 模拟的随机种子，默认为None
+      :type seed: int, optional
+
+      :returns: 选择的种子节点列表
+      :rtype: list
+
+
+
+.. py:class:: CELFAlgorithm(graph: pynetim.graph.IMGraph, diffusion_model: pynetim.diffusion_model.BaseDiffusionModel)
+
+   Bases: :py:obj:`pynetim.algorithms.base_algorithm.BaseAlgorithm`
+
+
+   CELF算法选择影响力最大化种子节点
+
+   CELF (Cost-Effective Lazy Forward) 算法是贪婪算法的优化版本，
+   利用边际增益的子模特性减少计算量，通过优先队列维护节点的边际增益，
+   避免重复计算已失效的边际增益。
+
+   .. attribute:: graph
+
+      输入图对象
+
+      :type: IMGraph
+
+   .. attribute:: diffusion_model_class
+
+      影响传播模型类
+
+      :type: BaseDiffusionModel
+
+
+   .. py:attribute:: diffusion_model_class
+
+
+   .. py:method:: run(k: int, round: int, multi_process=False, processes=None, show_progress=True, seed: int = None)
+
+      运行CELF算法选择影响力最大化种子节点。
+
+      :param k: 种子节点数量
+      :type k: int
+      :param round: 蒙特卡洛模拟次数
+      :type round: int
+      :param multi_process: 是否启用多进程模式，默认为False
+      :type multi_process: bool, optional
+      :param processes: 多进程模式下的进程数，为None时使用默认值
+      :type processes: int, optional
+      :param show_progress: 是否显示进度条，默认为True
+      :type show_progress: bool, optional
+      :param seed: 模拟的随机数种子，默认为None
+      :type seed: int, optional
+
+      :returns: 选择的种子节点列表
+      :rtype: list
+
+
+

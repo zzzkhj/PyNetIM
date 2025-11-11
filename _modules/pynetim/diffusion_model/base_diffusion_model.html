@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pynetim.diffusion_model.base_diffusion_model &mdash; PyNetIM v0.2.2 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=eafc0fe6" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js?v=795308df"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=4825356b"></script>
+        <script src="../../../_static/translations.js?v=beaddf03"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            PyNetIM
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <p class="caption" role="heading"><span class="caption-text">使用指南</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">安装指南</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#id2">环境要求</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#pip">使用 pip 安装</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#id3">从源码安装</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#id4">验证安装</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">快速开始</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../quickstart.html#id2">基本示例</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../quickstart.html#id3">导入库</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../quickstart.html#id4">创建图</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../quickstart.html#id5">运行算法</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../quickstart.html#id6">扩散模拟</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples.html">使用示例</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../examples.html#id2">完整示例：社交网络影响力分析</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../examples.html#id3">更多示例</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API 文档</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../autoapi/index.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../autoapi/pynetim/index.html">pynetim</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../autoapi/pynetim/index.html#submodules">Submodules</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../autoapi/pynetim/algorithms/index.html">pynetim.algorithms</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../autoapi/pynetim/decorator/index.html">pynetim.decorator</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../autoapi/pynetim/diffusion_model/index.html">pynetim.diffusion_model</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../autoapi/pynetim/graph/index.html">pynetim.graph</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../autoapi/pynetim/utils/index.html">pynetim.utils</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../autoapi/pynetim/index.html#classes">Classes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../autoapi/pynetim/index.html#package-contents">Package Contents</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../autoapi/pynetim/index.html#pynetim.IMGraph"><code class="docutils literal notranslate"><span class="pre">IMGraph</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../autoapi/pynetim/index.html#pynetim.IndependentCascadeModel"><code class="docutils literal notranslate"><span class="pre">IndependentCascadeModel</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../autoapi/pynetim/index.html#pynetim.LinearThresholdModel"><code class="docutils literal notranslate"><span class="pre">LinearThresholdModel</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">PyNetIM</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">模块代码</a></li>
+      <li class="breadcrumb-item active">pynetim.diffusion_model.base_diffusion_model</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>pynetim.diffusion_model.base_diffusion_model 源代码</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">..graph</span> <span class="kn">import</span> <span class="n">IMGraph</span>
+
+
+<div class="viewcode-block" id="BaseDiffusionModel"><a class="viewcode-back" href="../../../pynetim.diffusion_model.html#pynetim.diffusion_model.base_diffusion_model.BaseDiffusionModel">[文档]</a><span class="k">class</span> <span class="nc">BaseDiffusionModel</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    扩散模型基类。</span>
+
+<span class="sd">    该类为各种扩散模型实现提供了基础框架，包含图结构、初始种子集、状态记录功能，</span>
+<span class="sd">    以及需要子类实现的核心方法。支持在网络图上模拟信息、疾病或其他</span>
+<span class="sd">    实体的传播过程。</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        graph (IMGraph): 表示传播网络结构</span>
+<span class="sd">        init_seeds (list): 初始种子集</span>
+<span class="sd">        record_states (bool): 指示是否记录传播过程中的状态变化</span>
+<span class="sd">        states (list): 当record_states为True时存储传播过程的状态历史</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="BaseDiffusionModel.__init__"><a class="viewcode-back" href="../../../pynetim.diffusion_model.html#pynetim.diffusion_model.base_diffusion_model.BaseDiffusionModel.__init__">[文档]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">graph</span><span class="p">:</span> <span class="n">IMGraph</span><span class="p">,</span> <span class="n">init_seeds</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">record_states</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        初始化扩散模型基类。</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            graph (IMGraph): 定义了节点和边的网络结构</span>
+<span class="sd">            init_seeds (list): 初始激活的节点集合</span>
+<span class="sd">            record_states (bool): 控制是否记录每一步的状态，默认为False</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="BaseDiffusionModel.graph"><a class="viewcode-back" href="../../../pynetim.diffusion_model.html#pynetim.diffusion_model.base_diffusion_model.BaseDiffusionModel.graph">[文档]</a>        <span class="bp">self</span><span class="o">.</span><span class="n">graph</span> <span class="o">=</span> <span class="n">graph</span></div>
+<div class="viewcode-block" id="BaseDiffusionModel.init_seeds"><a class="viewcode-back" href="../../../pynetim.diffusion_model.html#pynetim.diffusion_model.base_diffusion_model.BaseDiffusionModel.init_seeds">[文档]</a>        <span class="bp">self</span><span class="o">.</span><span class="n">init_seeds</span> <span class="o">=</span> <span class="n">init_seeds</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span></div>
+<div class="viewcode-block" id="BaseDiffusionModel.record_states"><a class="viewcode-back" href="../../../pynetim.diffusion_model.html#pynetim.diffusion_model.base_diffusion_model.BaseDiffusionModel.record_states">[文档]</a>        <span class="bp">self</span><span class="o">.</span><span class="n">record_states</span> <span class="o">=</span> <span class="n">record_states</span></div>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">record_states</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">states</span> <span class="o">=</span> <span class="p">[</span><span class="nb">set</span><span class="p">(</span><span class="n">init_seeds</span><span class="p">)]</span></div>
+
+<div class="viewcode-block" id="BaseDiffusionModel.update"><a class="viewcode-back" href="../../../pynetim.diffusion_model.html#pynetim.diffusion_model.base_diffusion_model.BaseDiffusionModel.update">[文档]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        更新模型状态的抽象方法。</span>
+
+<span class="sd">        子类必须实现此方法来定义具体的更新逻辑。</span>
+<span class="sd">        每次调用应执行一次传播步骤。</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            本轮更新结果，具体类型由子类定义</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            NotImplementedError: 当子类未实现此方法时抛出</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+<div class="viewcode-block" id="BaseDiffusionModel.diffusion"><a class="viewcode-back" href="../../../pynetim.diffusion_model.html#pynetim.diffusion_model.base_diffusion_model.BaseDiffusionModel.diffusion">[文档]</a>    <span class="k">def</span> <span class="nf">diffusion</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">update_counts</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        执行完整扩散过程的抽象方法。</span>
+
+<span class="sd">        子类必须实现此方法来定义从开始到结束的完整传播流程。</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            update_counts (int, optional): 更新次数，控制扩散迭代的轮数</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            扩散结果，具体类型由子类定义</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            NotImplementedError: 当子类未实现此方法时抛出</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+<div class="viewcode-block" id="BaseDiffusionModel.run_monte_carlo_diffusion"><a class="viewcode-back" href="../../../pynetim.diffusion_model.html#pynetim.diffusion_model.base_diffusion_model.BaseDiffusionModel.run_monte_carlo_diffusion">[文档]</a>    <span class="k">def</span> <span class="nf">run_monte_carlo_diffusion</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">round</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">multi_process</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">processes</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        执行蒙特卡洛模拟扩散过程。</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            round (int): 模拟的轮数</span>
+<span class="sd">            multi_process (bool): 指示是否使用多进程进行模拟</span>
+<span class="sd">            processes (int, optional): 多进程的进程数，默认为None，表示使用CPU核数</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            模拟结果，具体类型由子类定义</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            NotImplementedError: 当子类未实现此方法时抛出</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+<div class="viewcode-block" id="BaseDiffusionModel.reset"><a class="viewcode-back" href="../../../pynetim.diffusion_model.html#pynetim.diffusion_model.base_diffusion_model.BaseDiffusionModel.reset">[文档]</a>    <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">init_seeds</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        重置模型状态。</span>
+
+<span class="sd">        将模型恢复到初始状态，如果启用状态记录则清空已记录的状态历史，</span>
+<span class="sd">        并重新设置初始种子节点状态。</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            init_seeds (list, optional): 新的初始种子节点集合，若为None则使用原有种子集</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">init_seeds</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">init_seeds</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">init_seeds</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">init_seeds</span> <span class="o">=</span> <span class="n">init_seeds</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">record_states</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">states</span> <span class="o">=</span> <span class="p">[</span><span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">init_seeds</span><span class="p">)]</span></div></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2025, Kaijing Zhang。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

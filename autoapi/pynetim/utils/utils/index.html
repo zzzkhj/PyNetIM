@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pynetim.utils.utils &mdash; PyNetIM v0.2.2 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css?v=eafc0fe6" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js?v=795308df"></script>
+        <script src="../../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../../_static/sphinx_highlight.js?v=4825356b"></script>
+        <script src="../../../../_static/translations.js?v=beaddf03"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../../search.html" />
+    <link rel="prev" title="pynetim.utils" href="../index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            PyNetIM
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <p class="caption" role="heading"><span class="caption-text">使用指南</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../installation.html">安装指南</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../installation.html#id2">环境要求</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../installation.html#pip">使用 pip 安装</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../installation.html#id3">从源码安装</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../installation.html#id4">验证安装</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../quickstart.html">快速开始</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../quickstart.html#id2">基本示例</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../quickstart.html#id3">导入库</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../quickstart.html#id4">创建图</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../quickstart.html#id5">运行算法</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../quickstart.html#id6">扩散模拟</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../examples.html">使用示例</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../examples.html#id2">完整示例：社交网络影响力分析</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../examples.html#id3">更多示例</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API 文档</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../index.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../index.html">pynetim</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../../index.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="../../algorithms/index.html">pynetim.algorithms</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../decorator/index.html">pynetim.decorator</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../diffusion_model/index.html">pynetim.diffusion_model</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../graph/index.html">pynetim.graph</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="../index.html">pynetim.utils</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../index.html#classes">Classes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../index.html#package-contents">Package Contents</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../index.html#pynetim.IMGraph"><code class="docutils literal notranslate"><span class="pre">IMGraph</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../index.html#pynetim.IndependentCascadeModel"><code class="docutils literal notranslate"><span class="pre">IndependentCascadeModel</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../index.html#pynetim.LinearThresholdModel"><code class="docutils literal notranslate"><span class="pre">LinearThresholdModel</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">PyNetIM</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../index.html">API Reference</a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">pynetim</a></li>
+          <li class="breadcrumb-item"><a href="../index.html">pynetim.utils</a></li>
+      <li class="breadcrumb-item active">pynetim.utils.utils</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../../_sources/autoapi/pynetim/utils/utils/index.rst.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-pynetim.utils.utils">
+<span id="pynetim-utils-utils"></span><h1>pynetim.utils.utils<a class="headerlink" href="#module-pynetim.utils.utils" title="此标题的永久链接"></a></h1>
+<section id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="此标题的永久链接"></a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="../../../../pynetim.utils.html#pynetim.utils.utils.set_edge_weight" title="pynetim.utils.utils.set_edge_weight"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_edge_weight</span></code></a>(graph, edge_weight_type[, constant_weight])</p></td>
+<td><p>根据指定的权重模型为图中的边设置权重值。</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../../../../pynetim.utils.html#pynetim.utils.utils.infection_threshold" title="pynetim.utils.utils.infection_threshold"><code class="xref py py-obj docutils literal notranslate"><span class="pre">infection_threshold</span></code></a>(G)</p></td>
+<td><p>计算基于图G的度分布的感染阈值。</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../../../../pynetim.utils.html#pynetim.utils.utils.topk" title="pynetim.utils.utils.topk"><code class="xref py py-obj docutils literal notranslate"><span class="pre">topk</span></code></a>(res_dict, k[, largest])</p></td>
+<td><p>从字典中返回具有最大（或最小）k个值的键的列表。</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../../../../pynetim.utils.html#pynetim.utils.utils.truncate_padding" title="pynetim.utils.utils.truncate_padding"><code class="xref py py-obj docutils literal notranslate"><span class="pre">truncate_padding</span></code></a>(seq, max_len[, pad])</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="此标题的永久链接"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="pynetim.utils.utils.set_edge_weight">
+<span class="sig-prename descclassname"><span class="pre">pynetim.utils.utils.</span></span><span class="sig-name descname"><span class="pre">set_edge_weight</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">networkx.Graph</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">networkx.DiGraph</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edge_weight_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constant_weight</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/pynetim/utils/utils.html#set_edge_weight"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#pynetim.utils.utils.set_edge_weight" title="永久链接至目标"></a></dt>
+<dd><p>根据指定的权重模型为图中的边设置权重值。</p>
+<dl class="simple">
+<dt>参数:</dt><dd><p>graph (Graph|DiGraph): 网络图对象，可以是有向图或无向图
+edge_weight_type (str): 边权重类型，支持 ‘CONSTANT’、’TV’、’WC’ 三种模式
+constant_weight (float, optional): 当使用常量权重模式时，指定的权重值</p>
+</dd>
+<dt>异常:</dt><dd><p>ValueError: 当权重类型不支持或参数不符合要求时抛出</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pynetim.utils.utils.infection_threshold">
+<span class="sig-prename descclassname"><span class="pre">pynetim.utils.utils.</span></span><span class="sig-name descname"><span class="pre">infection_threshold</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">G</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">networkx.Graph</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">networkx.DiGraph</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/pynetim/utils/utils.html#infection_threshold"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#pynetim.utils.utils.infection_threshold" title="永久链接至目标"></a></dt>
+<dd><p>计算基于图G的度分布的感染阈值。</p>
+<dl class="simple">
+<dt>参数:</dt><dd><p>G (networkx.Graph): 一个无向图或有向图（注意：此函数没有使用图的方向性）。</p>
+</dd>
+<dt>返回:</dt><dd><p>float: 感染阈值。</p>
+</dd>
+<dt>说明:</dt><dd><p>该函数首先计算图中所有节点的度之和（k），然后计算所有节点度的平方和（k2）。
+感染阈值计算公式为 k / (k2 - k)，其中k2是度的平方和，k是度的总和。
+这个阈值在某些流行病学模型（如SIR模型）中用于预测疾病传播的临界条件。</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pynetim.utils.utils.topk">
+<span class="sig-prename descclassname"><span class="pre">pynetim.utils.utils.</span></span><span class="sig-name descname"><span class="pre">topk</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">res_dict</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">largest</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/pynetim/utils/utils.html#topk"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#pynetim.utils.utils.topk" title="永久链接至目标"></a></dt>
+<dd><p>从字典中返回具有最大（或最小）k个值的键的列表。</p>
+<dl>
+<dt>参数:</dt><dd><p>res_dict (dict): 输入的字典，其值用于比较以决定键的排序。</p>
+<p>k (int): 要返回的键的数量。</p>
+<p>largest (bool): 如果为True，则返回具有最大值的k个键；如果为False，则返回具有最小值的k个键。</p>
+</dd>
+<dt>返回:</dt><dd><p>list: 一个包含k个键的列表，这些键对应于字典中最大（或最小）的值。</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pynetim.utils.utils.truncate_padding">
+<span class="sig-prename descclassname"><span class="pre">pynetim.utils.utils.</span></span><span class="sig-name descname"><span class="pre">truncate_padding</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">seq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_len</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pad</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/pynetim/utils/utils.html#truncate_padding"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#pynetim.utils.utils.truncate_padding" title="永久链接至目标"></a></dt>
+<dd></dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="../index.html" class="btn btn-neutral float-left" title="pynetim.utils" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2025, Kaijing Zhang。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
