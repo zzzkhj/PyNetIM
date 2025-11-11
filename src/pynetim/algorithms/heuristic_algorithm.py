@@ -2,9 +2,8 @@ import heapq
 import time
 from collections import defaultdict
 
-from graph import IMGraph
+from ..graph import IMGraph
 from .base_algorithm import BaseAlgorithm
-from diffusion_model import IndependentCascadeModel, LinearThresholdModel
 
 
 class SingleDiscountAlgorithm(BaseAlgorithm):

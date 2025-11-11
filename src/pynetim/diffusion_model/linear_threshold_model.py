@@ -1,8 +1,8 @@
 import random
 
-from graph import IMGraph
+from ..graph import IMGraph
 from . import run_monte_carlo_diffusion
-from .base_diffusion_model import BaseDiffusionModel
+from . import BaseDiffusionModel
 
 
 class LinearThresholdModel(BaseDiffusionModel):

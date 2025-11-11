@@ -1,6 +1,6 @@
 import random
 
-from graph import IMGraph
+from ..graph import IMGraph
 from .base_diffusion_model import BaseDiffusionModel
 from .run_monte_carlo_diffusion import run_monte_carlo_diffusion
 

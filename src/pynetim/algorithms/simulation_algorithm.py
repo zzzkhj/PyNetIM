@@ -3,8 +3,8 @@ import heapq
 
 from tqdm import tqdm
 
-from graph import IMGraph
-from diffusion_model import run_monte_carlo_diffusion, BaseDiffusionModel
+from ..graph import IMGraph
+from ..diffusion_model import run_monte_carlo_diffusion, BaseDiffusionModel
 from .base_algorithm import BaseAlgorithm
 
 

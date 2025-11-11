@@ -1,4 +1,4 @@
-from graph import IMGraph
+from ..graph import IMGraph
 
 
 class BaseDiffusionModel:

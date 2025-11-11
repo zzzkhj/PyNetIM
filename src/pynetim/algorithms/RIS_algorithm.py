@@ -3,9 +3,8 @@ import random
 import logging
 from typing import List, Set, Dict, Callable, Tuple
 from multiprocessing import Pool, cpu_count
-import copy
 
-from graph import IMGraph
+from ..graph import IMGraph
 from .base_algorithm import BaseAlgorithm
 
 # 配置日志

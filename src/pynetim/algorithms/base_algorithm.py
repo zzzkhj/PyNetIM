@@ -1,7 +1,7 @@
 from __future__ import annotations
 
-from diffusion_model import *
-from graph import IMGraph
+from ..diffusion_model import *
+from ..graph import IMGraph
 
 
 class BaseAlgorithm:
