@@ -1,0 +1,21 @@
+pynetim.decorator package
+=========================
+
+Submodules
+----------
+
+pynetim.decorator.decorator module
+----------------------------------
+
+.. automodule:: pynetim.decorator.decorator
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: pynetim.decorator
+   :members:
+   :undoc-members:
+   :show-inheritance:

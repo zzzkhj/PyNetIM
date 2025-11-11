@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pynetim package &mdash; PyNetIM v0.2.2 文档</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=eafc0fe6" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=795308df"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=4825356b"></script>
+        <script src="_static/translations.js?v=beaddf03"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜索" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            PyNetIM
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <p class="caption" role="heading"><span class="caption-text">使用指南</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">安装指南</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#id2">环境要求</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#pip">使用 pip 安装</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#id3">从源码安装</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#id4">验证安装</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">快速开始</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#id2">基本示例</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="quickstart.html#id3">导入库</a></li>
+<li class="toctree-l3"><a class="reference internal" href="quickstart.html#id4">创建图</a></li>
+<li class="toctree-l3"><a class="reference internal" href="quickstart.html#id5">运行算法</a></li>
+<li class="toctree-l3"><a class="reference internal" href="quickstart.html#id6">扩散模拟</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">使用示例</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#id2">完整示例：社交网络影响力分析</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#id3">更多示例</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API 文档</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="autoapi/index.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="autoapi/pynetim/index.html">pynetim</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="autoapi/pynetim/index.html#submodules">Submodules</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/pynetim/algorithms/index.html">pynetim.algorithms</a></li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/pynetim/decorator/index.html">pynetim.decorator</a></li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/pynetim/diffusion_model/index.html">pynetim.diffusion_model</a></li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/pynetim/graph/index.html">pynetim.graph</a></li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/pynetim/utils/index.html">pynetim.utils</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="autoapi/pynetim/index.html#classes">Classes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="autoapi/pynetim/index.html#package-contents">Package Contents</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/pynetim/index.html#pynetim.IMGraph"><code class="docutils literal notranslate"><span class="pre">IMGraph</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/pynetim/index.html#pynetim.IndependentCascadeModel"><code class="docutils literal notranslate"><span class="pre">IndependentCascadeModel</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/pynetim/index.html#pynetim.LinearThresholdModel"><code class="docutils literal notranslate"><span class="pre">LinearThresholdModel</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">PyNetIM</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">pynetim package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/pynetim.rst.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="pynetim-package">
+<h1>pynetim package<a class="headerlink" href="#pynetim-package" title="此标题的永久链接"></a></h1>
+<section id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="此标题的永久链接"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="pynetim.algorithms.html">pynetim.algorithms package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pynetim.algorithms.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pynetim.algorithms.html#module-pynetim.algorithms.RIS_algorithm">pynetim.algorithms.RIS_algorithm module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pynetim.algorithms.html#pynetim.algorithms.RIS_algorithm.BaseRISAlgorithm"><code class="docutils literal notranslate"><span class="pre">BaseRISAlgorithm</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.algorithms.html#pynetim.algorithms.RIS_algorithm.BaseRISAlgorithm.graph"><code class="docutils literal notranslate"><span class="pre">BaseRISAlgorithm.graph</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.algorithms.html#pynetim.algorithms.RIS_algorithm.BaseRISAlgorithm.model"><code class="docutils literal notranslate"><span class="pre">BaseRISAlgorithm.model</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.algorithms.html#pynetim.algorithms.RIS_algorithm.BaseRISAlgorithm.nodes"><code class="docutils literal notranslate"><span class="pre">BaseRISAlgorithm.nodes</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.algorithms.html#pynetim.algorithms.RIS_algorithm.BaseRISAlgorithm.rr_func"><code class="docutils literal notranslate"><span class="pre">BaseRISAlgorithm.rr_func</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.algorithms.html#pynetim.algorithms.RIS_algorithm.BaseRISAlgorithm.multi_process"><code class="docutils literal notranslate"><span class="pre">BaseRISAlgorithm.multi_process</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.algorithms.html#pynetim.algorithms.RIS_algorithm.BaseRISAlgorithm.processes"><code class="docutils literal notranslate"><span class="pre">BaseRISAlgorithm.processes</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.algorithms.html#pynetim.algorithms.RIS_algorithm.BaseRISAlgorithm.seed"><code class="docutils literal notranslate"><span class="pre">BaseRISAlgorithm.seed</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.algorithms.html#pynetim.algorithms.RIS_algorithm.BaseRISAlgorithm.__init__"><code class="docutils literal notranslate"><span class="pre">BaseRISAlgorithm.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.algorithms.html#pynetim.algorithms.RIS_algorithm.BaseRISAlgorithm.run"><code class="docutils literal notranslate"><span class="pre">BaseRISAlgorithm.run()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="pynetim.algorithms.html#pynetim.algorithms.RIS_algorithm.IMMAlgorithm"><code class="docutils literal notranslate"><span class="pre">IMMAlgorithm</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.algorithms.html#pynetim.algorithms.RIS_algorithm.IMMAlgorithm.eps"><code class="docutils literal notranslate"><span class="pre">IMMAlgorithm.eps</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.algorithms.html#pynetim.algorithms.RIS_algorithm.IMMAlgorithm.l"><code class="docutils literal notranslate"><span class="pre">IMMAlgorithm.l</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.algorithms.html#pynetim.algorithms.RIS_algorithm.IMMAlgorithm.__init__"><code class="docutils literal notranslate"><span class="pre">IMMAlgorithm.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.algorithms.html#pynetim.algorithms.RIS_algorithm.IMMAlgorithm.run"><code class="docutils literal notranslate"><span class="pre">IMMAlgorithm.run()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pynetim.algorithms.html#module-pynetim.algorithms.base_algorithm">pynetim.algorithms.base_algorithm module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pynetim.algorithms.html#pynetim.algorithms.base_algorithm.BaseAlgorithm"><code class="docutils literal notranslate"><span class="pre">BaseAlgorithm</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.algorithms.html#pynetim.algorithms.base_algorithm.BaseAlgorithm.graph"><code class="docutils literal notranslate"><span class="pre">BaseAlgorithm.graph</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.algorithms.html#pynetim.algorithms.base_algorithm.BaseAlgorithm.seeds"><code class="docutils literal notranslate"><span class="pre">BaseAlgorithm.seeds</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.algorithms.html#pynetim.algorithms.base_algorithm.BaseAlgorithm.diffusion_model"><code class="docutils literal notranslate"><span class="pre">BaseAlgorithm.diffusion_model</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.algorithms.html#pynetim.algorithms.base_algorithm.BaseAlgorithm.__init__"><code class="docutils literal notranslate"><span class="pre">BaseAlgorithm.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.algorithms.html#pynetim.algorithms.base_algorithm.BaseAlgorithm.run"><code class="docutils literal notranslate"><span class="pre">BaseAlgorithm.run()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pynetim.algorithms.html#module-pynetim.algorithms.heuristic_algorithm">pynetim.algorithms.heuristic_algorithm module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pynetim.algorithms.html#pynetim.algorithms.heuristic_algorithm.DegreeDiscountAlgorithm"><code class="docutils literal notranslate"><span class="pre">DegreeDiscountAlgorithm</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.algorithms.html#pynetim.algorithms.heuristic_algorithm.DegreeDiscountAlgorithm.__init__"><code class="docutils literal notranslate"><span class="pre">DegreeDiscountAlgorithm.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.algorithms.html#pynetim.algorithms.heuristic_algorithm.DegreeDiscountAlgorithm.run"><code class="docutils literal notranslate"><span class="pre">DegreeDiscountAlgorithm.run()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="pynetim.algorithms.html#pynetim.algorithms.heuristic_algorithm.SingleDiscountAlgorithm"><code class="docutils literal notranslate"><span class="pre">SingleDiscountAlgorithm</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.algorithms.html#pynetim.algorithms.heuristic_algorithm.SingleDiscountAlgorithm.__init__"><code class="docutils literal notranslate"><span class="pre">SingleDiscountAlgorithm.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.algorithms.html#pynetim.algorithms.heuristic_algorithm.SingleDiscountAlgorithm.run"><code class="docutils literal notranslate"><span class="pre">SingleDiscountAlgorithm.run()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pynetim.algorithms.html#module-pynetim.algorithms.simulation_algorithm">pynetim.algorithms.simulation_algorithm module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pynetim.algorithms.html#pynetim.algorithms.simulation_algorithm.CELFAlgorithm"><code class="docutils literal notranslate"><span class="pre">CELFAlgorithm</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.algorithms.html#pynetim.algorithms.simulation_algorithm.CELFAlgorithm.graph"><code class="docutils literal notranslate"><span class="pre">CELFAlgorithm.graph</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.algorithms.html#pynetim.algorithms.simulation_algorithm.CELFAlgorithm.diffusion_model_class"><code class="docutils literal notranslate"><span class="pre">CELFAlgorithm.diffusion_model_class</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.algorithms.html#pynetim.algorithms.simulation_algorithm.CELFAlgorithm.__init__"><code class="docutils literal notranslate"><span class="pre">CELFAlgorithm.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.algorithms.html#pynetim.algorithms.simulation_algorithm.CELFAlgorithm.run"><code class="docutils literal notranslate"><span class="pre">CELFAlgorithm.run()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="pynetim.algorithms.html#pynetim.algorithms.simulation_algorithm.GreedyAlgorithm"><code class="docutils literal notranslate"><span class="pre">GreedyAlgorithm</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.algorithms.html#pynetim.algorithms.simulation_algorithm.GreedyAlgorithm.graph"><code class="docutils literal notranslate"><span class="pre">GreedyAlgorithm.graph</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.algorithms.html#pynetim.algorithms.simulation_algorithm.GreedyAlgorithm.diffusion_model_class"><code class="docutils literal notranslate"><span class="pre">GreedyAlgorithm.diffusion_model_class</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.algorithms.html#pynetim.algorithms.simulation_algorithm.GreedyAlgorithm.__init__"><code class="docutils literal notranslate"><span class="pre">GreedyAlgorithm.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.algorithms.html#pynetim.algorithms.simulation_algorithm.GreedyAlgorithm.run"><code class="docutils literal notranslate"><span class="pre">GreedyAlgorithm.run()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pynetim.algorithms.html#module-pynetim.algorithms">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pynetim.algorithms.html#pynetim.algorithms.BaseRISAlgorithm"><code class="docutils literal notranslate"><span class="pre">BaseRISAlgorithm</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.algorithms.html#pynetim.algorithms.BaseRISAlgorithm.graph"><code class="docutils literal notranslate"><span class="pre">BaseRISAlgorithm.graph</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.algorithms.html#pynetim.algorithms.BaseRISAlgorithm.model"><code class="docutils literal notranslate"><span class="pre">BaseRISAlgorithm.model</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.algorithms.html#pynetim.algorithms.BaseRISAlgorithm.nodes"><code class="docutils literal notranslate"><span class="pre">BaseRISAlgorithm.nodes</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.algorithms.html#pynetim.algorithms.BaseRISAlgorithm.rr_func"><code class="docutils literal notranslate"><span class="pre">BaseRISAlgorithm.rr_func</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.algorithms.html#pynetim.algorithms.BaseRISAlgorithm.multi_process"><code class="docutils literal notranslate"><span class="pre">BaseRISAlgorithm.multi_process</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.algorithms.html#pynetim.algorithms.BaseRISAlgorithm.processes"><code class="docutils literal notranslate"><span class="pre">BaseRISAlgorithm.processes</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.algorithms.html#pynetim.algorithms.BaseRISAlgorithm.seed"><code class="docutils literal notranslate"><span class="pre">BaseRISAlgorithm.seed</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.algorithms.html#pynetim.algorithms.BaseRISAlgorithm.__init__"><code class="docutils literal notranslate"><span class="pre">BaseRISAlgorithm.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.algorithms.html#pynetim.algorithms.BaseRISAlgorithm.run"><code class="docutils literal notranslate"><span class="pre">BaseRISAlgorithm.run()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="pynetim.algorithms.html#pynetim.algorithms.CELFAlgorithm"><code class="docutils literal notranslate"><span class="pre">CELFAlgorithm</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.algorithms.html#pynetim.algorithms.CELFAlgorithm.graph"><code class="docutils literal notranslate"><span class="pre">CELFAlgorithm.graph</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.algorithms.html#pynetim.algorithms.CELFAlgorithm.diffusion_model_class"><code class="docutils literal notranslate"><span class="pre">CELFAlgorithm.diffusion_model_class</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.algorithms.html#pynetim.algorithms.CELFAlgorithm.__init__"><code class="docutils literal notranslate"><span class="pre">CELFAlgorithm.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.algorithms.html#pynetim.algorithms.CELFAlgorithm.run"><code class="docutils literal notranslate"><span class="pre">CELFAlgorithm.run()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="pynetim.algorithms.html#pynetim.algorithms.DegreeDiscountAlgorithm"><code class="docutils literal notranslate"><span class="pre">DegreeDiscountAlgorithm</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.algorithms.html#pynetim.algorithms.DegreeDiscountAlgorithm.__init__"><code class="docutils literal notranslate"><span class="pre">DegreeDiscountAlgorithm.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.algorithms.html#pynetim.algorithms.DegreeDiscountAlgorithm.run"><code class="docutils literal notranslate"><span class="pre">DegreeDiscountAlgorithm.run()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="pynetim.algorithms.html#pynetim.algorithms.GreedyAlgorithm"><code class="docutils literal notranslate"><span class="pre">GreedyAlgorithm</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.algorithms.html#pynetim.algorithms.GreedyAlgorithm.graph"><code class="docutils literal notranslate"><span class="pre">GreedyAlgorithm.graph</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.algorithms.html#pynetim.algorithms.GreedyAlgorithm.diffusion_model_class"><code class="docutils literal notranslate"><span class="pre">GreedyAlgorithm.diffusion_model_class</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.algorithms.html#pynetim.algorithms.GreedyAlgorithm.__init__"><code class="docutils literal notranslate"><span class="pre">GreedyAlgorithm.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.algorithms.html#pynetim.algorithms.GreedyAlgorithm.run"><code class="docutils literal notranslate"><span class="pre">GreedyAlgorithm.run()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="pynetim.algorithms.html#pynetim.algorithms.IMMAlgorithm"><code class="docutils literal notranslate"><span class="pre">IMMAlgorithm</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.algorithms.html#pynetim.algorithms.IMMAlgorithm.eps"><code class="docutils literal notranslate"><span class="pre">IMMAlgorithm.eps</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.algorithms.html#pynetim.algorithms.IMMAlgorithm.l"><code class="docutils literal notranslate"><span class="pre">IMMAlgorithm.l</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.algorithms.html#pynetim.algorithms.IMMAlgorithm.__init__"><code class="docutils literal notranslate"><span class="pre">IMMAlgorithm.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.algorithms.html#pynetim.algorithms.IMMAlgorithm.run"><code class="docutils literal notranslate"><span class="pre">IMMAlgorithm.run()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="pynetim.algorithms.html#pynetim.algorithms.SingleDiscountAlgorithm"><code class="docutils literal notranslate"><span class="pre">SingleDiscountAlgorithm</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.algorithms.html#pynetim.algorithms.SingleDiscountAlgorithm.__init__"><code class="docutils literal notranslate"><span class="pre">SingleDiscountAlgorithm.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.algorithms.html#pynetim.algorithms.SingleDiscountAlgorithm.run"><code class="docutils literal notranslate"><span class="pre">SingleDiscountAlgorithm.run()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pynetim.decorator.html">pynetim.decorator package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pynetim.decorator.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pynetim.decorator.html#module-pynetim.decorator.decorator">pynetim.decorator.decorator module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pynetim.decorator.html#pynetim.decorator.decorator.Timer"><code class="docutils literal notranslate"><span class="pre">Timer</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.decorator.html#pynetim.decorator.decorator.Timer.repeat"><code class="docutils literal notranslate"><span class="pre">Timer.repeat</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.decorator.html#pynetim.decorator.decorator.Timer.total_time"><code class="docutils literal notranslate"><span class="pre">Timer.total_time</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.decorator.html#pynetim.decorator.decorator.Timer.call_count"><code class="docutils literal notranslate"><span class="pre">Timer.call_count</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.decorator.html#pynetim.decorator.decorator.Timer.__init__"><code class="docutils literal notranslate"><span class="pre">Timer.__init__()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pynetim.decorator.html#module-pynetim.decorator">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pynetim.decorator.html#pynetim.decorator.Timer"><code class="docutils literal notranslate"><span class="pre">Timer</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.decorator.html#pynetim.decorator.Timer.repeat"><code class="docutils literal notranslate"><span class="pre">Timer.repeat</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.decorator.html#pynetim.decorator.Timer.total_time"><code class="docutils literal notranslate"><span class="pre">Timer.total_time</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.decorator.html#pynetim.decorator.Timer.call_count"><code class="docutils literal notranslate"><span class="pre">Timer.call_count</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.decorator.html#pynetim.decorator.Timer.__init__"><code class="docutils literal notranslate"><span class="pre">Timer.__init__()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pynetim.diffusion_model.html">pynetim.diffusion_model package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pynetim.diffusion_model.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pynetim.diffusion_model.html#module-pynetim.diffusion_model.base_diffusion_model">pynetim.diffusion_model.base_diffusion_model module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pynetim.diffusion_model.html#pynetim.diffusion_model.base_diffusion_model.BaseDiffusionModel"><code class="docutils literal notranslate"><span class="pre">BaseDiffusionModel</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.diffusion_model.html#pynetim.diffusion_model.base_diffusion_model.BaseDiffusionModel.graph"><code class="docutils literal notranslate"><span class="pre">BaseDiffusionModel.graph</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.diffusion_model.html#pynetim.diffusion_model.base_diffusion_model.BaseDiffusionModel.init_seeds"><code class="docutils literal notranslate"><span class="pre">BaseDiffusionModel.init_seeds</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.diffusion_model.html#pynetim.diffusion_model.base_diffusion_model.BaseDiffusionModel.record_states"><code class="docutils literal notranslate"><span class="pre">BaseDiffusionModel.record_states</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.diffusion_model.html#pynetim.diffusion_model.base_diffusion_model.BaseDiffusionModel.states"><code class="docutils literal notranslate"><span class="pre">BaseDiffusionModel.states</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.diffusion_model.html#pynetim.diffusion_model.base_diffusion_model.BaseDiffusionModel.__init__"><code class="docutils literal notranslate"><span class="pre">BaseDiffusionModel.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.diffusion_model.html#pynetim.diffusion_model.base_diffusion_model.BaseDiffusionModel.diffusion"><code class="docutils literal notranslate"><span class="pre">BaseDiffusionModel.diffusion()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.diffusion_model.html#pynetim.diffusion_model.base_diffusion_model.BaseDiffusionModel.reset"><code class="docutils literal notranslate"><span class="pre">BaseDiffusionModel.reset()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.diffusion_model.html#pynetim.diffusion_model.base_diffusion_model.BaseDiffusionModel.run_monte_carlo_diffusion"><code class="docutils literal notranslate"><span class="pre">BaseDiffusionModel.run_monte_carlo_diffusion()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.diffusion_model.html#pynetim.diffusion_model.base_diffusion_model.BaseDiffusionModel.update"><code class="docutils literal notranslate"><span class="pre">BaseDiffusionModel.update()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pynetim.diffusion_model.html#module-pynetim.diffusion_model.independent_cascade_model">pynetim.diffusion_model.independent_cascade_model module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pynetim.diffusion_model.html#pynetim.diffusion_model.independent_cascade_model.IndependentCascadeModel"><code class="docutils literal notranslate"><span class="pre">IndependentCascadeModel</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.diffusion_model.html#pynetim.diffusion_model.independent_cascade_model.IndependentCascadeModel.activated_nodes"><code class="docutils literal notranslate"><span class="pre">IndependentCascadeModel.activated_nodes</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.diffusion_model.html#pynetim.diffusion_model.independent_cascade_model.IndependentCascadeModel.graph"><code class="docutils literal notranslate"><span class="pre">IndependentCascadeModel.graph</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.diffusion_model.html#pynetim.diffusion_model.independent_cascade_model.IndependentCascadeModel.init_seeds"><code class="docutils literal notranslate"><span class="pre">IndependentCascadeModel.init_seeds</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.diffusion_model.html#pynetim.diffusion_model.independent_cascade_model.IndependentCascadeModel.record_states"><code class="docutils literal notranslate"><span class="pre">IndependentCascadeModel.record_states</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.diffusion_model.html#pynetim.diffusion_model.independent_cascade_model.IndependentCascadeModel.states"><code class="docutils literal notranslate"><span class="pre">IndependentCascadeModel.states</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.diffusion_model.html#pynetim.diffusion_model.independent_cascade_model.IndependentCascadeModel.__init__"><code class="docutils literal notranslate"><span class="pre">IndependentCascadeModel.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.diffusion_model.html#pynetim.diffusion_model.independent_cascade_model.IndependentCascadeModel.diffusion"><code class="docutils literal notranslate"><span class="pre">IndependentCascadeModel.diffusion()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.diffusion_model.html#pynetim.diffusion_model.independent_cascade_model.IndependentCascadeModel.reset"><code class="docutils literal notranslate"><span class="pre">IndependentCascadeModel.reset()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.diffusion_model.html#pynetim.diffusion_model.independent_cascade_model.IndependentCascadeModel.run_monte_carlo_diffusion"><code class="docutils literal notranslate"><span class="pre">IndependentCascadeModel.run_monte_carlo_diffusion()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.diffusion_model.html#pynetim.diffusion_model.independent_cascade_model.IndependentCascadeModel.update"><code class="docutils literal notranslate"><span class="pre">IndependentCascadeModel.update()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pynetim.diffusion_model.html#module-pynetim.diffusion_model.linear_threshold_model">pynetim.diffusion_model.linear_threshold_model module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pynetim.diffusion_model.html#pynetim.diffusion_model.linear_threshold_model.LinearThresholdModel"><code class="docutils literal notranslate"><span class="pre">LinearThresholdModel</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.diffusion_model.html#pynetim.diffusion_model.linear_threshold_model.LinearThresholdModel.activated_nodes"><code class="docutils literal notranslate"><span class="pre">LinearThresholdModel.activated_nodes</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.diffusion_model.html#pynetim.diffusion_model.linear_threshold_model.LinearThresholdModel.graph"><code class="docutils literal notranslate"><span class="pre">LinearThresholdModel.graph</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.diffusion_model.html#pynetim.diffusion_model.linear_threshold_model.LinearThresholdModel.init_seeds"><code class="docutils literal notranslate"><span class="pre">LinearThresholdModel.init_seeds</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.diffusion_model.html#pynetim.diffusion_model.linear_threshold_model.LinearThresholdModel.record_states"><code class="docutils literal notranslate"><span class="pre">LinearThresholdModel.record_states</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.diffusion_model.html#pynetim.diffusion_model.linear_threshold_model.LinearThresholdModel.states"><code class="docutils literal notranslate"><span class="pre">LinearThresholdModel.states</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.diffusion_model.html#pynetim.diffusion_model.linear_threshold_model.LinearThresholdModel.__init__"><code class="docutils literal notranslate"><span class="pre">LinearThresholdModel.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.diffusion_model.html#pynetim.diffusion_model.linear_threshold_model.LinearThresholdModel.diffusion"><code class="docutils literal notranslate"><span class="pre">LinearThresholdModel.diffusion()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.diffusion_model.html#pynetim.diffusion_model.linear_threshold_model.LinearThresholdModel.reset"><code class="docutils literal notranslate"><span class="pre">LinearThresholdModel.reset()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.diffusion_model.html#pynetim.diffusion_model.linear_threshold_model.LinearThresholdModel.run_monte_carlo_diffusion"><code class="docutils literal notranslate"><span class="pre">LinearThresholdModel.run_monte_carlo_diffusion()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.diffusion_model.html#pynetim.diffusion_model.linear_threshold_model.LinearThresholdModel.update"><code class="docutils literal notranslate"><span class="pre">LinearThresholdModel.update()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pynetim.diffusion_model.html#module-pynetim.diffusion_model.run_monte_carlo_diffusion">pynetim.diffusion_model.run_monte_carlo_diffusion module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pynetim.diffusion_model.html#pynetim.diffusion_model.run_monte_carlo_diffusion.run_monte_carlo_diffusion"><code class="docutils literal notranslate"><span class="pre">run_monte_carlo_diffusion()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pynetim.diffusion_model.html#module-pynetim.diffusion_model">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pynetim.diffusion_model.html#pynetim.diffusion_model.IndependentCascadeModel"><code class="docutils literal notranslate"><span class="pre">IndependentCascadeModel</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.diffusion_model.html#pynetim.diffusion_model.IndependentCascadeModel.activated_nodes"><code class="docutils literal notranslate"><span class="pre">IndependentCascadeModel.activated_nodes</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.diffusion_model.html#pynetim.diffusion_model.IndependentCascadeModel.graph"><code class="docutils literal notranslate"><span class="pre">IndependentCascadeModel.graph</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.diffusion_model.html#pynetim.diffusion_model.IndependentCascadeModel.init_seeds"><code class="docutils literal notranslate"><span class="pre">IndependentCascadeModel.init_seeds</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.diffusion_model.html#pynetim.diffusion_model.IndependentCascadeModel.record_states"><code class="docutils literal notranslate"><span class="pre">IndependentCascadeModel.record_states</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.diffusion_model.html#pynetim.diffusion_model.IndependentCascadeModel.states"><code class="docutils literal notranslate"><span class="pre">IndependentCascadeModel.states</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.diffusion_model.html#pynetim.diffusion_model.IndependentCascadeModel.__init__"><code class="docutils literal notranslate"><span class="pre">IndependentCascadeModel.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.diffusion_model.html#pynetim.diffusion_model.IndependentCascadeModel.diffusion"><code class="docutils literal notranslate"><span class="pre">IndependentCascadeModel.diffusion()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.diffusion_model.html#pynetim.diffusion_model.IndependentCascadeModel.reset"><code class="docutils literal notranslate"><span class="pre">IndependentCascadeModel.reset()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.diffusion_model.html#pynetim.diffusion_model.IndependentCascadeModel.run_monte_carlo_diffusion"><code class="docutils literal notranslate"><span class="pre">IndependentCascadeModel.run_monte_carlo_diffusion()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.diffusion_model.html#pynetim.diffusion_model.IndependentCascadeModel.update"><code class="docutils literal notranslate"><span class="pre">IndependentCascadeModel.update()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="pynetim.diffusion_model.html#pynetim.diffusion_model.LinearThresholdModel"><code class="docutils literal notranslate"><span class="pre">LinearThresholdModel</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.diffusion_model.html#pynetim.diffusion_model.LinearThresholdModel.activated_nodes"><code class="docutils literal notranslate"><span class="pre">LinearThresholdModel.activated_nodes</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.diffusion_model.html#pynetim.diffusion_model.LinearThresholdModel.graph"><code class="docutils literal notranslate"><span class="pre">LinearThresholdModel.graph</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.diffusion_model.html#pynetim.diffusion_model.LinearThresholdModel.init_seeds"><code class="docutils literal notranslate"><span class="pre">LinearThresholdModel.init_seeds</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.diffusion_model.html#pynetim.diffusion_model.LinearThresholdModel.record_states"><code class="docutils literal notranslate"><span class="pre">LinearThresholdModel.record_states</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.diffusion_model.html#pynetim.diffusion_model.LinearThresholdModel.states"><code class="docutils literal notranslate"><span class="pre">LinearThresholdModel.states</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.diffusion_model.html#pynetim.diffusion_model.LinearThresholdModel.__init__"><code class="docutils literal notranslate"><span class="pre">LinearThresholdModel.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.diffusion_model.html#pynetim.diffusion_model.LinearThresholdModel.diffusion"><code class="docutils literal notranslate"><span class="pre">LinearThresholdModel.diffusion()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.diffusion_model.html#pynetim.diffusion_model.LinearThresholdModel.reset"><code class="docutils literal notranslate"><span class="pre">LinearThresholdModel.reset()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.diffusion_model.html#pynetim.diffusion_model.LinearThresholdModel.run_monte_carlo_diffusion"><code class="docutils literal notranslate"><span class="pre">LinearThresholdModel.run_monte_carlo_diffusion()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.diffusion_model.html#pynetim.diffusion_model.LinearThresholdModel.update"><code class="docutils literal notranslate"><span class="pre">LinearThresholdModel.update()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="pynetim.diffusion_model.html#pynetim.diffusion_model.run_monte_carlo_diffusion"><code class="docutils literal notranslate"><span class="pre">run_monte_carlo_diffusion()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pynetim.graph.html">pynetim.graph package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pynetim.graph.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pynetim.graph.html#module-pynetim.graph.graph">pynetim.graph.graph module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pynetim.graph.html#pynetim.graph.graph.IMGraph"><code class="docutils literal notranslate"><span class="pre">IMGraph</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.graph.html#pynetim.graph.graph.IMGraph.graph"><code class="docutils literal notranslate"><span class="pre">IMGraph.graph</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.graph.html#pynetim.graph.graph.IMGraph.direction"><code class="docutils literal notranslate"><span class="pre">IMGraph.direction</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.graph.html#pynetim.graph.graph.IMGraph.number_of_nodes"><code class="docutils literal notranslate"><span class="pre">IMGraph.number_of_nodes</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.graph.html#pynetim.graph.graph.IMGraph.number_of_edges"><code class="docutils literal notranslate"><span class="pre">IMGraph.number_of_edges</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.graph.html#pynetim.graph.graph.IMGraph.edge_weight_type"><code class="docutils literal notranslate"><span class="pre">IMGraph.edge_weight_type</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.graph.html#pynetim.graph.graph.IMGraph.__init__"><code class="docutils literal notranslate"><span class="pre">IMGraph.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.graph.html#pynetim.graph.graph.IMGraph.edges"><code class="docutils literal notranslate"><span class="pre">IMGraph.edges</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.graph.html#pynetim.graph.graph.IMGraph.in_degree"><code class="docutils literal notranslate"><span class="pre">IMGraph.in_degree</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.graph.html#pynetim.graph.graph.IMGraph.in_neighbors"><code class="docutils literal notranslate"><span class="pre">IMGraph.in_neighbors()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.graph.html#pynetim.graph.graph.IMGraph.neighbors"><code class="docutils literal notranslate"><span class="pre">IMGraph.neighbors()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.graph.html#pynetim.graph.graph.IMGraph.nodes"><code class="docutils literal notranslate"><span class="pre">IMGraph.nodes</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.graph.html#pynetim.graph.graph.IMGraph.out_degree"><code class="docutils literal notranslate"><span class="pre">IMGraph.out_degree</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.graph.html#pynetim.graph.graph.IMGraph.out_neighbors"><code class="docutils literal notranslate"><span class="pre">IMGraph.out_neighbors()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pynetim.graph.html#module-pynetim.graph">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pynetim.graph.html#pynetim.graph.IMGraph"><code class="docutils literal notranslate"><span class="pre">IMGraph</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.graph.html#pynetim.graph.IMGraph.graph"><code class="docutils literal notranslate"><span class="pre">IMGraph.graph</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.graph.html#pynetim.graph.IMGraph.direction"><code class="docutils literal notranslate"><span class="pre">IMGraph.direction</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.graph.html#pynetim.graph.IMGraph.number_of_nodes"><code class="docutils literal notranslate"><span class="pre">IMGraph.number_of_nodes</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.graph.html#pynetim.graph.IMGraph.number_of_edges"><code class="docutils literal notranslate"><span class="pre">IMGraph.number_of_edges</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.graph.html#pynetim.graph.IMGraph.edge_weight_type"><code class="docutils literal notranslate"><span class="pre">IMGraph.edge_weight_type</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.graph.html#pynetim.graph.IMGraph.__init__"><code class="docutils literal notranslate"><span class="pre">IMGraph.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.graph.html#pynetim.graph.IMGraph.edges"><code class="docutils literal notranslate"><span class="pre">IMGraph.edges</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.graph.html#pynetim.graph.IMGraph.in_degree"><code class="docutils literal notranslate"><span class="pre">IMGraph.in_degree</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.graph.html#pynetim.graph.IMGraph.in_neighbors"><code class="docutils literal notranslate"><span class="pre">IMGraph.in_neighbors()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.graph.html#pynetim.graph.IMGraph.neighbors"><code class="docutils literal notranslate"><span class="pre">IMGraph.neighbors()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.graph.html#pynetim.graph.IMGraph.nodes"><code class="docutils literal notranslate"><span class="pre">IMGraph.nodes</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.graph.html#pynetim.graph.IMGraph.out_degree"><code class="docutils literal notranslate"><span class="pre">IMGraph.out_degree</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pynetim.graph.html#pynetim.graph.IMGraph.out_neighbors"><code class="docutils literal notranslate"><span class="pre">IMGraph.out_neighbors()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pynetim.utils.html">pynetim.utils package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pynetim.utils.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pynetim.utils.html#module-pynetim.utils.utils">pynetim.utils.utils module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pynetim.utils.html#pynetim.utils.utils.infection_threshold"><code class="docutils literal notranslate"><span class="pre">infection_threshold()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pynetim.utils.html#pynetim.utils.utils.set_edge_weight"><code class="docutils literal notranslate"><span class="pre">set_edge_weight()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pynetim.utils.html#pynetim.utils.utils.topk"><code class="docutils literal notranslate"><span class="pre">topk()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pynetim.utils.html#pynetim.utils.utils.truncate_padding"><code class="docutils literal notranslate"><span class="pre">truncate_padding()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pynetim.utils.html#module-pynetim.utils">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pynetim.utils.html#pynetim.utils.set_edge_weight"><code class="docutils literal notranslate"><span class="pre">set_edge_weight()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="module-pynetim">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-pynetim" title="此标题的永久链接"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pynetim.IMGraph">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pynetim.</span></span><span class="sig-name descname"><span class="pre">IMGraph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Graph</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">DiGraph</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edge_weight_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constant_weight</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynetim/graph/graph.html#IMGraph"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#pynetim.IMGraph" title="永久链接至目标"></a></dt>
+<dd><p>基类：<code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>影响最大化图类，用于封装网络图结构和边权重设置。</p>
+<p>该类提供了对NetworkX图对象的封装，支持设置不同类型的边权重，
+并提供了便捷的图属性访问接口。</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pynetim.IMGraph.graph">
+<span class="sig-name descname"><span class="pre">graph</span></span><a class="headerlink" href="#pynetim.IMGraph.graph" title="永久链接至目标"></a></dt>
+<dd><p>networkx图对象，可以是有向图或无向图</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Graph | DiGraph</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pynetim.IMGraph.direction">
+<span class="sig-name descname"><span class="pre">direction</span></span><a class="headerlink" href="#pynetim.IMGraph.direction" title="永久链接至目标"></a></dt>
+<dd><p>指示图是否有向</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pynetim.IMGraph.number_of_nodes">
+<span class="sig-name descname"><span class="pre">number_of_nodes</span></span><a class="headerlink" href="#pynetim.IMGraph.number_of_nodes" title="永久链接至目标"></a></dt>
+<dd><p>图中节点总数</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pynetim.IMGraph.number_of_edges">
+<span class="sig-name descname"><span class="pre">number_of_edges</span></span><a class="headerlink" href="#pynetim.IMGraph.number_of_edges" title="永久链接至目标"></a></dt>
+<dd><p>图中边总数</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pynetim.IMGraph.edge_weight_type">
+<span class="sig-name descname"><span class="pre">edge_weight_type</span></span><a class="headerlink" href="#pynetim.IMGraph.edge_weight_type" title="永久链接至目标"></a></dt>
+<dd><p>边权重类型</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.IMGraph.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Graph</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">DiGraph</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edge_weight_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constant_weight</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynetim/graph/graph.html#IMGraph.__init__"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#pynetim.IMGraph.__init__" title="永久链接至目标"></a></dt>
+<dd><p>初始化IMGraph实例。</p>
+<dl class="field-list simple">
+<dt class="field-odd">参数<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>graph</strong> (<em>Graph</em><em> | </em><em>DiGraph</em>) – networkx图对象，可以是有向图或无向图</p></li>
+<li><p><strong>edge_weight_type</strong> (<em>str</em>) – 边权重类型，支持’ CONSTANT ‘、’ TV ‘、’ WC ‘等模式</p></li>
+<li><p><strong>constant_weight</strong> (<em>float</em><em>, </em><em>optional</em>) – 当使用常量权重模式时的权重值</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pynetim.IMGraph.edges">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">edges</span></span><a class="headerlink" href="#pynetim.IMGraph.edges" title="永久链接至目标"></a></dt>
+<dd><p>获取图中所有边。</p>
+<dl class="field-list simple">
+<dt class="field-odd">返回<span class="colon">:</span></dt>
+<dd class="field-odd"><p>图中所有边的视图</p>
+</dd>
+<dt class="field-even">返回类型<span class="colon">:</span></dt>
+<dd class="field-even"><p>EdgeView</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pynetim.IMGraph.in_degree">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">in_degree</span></span><a class="headerlink" href="#pynetim.IMGraph.in_degree" title="永久链接至目标"></a></dt>
+<dd><p>获取图的入度。</p>
+<dl class="field-list simple">
+<dt class="field-odd">返回<span class="colon">:</span></dt>
+<dd class="field-odd"><p>图的入度视图</p>
+</dd>
+<dt class="field-even">返回类型<span class="colon">:</span></dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.IMGraph.in_neighbors">
+<span class="sig-name descname"><span class="pre">in_neighbors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynetim/graph/graph.html#IMGraph.in_neighbors"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#pynetim.IMGraph.in_neighbors" title="永久链接至目标"></a></dt>
+<dd><p>获取指定节点的入邻居节点。</p>
+<p>对于有向图，返回前驱节点；对于无向图，返回所有邻居节点。</p>
+<dl class="field-list simple">
+<dt class="field-odd">参数<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>node</strong> – 节点标识符</p>
+</dd>
+<dt class="field-even">返回<span class="colon">:</span></dt>
+<dd class="field-even"><p>指定节点的入邻居节点迭代器</p>
+</dd>
+<dt class="field-odd">返回类型<span class="colon">:</span></dt>
+<dd class="field-odd"><p>iterator</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.IMGraph.neighbors">
+<span class="sig-name descname"><span class="pre">neighbors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynetim/graph/graph.html#IMGraph.neighbors"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#pynetim.IMGraph.neighbors" title="永久链接至目标"></a></dt>
+<dd><p>获取指定节点的邻居节点。</p>
+<dl class="field-list simple">
+<dt class="field-odd">参数<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>node</strong> – 节点标识符</p>
+</dd>
+<dt class="field-even">返回<span class="colon">:</span></dt>
+<dd class="field-even"><p>指定节点的所有邻居节点迭代器</p>
+</dd>
+<dt class="field-odd">返回类型<span class="colon">:</span></dt>
+<dd class="field-odd"><p>iterator</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pynetim.IMGraph.nodes">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">nodes</span></span><a class="headerlink" href="#pynetim.IMGraph.nodes" title="永久链接至目标"></a></dt>
+<dd><p>获取图中所有节点。</p>
+<dl class="field-list simple">
+<dt class="field-odd">返回<span class="colon">:</span></dt>
+<dd class="field-odd"><p>图中所有节点的视图</p>
+</dd>
+<dt class="field-even">返回类型<span class="colon">:</span></dt>
+<dd class="field-even"><p>NodeView</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pynetim.IMGraph.out_degree">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">out_degree</span></span><a class="headerlink" href="#pynetim.IMGraph.out_degree" title="永久链接至目标"></a></dt>
+<dd><p>获取图的出度。</p>
+<dl class="field-list simple">
+<dt class="field-odd">返回<span class="colon">:</span></dt>
+<dd class="field-odd"><p>图的出度视图</p>
+</dd>
+<dt class="field-even">返回类型<span class="colon">:</span></dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.IMGraph.out_neighbors">
+<span class="sig-name descname"><span class="pre">out_neighbors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynetim/graph/graph.html#IMGraph.out_neighbors"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#pynetim.IMGraph.out_neighbors" title="永久链接至目标"></a></dt>
+<dd><p>获取指定节点的出邻居节点。（同neighbors方法）</p>
+<dl class="field-list simple">
+<dt class="field-odd">参数<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>node</strong> – 节点标识符</p>
+</dd>
+<dt class="field-even">返回<span class="colon">:</span></dt>
+<dd class="field-even"><p>指定节点的出邻居节点迭代器</p>
+</dd>
+<dt class="field-odd">返回类型<span class="colon">:</span></dt>
+<dd class="field-odd"><p>iterator</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pynetim.IndependentCascadeModel">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pynetim.</span></span><span class="sig-name descname"><span class="pre">IndependentCascadeModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="pynetim.graph.html#pynetim.graph.graph.IMGraph" title="pynetim.graph.graph.IMGraph"><span class="pre">IMGraph</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">init_seeds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">record_states</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynetim/diffusion_model/independent_cascade_model.html#IndependentCascadeModel"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#pynetim.IndependentCascadeModel" title="永久链接至目标"></a></dt>
+<dd><p>基类：<a class="reference internal" href="pynetim.diffusion_model.html#pynetim.diffusion_model.base_diffusion_model.BaseDiffusionModel" title="pynetim.diffusion_model.base_diffusion_model.BaseDiffusionModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseDiffusionModel</span></code></a></p>
+<p>独立级联模型（Independent Cascade Model）。</p>
+<p>实现了经典的独立级联传播模型，该模型是一种离散时间传播模型，
+在每一轮中，已激活的节点尝试激活其未激活的邻居节点。
+每条边都有固定的传播概率，当节点尝试传播时，根据概率决定是否成功激活邻居。</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pynetim.IndependentCascadeModel.activated_nodes">
+<span class="sig-name descname"><span class="pre">activated_nodes</span></span><a class="headerlink" href="#pynetim.IndependentCascadeModel.activated_nodes" title="永久链接至目标"></a></dt>
+<dd><p>所有已被激活的节点集合</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>set</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pynetim.IndependentCascadeModel.graph">
+<span class="sig-name descname"><span class="pre">graph</span></span><a class="headerlink" href="#pynetim.IndependentCascadeModel.graph" title="永久链接至目标"></a></dt>
+<dd><p>表示传播网络结构（继承自BaseDiffusionModel）</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#pynetim.IMGraph" title="pynetim.IMGraph">IMGraph</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pynetim.IndependentCascadeModel.init_seeds">
+<span class="sig-name descname"><span class="pre">init_seeds</span></span><a class="headerlink" href="#pynetim.IndependentCascadeModel.init_seeds" title="永久链接至目标"></a></dt>
+<dd><p>初始种子集（继承自BaseDiffusionModel）</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pynetim.IndependentCascadeModel.record_states">
+<span class="sig-name descname"><span class="pre">record_states</span></span><a class="headerlink" href="#pynetim.IndependentCascadeModel.record_states" title="永久链接至目标"></a></dt>
+<dd><p>指示是否记录传播过程中的状态变化（继承自BaseDiffusionModel）</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pynetim.IndependentCascadeModel.states">
+<span class="sig-name descname"><span class="pre">states</span></span><a class="headerlink" href="#pynetim.IndependentCascadeModel.states" title="永久链接至目标"></a></dt>
+<dd><p>当record_states为True时存储传播过程的状态历史（继承自BaseDiffusionModel）</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.IndependentCascadeModel.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="pynetim.graph.html#pynetim.graph.graph.IMGraph" title="pynetim.graph.graph.IMGraph"><span class="pre">IMGraph</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">init_seeds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">record_states</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynetim/diffusion_model/independent_cascade_model.html#IndependentCascadeModel.__init__"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#pynetim.IndependentCascadeModel.__init__" title="永久链接至目标"></a></dt>
+<dd><p>初始化独立级联模型。</p>
+<dl class="field-list simple">
+<dt class="field-odd">参数<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>graph</strong> (<a class="reference internal" href="#pynetim.IMGraph" title="pynetim.IMGraph"><em>IMGraph</em></a>) – 定义了节点和边的网络结构</p></li>
+<li><p><strong>init_seeds</strong> (<em>list</em>) – 初始激活的节点集合</p></li>
+<li><p><strong>record_states</strong> (<em>bool</em>) – 控制是否记录每一步的状态，默认为False</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.IndependentCascadeModel.diffusion">
+<span class="sig-name descname"><span class="pre">diffusion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">update_counts</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynetim/diffusion_model/independent_cascade_model.html#IndependentCascadeModel.diffusion"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#pynetim.IndependentCascadeModel.diffusion" title="永久链接至目标"></a></dt>
+<dd><p>执行完整的扩散过程。</p>
+<p>进行指定轮次的传播更新，直到达到最大轮次或没有新的节点被激活。</p>
+<dl class="field-list simple">
+<dt class="field-odd">参数<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>update_counts</strong> (<em>int</em><em>, </em><em>optional</em>) – 最大更新轮次数。如果为None则持续传播直到无新节点激活</p>
+</dd>
+<dt class="field-even">返回<span class="colon">:</span></dt>
+<dd class="field-even"><p>最终所有被激活的节点集合</p>
+</dd>
+<dt class="field-odd">返回类型<span class="colon">:</span></dt>
+<dd class="field-odd"><p>set</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.IndependentCascadeModel.reset">
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">init_seeds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynetim/diffusion_model/independent_cascade_model.html#IndependentCascadeModel.reset"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#pynetim.IndependentCascadeModel.reset" title="永久链接至目标"></a></dt>
+<dd><p>重置模型状态。</p>
+<p>将模型恢复到初始状态，如果启用状态记录则清空已记录的状态历史，
+并重新设置初始种子节点状态。</p>
+<dl class="field-list simple">
+<dt class="field-odd">参数<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>init_seeds</strong> (<em>list</em><em>, </em><em>optional</em>) – 新的初始种子节点集合，若为None则使用原有种子集</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.IndependentCascadeModel.run_monte_carlo_diffusion">
+<span class="sig-name descname"><span class="pre">run_monte_carlo_diffusion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">round</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">multi_process</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">processes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynetim/diffusion_model/independent_cascade_model.html#IndependentCascadeModel.run_monte_carlo_diffusion"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#pynetim.IndependentCascadeModel.run_monte_carlo_diffusion" title="永久链接至目标"></a></dt>
+<dd><p>执行蒙特卡洛模拟扩散过程。</p>
+<dl class="field-list simple">
+<dt class="field-odd">参数<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>round</strong> (<em>int</em>) – 总模拟轮数</p></li>
+<li><p><strong>multi_process</strong> (<em>bool</em>) – 是否启用多进程模式，默认为False</p></li>
+<li><p><strong>processes</strong> (<em>int</em><em>, </em><em>optional</em>) – 多进程模式下的进程数，为None时使用CPU核心数</p></li>
+<li><p><strong>seed</strong> (<em>int</em><em>, </em><em>optional</em>) – 模拟时的随机种子</p></li>
+</ul>
+</dd>
+<dt class="field-even">返回<span class="colon">:</span></dt>
+<dd class="field-even"><p>所有模拟轮次的平均激活节点数</p>
+</dd>
+<dt class="field-odd">返回类型<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.IndependentCascadeModel.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">current_activated_nodes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">set</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynetim/diffusion_model/independent_cascade_model.html#IndependentCascadeModel.update"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#pynetim.IndependentCascadeModel.update" title="永久链接至目标"></a></dt>
+<dd><p>执行一次传播更新。</p>
+<p>在当前轮次中，所有新激活的节点尝试激活它们的未激活邻居节点。
+成功激活的节点将在下一轮继续传播。</p>
+<dl class="field-list simple">
+<dt class="field-odd">参数<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>current_activated_nodes</strong> (<em>set</em>) – 当前轮次需要尝试传播的已激活节点集合</p>
+</dd>
+<dt class="field-even">返回<span class="colon">:</span></dt>
+<dd class="field-even"><p>本轮新激活的节点集合</p>
+</dd>
+<dt class="field-odd">返回类型<span class="colon">:</span></dt>
+<dd class="field-odd"><p>set</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pynetim.LinearThresholdModel">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pynetim.</span></span><span class="sig-name descname"><span class="pre">LinearThresholdModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="pynetim.graph.html#pynetim.graph.graph.IMGraph" title="pynetim.graph.graph.IMGraph"><span class="pre">IMGraph</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">init_seeds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">record_states</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynetim/diffusion_model/linear_threshold_model.html#LinearThresholdModel"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#pynetim.LinearThresholdModel" title="永久链接至目标"></a></dt>
+<dd><p>基类：<a class="reference internal" href="pynetim.diffusion_model.html#pynetim.diffusion_model.base_diffusion_model.BaseDiffusionModel" title="pynetim.diffusion_model.base_diffusion_model.BaseDiffusionModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseDiffusionModel</span></code></a></p>
+<p>线性阈值模型（Linear Threshold Model）。</p>
+<p>实现了经典的线性阈值传播模型，该模型是一种离散时间传播模型，
+每个节点都有一个随机阈值，当其已激活邻居的影响力总和超过该阈值时，
+节点被激活。每个节点对其他节点的影响力通过边权重表示。</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pynetim.LinearThresholdModel.activated_nodes">
+<span class="sig-name descname"><span class="pre">activated_nodes</span></span><a class="headerlink" href="#pynetim.LinearThresholdModel.activated_nodes" title="永久链接至目标"></a></dt>
+<dd><p>所有已被激活的节点集合</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>set</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pynetim.LinearThresholdModel.graph">
+<span class="sig-name descname"><span class="pre">graph</span></span><a class="headerlink" href="#pynetim.LinearThresholdModel.graph" title="永久链接至目标"></a></dt>
+<dd><p>表示传播网络结构（继承自BaseDiffusionModel）</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#pynetim.IMGraph" title="pynetim.IMGraph">IMGraph</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pynetim.LinearThresholdModel.init_seeds">
+<span class="sig-name descname"><span class="pre">init_seeds</span></span><a class="headerlink" href="#pynetim.LinearThresholdModel.init_seeds" title="永久链接至目标"></a></dt>
+<dd><p>初始种子集（继承自BaseDiffusionModel）</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pynetim.LinearThresholdModel.record_states">
+<span class="sig-name descname"><span class="pre">record_states</span></span><a class="headerlink" href="#pynetim.LinearThresholdModel.record_states" title="永久链接至目标"></a></dt>
+<dd><p>指示是否记录传播过程中的状态变化（继承自BaseDiffusionModel）</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pynetim.LinearThresholdModel.states">
+<span class="sig-name descname"><span class="pre">states</span></span><a class="headerlink" href="#pynetim.LinearThresholdModel.states" title="永久链接至目标"></a></dt>
+<dd><p>当record_states为True时存储传播过程的状态历史（继承自BaseDiffusionModel）</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.LinearThresholdModel.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="pynetim.graph.html#pynetim.graph.graph.IMGraph" title="pynetim.graph.graph.IMGraph"><span class="pre">IMGraph</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">init_seeds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">record_states</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynetim/diffusion_model/linear_threshold_model.html#LinearThresholdModel.__init__"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#pynetim.LinearThresholdModel.__init__" title="永久链接至目标"></a></dt>
+<dd><p>初始化线性阈值模型。</p>
+<dl class="field-list simple">
+<dt class="field-odd">参数<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>graph</strong> (<a class="reference internal" href="#pynetim.IMGraph" title="pynetim.IMGraph"><em>IMGraph</em></a>) – 定义了节点和边的网络结构</p></li>
+<li><p><strong>init_seeds</strong> (<em>list</em>) – 初始激活的节点集合</p></li>
+<li><p><strong>record_states</strong> (<em>bool</em>) – 控制是否记录每一步的状态，默认为False</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.LinearThresholdModel.diffusion">
+<span class="sig-name descname"><span class="pre">diffusion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">update_counts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynetim/diffusion_model/linear_threshold_model.html#LinearThresholdModel.diffusion"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#pynetim.LinearThresholdModel.diffusion" title="永久链接至目标"></a></dt>
+<dd><p>执行完整的扩散过程。</p>
+<p>进行指定轮次的传播更新，直到达到最大轮次或没有新的节点被激活。</p>
+<dl class="field-list simple">
+<dt class="field-odd">参数<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>update_counts</strong> (<em>int</em><em>, </em><em>optional</em>) – 最大更新轮次数。如果为None则持续传播直到无新节点激活</p>
+</dd>
+<dt class="field-even">返回<span class="colon">:</span></dt>
+<dd class="field-even"><p>最终所有被激活的节点集合</p>
+</dd>
+<dt class="field-odd">返回类型<span class="colon">:</span></dt>
+<dd class="field-odd"><p>set</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.LinearThresholdModel.reset">
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">init_seeds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynetim/diffusion_model/linear_threshold_model.html#LinearThresholdModel.reset"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#pynetim.LinearThresholdModel.reset" title="永久链接至目标"></a></dt>
+<dd><p>重置模型状态。</p>
+<p>将模型恢复到初始状态，如果启用状态记录则清空已记录的状态历史，
+并重新设置初始种子节点状态。</p>
+<dl class="field-list simple">
+<dt class="field-odd">参数<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>init_seeds</strong> (<em>list</em><em>, </em><em>optional</em>) – 新的初始种子节点集合，若为None则使用原有种子集</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.LinearThresholdModel.run_monte_carlo_diffusion">
+<span class="sig-name descname"><span class="pre">run_monte_carlo_diffusion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">round</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">multi_process</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">processes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynetim/diffusion_model/linear_threshold_model.html#LinearThresholdModel.run_monte_carlo_diffusion"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#pynetim.LinearThresholdModel.run_monte_carlo_diffusion" title="永久链接至目标"></a></dt>
+<dd><p>执行蒙特卡洛模拟扩散过程。</p>
+<dl class="field-list simple">
+<dt class="field-odd">参数<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>round</strong> (<em>int</em>) – 总模拟轮数</p></li>
+<li><p><strong>multi_process</strong> (<em>bool</em>) – 是否启用多进程模式，默认为False</p></li>
+<li><p><strong>processes</strong> (<em>int</em><em>, </em><em>optional</em>) – 多进程模式下的进程数，为None时使用CPU核心数</p></li>
+<li><p><strong>seed</strong> (<em>int</em><em>, </em><em>optional</em>) – 模拟时的随机种子</p></li>
+</ul>
+</dd>
+<dt class="field-even">返回<span class="colon">:</span></dt>
+<dd class="field-even"><p>所有模拟轮次的平均激活节点数</p>
+</dd>
+<dt class="field-odd">返回类型<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.LinearThresholdModel.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">current_activated_nodes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">set</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynetim/diffusion_model/linear_threshold_model.html#LinearThresholdModel.update"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#pynetim.LinearThresholdModel.update" title="永久链接至目标"></a></dt>
+<dd><p>执行一次传播更新。</p>
+<p>在线性阈值模型中，未激活的节点检查其已激活邻居的影响力总和，
+如果超过节点的阈值则被激活。</p>
+<dl class="field-list simple">
+<dt class="field-odd">参数<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>current_activated_nodes</strong> (<em>set</em>) – 当前轮次需要尝试传播的已激活节点集合</p>
+</dd>
+<dt class="field-even">返回<span class="colon">:</span></dt>
+<dd class="field-even"><p>本轮新激活的节点集合</p>
+</dd>
+<dt class="field-odd">返回类型<span class="colon">:</span></dt>
+<dd class="field-odd"><p>set</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pynetim.run_monte_carlo_diffusion">
+<span class="sig-prename descclassname"><span class="pre">pynetim.</span></span><span class="sig-name descname"><span class="pre">run_monte_carlo_diffusion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">diffusion_model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="pynetim.diffusion_model.html#pynetim.diffusion_model.base_diffusion_model.BaseDiffusionModel" title="pynetim.diffusion_model.base_diffusion_model.BaseDiffusionModel"><span class="pre">BaseDiffusionModel</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">round</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">multi_process</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">processes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynetim/diffusion_model/run_monte_carlo_diffusion.html#run_monte_carlo_diffusion"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#pynetim.run_monte_carlo_diffusion" title="永久链接至目标"></a></dt>
+<dd><p>执行蒙特卡洛模拟扩散过程，支持单进程和多进程模式，并可输出所用时间。</p>
+<dl class="field-list simple">
+<dt class="field-odd">参数<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>diffusion_model</strong> (<a class="reference internal" href="pynetim.diffusion_model.html#pynetim.diffusion_model.base_diffusion_model.BaseDiffusionModel" title="pynetim.diffusion_model.base_diffusion_model.BaseDiffusionModel"><em>BaseDiffusionModel</em></a>) – 扩散模型实例</p></li>
+<li><p><strong>round</strong> (<em>int</em>) – 总模拟轮数</p></li>
+<li><p><strong>multi_process</strong> (<em>bool</em><em>, </em><em>optional</em>) – 是否启用多进程模式，默认为False</p></li>
+<li><p><strong>processes</strong> (<em>int</em><em>, </em><em>optional</em>) – 多进程模式下的进程数，为None时使用CPU核心数</p></li>
+<li><p><strong>seed</strong> (<em>int</em><em>, </em><em>optional</em>) – 随机种子的基础值，默认为None</p></li>
+</ul>
+</dd>
+<dt class="field-even">返回<span class="colon">:</span></dt>
+<dd class="field-even"><p>所有模拟轮次的平均激活节点数</p>
+</dd>
+<dt class="field-odd">返回类型<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2025, Kaijing Zhang。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

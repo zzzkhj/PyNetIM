@@ -1,0 +1,360 @@
+pynetim
+=======
+
+.. py:module:: pynetim
+
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 1
+
+   /autoapi/pynetim/algorithms/index
+   /autoapi/pynetim/decorator/index
+   /autoapi/pynetim/diffusion_model/index
+   /autoapi/pynetim/graph/index
+   /autoapi/pynetim/utils/index
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   pynetim.IMGraph
+   pynetim.IndependentCascadeModel
+   pynetim.LinearThresholdModel
+
+
+Package Contents
+----------------
+
+.. py:class:: IMGraph(graph: networkx.Graph | networkx.DiGraph, edge_weight_type: str, constant_weight: float = None)
+
+   影响最大化图类，用于封装网络图结构和边权重设置。
+
+   该类提供了对NetworkX图对象的封装，支持设置不同类型的边权重，
+   并提供了便捷的图属性访问接口。
+
+   .. attribute:: graph
+
+      networkx图对象，可以是有向图或无向图
+
+      :type: Graph | DiGraph
+
+   .. attribute:: direction
+
+      指示图是否有向
+
+      :type: bool
+
+   .. attribute:: number_of_nodes
+
+      图中节点总数
+
+      :type: int
+
+   .. attribute:: number_of_edges
+
+      图中边总数
+
+      :type: int
+
+   .. attribute:: edge_weight_type
+
+      边权重类型
+
+      :type: str
+
+
+   .. py:attribute:: graph
+
+
+   .. py:attribute:: direction
+
+
+   .. py:attribute:: number_of_nodes
+
+
+   .. py:attribute:: number_of_edges
+
+
+   .. py:attribute:: edge_weight_type
+
+
+   .. py:property:: nodes
+
+      获取图中所有节点。
+
+      :returns: 图中所有节点的视图
+      :rtype: NodeView
+
+
+   .. py:property:: edges
+
+      获取图中所有边。
+
+      :returns: 图中所有边的视图
+      :rtype: EdgeView
+
+
+   .. py:method:: neighbors(node)
+
+      获取指定节点的邻居节点。
+
+      :param node: 节点标识符
+
+      :returns: 指定节点的所有邻居节点迭代器
+      :rtype: iterator
+
+
+
+   .. py:method:: in_neighbors(node)
+
+      获取指定节点的入邻居节点。
+
+      对于有向图，返回前驱节点；对于无向图，返回所有邻居节点。
+
+      :param node: 节点标识符
+
+      :returns: 指定节点的入邻居节点迭代器
+      :rtype: iterator
+
+
+
+   .. py:method:: out_neighbors(node)
+
+      获取指定节点的出邻居节点。（同neighbors方法）
+
+      :param node: 节点标识符
+
+      :returns: 指定节点的出邻居节点迭代器
+      :rtype: iterator
+
+
+
+   .. py:property:: in_degree
+
+      获取图的入度。
+
+      :returns: 图的入度视图
+      :rtype: int
+
+
+   .. py:property:: out_degree
+
+      获取图的出度。
+
+      :returns: 图的出度视图
+      :rtype: int
+
+
+.. py:class:: IndependentCascadeModel(graph: pynetim.graph.IMGraph, init_seeds: list, record_states: bool = False)
+
+   Bases: :py:obj:`pynetim.diffusion_model.base_diffusion_model.BaseDiffusionModel`
+
+
+   独立级联模型（Independent Cascade Model）。
+
+   实现了经典的独立级联传播模型，该模型是一种离散时间传播模型，
+   在每一轮中，已激活的节点尝试激活其未激活的邻居节点。
+   每条边都有固定的传播概率，当节点尝试传播时，根据概率决定是否成功激活邻居。
+
+   .. attribute:: activated_nodes
+
+      所有已被激活的节点集合
+
+      :type: set
+
+   .. attribute:: graph
+
+      表示传播网络结构（继承自BaseDiffusionModel）
+
+      :type: IMGraph
+
+   .. attribute:: init_seeds
+
+      初始种子集（继承自BaseDiffusionModel）
+
+      :type: list
+
+   .. attribute:: record_states
+
+      指示是否记录传播过程中的状态变化（继承自BaseDiffusionModel）
+
+      :type: bool
+
+   .. attribute:: states
+
+      当record_states为True时存储传播过程的状态历史（继承自BaseDiffusionModel）
+
+      :type: list
+
+
+   .. py:attribute:: activated_nodes
+
+
+   .. py:method:: update(current_activated_nodes: set)
+
+      执行一次传播更新。
+
+      在当前轮次中，所有新激活的节点尝试激活它们的未激活邻居节点。
+      成功激活的节点将在下一轮继续传播。
+
+      :param current_activated_nodes: 当前轮次需要尝试传播的已激活节点集合
+      :type current_activated_nodes: set
+
+      :returns: 本轮新激活的节点集合
+      :rtype: set
+
+
+
+   .. py:method:: diffusion(update_counts=None)
+
+      执行完整的扩散过程。
+
+      进行指定轮次的传播更新，直到达到最大轮次或没有新的节点被激活。
+
+      :param update_counts: 最大更新轮次数。如果为None则持续传播直到无新节点激活
+      :type update_counts: int, optional
+
+      :returns: 最终所有被激活的节点集合
+      :rtype: set
+
+
+
+   .. py:method:: run_monte_carlo_diffusion(round: int, multi_process: bool = False, processes: int = None, seed: int = None)
+
+      执行蒙特卡洛模拟扩散过程。
+
+      :param round: 总模拟轮数
+      :type round: int
+      :param multi_process: 是否启用多进程模式，默认为False
+      :type multi_process: bool
+      :param processes: 多进程模式下的进程数，为None时使用CPU核心数
+      :type processes: int, optional
+      :param seed: 模拟时的随机种子
+      :type seed: int, optional
+
+      :returns: 所有模拟轮次的平均激活节点数
+      :rtype: float
+
+
+
+   .. py:method:: reset(init_seeds=None)
+
+      重置模型状态。
+
+      将模型恢复到初始状态，如果启用状态记录则清空已记录的状态历史，
+      并重新设置初始种子节点状态。
+
+      :param init_seeds: 新的初始种子节点集合，若为None则使用原有种子集
+      :type init_seeds: list, optional
+
+
+
+.. py:class:: LinearThresholdModel(graph: pynetim.graph.IMGraph, init_seeds: list, record_states: bool = False)
+
+   Bases: :py:obj:`pynetim.diffusion_model.BaseDiffusionModel`
+
+
+   线性阈值模型（Linear Threshold Model）。
+
+   实现了经典的线性阈值传播模型，该模型是一种离散时间传播模型，
+   每个节点都有一个随机阈值，当其已激活邻居的影响力总和超过该阈值时，
+   节点被激活。每个节点对其他节点的影响力通过边权重表示。
+
+   .. attribute:: activated_nodes
+
+      所有已被激活的节点集合
+
+      :type: set
+
+   .. attribute:: graph
+
+      表示传播网络结构（继承自BaseDiffusionModel）
+
+      :type: IMGraph
+
+   .. attribute:: init_seeds
+
+      初始种子集（继承自BaseDiffusionModel）
+
+      :type: list
+
+   .. attribute:: record_states
+
+      指示是否记录传播过程中的状态变化（继承自BaseDiffusionModel）
+
+      :type: bool
+
+   .. attribute:: states
+
+      当record_states为True时存储传播过程的状态历史（继承自BaseDiffusionModel）
+
+      :type: list
+
+
+   .. py:attribute:: activated_nodes
+
+
+   .. py:method:: update(current_activated_nodes: set)
+
+      执行一次传播更新。
+
+      在线性阈值模型中，未激活的节点检查其已激活邻居的影响力总和，
+      如果超过节点的阈值则被激活。
+
+      :param current_activated_nodes: 当前轮次需要尝试传播的已激活节点集合
+      :type current_activated_nodes: set
+
+      :returns: 本轮新激活的节点集合
+      :rtype: set
+
+
+
+   .. py:method:: diffusion(update_counts: int = None)
+
+      执行完整的扩散过程。
+
+      进行指定轮次的传播更新，直到达到最大轮次或没有新的节点被激活。
+
+      :param update_counts: 最大更新轮次数。如果为None则持续传播直到无新节点激活
+      :type update_counts: int, optional
+
+      :returns: 最终所有被激活的节点集合
+      :rtype: set
+
+
+
+   .. py:method:: run_monte_carlo_diffusion(round: int, multi_process: bool = False, processes: int = None, seed: int = None)
+
+      执行蒙特卡洛模拟扩散过程。
+
+      :param round: 总模拟轮数
+      :type round: int
+      :param multi_process: 是否启用多进程模式，默认为False
+      :type multi_process: bool
+      :param processes: 多进程模式下的进程数，为None时使用CPU核心数
+      :type processes: int, optional
+      :param seed: 模拟时的随机种子
+      :type seed: int, optional
+
+      :returns: 所有模拟轮次的平均激活节点数
+      :rtype: float
+
+
+
+   .. py:method:: reset(init_seeds=None)
+
+      重置模型状态。
+
+      将模型恢复到初始状态，如果启用状态记录则清空已记录的状态历史，
+      并重新设置初始种子节点状态。
+
+      :param init_seeds: 新的初始种子节点集合，若为None则使用原有种子集
+      :type init_seeds: list, optional
+
+
+

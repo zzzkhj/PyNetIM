@@ -58,7 +58,7 @@ htmlcov/
 
 # 文档生成目录
 docs/_build/
-docs/build/
+#docs/build/
 
 # Python相关
 __pycache__/
@@ -121,3 +121,4 @@ config.local.json
 secrets.json
 
 build_docs.py
+docs/source

@@ -1,0 +1,45 @@
+快速开始
+========
+
+基本示例
+--------
+
+导入库
+~~~~~~
+
+.. code-block:: python
+
+   import networkx as nx
+   from pynetim.graph import IMGraph
+   from pynetim.algorithms import DegreeDiscountAlgorithm
+   from pynetim.diffusion_model import IndependentCascadeModel
+
+创建图
+~~~~~~
+
+.. code-block:: python
+
+   # 创建一个简单的图
+   g = nx.erdos_renyi_graph(100, 0.2, seed=42)
+   graph = IMGraph(g, edge_weight_type='WC')
+
+运行算法
+~~~~~~~~
+
+.. code-block:: python
+
+   # 选择 k=10 个种子节点
+   k = 10
+   dd = DegreeDiscountAlgorithm(graph)
+   seeds = dd.run(k)
+   print(f"选中的种子节点: {seeds}")
+
+扩散模拟
+~~~~~~~~
+
+.. code-block:: python
+
+   # 运行独立级联模型
+   ic = IndependentCascadeModel(graph, seeds, record_states=False)
+   influence_spread = ic.run_monte_carlo_diffusion(1000, seed=42)
+   print(f"影响的节点数: {len(influence_spread)}")
