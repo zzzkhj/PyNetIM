@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from ..diffusion_model import *
+from ..diffusion_model import BaseDiffusionModel, IndependentCascadeModel, LinearThresholdModel
 from ..graph import IMGraph
 
 

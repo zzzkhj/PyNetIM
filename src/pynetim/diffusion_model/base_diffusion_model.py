@@ -1,4 +1,3 @@
-from ..diffusion_model import run_monte_carlo_diffusion
 from ..graph import IMGraph
 
 
@@ -65,20 +64,22 @@ class BaseDiffusionModel:
         """
         raise NotImplementedError
 
-    def run_monte_carlo_diffusion(self, round: int, multi_process: bool = False, processes: int = None, seed: int = None):
+    def run_monte_carlo_diffusion(self, round: int, multi_process: bool = False, processes: int = None):
         """
         执行蒙特卡洛模拟扩散过程。
 
         Args:
-            round (int): 总模拟轮数
-            multi_process (bool): 是否启用多进程模式，默认为False
-            processes (int, optional): 多进程模式下的进程数，为None时使用CPU核心数
-            seed (int, optional): 模拟时的随机种子
+            round (int): 模拟的轮数
+            multi_process (bool): 指示是否使用多进程进行模拟
+            processes (int, optional): 多进程的进程数，默认为None，表示使用CPU核数
 
         Returns:
-            float: 所有模拟轮次的平均激活节点数
+            模拟结果，具体类型由子类定义
+
+        Raises:
+            NotImplementedError: 当子类未实现此方法时抛出
         """
-        return run_monte_carlo_diffusion(self, round, multi_process, processes, seed)
+        raise NotImplementedError
 
     def reset(self, init_seeds=None):
         """
