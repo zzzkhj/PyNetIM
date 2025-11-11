@@ -1,0 +1,37 @@
+<html><head><meta charset='utf-8'><title>Module pynetim.diffusion_model.run_monte_carlo_diffusion</title></head><body><h1>Module pynetim.diffusion_model.run_monte_carlo_diffusion</h1>
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong><a href="pynetim.html"><font color="#ffffff">pynetim</font></a>.<a href="pynetim.diffusion_model.html"><font color="#ffffff">diffusion_model</font></a>.run_monte_carlo_diffusion</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:d%3A%5C01-file%5Cgit%E9%A1%B9%E7%9B%AE%5Cpynetim%5Csrc%5Cpynetim%5Cdiffusion_model%5Crun_monte_carlo_diffusion.py">d:\01-file\git项目\pynetim\src\pynetim\diffusion_model\run_monte_carlo_diffusion.py</a></font></td></tr></table>
+    <p></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="random.html">random</a><br>
+</td><td width="25%" valign=top><a href="statistics.html">statistics</a><br>
+</td><td width="25%" valign=top></td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-run_monte_carlo_diffusion"><strong>run_monte_carlo_diffusion</strong></a>(diffusion_model: pynetim.diffusion_model.base_diffusion_model.BaseDiffusionModel, round: int, multi_process: bool = False, processes: int = None, seed: int = None)</dt><dd><tt>执行蒙特卡洛模拟扩散过程，支持单进程和多进程模式，并可输出所用时间。<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;diffusion_model&nbsp;(BaseDiffusionModel):&nbsp;扩散模型实例<br>
+&nbsp;&nbsp;&nbsp;&nbsp;round&nbsp;(int):&nbsp;总模拟轮数<br>
+&nbsp;&nbsp;&nbsp;&nbsp;multi_process&nbsp;(bool,&nbsp;optional):&nbsp;是否启用多进程模式，默认为False<br>
+&nbsp;&nbsp;&nbsp;&nbsp;processes&nbsp;(int,&nbsp;optional):&nbsp;多进程模式下的进程数，为None时使用CPU核心数<br>
+&nbsp;&nbsp;&nbsp;&nbsp;seed&nbsp;(int,&nbsp;optional):&nbsp;随机种子的基础值，默认为None<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;float:&nbsp;所有模拟轮次的平均激活节点数</tt></dd></dl>
+</td></tr></table></body></html>

@@ -1,0 +1,80 @@
+<html><head><meta charset='utf-8'><title>Module pynetim.algorithms.base_algorithm</title></head><body><h1>Module pynetim.algorithms.base_algorithm</h1>
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong><a href="pynetim.html"><font color="#ffffff">pynetim</font></a>.<a href="pynetim.algorithms.html"><font color="#ffffff">algorithms</font></a>.base_algorithm</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:d%3A%5C01-file%5Cgit%E9%A1%B9%E7%9B%AE%5Cpynetim%5Csrc%5Cpynetim%5Calgorithms%5Cbase_algorithm.py">d:\01-file\git项目\pynetim\src\pynetim\algorithms\base_algorithm.py</a></font></td></tr></table>
+    <p></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="builtins.html#object">builtins.object</a>
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="pynetim.algorithms.base_algorithm.html#BaseAlgorithm">BaseAlgorithm</a>
+</font></dt></dl>
+</dd>
+</dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="BaseAlgorithm">class <strong>BaseAlgorithm</strong></a>(<a href="builtins.html#object">builtins.object</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt><a href="#BaseAlgorithm">BaseAlgorithm</a>(graph:&nbsp;'IMGraph',&nbsp;diffusion_model:&nbsp;'str&nbsp;|&nbsp;BaseDiffusionModel'&nbsp;=&nbsp;None)<br>
+&nbsp;<br>
+算法基类。<br>
+&nbsp;<br>
+该类为各种影响力最大化算法实现提供了基础框架，包含图结构和扩散模型，<br>
+以及需要子类实现的核心方法。<br>
+&nbsp;<br>
+Attributes:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;graph&nbsp;(IMGraph):&nbsp;输入图对象<br>
+&nbsp;&nbsp;&nbsp;&nbsp;seeds&nbsp;(list):&nbsp;种子节点集合<br>
+&nbsp;&nbsp;&nbsp;&nbsp;diffusion_model&nbsp;(BaseDiffusionModel):&nbsp;扩散模型实例<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="BaseAlgorithm-__init__"><strong>__init__</strong></a>(self, graph: 'IMGraph', diffusion_model: 'str | BaseDiffusionModel' = None)</dt><dd><tt>初始化算法基类。<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;graph&nbsp;(IMGraph):&nbsp;输入图对象<br>
+&nbsp;&nbsp;&nbsp;&nbsp;diffusion_model&nbsp;(str&nbsp;|&nbsp;BaseDiffusionModel,&nbsp;optional):&nbsp;扩散模型，支持'IC'或'LT'字符串，<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;或直接传入扩散模型实例，默认为None</tt></dd></dl>
+
+<dl><dt><a name="BaseAlgorithm-run"><strong>run</strong></a>(self, k)</dt><dd><tt>执行算法的抽象方法。<br>
+&nbsp;<br>
+子类必须实现此方法来定义具体的算法逻辑。<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;k:&nbsp;需要选择的种子节点数量<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;算法执行结果，具体类型由子类定义<br>
+&nbsp;<br>
+Raises:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;NotImplementedError:&nbsp;当子类未实现此方法时抛出</tt></dd></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#55aa55">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><strong>annotations</strong> = _Feature((3, 7, 0, 'beta', 1), (3, 10, 0, 'alpha', 0), 16777216)</td></tr></table></body></html>

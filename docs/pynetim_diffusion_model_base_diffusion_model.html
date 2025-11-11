@@ -1,0 +1,107 @@
+<html><head><meta charset='utf-8'><title>Module pynetim.diffusion_model.base_diffusion_model</title></head><body><h1>Module pynetim.diffusion_model.base_diffusion_model</h1>
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong><a href="pynetim.html"><font color="#ffffff">pynetim</font></a>.<a href="pynetim.diffusion_model.html"><font color="#ffffff">diffusion_model</font></a>.base_diffusion_model</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:d%3A%5C01-file%5Cgit%E9%A1%B9%E7%9B%AE%5Cpynetim%5Csrc%5Cpynetim%5Cdiffusion_model%5Cbase_diffusion_model.py">d:\01-file\git项目\pynetim\src\pynetim\diffusion_model\base_diffusion_model.py</a></font></td></tr></table>
+    <p></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="builtins.html#object">builtins.object</a>
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="pynetim.diffusion_model.base_diffusion_model.html#BaseDiffusionModel">BaseDiffusionModel</a>
+</font></dt></dl>
+</dd>
+</dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="BaseDiffusionModel">class <strong>BaseDiffusionModel</strong></a>(<a href="builtins.html#object">builtins.object</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt><a href="#BaseDiffusionModel">BaseDiffusionModel</a>(graph:&nbsp;pynetim.graph.graph.IMGraph,&nbsp;init_seeds:&nbsp;list,&nbsp;record_states:&nbsp;bool&nbsp;=&nbsp;False)<br>
+&nbsp;<br>
+扩散模型基类。<br>
+&nbsp;<br>
+该类为各种扩散模型实现提供了基础框架，包含图结构、初始种子集、状态记录功能，<br>
+以及需要子类实现的核心方法。支持在网络图上模拟信息、疾病或其他<br>
+实体的传播过程。<br>
+&nbsp;<br>
+Attributes:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;graph&nbsp;(IMGraph):&nbsp;表示传播网络结构<br>
+&nbsp;&nbsp;&nbsp;&nbsp;init_seeds&nbsp;(list):&nbsp;初始种子集<br>
+&nbsp;&nbsp;&nbsp;&nbsp;record_states&nbsp;(bool):&nbsp;指示是否记录传播过程中的状态变化<br>
+&nbsp;&nbsp;&nbsp;&nbsp;states&nbsp;(list):&nbsp;当record_states为True时存储传播过程的状态历史<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="BaseDiffusionModel-__init__"><strong>__init__</strong></a>(self, graph: pynetim.graph.graph.IMGraph, init_seeds: list, record_states: bool = False)</dt><dd><tt>初始化扩散模型基类。<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;graph&nbsp;(IMGraph):&nbsp;定义了节点和边的网络结构<br>
+&nbsp;&nbsp;&nbsp;&nbsp;init_seeds&nbsp;(list):&nbsp;初始激活的节点集合<br>
+&nbsp;&nbsp;&nbsp;&nbsp;record_states&nbsp;(bool):&nbsp;控制是否记录每一步的状态，默认为False</tt></dd></dl>
+
+<dl><dt><a name="BaseDiffusionModel-diffusion"><strong>diffusion</strong></a>(self, update_counts: int = None)</dt><dd><tt>执行完整扩散过程的抽象方法。<br>
+&nbsp;<br>
+子类必须实现此方法来定义从开始到结束的完整传播流程。<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;update_counts&nbsp;(int,&nbsp;optional):&nbsp;更新次数，控制扩散迭代的轮数<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;扩散结果，具体类型由子类定义<br>
+&nbsp;<br>
+Raises:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;NotImplementedError:&nbsp;当子类未实现此方法时抛出</tt></dd></dl>
+
+<dl><dt><a name="BaseDiffusionModel-reset"><strong>reset</strong></a>(self, init_seeds=None)</dt><dd><tt>重置模型状态。<br>
+&nbsp;<br>
+将模型恢复到初始状态，如果启用状态记录则清空已记录的状态历史，<br>
+并重新设置初始种子节点状态。<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;init_seeds&nbsp;(list,&nbsp;optional):&nbsp;新的初始种子节点集合，若为None则使用原有种子集</tt></dd></dl>
+
+<dl><dt><a name="BaseDiffusionModel-run_monte_carlo_diffusion"><strong>run_monte_carlo_diffusion</strong></a>(self, round: int, multi_process: bool = False, processes: int = None)</dt><dd><tt>执行蒙特卡洛模拟扩散过程。<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;round&nbsp;(int):&nbsp;模拟的轮数<br>
+&nbsp;&nbsp;&nbsp;&nbsp;multi_process&nbsp;(bool):&nbsp;指示是否使用多进程进行模拟<br>
+&nbsp;&nbsp;&nbsp;&nbsp;processes&nbsp;(int,&nbsp;optional):&nbsp;多进程的进程数，默认为None，表示使用CPU核数<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;模拟结果，具体类型由子类定义<br>
+&nbsp;<br>
+Raises:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;NotImplementedError:&nbsp;当子类未实现此方法时抛出</tt></dd></dl>
+
+<dl><dt><a name="BaseDiffusionModel-update"><strong>update</strong></a>(self)</dt><dd><tt>更新模型状态的抽象方法。<br>
+&nbsp;<br>
+子类必须实现此方法来定义具体的更新逻辑。<br>
+每次调用应执行一次传播步骤。<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;本轮更新结果，具体类型由子类定义<br>
+&nbsp;<br>
+Raises:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;NotImplementedError:&nbsp;当子类未实现此方法时抛出</tt></dd></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table></td></tr></table></body></html>
