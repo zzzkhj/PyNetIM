@@ -82,20 +82,6 @@ class IndependentCascadeModel(BaseDiffusionModel):
                 break
         return self.activated_nodes
 
-    def run_monte_carlo_diffusion(self, round: int, multi_process: bool = False, processes: int = None):
-        """
-        执行蒙特卡洛模拟扩散过程。
-
-        Args:
-            round (int): 总模拟轮数
-            multi_process (bool): 是否启用多进程模式，默认为False
-            processes (int, optional): 多进程模式下的进程数，为None时使用CPU核心数
-
-        Returns:
-            float: 所有模拟轮次的平均激活节点数
-        """
-        return run_monte_carlo_diffusion(self, round, multi_process, processes)
-
     def reset(self, init_seeds=None):
         """
         重置模型状态。
