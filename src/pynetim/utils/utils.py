@@ -1,12 +1,10 @@
-from __future__ import annotations
-
 import random
 from typing import Union
 
 from networkx import Graph, DiGraph
 
 
-def set_edge_weight(graph: Graph | DiGraph, edge_weight_type: str, constant_weight: float = None):
+def set_edge_weight(graph: Union[Graph, DiGraph], edge_weight_type: str, constant_weight: float = None):
     """
     根据指定的权重模型为图中的边设置权重值。
 
@@ -45,16 +43,15 @@ def set_edge_weight(graph: Graph | DiGraph, edge_weight_type: str, constant_weig
         raise ValueError('不支持的边权重模型')
 
 
-
-def infection_threshold(G: Union[Graph, DiGraph]):
+def infection_threshold(graph: Union[Graph, DiGraph]):
     """
-    计算基于图G的度分布的感染阈值。
+    计算基于图graph的度分布的感染阈值。
 
     参数:
-        G (networkx.Graph): 一个无向图或有向图（注意：此函数没有使用图的方向性）。
+        graph (Graph|DiGraph): 网络图对象，可以是有向图或无向图
 
     返回:
-        float: 感染阈值。
+        float: 感染阈值（是1.05倍的阈值）。
 
     说明:
         该函数首先计算图中所有节点的度之和（k），然后计算所有节点度的平方和（k2）。
@@ -62,16 +59,15 @@ def infection_threshold(G: Union[Graph, DiGraph]):
         这个阈值在某些流行病学模型（如SIR模型）中用于预测疾病传播的临界条件。
     """
     # 计算图中所有节点的度之和
-    k = sum(dict(G.degree()).values())
+    k = sum(dict(graph.degree()).values())
 
     # 计算图中所有节点度的平方和
     # 使用map函数和lambda表达式将每个度值平方，然后求和
-    k2 = sum(map(lambda x: x ** 2, dict(G.degree()).values()))
+    k2 = sum(map(lambda x: x ** 2, dict(graph.degree()).values()))
 
     # 计算并返回感染阈值
-    # 注意：这里的公式假设了节点之间的连接是随机的，并且没有考虑图的方向性（如果G是有向图）。
-    # 在实际应用中，感染阈值的计算可能更加复杂，并且需要考虑更多的因素。
-    return k / (k2 - k)
+    beta = k / (k2 - k)
+    return beta + 0.05 * beta
 
 
 def topk(res_dict: dict, k: int, largest=True):
