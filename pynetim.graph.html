@@ -86,6 +86,8 @@
 <li class="toctree-l4"><a class="reference internal" href="autoapi/pynetim/index.html#pynetim.IMGraph"><code class="docutils literal notranslate"><span class="pre">IMGraph</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="autoapi/pynetim/index.html#pynetim.IndependentCascadeModel"><code class="docutils literal notranslate"><span class="pre">IndependentCascadeModel</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="autoapi/pynetim/index.html#pynetim.LinearThresholdModel"><code class="docutils literal notranslate"><span class="pre">LinearThresholdModel</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/pynetim/index.html#pynetim.SusceptibleInfectedModel"><code class="docutils literal notranslate"><span class="pre">SusceptibleInfectedModel</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/pynetim/index.html#pynetim.SusceptibleInfectedRecoveredModel"><code class="docutils literal notranslate"><span class="pre">SusceptibleInfectedRecoveredModel</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -134,7 +136,7 @@
 并提供了便捷的图属性访问接口。</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pynetim.graph.graph.IMGraph.graph">
-<span class="sig-name descname"><span class="pre">graph</span></span><a class="reference internal" href="_modules/pynetim/graph/graph.html#IMGraph.graph"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#pynetim.graph.graph.IMGraph.graph" title="永久链接至目标"></a></dt>
+<span class="sig-name descname"><span class="pre">graph</span></span><a class="headerlink" href="#pynetim.graph.graph.IMGraph.graph" title="永久链接至目标"></a></dt>
 <dd><p>networkx图对象，可以是有向图或无向图</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -198,6 +200,20 @@
 <li><p><strong>edge_weight_type</strong> (<em>str</em>) – 边权重类型，支持’ CONSTANT ‘、’ TV ‘、’ WC ‘等模式</p></li>
 <li><p><strong>constant_weight</strong> (<em>float</em><em>, </em><em>optional</em>) – 当使用常量权重模式时的权重值</p></li>
 </ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.graph.graph.IMGraph.degree">
+<span class="sig-name descname"><span class="pre">degree</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynetim/graph/graph.html#IMGraph.degree"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#pynetim.graph.graph.IMGraph.degree" title="永久链接至目标"></a></dt>
+<dd><p>获取图的度。</p>
+<dl class="field-list simple">
+<dt class="field-odd">返回<span class="colon">:</span></dt>
+<dd class="field-odd"><p>图的度视图</p>
+</dd>
+<dt class="field-even">返回类型<span class="colon">:</span></dt>
+<dd class="field-even"><p>int</p>
 </dd>
 </dl>
 </dd></dl>
@@ -388,6 +404,20 @@
 <li><p><strong>edge_weight_type</strong> (<em>str</em>) – 边权重类型，支持’ CONSTANT ‘、’ TV ‘、’ WC ‘等模式</p></li>
 <li><p><strong>constant_weight</strong> (<em>float</em><em>, </em><em>optional</em>) – 当使用常量权重模式时的权重值</p></li>
 </ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.graph.IMGraph.degree">
+<span class="sig-name descname"><span class="pre">degree</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynetim/graph/graph.html#IMGraph.degree"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#pynetim.graph.IMGraph.degree" title="永久链接至目标"></a></dt>
+<dd><p>获取图的度。</p>
+<dl class="field-list simple">
+<dt class="field-odd">返回<span class="colon">:</span></dt>
+<dd class="field-odd"><p>图的度视图</p>
+</dd>
+<dt class="field-even">返回类型<span class="colon">:</span></dt>
+<dd class="field-even"><p>int</p>
 </dd>
 </dl>
 </dd></dl>

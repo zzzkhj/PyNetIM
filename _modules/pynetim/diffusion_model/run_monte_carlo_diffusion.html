@@ -85,6 +85,8 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../autoapi/pynetim/index.html#pynetim.IMGraph"><code class="docutils literal notranslate"><span class="pre">IMGraph</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../autoapi/pynetim/index.html#pynetim.IndependentCascadeModel"><code class="docutils literal notranslate"><span class="pre">IndependentCascadeModel</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../autoapi/pynetim/index.html#pynetim.LinearThresholdModel"><code class="docutils literal notranslate"><span class="pre">LinearThresholdModel</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../autoapi/pynetim/index.html#pynetim.SusceptibleInfectedModel"><code class="docutils literal notranslate"><span class="pre">SusceptibleInfectedModel</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../autoapi/pynetim/index.html#pynetim.SusceptibleInfectedRecoveredModel"><code class="docutils literal notranslate"><span class="pre">SusceptibleInfectedRecoveredModel</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -125,40 +127,43 @@
 <span class="kn">from</span> <span class="nn">.base_diffusion_model</span> <span class="kn">import</span> <span class="n">BaseDiffusionModel</span>
 
 
-<span class="k">def</span> <span class="nf">__simulate_multi_round</span><span class="p">(</span><span class="n">diffusion_model</span><span class="p">:</span> <span class="n">BaseDiffusionModel</span><span class="p">,</span> <span class="nb">round</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">seed</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">__simulate_multi_round</span><span class="p">(</span><span class="n">diffusion_model</span><span class="p">:</span> <span class="n">BaseDiffusionModel</span><span class="p">,</span> <span class="n">rounds</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">update_counts</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">seed</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    在单个进程中执行多轮蒙特卡洛模拟。</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        diffusion_model (BaseDiffusionModel): 扩散模型实例</span>
-<span class="sd">        round (int): 该进程需要执行的模拟轮数</span>
+<span class="sd">        rounds (int): 该进程需要执行的模拟轮数</span>
+<span class="sd">        update_counts (int, optional): 更新轮次数，适用于SI/SIR等模型</span>
 <span class="sd">        seed (int, optional): 随机种子的基础值，默认为None</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        float: 该进程所有模拟轮次的平均激活节点数</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">round</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">rounds</span><span class="p">):</span>
         <span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">seed</span> <span class="o">+</span> <span class="n">i</span> <span class="k">if</span> <span class="n">seed</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">None</span><span class="p">)</span>
         <span class="n">diffusion_model</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
-        <span class="n">result</span> <span class="o">=</span> <span class="n">diffusion_model</span><span class="o">.</span><span class="n">diffusion</span><span class="p">()</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">diffusion_model</span><span class="o">.</span><span class="n">diffusion</span><span class="p">(</span><span class="n">update_counts</span><span class="p">)</span>
         <span class="n">count</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">count</span> <span class="o">/</span> <span class="nb">round</span>
+    <span class="k">return</span> <span class="n">count</span> <span class="o">/</span> <span class="n">rounds</span>
 
 
 <div class="viewcode-block" id="run_monte_carlo_diffusion"><a class="viewcode-back" href="../../../pynetim.diffusion_model.html#pynetim.diffusion_model.run_monte_carlo_diffusion">[文档]</a><span class="k">def</span> <span class="nf">run_monte_carlo_diffusion</span><span class="p">(</span>
         <span class="n">diffusion_model</span><span class="p">:</span> <span class="n">BaseDiffusionModel</span><span class="p">,</span>
-        <span class="nb">round</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">rounds</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">update_counts</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">multi_process</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
         <span class="n">processes</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">seed</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    执行蒙特卡洛模拟扩散过程，支持单进程和多进程模式，并可输出所用时间。</span>
+<span class="sd">    执行蒙特卡洛模拟扩散过程，支持单进程和多进程模式。</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        diffusion_model (BaseDiffusionModel): 扩散模型实例</span>
-<span class="sd">        round (int): 总模拟轮数</span>
+<span class="sd">        rounds (int): 总模拟轮数</span>
+<span class="sd">        update_counts (int, optional): 更新轮次数，适用于SI等模型</span>
 <span class="sd">        multi_process (bool, optional): 是否启用多进程模式，默认为False</span>
 <span class="sd">        processes (int, optional): 多进程模式下的进程数，为None时使用CPU核心数</span>
 <span class="sd">        seed (int, optional): 随机种子的基础值，默认为None</span>
@@ -166,17 +171,19 @@
 <span class="sd">    Returns:</span>
 <span class="sd">        float: 所有模拟轮次的平均激活节点数</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">rounds</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The number of rounds must be greater than 0.&quot;</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">multi_process</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">processes</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">processes</span> <span class="o">=</span> <span class="n">cpu_count</span><span class="p">()</span>
 
         <span class="c1"># 每个进程执行 round / processes 次模拟</span>
-        <span class="n">rounds_per_worker</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">round</span> <span class="o">/</span> <span class="n">processes</span><span class="p">)</span>
+        <span class="n">rounds_per_worker</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">rounds</span> <span class="o">/</span> <span class="n">processes</span><span class="p">)</span>
         <span class="k">with</span> <span class="n">Pool</span><span class="p">(</span><span class="n">processes</span><span class="o">=</span><span class="n">processes</span><span class="p">)</span> <span class="k">as</span> <span class="n">pool</span><span class="p">:</span>
             <span class="c1"># 每个进程需要的参数</span>
             <span class="n">args</span> <span class="o">=</span> <span class="p">[</span>
-                <span class="p">(</span><span class="n">diffusion_model</span><span class="p">,</span> <span class="n">rounds_per_worker</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+                <span class="p">(</span><span class="n">diffusion_model</span><span class="p">,</span> <span class="n">rounds_per_worker</span><span class="p">,</span> <span class="n">update_counts</span><span class="p">,</span> <span class="n">seed</span> <span class="o">+</span> <span class="n">i</span> <span class="o">*</span> <span class="n">rounds_per_worker</span> <span class="k">if</span> <span class="n">seed</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">None</span><span class="p">)</span>
                 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">processes</span><span class="p">)</span>
             <span class="p">]</span>
             <span class="n">results</span> <span class="o">=</span> <span class="n">pool</span><span class="o">.</span><span class="n">starmap</span><span class="p">(</span><span class="n">__simulate_multi_round</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span>
@@ -184,7 +191,7 @@
         <span class="n">avg_activated</span> <span class="o">=</span> <span class="n">statistics</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="c1"># 单进程模式</span>
-        <span class="n">avg_activated</span> <span class="o">=</span> <span class="n">__simulate_multi_round</span><span class="p">(</span><span class="n">diffusion_model</span><span class="p">,</span> <span class="nb">round</span><span class="p">,</span> <span class="n">seed</span><span class="p">)</span>
+        <span class="n">avg_activated</span> <span class="o">=</span> <span class="n">__simulate_multi_round</span><span class="p">(</span><span class="n">diffusion_model</span><span class="p">,</span> <span class="n">rounds</span><span class="p">,</span> <span class="n">update_counts</span><span class="p">,</span> <span class="n">seed</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">avg_activated</span></div>
 </pre></div>

@@ -18,7 +18,7 @@ Functions
 Module Contents
 ---------------
 
-.. py:function:: set_edge_weight(graph: networkx.Graph | networkx.DiGraph, edge_weight_type: str, constant_weight: float = None)
+.. py:function:: set_edge_weight(graph: Union[networkx.Graph, networkx.DiGraph], edge_weight_type: str, constant_weight: float = None)
 
    根据指定的权重模型为图中的边设置权重值。
 
@@ -31,15 +31,15 @@ Module Contents
        ValueError: 当权重类型不支持或参数不符合要求时抛出
 
 
-.. py:function:: infection_threshold(G: Union[networkx.Graph, networkx.DiGraph])
+.. py:function:: infection_threshold(graph: Union[networkx.Graph, networkx.DiGraph])
 
-   计算基于图G的度分布的感染阈值。
+   计算基于图graph的度分布的感染阈值。
 
    参数:
-       G (networkx.Graph): 一个无向图或有向图（注意：此函数没有使用图的方向性）。
+       graph (Graph|DiGraph): 网络图对象，可以是有向图或无向图
 
    返回:
-       float: 感染阈值。
+       float: 感染阈值（是1.05倍的阈值）。
 
    说明:
        该函数首先计算图中所有节点的度之和（k），然后计算所有节点度的平方和（k2）。

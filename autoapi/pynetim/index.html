@@ -88,6 +88,8 @@
 <li class="toctree-l4"><a class="reference internal" href="#pynetim.IMGraph"><code class="docutils literal notranslate"><span class="pre">IMGraph</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#pynetim.IndependentCascadeModel"><code class="docutils literal notranslate"><span class="pre">IndependentCascadeModel</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#pynetim.LinearThresholdModel"><code class="docutils literal notranslate"><span class="pre">LinearThresholdModel</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pynetim.SusceptibleInfectedModel"><code class="docutils literal notranslate"><span class="pre">SusceptibleInfectedModel</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pynetim.SusceptibleInfectedRecoveredModel"><code class="docutils literal notranslate"><span class="pre">SusceptibleInfectedRecoveredModel</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -147,6 +149,12 @@
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="../../pynetim.html#pynetim.LinearThresholdModel" title="pynetim.LinearThresholdModel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LinearThresholdModel</span></code></a></p></td>
 <td><p>线性阈值模型（Linear Threshold Model）。</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../../pynetim.html#pynetim.SusceptibleInfectedModel" title="pynetim.SusceptibleInfectedModel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SusceptibleInfectedModel</span></code></a></p></td>
+<td><p>SI模型（Susceptible-Infected Model）。</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../../pynetim.html#pynetim.SusceptibleInfectedRecoveredModel" title="pynetim.SusceptibleInfectedRecoveredModel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SusceptibleInfectedRecoveredModel</span></code></a></p></td>
+<td><p>SIR模型（Susceptible-Infected-Recovered Model）。</p></td>
 </tr>
 </tbody>
 </table>
@@ -215,28 +223,28 @@
 </dd></dl>
 
 <dl class="py attribute">
+<dt class="sig sig-object py" id="pynetim.IMGraph.nx_graph">
+<span class="sig-name descname"><span class="pre">nx_graph</span></span><a class="headerlink" href="#pynetim.IMGraph.nx_graph" title="永久链接至目标"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
 <dt class="sig sig-object py" id="id0">
-<span class="sig-name descname"><span class="pre">graph</span></span><a class="headerlink" href="#id0" title="永久链接至目标"></a></dt>
+<span class="sig-name descname"><span class="pre">direction</span></span><a class="headerlink" href="#id0" title="永久链接至目标"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="id1">
-<span class="sig-name descname"><span class="pre">direction</span></span><a class="headerlink" href="#id1" title="永久链接至目标"></a></dt>
+<span class="sig-name descname"><span class="pre">number_of_nodes</span></span><a class="headerlink" href="#id1" title="永久链接至目标"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="id2">
-<span class="sig-name descname"><span class="pre">number_of_nodes</span></span><a class="headerlink" href="#id2" title="永久链接至目标"></a></dt>
+<span class="sig-name descname"><span class="pre">number_of_edges</span></span><a class="headerlink" href="#id2" title="永久链接至目标"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="id3">
-<span class="sig-name descname"><span class="pre">number_of_edges</span></span><a class="headerlink" href="#id3" title="永久链接至目标"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="id4">
-<span class="sig-name descname"><span class="pre">edge_weight_type</span></span><a class="headerlink" href="#id4" title="永久链接至目标"></a></dt>
+<span class="sig-name descname"><span class="pre">edge_weight_type</span></span><a class="headerlink" href="#id3" title="永久链接至目标"></a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
@@ -347,6 +355,20 @@
 </dl>
 </dd></dl>
 
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.IMGraph.degree">
+<span class="sig-name descname"><span class="pre">degree</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pynetim/graph/graph.html#IMGraph.degree"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#pynetim.IMGraph.degree" title="永久链接至目标"></a></dt>
+<dd><p>获取图的度。</p>
+<dl class="field-list simple">
+<dt class="field-odd">返回<span class="colon">:</span></dt>
+<dd class="field-odd"><p>图的度视图</p>
+</dd>
+<dt class="field-even">返回类型<span class="colon">:</span></dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="py class">
@@ -413,8 +435,8 @@
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="id5">
-<span class="sig-name descname"><span class="pre">activated_nodes</span></span><a class="headerlink" href="#id5" title="永久链接至目标"></a></dt>
+<dt class="sig sig-object py" id="id4">
+<span class="sig-name descname"><span class="pre">activated_nodes</span></span><a class="headerlink" href="#id4" title="永久链接至目标"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -456,12 +478,13 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pynetim.IndependentCascadeModel.run_monte_carlo_diffusion">
-<span class="sig-name descname"><span class="pre">run_monte_carlo_diffusion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">round</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">multi_process</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">processes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pynetim/diffusion_model/independent_cascade_model.html#IndependentCascadeModel.run_monte_carlo_diffusion"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#pynetim.IndependentCascadeModel.run_monte_carlo_diffusion" title="永久链接至目标"></a></dt>
+<span class="sig-name descname"><span class="pre">run_monte_carlo_diffusion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rounds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">update_counts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">multi_process</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">processes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pynetim/diffusion_model/independent_cascade_model.html#IndependentCascadeModel.run_monte_carlo_diffusion"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#pynetim.IndependentCascadeModel.run_monte_carlo_diffusion" title="永久链接至目标"></a></dt>
 <dd><p>执行蒙特卡洛模拟扩散过程。</p>
 <dl class="field-list simple">
 <dt class="field-odd">参数<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>round</strong> (<em>int</em>) – 总模拟轮数</p></li>
+<li><p><strong>rounds</strong> (<em>int</em>) – 总模拟轮数</p></li>
+<li><p><strong>update_counts</strong> (<em>int</em><em>, </em><em>optional</em>) – 更新轮次数，适用于SI模型等需要限制传播轮次的模型</p></li>
 <li><p><strong>multi_process</strong> (<em>bool</em>) – 是否启用多进程模式，默认为False</p></li>
 <li><p><strong>processes</strong> (<em>int</em><em>, </em><em>optional</em>) – 多进程模式下的进程数，为None时使用CPU核心数</p></li>
 <li><p><strong>seed</strong> (<em>int</em><em>, </em><em>optional</em>) – 模拟时的随机种子</p></li>
@@ -555,8 +578,8 @@
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="id6">
-<span class="sig-name descname"><span class="pre">activated_nodes</span></span><a class="headerlink" href="#id6" title="永久链接至目标"></a></dt>
+<dt class="sig sig-object py" id="id5">
+<span class="sig-name descname"><span class="pre">activated_nodes</span></span><a class="headerlink" href="#id5" title="永久链接至目标"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -598,12 +621,13 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pynetim.LinearThresholdModel.run_monte_carlo_diffusion">
-<span class="sig-name descname"><span class="pre">run_monte_carlo_diffusion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">round</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">multi_process</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">processes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pynetim/diffusion_model/linear_threshold_model.html#LinearThresholdModel.run_monte_carlo_diffusion"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#pynetim.LinearThresholdModel.run_monte_carlo_diffusion" title="永久链接至目标"></a></dt>
+<span class="sig-name descname"><span class="pre">run_monte_carlo_diffusion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rounds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">update_counts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">multi_process</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">processes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pynetim/diffusion_model/linear_threshold_model.html#LinearThresholdModel.run_monte_carlo_diffusion"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#pynetim.LinearThresholdModel.run_monte_carlo_diffusion" title="永久链接至目标"></a></dt>
 <dd><p>执行蒙特卡洛模拟扩散过程。</p>
 <dl class="field-list simple">
 <dt class="field-odd">参数<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>round</strong> (<em>int</em>) – 总模拟轮数</p></li>
+<li><p><strong>rounds</strong> (<em>int</em>) – 总模拟轮数</p></li>
+<li><p><strong>update_counts</strong> (<em>int</em><em>, </em><em>optional</em>) – 更新轮次数，适用于SI模型等需要限制传播轮次的模型</p></li>
 <li><p><strong>multi_process</strong> (<em>bool</em>) – 是否启用多进程模式，默认为False</p></li>
 <li><p><strong>processes</strong> (<em>int</em><em>, </em><em>optional</em>) – 多进程模式下的进程数，为None时使用CPU核心数</p></li>
 <li><p><strong>seed</strong> (<em>int</em><em>, </em><em>optional</em>) – 模拟时的随机种子</p></li>
@@ -627,6 +651,347 @@
 <dl class="field-list simple">
 <dt class="field-odd">参数<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>init_seeds</strong> (<em>list</em><em>, </em><em>optional</em>) – 新的初始种子节点集合，若为None则使用原有种子集</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pynetim.SusceptibleInfectedModel">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pynetim.</span></span><span class="sig-name descname"><span class="pre">SusceptibleInfectedModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../../pynetim.graph.html#pynetim.graph.IMGraph" title="pynetim.graph.IMGraph"><span class="pre">pynetim.graph.IMGraph</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">init_seeds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">record_states</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pynetim/diffusion_model/susceptible_infected_model.html#SusceptibleInfectedModel"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#pynetim.SusceptibleInfectedModel" title="永久链接至目标"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="../../pynetim.diffusion_model.html#pynetim.diffusion_model.base_diffusion_model.BaseDiffusionModel" title="pynetim.diffusion_model.base_diffusion_model.BaseDiffusionModel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pynetim.diffusion_model.base_diffusion_model.BaseDiffusionModel</span></code></a></p>
+<p>SI模型（Susceptible-Infected Model）。</p>
+<p>实现了经典的SI传播模型，该模型是一种简单的传染病传播模型，
+节点只有两种状态：易感(S)和感染(I)。一旦节点被感染，它将始终保持感染状态
+并持续尝试感染其邻居节点。</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pynetim.SusceptibleInfectedModel.infected_nodes">
+<span class="sig-name descname"><span class="pre">infected_nodes</span></span><a class="headerlink" href="#pynetim.SusceptibleInfectedModel.infected_nodes" title="永久链接至目标"></a></dt>
+<dd><p>所有已被感染的节点集合</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>set</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pynetim.SusceptibleInfectedModel.graph">
+<span class="sig-name descname"><span class="pre">graph</span></span><a class="headerlink" href="#pynetim.SusceptibleInfectedModel.graph" title="永久链接至目标"></a></dt>
+<dd><p>表示传播网络结构（继承自BaseDiffusionModel）</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../../pynetim.html#pynetim.IMGraph" title="pynetim.IMGraph">IMGraph</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pynetim.SusceptibleInfectedModel.init_seeds">
+<span class="sig-name descname"><span class="pre">init_seeds</span></span><a class="headerlink" href="#pynetim.SusceptibleInfectedModel.init_seeds" title="永久链接至目标"></a></dt>
+<dd><p>初始感染节点集（继承自BaseDiffusionModel）</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pynetim.SusceptibleInfectedModel.record_states">
+<span class="sig-name descname"><span class="pre">record_states</span></span><a class="headerlink" href="#pynetim.SusceptibleInfectedModel.record_states" title="永久链接至目标"></a></dt>
+<dd><p>指示是否记录传播过程中的状态变化（继承自BaseDiffusionModel）</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pynetim.SusceptibleInfectedModel.states">
+<span class="sig-name descname"><span class="pre">states</span></span><a class="headerlink" href="#pynetim.SusceptibleInfectedModel.states" title="永久链接至目标"></a></dt>
+<dd><p>当record_states为True时存储传播过程的状态历史（继承自BaseDiffusionModel）</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pynetim.SusceptibleInfectedModel.beta">
+<span class="sig-name descname"><span class="pre">beta</span></span><a class="headerlink" href="#pynetim.SusceptibleInfectedModel.beta" title="永久链接至目标"></a></dt>
+<dd><p>感染概率</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id6">
+<span class="sig-name descname"><span class="pre">infected_nodes</span></span><a class="headerlink" href="#id6" title="永久链接至目标"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.SusceptibleInfectedModel.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pynetim/diffusion_model/susceptible_infected_model.html#SusceptibleInfectedModel.update"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#pynetim.SusceptibleInfectedModel.update" title="永久链接至目标"></a></dt>
+<dd><p>执行一次传播更新。</p>
+<p>在当前轮次中，所有已感染的节点尝试感染它们的易感邻居节点。
+成功感染的节点将在后续所有轮次中继续传播。</p>
+<dl class="field-list simple">
+<dt class="field-odd">返回<span class="colon">:</span></dt>
+<dd class="field-odd"><p>本轮新感染的节点集合</p>
+</dd>
+<dt class="field-even">返回类型<span class="colon">:</span></dt>
+<dd class="field-even"><p>set</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.SusceptibleInfectedModel.diffusion">
+<span class="sig-name descname"><span class="pre">diffusion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">update_counts</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pynetim/diffusion_model/susceptible_infected_model.html#SusceptibleInfectedModel.diffusion"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#pynetim.SusceptibleInfectedModel.diffusion" title="永久链接至目标"></a></dt>
+<dd><p>执行完整的扩散过程。</p>
+<p>进行指定轮次的传播更新，直到达到最大轮次或没有新的节点被感染。</p>
+<dl class="field-list simple">
+<dt class="field-odd">参数<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>update_counts</strong> (<em>int</em>) – 最大更新轮次数。</p>
+</dd>
+<dt class="field-even">返回<span class="colon">:</span></dt>
+<dd class="field-even"><p>最终所有被感染的节点集合</p>
+</dd>
+<dt class="field-odd">返回类型<span class="colon">:</span></dt>
+<dd class="field-odd"><p>set</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.SusceptibleInfectedModel.run_monte_carlo_diffusion">
+<span class="sig-name descname"><span class="pre">run_monte_carlo_diffusion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rounds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">update_counts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">multi_process</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">processes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pynetim/diffusion_model/susceptible_infected_model.html#SusceptibleInfectedModel.run_monte_carlo_diffusion"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#pynetim.SusceptibleInfectedModel.run_monte_carlo_diffusion" title="永久链接至目标"></a></dt>
+<dd><p>执行蒙特卡洛模拟扩散过程。</p>
+<dl class="field-list simple">
+<dt class="field-odd">参数<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>rounds</strong> (<em>int</em>) – 总模拟轮数</p></li>
+<li><p><strong>update_counts</strong> (<em>int</em>) – 更新轮次数，适用于SI模型等需要限制传播轮次的模型</p></li>
+<li><p><strong>multi_process</strong> (<em>bool</em>) – 是否启用多进程模式，默认为False</p></li>
+<li><p><strong>processes</strong> (<em>int</em><em>, </em><em>optional</em>) – 多进程模式下的进程数，为None时使用CPU核心数</p></li>
+<li><p><strong>seed</strong> (<em>int</em><em>, </em><em>optional</em>) – 模拟时的随机种子</p></li>
+</ul>
+</dd>
+<dt class="field-even">返回<span class="colon">:</span></dt>
+<dd class="field-even"><p>所有模拟轮次的平均激活节点数</p>
+</dd>
+<dt class="field-odd">返回类型<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.SusceptibleInfectedModel.reset">
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">init_seeds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pynetim/diffusion_model/susceptible_infected_model.html#SusceptibleInfectedModel.reset"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#pynetim.SusceptibleInfectedModel.reset" title="永久链接至目标"></a></dt>
+<dd><p>重置模型状态。</p>
+<p>将模型恢复到初始状态，如果启用状态记录则清空已记录的状态历史，
+并重新设置初始感染节点状态。</p>
+<dl class="field-list simple">
+<dt class="field-odd">参数<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>init_seeds</strong> (<em>list</em><em>, </em><em>optional</em>) – 新的初始感染节点集合，若为None则使用原有种子集</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pynetim.SusceptibleInfectedRecoveredModel">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pynetim.</span></span><span class="sig-name descname"><span class="pre">SusceptibleInfectedRecoveredModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../../pynetim.graph.html#pynetim.graph.IMGraph" title="pynetim.graph.IMGraph"><span class="pre">pynetim.graph.IMGraph</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">init_seeds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gamma</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">record_states</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pynetim/diffusion_model/susceptible_infected_recovered_model.html#SusceptibleInfectedRecoveredModel"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#pynetim.SusceptibleInfectedRecoveredModel" title="永久链接至目标"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="../../pynetim.diffusion_model.html#pynetim.diffusion_model.base_diffusion_model.BaseDiffusionModel" title="pynetim.diffusion_model.base_diffusion_model.BaseDiffusionModel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pynetim.diffusion_model.base_diffusion_model.BaseDiffusionModel</span></code></a></p>
+<p>SIR模型（Susceptible-Infected-Recovered Model）。</p>
+<p>实现了经典的SIR传播模型，该模型是一种传染病传播模型，
+节点有三种状态：易感(S)、感染(I)和康复(R)。
+易感节点可被感染节点感染，感染节点可以康复为免疫状态。</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pynetim.SusceptibleInfectedRecoveredModel.infected_nodes">
+<span class="sig-name descname"><span class="pre">infected_nodes</span></span><a class="headerlink" href="#pynetim.SusceptibleInfectedRecoveredModel.infected_nodes" title="永久链接至目标"></a></dt>
+<dd><p>所有已被感染的节点集合</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>set</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pynetim.SusceptibleInfectedRecoveredModel.recovered_nodes">
+<span class="sig-name descname"><span class="pre">recovered_nodes</span></span><a class="headerlink" href="#pynetim.SusceptibleInfectedRecoveredModel.recovered_nodes" title="永久链接至目标"></a></dt>
+<dd><p>所有已康复的节点集合</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>set</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pynetim.SusceptibleInfectedRecoveredModel.graph">
+<span class="sig-name descname"><span class="pre">graph</span></span><a class="headerlink" href="#pynetim.SusceptibleInfectedRecoveredModel.graph" title="永久链接至目标"></a></dt>
+<dd><p>表示传播网络结构（继承自BaseDiffusionModel）</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../../pynetim.html#pynetim.IMGraph" title="pynetim.IMGraph">IMGraph</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pynetim.SusceptibleInfectedRecoveredModel.init_seeds">
+<span class="sig-name descname"><span class="pre">init_seeds</span></span><a class="headerlink" href="#pynetim.SusceptibleInfectedRecoveredModel.init_seeds" title="永久链接至目标"></a></dt>
+<dd><p>初始感染节点集（继承自BaseDiffusionModel）</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pynetim.SusceptibleInfectedRecoveredModel.record_states">
+<span class="sig-name descname"><span class="pre">record_states</span></span><a class="headerlink" href="#pynetim.SusceptibleInfectedRecoveredModel.record_states" title="永久链接至目标"></a></dt>
+<dd><p>指示是否记录传播过程中的状态变化（继承自BaseDiffusionModel）</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pynetim.SusceptibleInfectedRecoveredModel.states">
+<span class="sig-name descname"><span class="pre">states</span></span><a class="headerlink" href="#pynetim.SusceptibleInfectedRecoveredModel.states" title="永久链接至目标"></a></dt>
+<dd><p>当record_states为True时存储传播过程的状态历史（继承自BaseDiffusionModel）</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pynetim.SusceptibleInfectedRecoveredModel.gamma">
+<span class="sig-name descname"><span class="pre">gamma</span></span><a class="headerlink" href="#pynetim.SusceptibleInfectedRecoveredModel.gamma" title="永久链接至目标"></a></dt>
+<dd><p>康复率</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pynetim.SusceptibleInfectedRecoveredModel.beta">
+<span class="sig-name descname"><span class="pre">beta</span></span><a class="headerlink" href="#pynetim.SusceptibleInfectedRecoveredModel.beta" title="永久链接至目标"></a></dt>
+<dd><p>感染率</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id7">
+<span class="sig-name descname"><span class="pre">infected_nodes</span></span><a class="headerlink" href="#id7" title="永久链接至目标"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id8">
+<span class="sig-name descname"><span class="pre">recovered_nodes</span></span><a class="headerlink" href="#id8" title="永久链接至目标"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id9">
+<span class="sig-name descname"><span class="pre">gamma</span></span><a class="headerlink" href="#id9" title="永久链接至目标"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.SusceptibleInfectedRecoveredModel.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pynetim/diffusion_model/susceptible_infected_recovered_model.html#SusceptibleInfectedRecoveredModel.update"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#pynetim.SusceptibleInfectedRecoveredModel.update" title="永久链接至目标"></a></dt>
+<dd><p>执行一次传播更新。</p>
+<p>在当前轮次中，先处理感染节点的康复，然后已感染的节点尝试感染它们的易感邻居节点。</p>
+<dl class="field-list simple">
+<dt class="field-odd">返回<span class="colon">:</span></dt>
+<dd class="field-odd"><p>本轮新感染的节点集合</p>
+</dd>
+<dt class="field-even">返回类型<span class="colon">:</span></dt>
+<dd class="field-even"><p>set</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.SusceptibleInfectedRecoveredModel.diffusion">
+<span class="sig-name descname"><span class="pre">diffusion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">update_counts</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pynetim/diffusion_model/susceptible_infected_recovered_model.html#SusceptibleInfectedRecoveredModel.diffusion"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#pynetim.SusceptibleInfectedRecoveredModel.diffusion" title="永久链接至目标"></a></dt>
+<dd><p>执行完整的扩散过程。</p>
+<p>进行指定轮次的传播更新，直到达到最大轮次或没有新的节点被感染。</p>
+<dl class="field-list simple">
+<dt class="field-odd">参数<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>update_counts</strong> (<em>int</em><em>, </em><em>optional</em>) – 最大更新轮次数。如果为None则持续传播直到无新节点感染</p>
+</dd>
+<dt class="field-even">返回<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>包含最终各状态节点集合的字典</dt><dd><ul class="simple">
+<li><p>’infected’: 最终被感染的节点集合</p></li>
+<li><p>’recovered’: 最终已康复的节点集合</p></li>
+<li><p>’susceptible’: 最终仍处于易感状态的节点集合</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">返回类型<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.SusceptibleInfectedRecoveredModel.run_monte_carlo_diffusion">
+<span class="sig-name descname"><span class="pre">run_monte_carlo_diffusion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rounds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">update_counts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">multi_process</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">processes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pynetim/diffusion_model/susceptible_infected_recovered_model.html#SusceptibleInfectedRecoveredModel.run_monte_carlo_diffusion"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#pynetim.SusceptibleInfectedRecoveredModel.run_monte_carlo_diffusion" title="永久链接至目标"></a></dt>
+<dd><p>执行蒙特卡洛模拟扩散过程。</p>
+<dl class="field-list simple">
+<dt class="field-odd">参数<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>rounds</strong> (<em>int</em>) – 总模拟轮数</p></li>
+<li><p><strong>update_counts</strong> (<em>int</em><em>, </em><em>optional</em>) – 更新轮次数，适用于SI模型等需要限制传播轮次的模型</p></li>
+<li><p><strong>multi_process</strong> (<em>bool</em>) – 是否启用多进程模式，默认为False</p></li>
+<li><p><strong>processes</strong> (<em>int</em><em>, </em><em>optional</em>) – 多进程模式下的进程数，为None时使用CPU核心数</p></li>
+<li><p><strong>seed</strong> (<em>int</em><em>, </em><em>optional</em>) – 模拟时的随机种子</p></li>
+</ul>
+</dd>
+<dt class="field-even">返回<span class="colon">:</span></dt>
+<dd class="field-even"><p>所有模拟轮次的平均激活节点数</p>
+</dd>
+<dt class="field-odd">返回类型<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.SusceptibleInfectedRecoveredModel.reset">
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">init_seeds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pynetim/diffusion_model/susceptible_infected_recovered_model.html#SusceptibleInfectedRecoveredModel.reset"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#pynetim.SusceptibleInfectedRecoveredModel.reset" title="永久链接至目标"></a></dt>
+<dd><p>重置模型状态。</p>
+<p>将模型恢复到初始状态，如果启用状态记录则清空已记录的状态历史，
+并重新设置初始感染节点状态。</p>
+<dl class="field-list simple">
+<dt class="field-odd">参数<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>init_seeds</strong> (<em>list</em><em>, </em><em>optional</em>) – 新的初始感染节点集合，若为None则使用原有种子集</p>
 </dd>
 </dl>
 </dd></dl>

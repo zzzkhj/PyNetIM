@@ -15,14 +15,16 @@ Functions
 Module Contents
 ---------------
 
-.. py:function:: run_monte_carlo_diffusion(diffusion_model: pynetim.diffusion_model.base_diffusion_model.BaseDiffusionModel, round: int, multi_process: bool = False, processes: int = None, seed: int = None)
+.. py:function:: run_monte_carlo_diffusion(diffusion_model: pynetim.diffusion_model.base_diffusion_model.BaseDiffusionModel, rounds: int, update_counts: int = None, multi_process: bool = False, processes: int = None, seed: int = None)
 
-   执行蒙特卡洛模拟扩散过程，支持单进程和多进程模式，并可输出所用时间。
+   执行蒙特卡洛模拟扩散过程，支持单进程和多进程模式。
 
    :param diffusion_model: 扩散模型实例
    :type diffusion_model: BaseDiffusionModel
-   :param round: 总模拟轮数
-   :type round: int
+   :param rounds: 总模拟轮数
+   :type rounds: int
+   :param update_counts: 更新轮次数，适用于SI等模型
+   :type update_counts: int, optional
    :param multi_process: 是否启用多进程模式，默认为False
    :type multi_process: bool, optional
    :param processes: 多进程模式下的进程数，为None时使用CPU核心数

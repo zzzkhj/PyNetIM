@@ -89,12 +89,14 @@ Module Contents
 
 
 
-   .. py:method:: run_monte_carlo_diffusion(round: int, multi_process: bool = False, processes: int = None, seed: int = None)
+   .. py:method:: run_monte_carlo_diffusion(rounds: int, update_counts: int = None, multi_process: bool = False, processes: int = None, seed: int = None)
 
       执行蒙特卡洛模拟扩散过程。
 
-      :param round: 总模拟轮数
-      :type round: int
+      :param rounds: 总模拟轮数
+      :type rounds: int
+      :param update_counts: 更新轮次数，适用于SI模型等需要限制传播轮次的模型
+      :type update_counts: int, optional
       :param multi_process: 是否启用多进程模式，默认为False
       :type multi_process: bool
       :param processes: 多进程模式下的进程数，为None时使用CPU核心数

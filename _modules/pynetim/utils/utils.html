@@ -85,6 +85,8 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../autoapi/pynetim/index.html#pynetim.IMGraph"><code class="docutils literal notranslate"><span class="pre">IMGraph</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../autoapi/pynetim/index.html#pynetim.IndependentCascadeModel"><code class="docutils literal notranslate"><span class="pre">IndependentCascadeModel</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../autoapi/pynetim/index.html#pynetim.LinearThresholdModel"><code class="docutils literal notranslate"><span class="pre">LinearThresholdModel</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../autoapi/pynetim/index.html#pynetim.SusceptibleInfectedModel"><code class="docutils literal notranslate"><span class="pre">SusceptibleInfectedModel</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../autoapi/pynetim/index.html#pynetim.SusceptibleInfectedRecoveredModel"><code class="docutils literal notranslate"><span class="pre">SusceptibleInfectedRecoveredModel</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -118,15 +120,13 @@
            <div itemprop="articleBody">
              
   <h1>pynetim.utils.utils 源代码</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
-
-<span class="kn">import</span> <span class="nn">random</span>
+<span></span><span class="kn">import</span> <span class="nn">random</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span>
 
 <span class="kn">from</span> <span class="nn">networkx</span> <span class="kn">import</span> <span class="n">Graph</span><span class="p">,</span> <span class="n">DiGraph</span>
 
 
-<div class="viewcode-block" id="set_edge_weight"><a class="viewcode-back" href="../../../pynetim.utils.html#pynetim.utils.set_edge_weight">[文档]</a><span class="k">def</span> <span class="nf">set_edge_weight</span><span class="p">(</span><span class="n">graph</span><span class="p">:</span> <span class="n">Graph</span> <span class="o">|</span> <span class="n">DiGraph</span><span class="p">,</span> <span class="n">edge_weight_type</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">constant_weight</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="set_edge_weight"><a class="viewcode-back" href="../../../pynetim.utils.html#pynetim.utils.set_edge_weight">[文档]</a><span class="k">def</span> <span class="nf">set_edge_weight</span><span class="p">(</span><span class="n">graph</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Graph</span><span class="p">,</span> <span class="n">DiGraph</span><span class="p">],</span> <span class="n">edge_weight_type</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">constant_weight</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    根据指定的权重模型为图中的边设置权重值。</span>
 
@@ -165,16 +165,15 @@
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;不支持的边权重模型&#39;</span><span class="p">)</span></div>
 
 
-
-<div class="viewcode-block" id="infection_threshold"><a class="viewcode-back" href="../../../pynetim.utils.html#pynetim.utils.infection_threshold">[文档]</a><span class="k">def</span> <span class="nf">infection_threshold</span><span class="p">(</span><span class="n">G</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Graph</span><span class="p">,</span> <span class="n">DiGraph</span><span class="p">]):</span>
+<div class="viewcode-block" id="infection_threshold"><a class="viewcode-back" href="../../../pynetim.utils.html#pynetim.utils.infection_threshold">[文档]</a><span class="k">def</span> <span class="nf">infection_threshold</span><span class="p">(</span><span class="n">graph</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Graph</span><span class="p">,</span> <span class="n">DiGraph</span><span class="p">]):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    计算基于图G的度分布的感染阈值。</span>
+<span class="sd">    计算基于图graph的度分布的感染阈值。</span>
 
 <span class="sd">    参数:</span>
-<span class="sd">        G (networkx.Graph): 一个无向图或有向图（注意：此函数没有使用图的方向性）。</span>
+<span class="sd">        graph (Graph|DiGraph): 网络图对象，可以是有向图或无向图</span>
 
 <span class="sd">    返回:</span>
-<span class="sd">        float: 感染阈值。</span>
+<span class="sd">        float: 感染阈值（是1.05倍的阈值）。</span>
 
 <span class="sd">    说明:</span>
 <span class="sd">        该函数首先计算图中所有节点的度之和（k），然后计算所有节点度的平方和（k2）。</span>
@@ -182,16 +181,15 @@
 <span class="sd">        这个阈值在某些流行病学模型（如SIR模型）中用于预测疾病传播的临界条件。</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># 计算图中所有节点的度之和</span>
-    <span class="n">k</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">G</span><span class="o">.</span><span class="n">degree</span><span class="p">())</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+    <span class="n">k</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">graph</span><span class="o">.</span><span class="n">degree</span><span class="p">())</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
 
     <span class="c1"># 计算图中所有节点度的平方和</span>
     <span class="c1"># 使用map函数和lambda表达式将每个度值平方，然后求和</span>
-    <span class="n">k2</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">**</span> <span class="mi">2</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">G</span><span class="o">.</span><span class="n">degree</span><span class="p">())</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span>
+    <span class="n">k2</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">**</span> <span class="mi">2</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">graph</span><span class="o">.</span><span class="n">degree</span><span class="p">())</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span>
 
     <span class="c1"># 计算并返回感染阈值</span>
-    <span class="c1"># 注意：这里的公式假设了节点之间的连接是随机的，并且没有考虑图的方向性（如果G是有向图）。</span>
-    <span class="c1"># 在实际应用中，感染阈值的计算可能更加复杂，并且需要考虑更多的因素。</span>
-    <span class="k">return</span> <span class="n">k</span> <span class="o">/</span> <span class="p">(</span><span class="n">k2</span> <span class="o">-</span> <span class="n">k</span><span class="p">)</span></div>
+    <span class="n">beta</span> <span class="o">=</span> <span class="n">k</span> <span class="o">/</span> <span class="p">(</span><span class="n">k2</span> <span class="o">-</span> <span class="n">k</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">beta</span> <span class="o">+</span> <span class="mf">0.05</span> <span class="o">*</span> <span class="n">beta</span></div>
 
 
 <div class="viewcode-block" id="topk"><a class="viewcode-back" href="../../../pynetim.utils.html#pynetim.utils.topk">[文档]</a><span class="k">def</span> <span class="nf">topk</span><span class="p">(</span><span class="n">res_dict</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">largest</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>

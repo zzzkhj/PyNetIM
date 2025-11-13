@@ -23,7 +23,7 @@
     <script src="../../../../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../../../../genindex.html" />
     <link rel="search" title="搜索" href="../../../../search.html" />
-    <link rel="next" title="pynetim.graph" href="../../graph/index.html" />
+    <link rel="next" title="pynetim.diffusion_model.susceptible_infected_model" href="../susceptible_infected_model/index.html" />
     <link rel="prev" title="pynetim.diffusion_model.linear_threshold_model" href="../linear_threshold_model/index.html" /> 
 </head>
 
@@ -88,6 +88,8 @@
 <li class="toctree-l4"><a class="reference internal" href="../../index.html#pynetim.IMGraph"><code class="docutils literal notranslate"><span class="pre">IMGraph</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../index.html#pynetim.IndependentCascadeModel"><code class="docutils literal notranslate"><span class="pre">IndependentCascadeModel</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../index.html#pynetim.LinearThresholdModel"><code class="docutils literal notranslate"><span class="pre">LinearThresholdModel</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../index.html#pynetim.SusceptibleInfectedModel"><code class="docutils literal notranslate"><span class="pre">SusceptibleInfectedModel</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../index.html#pynetim.SusceptibleInfectedRecoveredModel"><code class="docutils literal notranslate"><span class="pre">SusceptibleInfectedRecoveredModel</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -129,8 +131,8 @@
 <h2>Functions<a class="headerlink" href="#functions" title="此标题的永久链接"></a></h2>
 <table class="autosummary longtable docutils align-default">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="../../../../pynetim.diffusion_model.html#pynetim.diffusion_model.run_monte_carlo_diffusion.run_monte_carlo_diffusion" title="pynetim.diffusion_model.run_monte_carlo_diffusion.run_monte_carlo_diffusion"><code class="xref py py-obj docutils literal notranslate"><span class="pre">run_monte_carlo_diffusion</span></code></a>(diffusion_model, round[, ...])</p></td>
-<td><p>执行蒙特卡洛模拟扩散过程，支持单进程和多进程模式，并可输出所用时间。</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="../../../../pynetim.diffusion_model.html#pynetim.diffusion_model.run_monte_carlo_diffusion.run_monte_carlo_diffusion" title="pynetim.diffusion_model.run_monte_carlo_diffusion.run_monte_carlo_diffusion"><code class="xref py py-obj docutils literal notranslate"><span class="pre">run_monte_carlo_diffusion</span></code></a>(diffusion_model, rounds[, ...])</p></td>
+<td><p>执行蒙特卡洛模拟扩散过程，支持单进程和多进程模式。</p></td>
 </tr>
 </tbody>
 </table>
@@ -139,13 +141,14 @@
 <h2>Module Contents<a class="headerlink" href="#module-contents" title="此标题的永久链接"></a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="pynetim.diffusion_model.run_monte_carlo_diffusion.run_monte_carlo_diffusion">
-<span class="sig-prename descclassname"><span class="pre">pynetim.diffusion_model.run_monte_carlo_diffusion.</span></span><span class="sig-name descname"><span class="pre">run_monte_carlo_diffusion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">diffusion_model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../../../../pynetim.diffusion_model.html#pynetim.diffusion_model.base_diffusion_model.BaseDiffusionModel" title="pynetim.diffusion_model.base_diffusion_model.BaseDiffusionModel"><span class="pre">pynetim.diffusion_model.base_diffusion_model.BaseDiffusionModel</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">round</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">multi_process</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">processes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/pynetim/diffusion_model/run_monte_carlo_diffusion.html#run_monte_carlo_diffusion"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#pynetim.diffusion_model.run_monte_carlo_diffusion.run_monte_carlo_diffusion" title="永久链接至目标"></a></dt>
-<dd><p>执行蒙特卡洛模拟扩散过程，支持单进程和多进程模式，并可输出所用时间。</p>
+<span class="sig-prename descclassname"><span class="pre">pynetim.diffusion_model.run_monte_carlo_diffusion.</span></span><span class="sig-name descname"><span class="pre">run_monte_carlo_diffusion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">diffusion_model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../../../../pynetim.diffusion_model.html#pynetim.diffusion_model.base_diffusion_model.BaseDiffusionModel" title="pynetim.diffusion_model.base_diffusion_model.BaseDiffusionModel"><span class="pre">pynetim.diffusion_model.base_diffusion_model.BaseDiffusionModel</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">rounds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">update_counts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">multi_process</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">processes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/pynetim/diffusion_model/run_monte_carlo_diffusion.html#run_monte_carlo_diffusion"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#pynetim.diffusion_model.run_monte_carlo_diffusion.run_monte_carlo_diffusion" title="永久链接至目标"></a></dt>
+<dd><p>执行蒙特卡洛模拟扩散过程，支持单进程和多进程模式。</p>
 <dl class="field-list simple">
 <dt class="field-odd">参数<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>diffusion_model</strong> (<a class="reference internal" href="../../../../pynetim.diffusion_model.html#pynetim.diffusion_model.base_diffusion_model.BaseDiffusionModel" title="pynetim.diffusion_model.base_diffusion_model.BaseDiffusionModel"><em>BaseDiffusionModel</em></a>) – 扩散模型实例</p></li>
-<li><p><strong>round</strong> (<em>int</em>) – 总模拟轮数</p></li>
+<li><p><strong>rounds</strong> (<em>int</em>) – 总模拟轮数</p></li>
+<li><p><strong>update_counts</strong> (<em>int</em><em>, </em><em>optional</em>) – 更新轮次数，适用于SI等模型</p></li>
 <li><p><strong>multi_process</strong> (<em>bool</em><em>, </em><em>optional</em>) – 是否启用多进程模式，默认为False</p></li>
 <li><p><strong>processes</strong> (<em>int</em><em>, </em><em>optional</em>) – 多进程模式下的进程数，为None时使用CPU核心数</p></li>
 <li><p><strong>seed</strong> (<em>int</em><em>, </em><em>optional</em>) – 随机种子的基础值，默认为None</p></li>
@@ -168,7 +171,7 @@
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
         <a href="../linear_threshold_model/index.html" class="btn btn-neutral float-left" title="pynetim.diffusion_model.linear_threshold_model" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
-        <a href="../../graph/index.html" class="btn btn-neutral float-right" title="pynetim.graph" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../susceptible_infected_model/index.html" class="btn btn-neutral float-right" title="pynetim.diffusion_model.susceptible_infected_model" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

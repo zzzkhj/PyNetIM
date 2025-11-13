@@ -88,6 +88,8 @@
 <li class="toctree-l4"><a class="reference internal" href="../index.html#pynetim.IMGraph"><code class="docutils literal notranslate"><span class="pre">IMGraph</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../index.html#pynetim.IndependentCascadeModel"><code class="docutils literal notranslate"><span class="pre">IndependentCascadeModel</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../index.html#pynetim.LinearThresholdModel"><code class="docutils literal notranslate"><span class="pre">LinearThresholdModel</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../index.html#pynetim.SusceptibleInfectedModel"><code class="docutils literal notranslate"><span class="pre">SusceptibleInfectedModel</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../index.html#pynetim.SusceptibleInfectedRecoveredModel"><code class="docutils literal notranslate"><span class="pre">SusceptibleInfectedRecoveredModel</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -139,6 +141,9 @@
 <tr class="row-odd"><td><p><a class="reference internal" href="../../../pynetim.utils.html#pynetim.utils.set_edge_weight" title="pynetim.utils.set_edge_weight"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_edge_weight</span></code></a>(graph, edge_weight_type[, constant_weight])</p></td>
 <td><p>根据指定的权重模型为图中的边设置权重值。</p></td>
 </tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../../../pynetim.utils.html#pynetim.utils.infection_threshold" title="pynetim.utils.infection_threshold"><code class="xref py py-obj docutils literal notranslate"><span class="pre">infection_threshold</span></code></a>(graph)</p></td>
+<td><p>计算基于图graph的度分布的感染阈值。</p></td>
+</tr>
 </tbody>
 </table>
 </section>
@@ -154,6 +159,22 @@ edge_weight_type (str): 边权重类型，支持 ‘CONSTANT’、’TV’、’
 constant_weight (float, optional): 当使用常量权重模式时，指定的权重值</p>
 </dd>
 <dt>异常:</dt><dd><p>ValueError: 当权重类型不支持或参数不符合要求时抛出</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pynetim.utils.infection_threshold">
+<span class="sig-prename descclassname"><span class="pre">pynetim.utils.</span></span><span class="sig-name descname"><span class="pre">infection_threshold</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">networkx.Graph</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">networkx.DiGraph</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/pynetim/utils/utils.html#infection_threshold"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#pynetim.utils.infection_threshold" title="永久链接至目标"></a></dt>
+<dd><p>计算基于图graph的度分布的感染阈值。</p>
+<dl class="simple">
+<dt>参数:</dt><dd><p>graph (Graph|DiGraph): 网络图对象，可以是有向图或无向图</p>
+</dd>
+<dt>返回:</dt><dd><p>float: 感染阈值（是1.05倍的阈值）。</p>
+</dd>
+<dt>说明:</dt><dd><p>该函数首先计算图中所有节点的度之和（k），然后计算所有节点度的平方和（k2）。
+感染阈值计算公式为 k / (k2 - k)，其中k2是度的平方和，k是度的总和。
+这个阈值在某些流行病学模型（如SIR模型）中用于预测疾病传播的临界条件。</p>
 </dd>
 </dl>
 </dd></dl>

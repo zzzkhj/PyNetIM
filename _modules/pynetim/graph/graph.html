@@ -85,6 +85,8 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../autoapi/pynetim/index.html#pynetim.IMGraph"><code class="docutils literal notranslate"><span class="pre">IMGraph</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../autoapi/pynetim/index.html#pynetim.IndependentCascadeModel"><code class="docutils literal notranslate"><span class="pre">IndependentCascadeModel</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../autoapi/pynetim/index.html#pynetim.LinearThresholdModel"><code class="docutils literal notranslate"><span class="pre">LinearThresholdModel</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../autoapi/pynetim/index.html#pynetim.SusceptibleInfectedModel"><code class="docutils literal notranslate"><span class="pre">SusceptibleInfectedModel</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../autoapi/pynetim/index.html#pynetim.SusceptibleInfectedRecoveredModel"><code class="docutils literal notranslate"><span class="pre">SusceptibleInfectedRecoveredModel</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -149,13 +151,13 @@
 <span class="sd">            edge_weight_type (str): 边权重类型，支持&#39; CONSTANT &#39;、&#39; TV &#39;、&#39; WC &#39;等模式</span>
 <span class="sd">            constant_weight (float, optional): 当使用常量权重模式时的权重值</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-<div class="viewcode-block" id="IMGraph.graph"><a class="viewcode-back" href="../../../pynetim.graph.html#pynetim.graph.graph.IMGraph.graph">[文档]</a>        <span class="bp">self</span><span class="o">.</span><span class="n">graph</span> <span class="o">=</span> <span class="n">graph</span></div>
+<div class="viewcode-block" id="IMGraph.nx_graph"><a class="viewcode-back" href="../../../autoapi/pynetim/graph/graph/index.html#pynetim.graph.graph.IMGraph.nx_graph">[文档]</a>        <span class="bp">self</span><span class="o">.</span><span class="n">nx_graph</span> <span class="o">=</span> <span class="n">graph</span></div>
 <div class="viewcode-block" id="IMGraph.direction"><a class="viewcode-back" href="../../../pynetim.graph.html#pynetim.graph.graph.IMGraph.direction">[文档]</a>        <span class="bp">self</span><span class="o">.</span><span class="n">direction</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="n">is_directed</span><span class="p">()</span></div>
 <div class="viewcode-block" id="IMGraph.number_of_nodes"><a class="viewcode-back" href="../../../pynetim.graph.html#pynetim.graph.graph.IMGraph.number_of_nodes">[文档]</a>        <span class="bp">self</span><span class="o">.</span><span class="n">number_of_nodes</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="n">number_of_nodes</span><span class="p">()</span></div>
 <div class="viewcode-block" id="IMGraph.number_of_edges"><a class="viewcode-back" href="../../../pynetim.graph.html#pynetim.graph.graph.IMGraph.number_of_edges">[文档]</a>        <span class="bp">self</span><span class="o">.</span><span class="n">number_of_edges</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="n">number_of_edges</span><span class="p">()</span></div>
 <div class="viewcode-block" id="IMGraph.edge_weight_type"><a class="viewcode-back" href="../../../pynetim.graph.html#pynetim.graph.graph.IMGraph.edge_weight_type">[文档]</a>        <span class="bp">self</span><span class="o">.</span><span class="n">edge_weight_type</span> <span class="o">=</span> <span class="n">edge_weight_type</span></div>
 
-        <span class="n">set_edge_weight</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="p">,</span> <span class="n">edge_weight_type</span><span class="p">,</span> <span class="n">constant_weight</span><span class="p">)</span></div>
+        <span class="n">set_edge_weight</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nx_graph</span><span class="p">,</span> <span class="n">edge_weight_type</span><span class="p">,</span> <span class="n">constant_weight</span><span class="p">)</span></div>
 
     <span class="nd">@property</span>
 <div class="viewcode-block" id="IMGraph.nodes"><a class="viewcode-back" href="../../../pynetim.graph.html#pynetim.graph.graph.IMGraph.nodes">[文档]</a>    <span class="k">def</span> <span class="nf">nodes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -165,7 +167,7 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            NodeView: 图中所有节点的视图</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">nodes</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">nx_graph</span><span class="o">.</span><span class="n">nodes</span></div>
 
     <span class="nd">@property</span>
 <div class="viewcode-block" id="IMGraph.edges"><a class="viewcode-back" href="../../../pynetim.graph.html#pynetim.graph.graph.IMGraph.edges">[文档]</a>    <span class="k">def</span> <span class="nf">edges</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -175,7 +177,7 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            EdgeView: 图中所有边的视图</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">edges</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">nx_graph</span><span class="o">.</span><span class="n">edges</span></div>
 
 <div class="viewcode-block" id="IMGraph.neighbors"><a class="viewcode-back" href="../../../pynetim.graph.html#pynetim.graph.graph.IMGraph.neighbors">[文档]</a>    <span class="k">def</span> <span class="nf">neighbors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -187,7 +189,7 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            iterator: 指定节点的所有邻居节点迭代器</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">neighbors</span><span class="p">(</span><span class="n">node</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">nx_graph</span><span class="o">.</span><span class="n">neighbors</span><span class="p">(</span><span class="n">node</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="IMGraph.in_neighbors"><a class="viewcode-back" href="../../../pynetim.graph.html#pynetim.graph.graph.IMGraph.in_neighbors">[文档]</a>    <span class="k">def</span> <span class="nf">in_neighbors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -201,7 +203,7 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            iterator: 指定节点的入邻居节点迭代器</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">predecessors</span><span class="p">(</span><span class="n">node</span><span class="p">)</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">direction</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">neighbors</span><span class="p">(</span><span class="n">node</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">nx_graph</span><span class="o">.</span><span class="n">predecessors</span><span class="p">(</span><span class="n">node</span><span class="p">)</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">direction</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">nx_graph</span><span class="o">.</span><span class="n">neighbors</span><span class="p">(</span><span class="n">node</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="IMGraph.out_neighbors"><a class="viewcode-back" href="../../../pynetim.graph.html#pynetim.graph.graph.IMGraph.out_neighbors">[文档]</a>    <span class="k">def</span> <span class="nf">out_neighbors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -213,7 +215,7 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            iterator: 指定节点的出邻居节点迭代器</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">neighbors</span><span class="p">(</span><span class="n">node</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">nx_graph</span><span class="o">.</span><span class="n">neighbors</span><span class="p">(</span><span class="n">node</span><span class="p">)</span></div>
 
     <span class="nd">@property</span>
 <div class="viewcode-block" id="IMGraph.in_degree"><a class="viewcode-back" href="../../../pynetim.graph.html#pynetim.graph.graph.IMGraph.in_degree">[文档]</a>    <span class="k">def</span> <span class="nf">in_degree</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -223,7 +225,7 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            int: 图的入度视图</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">in_degree</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">direction</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">degree</span><span class="p">()</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">nx_graph</span><span class="o">.</span><span class="n">in_degree</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">direction</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">nx_graph</span><span class="o">.</span><span class="n">degree</span><span class="p">()</span></div>
 
     <span class="nd">@property</span>
 <div class="viewcode-block" id="IMGraph.out_degree"><a class="viewcode-back" href="../../../pynetim.graph.html#pynetim.graph.graph.IMGraph.out_degree">[文档]</a>    <span class="k">def</span> <span class="nf">out_degree</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -233,7 +235,16 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            int: 图的出度视图</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">out_degree</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">direction</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">degree</span><span class="p">()</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">nx_graph</span><span class="o">.</span><span class="n">out_degree</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">direction</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">nx_graph</span><span class="o">.</span><span class="n">degree</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="IMGraph.degree"><a class="viewcode-back" href="../../../pynetim.graph.html#pynetim.graph.graph.IMGraph.degree">[文档]</a>    <span class="k">def</span> <span class="nf">degree</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        获取图的度。</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            int: 图的度视图</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">nx_graph</span><span class="o">.</span><span class="n">degree</span><span class="p">()</span></div>
 
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -242,7 +253,7 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            str: 图对象的字符串描述</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="si">}</span><span class="s1">; edge_weight_type: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">edge_weight_type</span><span class="si">}</span><span class="s1">&#39;</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">nx_graph</span><span class="si">}</span><span class="s1"> and edge_weight_type: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">edge_weight_type</span><span class="si">}</span><span class="s1">&#39;</span>
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>

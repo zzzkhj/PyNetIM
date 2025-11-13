@@ -19,12 +19,13 @@ Functions
 .. autoapisummary::
 
    pynetim.utils.set_edge_weight
+   pynetim.utils.infection_threshold
 
 
 Package Contents
 ----------------
 
-.. py:function:: set_edge_weight(graph: networkx.Graph | networkx.DiGraph, edge_weight_type: str, constant_weight: float = None)
+.. py:function:: set_edge_weight(graph: Union[networkx.Graph, networkx.DiGraph], edge_weight_type: str, constant_weight: float = None)
 
    根据指定的权重模型为图中的边设置权重值。
 
@@ -35,5 +36,21 @@ Package Contents
 
    异常:
        ValueError: 当权重类型不支持或参数不符合要求时抛出
+
+
+.. py:function:: infection_threshold(graph: Union[networkx.Graph, networkx.DiGraph])
+
+   计算基于图graph的度分布的感染阈值。
+
+   参数:
+       graph (Graph|DiGraph): 网络图对象，可以是有向图或无向图
+
+   返回:
+       float: 感染阈值（是1.05倍的阈值）。
+
+   说明:
+       该函数首先计算图中所有节点的度之和（k），然后计算所有节点度的平方和（k2）。
+       感染阈值计算公式为 k / (k2 - k)，其中k2是度的平方和，k是度的总和。
+       这个阈值在某些流行病学模型（如SIR模型）中用于预测疾病传播的临界条件。
 
 

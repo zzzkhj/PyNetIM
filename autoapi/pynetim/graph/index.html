@@ -24,7 +24,7 @@
     <link rel="index" title="索引" href="../../../genindex.html" />
     <link rel="search" title="搜索" href="../../../search.html" />
     <link rel="next" title="pynetim.graph.graph" href="graph/index.html" />
-    <link rel="prev" title="pynetim.diffusion_model.run_monte_carlo_diffusion" href="../diffusion_model/run_monte_carlo_diffusion/index.html" /> 
+    <link rel="prev" title="pynetim.diffusion_model.susceptible_infected_recovered_model" href="../diffusion_model/susceptible_infected_recovered_model/index.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -88,6 +88,8 @@
 <li class="toctree-l4"><a class="reference internal" href="../index.html#pynetim.IMGraph"><code class="docutils literal notranslate"><span class="pre">IMGraph</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../index.html#pynetim.IndependentCascadeModel"><code class="docutils literal notranslate"><span class="pre">IndependentCascadeModel</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../index.html#pynetim.LinearThresholdModel"><code class="docutils literal notranslate"><span class="pre">LinearThresholdModel</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../index.html#pynetim.SusceptibleInfectedModel"><code class="docutils literal notranslate"><span class="pre">SusceptibleInfectedModel</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../index.html#pynetim.SusceptibleInfectedRecoveredModel"><code class="docutils literal notranslate"><span class="pre">SusceptibleInfectedRecoveredModel</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -206,28 +208,28 @@
 </dd></dl>
 
 <dl class="py attribute">
+<dt class="sig sig-object py" id="pynetim.graph.IMGraph.nx_graph">
+<span class="sig-name descname"><span class="pre">nx_graph</span></span><a class="headerlink" href="#pynetim.graph.IMGraph.nx_graph" title="永久链接至目标"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
 <dt class="sig sig-object py" id="id0">
-<span class="sig-name descname"><span class="pre">graph</span></span><a class="headerlink" href="#id0" title="永久链接至目标"></a></dt>
+<span class="sig-name descname"><span class="pre">direction</span></span><a class="headerlink" href="#id0" title="永久链接至目标"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="id1">
-<span class="sig-name descname"><span class="pre">direction</span></span><a class="headerlink" href="#id1" title="永久链接至目标"></a></dt>
+<span class="sig-name descname"><span class="pre">number_of_nodes</span></span><a class="headerlink" href="#id1" title="永久链接至目标"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="id2">
-<span class="sig-name descname"><span class="pre">number_of_nodes</span></span><a class="headerlink" href="#id2" title="永久链接至目标"></a></dt>
+<span class="sig-name descname"><span class="pre">number_of_edges</span></span><a class="headerlink" href="#id2" title="永久链接至目标"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="id3">
-<span class="sig-name descname"><span class="pre">number_of_edges</span></span><a class="headerlink" href="#id3" title="永久链接至目标"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="id4">
-<span class="sig-name descname"><span class="pre">edge_weight_type</span></span><a class="headerlink" href="#id4" title="永久链接至目标"></a></dt>
+<span class="sig-name descname"><span class="pre">edge_weight_type</span></span><a class="headerlink" href="#id3" title="永久链接至目标"></a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
@@ -338,6 +340,20 @@
 </dl>
 </dd></dl>
 
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.graph.IMGraph.degree">
+<span class="sig-name descname"><span class="pre">degree</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/pynetim/graph/graph.html#IMGraph.degree"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#pynetim.graph.IMGraph.degree" title="永久链接至目标"></a></dt>
+<dd><p>获取图的度。</p>
+<dl class="field-list simple">
+<dt class="field-odd">返回<span class="colon">:</span></dt>
+<dd class="field-odd"><p>图的度视图</p>
+</dd>
+<dt class="field-even">返回类型<span class="colon">:</span></dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
 </dd></dl>
 
 </section>
@@ -347,7 +363,7 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
-        <a href="../diffusion_model/run_monte_carlo_diffusion/index.html" class="btn btn-neutral float-left" title="pynetim.diffusion_model.run_monte_carlo_diffusion" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../diffusion_model/susceptible_infected_recovered_model/index.html" class="btn btn-neutral float-left" title="pynetim.diffusion_model.susceptible_infected_recovered_model" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
         <a href="graph/index.html" class="btn btn-neutral float-right" title="pynetim.graph.graph" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

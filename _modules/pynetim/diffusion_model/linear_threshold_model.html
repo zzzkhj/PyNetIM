@@ -85,6 +85,8 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../autoapi/pynetim/index.html#pynetim.IMGraph"><code class="docutils literal notranslate"><span class="pre">IMGraph</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../autoapi/pynetim/index.html#pynetim.IndependentCascadeModel"><code class="docutils literal notranslate"><span class="pre">IndependentCascadeModel</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../autoapi/pynetim/index.html#pynetim.LinearThresholdModel"><code class="docutils literal notranslate"><span class="pre">LinearThresholdModel</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../autoapi/pynetim/index.html#pynetim.SusceptibleInfectedModel"><code class="docutils literal notranslate"><span class="pre">SusceptibleInfectedModel</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../autoapi/pynetim/index.html#pynetim.SusceptibleInfectedRecoveredModel"><code class="docutils literal notranslate"><span class="pre">SusceptibleInfectedRecoveredModel</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -197,6 +199,8 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            set: 最终所有被激活的节点集合</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">update_counts</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">update_counts</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;update_counts must be a positive integer.&quot;</span><span class="p">)</span>
         <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="n">current_activated_nodes</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">init_seeds</span><span class="p">)</span>
         <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
@@ -206,12 +210,14 @@
                 <span class="k">break</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">activated_nodes</span></div>
 
-<div class="viewcode-block" id="LinearThresholdModel.run_monte_carlo_diffusion"><a class="viewcode-back" href="../../../pynetim.diffusion_model.html#pynetim.diffusion_model.LinearThresholdModel.run_monte_carlo_diffusion">[文档]</a>    <span class="k">def</span> <span class="nf">run_monte_carlo_diffusion</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">round</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">multi_process</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">processes</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">seed</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="LinearThresholdModel.run_monte_carlo_diffusion"><a class="viewcode-back" href="../../../pynetim.diffusion_model.html#pynetim.diffusion_model.LinearThresholdModel.run_monte_carlo_diffusion">[文档]</a>    <span class="k">def</span> <span class="nf">run_monte_carlo_diffusion</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rounds</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">update_counts</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">multi_process</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+                                  <span class="n">processes</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">seed</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        执行蒙特卡洛模拟扩散过程。</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            round (int): 总模拟轮数</span>
+<span class="sd">            rounds (int): 总模拟轮数</span>
+<span class="sd">            update_counts (int, optional): 更新轮次数，适用于SI模型等需要限制传播轮次的模型</span>
 <span class="sd">            multi_process (bool): 是否启用多进程模式，默认为False</span>
 <span class="sd">            processes (int, optional): 多进程模式下的进程数，为None时使用CPU核心数</span>
 <span class="sd">            seed (int, optional): 模拟时的随机种子</span>
@@ -219,7 +225,8 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            float: 所有模拟轮次的平均激活节点数</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">run_monte_carlo_diffusion</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">round</span><span class="p">,</span> <span class="n">multi_process</span><span class="p">,</span> <span class="n">processes</span><span class="p">,</span> <span class="n">seed</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="n">run_monte_carlo_diffusion</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rounds</span><span class="p">,</span> <span class="n">update_counts</span><span class="p">,</span> <span class="n">multi_process</span><span class="p">,</span> <span class="n">processes</span><span class="p">,</span> <span class="n">seed</span><span class="p">)</span></div>
+
 
 <div class="viewcode-block" id="LinearThresholdModel.reset"><a class="viewcode-back" href="../../../pynetim.diffusion_model.html#pynetim.diffusion_model.LinearThresholdModel.reset">[文档]</a>    <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">init_seeds</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>

@@ -62,7 +62,7 @@ Package Contents
       :type: str
 
 
-   .. py:attribute:: graph
+   .. py:attribute:: nx_graph
 
 
    .. py:attribute:: direction
@@ -142,5 +142,14 @@ Package Contents
 
       :returns: 图的出度视图
       :rtype: int
+
+
+   .. py:method:: degree()
+
+      获取图的度。
+
+      :returns: 图的度视图
+      :rtype: int
+
 
 

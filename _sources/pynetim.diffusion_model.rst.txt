@@ -36,6 +36,22 @@ pynetim.diffusion\_model.run\_monte\_carlo\_diffusion module
    :undoc-members:
    :show-inheritance:
 
+pynetim.diffusion\_model.susceptible\_infected\_model module
+------------------------------------------------------------
+
+.. automodule:: pynetim.diffusion_model.susceptible_infected_model
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+pynetim.diffusion\_model.susceptible\_infected\_recovered\_model module
+-----------------------------------------------------------------------
+
+.. automodule:: pynetim.diffusion_model.susceptible_infected_recovered_model
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 Module contents
 ---------------
 
