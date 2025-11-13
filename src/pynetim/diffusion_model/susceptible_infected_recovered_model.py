@@ -112,21 +112,23 @@ class SusceptibleInfectedRecoveredModel(BaseDiffusionModel):
 
         return self.recovered_nodes
 
-    def run_monte_carlo_diffusion(self, round: int, update_counts: int = None, multi_process: bool = False,
+    def run_monte_carlo_diffusion(self, rounds: int, update_counts: int = None, multi_process: bool = False,
                                   processes: int = None, seed: int = None):
         """
         执行蒙特卡洛模拟扩散过程。
 
         Args:
-            round (int): 总模拟轮数
+            rounds (int): 总模拟轮数
+            update_counts (int, optional): 更新轮次数，适用于SI模型等需要限制传播轮次的模型
             multi_process (bool): 是否启用多进程模式，默认为False
             processes (int, optional): 多进程模式下的进程数，为None时使用CPU核心数
             seed (int, optional): 模拟时的随机种子
 
         Returns:
-            float: 所有模拟轮次的平均感染节点数
+            float: 所有模拟轮次的平均激活节点数
         """
-        return run_monte_carlo_diffusion(self, round, update_counts, multi_process, processes, seed)
+        return run_monte_carlo_diffusion(self, rounds, update_counts, multi_process, processes, seed)
+
 
     def reset(self, init_seeds=None):
         """
