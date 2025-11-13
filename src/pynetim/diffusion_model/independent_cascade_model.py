@@ -73,6 +73,8 @@ class IndependentCascadeModel(BaseDiffusionModel):
         Returns:
             set: 最终所有被激活的节点集合
         """
+        if update_counts is not None and update_counts <= 0:
+            raise ValueError("update_counts must be a positive integer.")
         count = 0
         current_activated_nodes = set(self.init_seeds)
         while True:
@@ -82,7 +84,8 @@ class IndependentCascadeModel(BaseDiffusionModel):
                 break
         return self.activated_nodes
 
-    def run_monte_carlo_diffusion(self, round: int, multi_process: bool = False, processes: int = None, seed: int = None):
+    def run_monte_carlo_diffusion(self, round: int, update_counts: int = None, multi_process: bool = False,
+                                  processes: int = None, seed: int = None):
         """
         执行蒙特卡洛模拟扩散过程。
 
@@ -93,9 +96,9 @@ class IndependentCascadeModel(BaseDiffusionModel):
             seed (int, optional): 模拟时的随机种子
 
         Returns:
-            float: 所有模拟轮次的平均激活节点数
+            float: 所有模拟轮次的平均感染节点数
         """
-        return run_monte_carlo_diffusion(self, round, multi_process, processes, seed)
+        return run_monte_carlo_diffusion(self, round, update_counts, multi_process, processes, seed)
 
     def reset(self, init_seeds=None):
         """

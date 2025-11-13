@@ -5,30 +5,32 @@ import statistics
 from .base_diffusion_model import BaseDiffusionModel
 
 
-def __simulate_multi_round(diffusion_model: BaseDiffusionModel, round: int, seed: int = None):
+def __simulate_multi_round(diffusion_model: BaseDiffusionModel, rounds: int, update_counts: int = None, seed: int = None):
     """
     在单个进程中执行多轮蒙特卡洛模拟。
 
     Args:
         diffusion_model (BaseDiffusionModel): 扩散模型实例
-        round (int): 该进程需要执行的模拟轮数
+        rounds (int): 该进程需要执行的模拟轮数
         seed (int, optional): 随机种子的基础值，默认为None
 
     Returns:
         float: 该进程所有模拟轮次的平均激活节点数
     """
+    # if isinstance(diffusion_model, )
     count = 0
-    for i in range(round):
+    for i in range(rounds):
         random.seed(seed + i if seed is not None else None)
         diffusion_model.reset()
-        result = diffusion_model.diffusion()
+        result = diffusion_model.diffusion(update_counts)
         count += len(result)
-    return count / round
+    return count / rounds
 
 
 def run_monte_carlo_diffusion(
         diffusion_model: BaseDiffusionModel,
-        round: int,
+        rounds: int,
+        update_counts: int = None,
         multi_process: bool = False,
         processes: int = None,
         seed: int = None,
@@ -38,7 +40,8 @@ def run_monte_carlo_diffusion(
 
     Args:
         diffusion_model (BaseDiffusionModel): 扩散模型实例
-        round (int): 总模拟轮数
+        rounds (int): 总模拟轮数
+        update_counts: 更新的次数，适用于SI模型
         multi_process (bool, optional): 是否启用多进程模式，默认为False
         processes (int, optional): 多进程模式下的进程数，为None时使用CPU核心数
         seed (int, optional): 随机种子的基础值，默认为None
@@ -46,17 +49,19 @@ def run_monte_carlo_diffusion(
     Returns:
         float: 所有模拟轮次的平均激活节点数
     """
+    if rounds <= 0:
+        raise ValueError("The number of rounds must be greater than 0.")
 
     if multi_process:
         if processes is None:
             processes = cpu_count()
 
         # 每个进程执行 round / processes 次模拟
-        rounds_per_worker = int(round / processes)
+        rounds_per_worker = int(rounds / processes)
         with Pool(processes=processes) as pool:
             # 每个进程需要的参数
             args = [
-                (diffusion_model, rounds_per_worker, i)
+                (diffusion_model, rounds_per_worker, update_counts, i)
                 for i in range(processes)
             ]
             results = pool.starmap(__simulate_multi_round, args)
@@ -64,6 +69,6 @@ def run_monte_carlo_diffusion(
         avg_activated = statistics.mean(results)
     else:
         # 单进程模式
-        avg_activated = __simulate_multi_round(diffusion_model, round, seed)
+        avg_activated = __simulate_multi_round(diffusion_model, rounds, update_counts, seed)
 
     return avg_activated
