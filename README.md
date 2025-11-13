@@ -77,9 +77,6 @@ pynetim/
 ```
 
 
-## 版本
-
-当前版本: 0.1.0
 
 ## 许可证
-[MIT](LICENSE)
+[LICENSE](LICENSE)

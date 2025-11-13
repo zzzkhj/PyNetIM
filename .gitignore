@@ -121,4 +121,4 @@ config.local.json
 secrets.json
 
 build_docs.py
-docs/source
+docs/
