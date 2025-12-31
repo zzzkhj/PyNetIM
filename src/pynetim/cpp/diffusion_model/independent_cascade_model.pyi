@@ -1,5 +1,5 @@
 from typing import Set
-from ..graph.graph import IMGraph
+from ..graph.graph import IMGraphCpp
 
 
 class IndependentCascadeModel:
@@ -15,7 +15,7 @@ class IndependentCascadeModel:
 
     # ================== 构造函数 ==================
 
-    def __init__(self, seeds: Set[int], graph: IMGraph) -> None:
+    def __init__(self, seeds: Set[int], graph: IMGraphCpp) -> None:
         """
         初始化 Independent Cascade 模型
 

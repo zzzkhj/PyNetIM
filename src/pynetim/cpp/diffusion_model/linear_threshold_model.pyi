@@ -1,5 +1,5 @@
 from typing import Set
-from ..graph.graph import IMGraph
+from ..graph.graph import IMGraphCpp
 
 
 class LinearThresholdModel:
@@ -16,7 +16,7 @@ class LinearThresholdModel:
     def __init__(
         self,
         seeds: Set[int],
-        graph: IMGraph,
+        graph: IMGraphCpp,
         theta_l: float,
         theta_h: float
     ) -> None:
