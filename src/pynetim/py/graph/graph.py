@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from networkx import Graph, DiGraph
 
-from ..utils import set_edge_weight
+from ...utils import set_edge_weight
 
 
 class IMGraph:
