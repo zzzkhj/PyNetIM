@@ -3,9 +3,9 @@ from typing import Union
 
 from networkx import Graph, DiGraph
 
-from ..cpp.graph import IMGraph
+from ..cpp.graph import IMGraphCpp
 
-def set_edge_weight(graph: Union[Graph, DiGraph, IMGraph], edge_weight_type: str, constant_weight: float = None):
+def set_edge_weight(graph: Union[Graph, DiGraph, IMGraphCpp], edge_weight_type: str, constant_weight: float = None):
     """
     根据指定的权重模型为图中的边设置权重值。
 
@@ -25,23 +25,29 @@ def set_edge_weight(graph: Union[Graph, DiGraph, IMGraph], edge_weight_type: str
             raise ValueError('使用CONSTANT模型时必须提供常量权重值')
         # 为每条边设置常量权重
         for u, v in graph.edges():
-            if isinstance(graph, IMGraph):
-                pass
+            if isinstance(graph, IMGraphCpp):
+                graph.edges[(u, v)] = constant_weight
             else:
                 graph.edges[(u, v)]['weight'] = constant_weight
     elif edge_weight_type == 'TV':
         # 定义权重列表，用于随机选择
         weight_list = [0.001, 0.01, 0.1]
         # 为每条边随机选择一个权重
-        for u, v, a in graph.edges(data=True):
-            a['weight'] = random.choice(weight_list)
+        for u, v in graph.edges():
+            if isinstance(graph, IMGraphCpp):
+                graph.edges[(u, v)] = random.choice(weight_list)
+            else:
+                graph.edges[(u, v)]['weight'] = random.choice(weight_list)
     elif edge_weight_type == 'WC':
         # 为每条边设置基于目标节点入度的倒数作为权重
-        for u, v, a in graph.edges(data=True):
-            if graph.is_directed():
-                a['weight'] = 1 / graph.in_degree(v)
+        for u, v in graph.edges():
+            if isinstance(graph, IMGraphCpp):
+                graph.edges[(u, v)] = 1 / graph.in_degree(v)
             else:
-                a['weight'] = 1 / graph.degree(v)
+                if graph.is_directed():
+                    graph.edges[(u, v)]['weight'] = 1 / graph.in_degree(v)
+                else:
+                    graph.edges[(u, v)]['weight'] = 1 / graph.degree(v)
     else:
         # 如果edge_weight_type不是上述任何一种，则抛出错误
         raise ValueError('不支持的边权重模型')

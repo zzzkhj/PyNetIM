@@ -1,12 +1,12 @@
-# src/pynetim/__init__.py
+# -*- coding: utf-8 -*-
 __version__ = "0.3.0"
 __author__ = "Zhang Kaijing"
 
-# 1. µ¼Èë×Ó°ü£¨ÈÃÓÃ»§ÄÜ·ÃÎÊ im.py ºÍ im.cpp£©
+# 1. å¯¼å…¥å­åŒ…ï¼ˆè®©ç”¨æˆ·èƒ½è®¿é—® im.py å’Œ im.cppï¼‰
 from . import py
 from . import cpp
 
 __all__ = [
-    'py',      # µ¼³ö×Ó°ü±¾Éí
-    'cpp',     # µ¼³ö×Ó°ü±¾Éí
+    'py',      # å¯¼å‡ºå­åŒ…æœ¬èº«
+    'cpp',     # å¯¼å‡ºå­åŒ…æœ¬èº«
 ]
