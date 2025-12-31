@@ -1,17 +1,18 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel", "pybind11>=2.10"]
+build-backend = "setuptools.build_meta"
+
 [project]
-name = "PyNetIM"
-version = "0.2.2"
-authors = [
-  { name = "Kaijing Zhang", email = "zhkaij@foxmail.com" },
-]
+name = "pynetim"
+version = "0.3.0"
+authors = [{ name = "Kaijing Zhang", email = "zhkaij@foxmail.com" }]
 description = "A Python library for Network Influence Maximization"
 readme = "README.md"
 requires-python = ">=3.8"
-dependencies = [
-    "networkx"
-]
+dependencies = ["networkx>=2.6", "numpy>=1.20"]
 classifiers = [
     "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
 ]
 license = { text = "MIT" }
@@ -20,7 +21,3 @@ license = { text = "MIT" }
 Homepage = "https://github.com/zzzkhj/PyNetIM"
 Repository = "https://github.com/zzzkhj/PyNetIM"
 Issues = "https://github.com/zzzkhj/PyNetIM/issues"
-
-[build-system]
-requires = ["setuptools>=61.0", "wheel"]
-build-backend = "setuptools.build_meta"
