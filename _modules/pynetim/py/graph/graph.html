@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pynetim.py.graph.graph &mdash; PyNetIM v0.2.2 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css?v=eafc0fe6" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js?v=795308df"></script>
+        <script src="../../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../../_static/sphinx_highlight.js?v=4825356b"></script>
+        <script src="../../../../_static/translations.js?v=beaddf03"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            PyNetIM
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <p class="caption" role="heading"><span class="caption-text">使用指南</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../installation.html">安装指南</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../installation.html#id2">环境要求</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../installation.html#pip">使用 pip 安装</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../installation.html#id3">从源码安装</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../installation.html#id4">验证安装</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../quickstart.html">快速开始</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../quickstart.html#id2">基本示例</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../quickstart.html#id3">导入库</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../quickstart.html#id4">创建图</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../quickstart.html#id5">运行算法</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../quickstart.html#id6">扩散模拟</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../examples.html">使用示例</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../examples.html#id2">完整示例：社交网络影响力分析</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../examples.html#id3">更多示例</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API 文档</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../autoapi/index.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../autoapi/pynetim/index.html">pynetim</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../autoapi/pynetim/index.html#submodules">Submodules</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../autoapi/pynetim/cpp/index.html">pynetim.cpp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../autoapi/pynetim/py/index.html">pynetim.py</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../autoapi/pynetim/utils/index.html">pynetim.utils</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">PyNetIM</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../index.html">模块代码</a></li>
+      <li class="breadcrumb-item active">pynetim.py.graph.graph</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>pynetim.py.graph.graph 源代码</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">from</span> <span class="nn">networkx</span> <span class="kn">import</span> <span class="n">Graph</span><span class="p">,</span> <span class="n">DiGraph</span>
+
+<span class="kn">from</span> <span class="nn">...utils</span> <span class="kn">import</span> <span class="n">set_edge_weight</span>
+
+
+<div class="viewcode-block" id="IMGraph"><a class="viewcode-back" href="../../../../autoapi/pynetim/py/graph/index.html#pynetim.py.graph.graph.IMGraph">[文档]</a><span class="k">class</span> <span class="nc">IMGraph</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    影响最大化图类，用于封装网络图结构和边权重设置。</span>
+
+<span class="sd">    该类提供了对NetworkX图对象的封装，支持设置不同类型的边权重，</span>
+<span class="sd">    并提供了便捷的图属性访问接口。</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        graph (Graph | DiGraph): networkx图对象，可以是有向图或无向图</span>
+<span class="sd">        direction (bool): 指示图是否有向</span>
+<span class="sd">        number_of_nodes (int): 图中节点总数</span>
+<span class="sd">        number_of_edges (int): 图中边总数</span>
+<span class="sd">        edge_weight_type (str): 边权重类型</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">graph</span><span class="p">:</span> <span class="n">Graph</span> <span class="o">|</span> <span class="n">DiGraph</span><span class="p">,</span> <span class="n">edge_weight_type</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">constant_weight</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        初始化IMGraph实例。</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            graph (Graph | DiGraph): networkx图对象，可以是有向图或无向图</span>
+<span class="sd">            edge_weight_type (str): 边权重类型，支持&#39; CONSTANT &#39;、&#39; TV &#39;、&#39; WC &#39;等模式</span>
+<span class="sd">            constant_weight (float, optional): 当使用常量权重模式时的权重值</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="IMGraph.nx_graph"><a class="viewcode-back" href="../../../../autoapi/pynetim/py/graph/graph/index.html#pynetim.py.graph.graph.IMGraph.nx_graph">[文档]</a>        <span class="bp">self</span><span class="o">.</span><span class="n">nx_graph</span> <span class="o">=</span> <span class="n">graph</span></div>
+<div class="viewcode-block" id="IMGraph.direction"><a class="viewcode-back" href="../../../../autoapi/pynetim/py/graph/graph/index.html#pynetim.py.graph.graph.IMGraph.direction">[文档]</a>        <span class="bp">self</span><span class="o">.</span><span class="n">direction</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="n">is_directed</span><span class="p">()</span></div>
+<div class="viewcode-block" id="IMGraph.number_of_nodes"><a class="viewcode-back" href="../../../../autoapi/pynetim/py/graph/graph/index.html#pynetim.py.graph.graph.IMGraph.number_of_nodes">[文档]</a>        <span class="bp">self</span><span class="o">.</span><span class="n">number_of_nodes</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="n">number_of_nodes</span><span class="p">()</span></div>
+<div class="viewcode-block" id="IMGraph.number_of_edges"><a class="viewcode-back" href="../../../../autoapi/pynetim/py/graph/graph/index.html#pynetim.py.graph.graph.IMGraph.number_of_edges">[文档]</a>        <span class="bp">self</span><span class="o">.</span><span class="n">number_of_edges</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="n">number_of_edges</span><span class="p">()</span></div>
+<div class="viewcode-block" id="IMGraph.edge_weight_type"><a class="viewcode-back" href="../../../../autoapi/pynetim/py/graph/graph/index.html#pynetim.py.graph.graph.IMGraph.edge_weight_type">[文档]</a>        <span class="bp">self</span><span class="o">.</span><span class="n">edge_weight_type</span> <span class="o">=</span> <span class="n">edge_weight_type</span></div>
+
+        <span class="n">set_edge_weight</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nx_graph</span><span class="p">,</span> <span class="n">edge_weight_type</span><span class="p">,</span> <span class="n">constant_weight</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="IMGraph.nodes"><a class="viewcode-back" href="../../../../autoapi/pynetim/py/graph/graph/index.html#pynetim.py.graph.graph.IMGraph.nodes">[文档]</a>    <span class="k">def</span> <span class="nf">nodes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        获取图中所有节点。</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            NodeView: 图中所有节点的视图</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">nx_graph</span><span class="o">.</span><span class="n">nodes</span></div>
+
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="IMGraph.edges"><a class="viewcode-back" href="../../../../autoapi/pynetim/py/graph/graph/index.html#pynetim.py.graph.graph.IMGraph.edges">[文档]</a>    <span class="k">def</span> <span class="nf">edges</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        获取图中所有边。</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            EdgeView: 图中所有边的视图</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">nx_graph</span><span class="o">.</span><span class="n">edges</span></div>
+
+<div class="viewcode-block" id="IMGraph.neighbors"><a class="viewcode-back" href="../../../../autoapi/pynetim/py/graph/index.html#pynetim.py.graph.graph.IMGraph.neighbors">[文档]</a>    <span class="k">def</span> <span class="nf">neighbors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        获取指定节点的邻居节点。</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            node: 节点标识符</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            iterator: 指定节点的所有邻居节点迭代器</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">nx_graph</span><span class="o">.</span><span class="n">neighbors</span><span class="p">(</span><span class="n">node</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="IMGraph.in_neighbors"><a class="viewcode-back" href="../../../../autoapi/pynetim/py/graph/index.html#pynetim.py.graph.graph.IMGraph.in_neighbors">[文档]</a>    <span class="k">def</span> <span class="nf">in_neighbors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        获取指定节点的入邻居节点。</span>
+
+<span class="sd">        对于有向图，返回前驱节点；对于无向图，返回所有邻居节点。</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            node: 节点标识符</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            iterator: 指定节点的入邻居节点迭代器</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">nx_graph</span><span class="o">.</span><span class="n">predecessors</span><span class="p">(</span><span class="n">node</span><span class="p">)</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">direction</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">nx_graph</span><span class="o">.</span><span class="n">neighbors</span><span class="p">(</span><span class="n">node</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="IMGraph.out_neighbors"><a class="viewcode-back" href="../../../../autoapi/pynetim/py/graph/index.html#pynetim.py.graph.graph.IMGraph.out_neighbors">[文档]</a>    <span class="k">def</span> <span class="nf">out_neighbors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        获取指定节点的出邻居节点。（同neighbors方法）</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            node: 节点标识符</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            iterator: 指定节点的出邻居节点迭代器</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">nx_graph</span><span class="o">.</span><span class="n">neighbors</span><span class="p">(</span><span class="n">node</span><span class="p">)</span></div>
+
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="IMGraph.in_degree"><a class="viewcode-back" href="../../../../autoapi/pynetim/py/graph/graph/index.html#pynetim.py.graph.graph.IMGraph.in_degree">[文档]</a>    <span class="k">def</span> <span class="nf">in_degree</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        获取图的入度。</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            int: 图的入度视图</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">nx_graph</span><span class="o">.</span><span class="n">in_degree</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">direction</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">nx_graph</span><span class="o">.</span><span class="n">degree</span><span class="p">()</span></div>
+
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="IMGraph.out_degree"><a class="viewcode-back" href="../../../../autoapi/pynetim/py/graph/graph/index.html#pynetim.py.graph.graph.IMGraph.out_degree">[文档]</a>    <span class="k">def</span> <span class="nf">out_degree</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        获取图的出度。</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            int: 图的出度视图</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">nx_graph</span><span class="o">.</span><span class="n">out_degree</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">direction</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">nx_graph</span><span class="o">.</span><span class="n">degree</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="IMGraph.degree"><a class="viewcode-back" href="../../../../autoapi/pynetim/py/graph/index.html#pynetim.py.graph.graph.IMGraph.degree">[文档]</a>    <span class="k">def</span> <span class="nf">degree</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        获取图的度。</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            int: 图的度视图</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">nx_graph</span><span class="o">.</span><span class="n">degree</span><span class="p">()</span></div>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        返回图对象的字符串表示。</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            str: 图对象的字符串描述</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">nx_graph</span><span class="si">}</span><span class="s1"> and edge_weight_type: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">edge_weight_type</span><span class="si">}</span><span class="s1">&#39;</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        返回图对象的详细字符串表示。</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            str: 图对象的详细字符串描述</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__str__</span><span class="p">()</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2025, Kaijing Zhang。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

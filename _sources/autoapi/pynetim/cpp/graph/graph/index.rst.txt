@@ -1,0 +1,172 @@
+pynetim.cpp.graph.graph
+=======================
+
+.. py:module:: pynetim.cpp.graph.graph
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   pynetim.cpp.graph.graph.IMGraphCpp
+
+
+Module Contents
+---------------
+
+.. py:class:: IMGraphCpp(num_nodes: int, edges: List[Tuple[int, int]], weights: List[float] = ..., directed: bool = True)
+
+   图结构类（C++ 后端实现，Python 类型存根）
+
+   本类用于表示有向 / 无向加权图，主要服务于
+   影响力传播（IC / LT / SIR 等）与相关算法。
+
+   实际逻辑由 C++ 扩展模块（graph.pyd）实现，
+   本文件仅用于类型提示与文档生成。
+
+
+   .. py:attribute:: num_nodes
+      :type:  int
+
+
+   .. py:attribute:: num_edges
+      :type:  int
+
+
+   .. py:attribute:: directed
+      :type:  bool
+
+
+   .. py:attribute:: adj
+      :type:  List[List[int]]
+
+
+   .. py:attribute:: rev_adj
+      :type:  List[List[int]]
+
+
+   .. py:attribute:: edges
+      :type:  Dict[Tuple[int, int], float]
+
+
+   .. py:method:: add_edge(u: int, v: int, w: float = 1.0) -> None
+
+      添加一条边 (u → v)
+
+      :param u: 起始节点
+      :type u: int
+      :param v: 终止节点
+      :type v: int
+      :param w: 边权重（在传播模型中表示激活概率）
+      :type w: float, default=1.0
+
+
+
+   .. py:method:: add_edges(edges: List[Tuple[int, int]], weights: List[float] = ...) -> None
+
+      批量添加多条边
+
+      :param edges: 边列表，每个元素为 (u, v)
+      :type edges: List[Tuple[int, int]]
+      :param weights: 对应边的权重列表；若不提供，则所有边权重默认为 1.0
+      :type weights: List[float], optional
+
+
+
+   .. py:method:: update_edge_weight(u: int, v: int, w: float) -> None
+
+      更新已存在边的权重
+
+      :param u: 起始节点
+      :type u: int
+      :param v: 终止节点
+      :type v: int
+      :param w: 新的边权重
+      :type w: float
+
+
+
+   .. py:method:: remove_edge(u: int, v: int) -> None
+
+      删除一条边 (u → v)
+
+      :param u: 起始节点
+      :type u: int
+      :param v: 终止节点
+      :type v: int
+
+
+
+   .. py:method:: remove_edges(edges: List[Tuple[int, int]]) -> None
+
+      批量删除多条边
+
+      :param edges: 边列表，每个元素为 (u, v)
+      :type edges: List[Tuple[int, int]]
+
+
+
+   .. py:method:: out_neighbors(u: int) -> List[int]
+
+      获取节点 u 的出邻居节点列表
+
+      :param u: 节点编号
+      :type u: int
+
+      :returns: 所有从 u 出发可达的邻居节点
+      :rtype: List[int]
+
+
+
+   .. py:method:: in_neighbors(u: int) -> List[int]
+
+      获取节点 u 的入邻居节点列表
+
+      :param u: 节点编号
+      :type u: int
+
+      :returns: 所有指向 u 的前驱节点
+      :rtype: List[int]
+
+
+
+   .. py:method:: out_degree(u: int) -> int
+
+      返回节点 u 的出度
+
+
+
+   .. py:method:: in_degree(u: int) -> int
+
+      返回节点 u 的入度
+
+
+
+   .. py:method:: degree(u: int) -> int
+
+      返回节点 u 的度
+
+      对于有向图，通常等于 in_degree + out_degree；
+      对于无向图，等于邻接节点数量。
+
+
+
+   .. py:method:: get_adj_list() -> List[List[int]]
+
+      返回图的出邻接表（深拷贝或只读视图，取决于 C++ 实现）
+
+      :returns: 邻接表表示的图结构
+      :rtype: List[List[int]]
+
+
+
+   .. py:method:: get_adj_matrix() -> List[List[int]]
+
+      返回图的出邻接矩阵（深拷贝或只读视图，取决于 C++ 实现）
+
+      :returns: 邻接表表示的图结构
+      :rtype: List[List[int]]
+
+
+

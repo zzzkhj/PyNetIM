@@ -25,12 +25,12 @@ Functions
 Package Contents
 ----------------
 
-.. py:function:: set_edge_weight(graph: Union[networkx.Graph, networkx.DiGraph], edge_weight_type: str, constant_weight: float = None)
+.. py:function:: set_edge_weight(graph: Union[networkx.Graph, networkx.DiGraph, pynetim.cpp.graph.IMGraphCpp], edge_weight_type: str, constant_weight: float = None)
 
    根据指定的权重模型为图中的边设置权重值。
 
    参数:
-       graph (Graph|DiGraph): 网络图对象，可以是有向图或无向图
+       graph (Graph|DiGraph|IMGraph): 网络图对象，可以是有向图或无向图
        edge_weight_type (str): 边权重类型，支持 'CONSTANT'、'TV'、'WC' 三种模式
        constant_weight (float, optional): 当使用常量权重模式时，指定的权重值
 

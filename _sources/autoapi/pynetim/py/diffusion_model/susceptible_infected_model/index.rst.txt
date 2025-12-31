@@ -1,0 +1,126 @@
+pynetim.py.diffusion_model.susceptible_infected_model
+=====================================================
+
+.. py:module:: pynetim.py.diffusion_model.susceptible_infected_model
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   pynetim.py.diffusion_model.susceptible_infected_model.SusceptibleInfectedModel
+
+
+Module Contents
+---------------
+
+.. py:class:: SusceptibleInfectedModel(graph: pynetim.py.graph.IMGraph, init_seeds: list, beta: float = None, record_states: bool = False)
+
+   Bases: :py:obj:`pynetim.py.diffusion_model.base_diffusion_model.BaseDiffusionModel`
+
+
+   SI模型（Susceptible-Infected Model）。
+
+   实现了经典的SI传播模型，该模型是一种简单的传染病传播模型，
+   节点只有两种状态：易感(S)和感染(I)。一旦节点被感染，它将始终保持感染状态
+   并持续尝试感染其邻居节点。
+
+   .. attribute:: infected_nodes
+
+      所有已被感染的节点集合
+
+      :type: set
+
+   .. attribute:: graph
+
+      表示传播网络结构（继承自BaseDiffusionModel）
+
+      :type: IMGraph
+
+   .. attribute:: init_seeds
+
+      初始感染节点集（继承自BaseDiffusionModel）
+
+      :type: list
+
+   .. attribute:: record_states
+
+      指示是否记录传播过程中的状态变化（继承自BaseDiffusionModel）
+
+      :type: bool
+
+   .. attribute:: states
+
+      当record_states为True时存储传播过程的状态历史（继承自BaseDiffusionModel）
+
+      :type: list
+
+   .. attribute:: beta
+
+      感染概率
+
+      :type: float
+
+
+   .. py:attribute:: infected_nodes
+
+
+   .. py:method:: update()
+
+      执行一次传播更新。
+
+      在当前轮次中，所有已感染的节点尝试感染它们的易感邻居节点。
+      成功感染的节点将在后续所有轮次中继续传播。
+
+      :returns: 本轮新感染的节点集合
+      :rtype: set
+
+
+
+   .. py:method:: diffusion(update_counts)
+
+      执行完整的扩散过程。
+
+      进行指定轮次的传播更新，直到达到最大轮次或没有新的节点被感染。
+
+      :param update_counts: 最大更新轮次数。
+      :type update_counts: int
+
+      :returns: 最终所有被感染的节点集合
+      :rtype: set
+
+
+
+   .. py:method:: run_monte_carlo_diffusion(rounds: int, update_counts: int, multi_process: bool = False, processes: int = None, seed: int = None)
+
+      执行蒙特卡洛模拟扩散过程。
+
+      :param rounds: 总模拟轮数
+      :type rounds: int
+      :param update_counts: 更新轮次数，适用于SI模型等需要限制传播轮次的模型
+      :type update_counts: int
+      :param multi_process: 是否启用多进程模式，默认为False
+      :type multi_process: bool
+      :param processes: 多进程模式下的进程数，为None时使用CPU核心数
+      :type processes: int, optional
+      :param seed: 模拟时的随机种子
+      :type seed: int, optional
+
+      :returns: 所有模拟轮次的平均激活节点数
+      :rtype: float
+
+
+
+   .. py:method:: reset(init_seeds=None)
+
+      重置模型状态。
+
+      将模型恢复到初始状态，如果启用状态记录则清空已记录的状态历史，
+      并重新设置初始感染节点状态。
+
+      :param init_seeds: 新的初始感染节点集合，若为None则使用原有种子集
+      :type init_seeds: list, optional
+
+
+

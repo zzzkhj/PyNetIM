@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pynetim.cpp.graph.graph &mdash; PyNetIM v0.2.2 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../../../_static/graphviz.css?v=eafc0fe6" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script data-url_root="../../../../../" id="documentation_options" src="../../../../../_static/documentation_options.js?v=795308df"></script>
+        <script src="../../../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../../../_static/sphinx_highlight.js?v=4825356b"></script>
+        <script src="../../../../../_static/translations.js?v=beaddf03"></script>
+    <script src="../../../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../../../search.html" />
+    <link rel="next" title="pynetim.py" href="../../../py/index.html" />
+    <link rel="prev" title="pynetim.cpp.graph" href="../index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../../index.html" class="icon icon-home">
+            PyNetIM
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <p class="caption" role="heading"><span class="caption-text">使用指南</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../installation.html">安装指南</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../../installation.html#id2">环境要求</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../../installation.html#pip">使用 pip 安装</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../../installation.html#id3">从源码安装</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../../installation.html#id4">验证安装</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../quickstart.html">快速开始</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../../quickstart.html#id2">基本示例</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../../quickstart.html#id3">导入库</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../../quickstart.html#id4">创建图</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../../quickstart.html#id5">运行算法</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../../quickstart.html#id6">扩散模拟</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../examples.html">使用示例</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../../examples.html#id2">完整示例：社交网络影响力分析</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../../examples.html#id3">更多示例</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API 文档</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../../index.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../../index.html">pynetim</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../../../index.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="../../index.html">pynetim.cpp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../py/index.html">pynetim.py</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../utils/index.html">pynetim.utils</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../../index.html">PyNetIM</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../../index.html">API Reference</a></li>
+          <li class="breadcrumb-item"><a href="../../../index.html">pynetim</a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">pynetim.cpp</a></li>
+          <li class="breadcrumb-item"><a href="../index.html">pynetim.cpp.graph</a></li>
+      <li class="breadcrumb-item active">pynetim.cpp.graph.graph</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../../../_sources/autoapi/pynetim/cpp/graph/graph/index.rst.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-pynetim.cpp.graph.graph">
+<span id="pynetim-cpp-graph-graph"></span><h1>pynetim.cpp.graph.graph<a class="headerlink" href="#module-pynetim.cpp.graph.graph" title="此标题的永久链接"></a></h1>
+<section id="classes">
+<h2>Classes<a class="headerlink" href="#classes" title="此标题的永久链接"></a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pynetim.cpp.graph.graph.IMGraphCpp" title="pynetim.cpp.graph.graph.IMGraphCpp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">IMGraphCpp</span></code></a></p></td>
+<td><p>图结构类（C++ 后端实现，Python 类型存根）</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="此标题的永久链接"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pynetim.cpp.graph.graph.IMGraphCpp">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pynetim.cpp.graph.graph.</span></span><span class="sig-name descname"><span class="pre">IMGraphCpp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_nodes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edges</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">...</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">directed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/pynetim/cpp/graph/graph.html#IMGraphCpp"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#pynetim.cpp.graph.graph.IMGraphCpp" title="永久链接至目标"></a></dt>
+<dd><p>图结构类（C++ 后端实现，Python 类型存根）</p>
+<p>本类用于表示有向 / 无向加权图，主要服务于
+影响力传播（IC / LT / SIR 等）与相关算法。</p>
+<p>实际逻辑由 C++ 扩展模块（graph.pyd）实现，
+本文件仅用于类型提示与文档生成。</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pynetim.cpp.graph.graph.IMGraphCpp.num_nodes">
+<span class="sig-name descname"><span class="pre">num_nodes</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="reference internal" href="../../../../../_modules/pynetim/cpp/graph/graph.html#IMGraphCpp.num_nodes"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#pynetim.cpp.graph.graph.IMGraphCpp.num_nodes" title="永久链接至目标"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pynetim.cpp.graph.graph.IMGraphCpp.num_edges">
+<span class="sig-name descname"><span class="pre">num_edges</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="reference internal" href="../../../../../_modules/pynetim/cpp/graph/graph.html#IMGraphCpp.num_edges"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#pynetim.cpp.graph.graph.IMGraphCpp.num_edges" title="永久链接至目标"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pynetim.cpp.graph.graph.IMGraphCpp.directed">
+<span class="sig-name descname"><span class="pre">directed</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="reference internal" href="../../../../../_modules/pynetim/cpp/graph/graph.html#IMGraphCpp.directed"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#pynetim.cpp.graph.graph.IMGraphCpp.directed" title="永久链接至目标"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pynetim.cpp.graph.graph.IMGraphCpp.adj">
+<span class="sig-name descname"><span class="pre">adj</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><a class="reference internal" href="../../../../../_modules/pynetim/cpp/graph/graph.html#IMGraphCpp.adj"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#pynetim.cpp.graph.graph.IMGraphCpp.adj" title="永久链接至目标"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pynetim.cpp.graph.graph.IMGraphCpp.rev_adj">
+<span class="sig-name descname"><span class="pre">rev_adj</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><a class="reference internal" href="../../../../../_modules/pynetim/cpp/graph/graph.html#IMGraphCpp.rev_adj"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#pynetim.cpp.graph.graph.IMGraphCpp.rev_adj" title="永久链接至目标"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pynetim.cpp.graph.graph.IMGraphCpp.edges">
+<span class="sig-name descname"><span class="pre">edges</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></em><a class="reference internal" href="../../../../../_modules/pynetim/cpp/graph/graph.html#IMGraphCpp.edges"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#pynetim.cpp.graph.graph.IMGraphCpp.edges" title="永久链接至目标"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.cpp.graph.graph.IMGraphCpp.add_edge">
+<span class="sig-name descname"><span class="pre">add_edge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">w</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1.0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../../../../../_modules/pynetim/cpp/graph/graph.html#IMGraphCpp.add_edge"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#pynetim.cpp.graph.graph.IMGraphCpp.add_edge" title="永久链接至目标"></a></dt>
+<dd><p>添加一条边 (u → v)</p>
+<dl class="field-list simple">
+<dt class="field-odd">参数<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>u</strong> (<em>int</em>) – 起始节点</p></li>
+<li><p><strong>v</strong> (<em>int</em>) – 终止节点</p></li>
+<li><p><strong>w</strong> (<em>float</em><em>, </em><em>default=1.0</em>) – 边权重（在传播模型中表示激活概率）</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.cpp.graph.graph.IMGraphCpp.add_edges">
+<span class="sig-name descname"><span class="pre">add_edges</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">edges</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">...</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../../../../../_modules/pynetim/cpp/graph/graph.html#IMGraphCpp.add_edges"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#pynetim.cpp.graph.graph.IMGraphCpp.add_edges" title="永久链接至目标"></a></dt>
+<dd><p>批量添加多条边</p>
+<dl class="field-list simple">
+<dt class="field-odd">参数<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>edges</strong> (<em>List</em><em>[</em><em>Tuple</em><em>[</em><em>int</em><em>, </em><em>int</em><em>]</em><em>]</em>) – 边列表，每个元素为 (u, v)</p></li>
+<li><p><strong>weights</strong> (<em>List</em><em>[</em><em>float</em><em>]</em><em>, </em><em>optional</em>) – 对应边的权重列表；若不提供，则所有边权重默认为 1.0</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.cpp.graph.graph.IMGraphCpp.update_edge_weight">
+<span class="sig-name descname"><span class="pre">update_edge_weight</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">w</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../../../../../_modules/pynetim/cpp/graph/graph.html#IMGraphCpp.update_edge_weight"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#pynetim.cpp.graph.graph.IMGraphCpp.update_edge_weight" title="永久链接至目标"></a></dt>
+<dd><p>更新已存在边的权重</p>
+<dl class="field-list simple">
+<dt class="field-odd">参数<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>u</strong> (<em>int</em>) – 起始节点</p></li>
+<li><p><strong>v</strong> (<em>int</em>) – 终止节点</p></li>
+<li><p><strong>w</strong> (<em>float</em>) – 新的边权重</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.cpp.graph.graph.IMGraphCpp.remove_edge">
+<span class="sig-name descname"><span class="pre">remove_edge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../../../../../_modules/pynetim/cpp/graph/graph.html#IMGraphCpp.remove_edge"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#pynetim.cpp.graph.graph.IMGraphCpp.remove_edge" title="永久链接至目标"></a></dt>
+<dd><p>删除一条边 (u → v)</p>
+<dl class="field-list simple">
+<dt class="field-odd">参数<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>u</strong> (<em>int</em>) – 起始节点</p></li>
+<li><p><strong>v</strong> (<em>int</em>) – 终止节点</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.cpp.graph.graph.IMGraphCpp.remove_edges">
+<span class="sig-name descname"><span class="pre">remove_edges</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">edges</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../../../../../_modules/pynetim/cpp/graph/graph.html#IMGraphCpp.remove_edges"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#pynetim.cpp.graph.graph.IMGraphCpp.remove_edges" title="永久链接至目标"></a></dt>
+<dd><p>批量删除多条边</p>
+<dl class="field-list simple">
+<dt class="field-odd">参数<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>edges</strong> (<em>List</em><em>[</em><em>Tuple</em><em>[</em><em>int</em><em>, </em><em>int</em><em>]</em><em>]</em>) – 边列表，每个元素为 (u, v)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.cpp.graph.graph.IMGraphCpp.out_neighbors">
+<span class="sig-name descname"><span class="pre">out_neighbors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../../../../_modules/pynetim/cpp/graph/graph.html#IMGraphCpp.out_neighbors"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#pynetim.cpp.graph.graph.IMGraphCpp.out_neighbors" title="永久链接至目标"></a></dt>
+<dd><p>获取节点 u 的出邻居节点列表</p>
+<dl class="field-list simple">
+<dt class="field-odd">参数<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>u</strong> (<em>int</em>) – 节点编号</p>
+</dd>
+<dt class="field-even">返回<span class="colon">:</span></dt>
+<dd class="field-even"><p>所有从 u 出发可达的邻居节点</p>
+</dd>
+<dt class="field-odd">返回类型<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List[int]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.cpp.graph.graph.IMGraphCpp.in_neighbors">
+<span class="sig-name descname"><span class="pre">in_neighbors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../../../../_modules/pynetim/cpp/graph/graph.html#IMGraphCpp.in_neighbors"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#pynetim.cpp.graph.graph.IMGraphCpp.in_neighbors" title="永久链接至目标"></a></dt>
+<dd><p>获取节点 u 的入邻居节点列表</p>
+<dl class="field-list simple">
+<dt class="field-odd">参数<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>u</strong> (<em>int</em>) – 节点编号</p>
+</dd>
+<dt class="field-even">返回<span class="colon">:</span></dt>
+<dd class="field-even"><p>所有指向 u 的前驱节点</p>
+</dd>
+<dt class="field-odd">返回类型<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List[int]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.cpp.graph.graph.IMGraphCpp.out_degree">
+<span class="sig-name descname"><span class="pre">out_degree</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="../../../../../_modules/pynetim/cpp/graph/graph.html#IMGraphCpp.out_degree"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#pynetim.cpp.graph.graph.IMGraphCpp.out_degree" title="永久链接至目标"></a></dt>
+<dd><p>返回节点 u 的出度</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.cpp.graph.graph.IMGraphCpp.in_degree">
+<span class="sig-name descname"><span class="pre">in_degree</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="../../../../../_modules/pynetim/cpp/graph/graph.html#IMGraphCpp.in_degree"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#pynetim.cpp.graph.graph.IMGraphCpp.in_degree" title="永久链接至目标"></a></dt>
+<dd><p>返回节点 u 的入度</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.cpp.graph.graph.IMGraphCpp.degree">
+<span class="sig-name descname"><span class="pre">degree</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="../../../../../_modules/pynetim/cpp/graph/graph.html#IMGraphCpp.degree"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#pynetim.cpp.graph.graph.IMGraphCpp.degree" title="永久链接至目标"></a></dt>
+<dd><p>返回节点 u 的度</p>
+<p>对于有向图，通常等于 in_degree + out_degree；
+对于无向图，等于邻接节点数量。</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.cpp.graph.graph.IMGraphCpp.get_adj_list">
+<span class="sig-name descname"><span class="pre">get_adj_list</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../../../../_modules/pynetim/cpp/graph/graph.html#IMGraphCpp.get_adj_list"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#pynetim.cpp.graph.graph.IMGraphCpp.get_adj_list" title="永久链接至目标"></a></dt>
+<dd><p>返回图的出邻接表（深拷贝或只读视图，取决于 C++ 实现）</p>
+<dl class="field-list simple">
+<dt class="field-odd">返回<span class="colon">:</span></dt>
+<dd class="field-odd"><p>邻接表表示的图结构</p>
+</dd>
+<dt class="field-even">返回类型<span class="colon">:</span></dt>
+<dd class="field-even"><p>List[List[int]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.cpp.graph.graph.IMGraphCpp.get_adj_matrix">
+<span class="sig-name descname"><span class="pre">get_adj_matrix</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../../../../_modules/pynetim/cpp/graph/graph.html#IMGraphCpp.get_adj_matrix"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#pynetim.cpp.graph.graph.IMGraphCpp.get_adj_matrix" title="永久链接至目标"></a></dt>
+<dd><p>返回图的出邻接矩阵（深拷贝或只读视图，取决于 C++ 实现）</p>
+<dl class="field-list simple">
+<dt class="field-odd">返回<span class="colon">:</span></dt>
+<dd class="field-odd"><p>邻接表表示的图结构</p>
+</dd>
+<dt class="field-even">返回类型<span class="colon">:</span></dt>
+<dd class="field-even"><p>List[List[int]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="../index.html" class="btn btn-neutral float-left" title="pynetim.cpp.graph" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../../../py/index.html" class="btn btn-neutral float-right" title="pynetim.py" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2025, Kaijing Zhang。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

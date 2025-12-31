@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pynetim.py.decorator.decorator &mdash; PyNetIM v0.2.2 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css?v=eafc0fe6" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js?v=795308df"></script>
+        <script src="../../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../../_static/sphinx_highlight.js?v=4825356b"></script>
+        <script src="../../../../_static/translations.js?v=beaddf03"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            PyNetIM
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <p class="caption" role="heading"><span class="caption-text">使用指南</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../installation.html">安装指南</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../installation.html#id2">环境要求</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../installation.html#pip">使用 pip 安装</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../installation.html#id3">从源码安装</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../installation.html#id4">验证安装</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../quickstart.html">快速开始</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../quickstart.html#id2">基本示例</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../quickstart.html#id3">导入库</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../quickstart.html#id4">创建图</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../quickstart.html#id5">运行算法</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../quickstart.html#id6">扩散模拟</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../examples.html">使用示例</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../examples.html#id2">完整示例：社交网络影响力分析</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../examples.html#id3">更多示例</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API 文档</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../autoapi/index.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../autoapi/pynetim/index.html">pynetim</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../autoapi/pynetim/index.html#submodules">Submodules</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../autoapi/pynetim/cpp/index.html">pynetim.cpp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../autoapi/pynetim/py/index.html">pynetim.py</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../autoapi/pynetim/utils/index.html">pynetim.utils</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">PyNetIM</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../index.html">模块代码</a></li>
+      <li class="breadcrumb-item active">pynetim.py.decorator.decorator</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>pynetim.py.decorator.decorator 源代码</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">wraps</span>
+
+
+<div class="viewcode-block" id="Timer"><a class="viewcode-back" href="../../../../autoapi/pynetim/py/decorator/index.html#pynetim.py.decorator.decorator.Timer">[文档]</a><span class="k">class</span> <span class="nc">Timer</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    计时器装饰器类，用于测量函数执行时间。</span>
+
+<span class="sd">    该装饰器可以重复运行函数多次并计算平均执行时间。</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        repeat (int): 函数每次调用时实际运行的次数</span>
+<span class="sd">        total_time (float): 累计总执行时间</span>
+<span class="sd">        call_count (int): 函数被调用的次数</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">repeat</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        初始化计时器装饰器。</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            repeat (int, optional): 函数每次调用时实际运行的次数，默认为1</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="Timer.repeat"><a class="viewcode-back" href="../../../../autoapi/pynetim/py/decorator/decorator/index.html#pynetim.py.decorator.decorator.Timer.repeat">[文档]</a>        <span class="bp">self</span><span class="o">.</span><span class="n">repeat</span> <span class="o">=</span> <span class="n">repeat</span></div>
+<div class="viewcode-block" id="Timer.total_time"><a class="viewcode-back" href="../../../../autoapi/pynetim/py/decorator/decorator/index.html#pynetim.py.decorator.decorator.Timer.total_time">[文档]</a>        <span class="bp">self</span><span class="o">.</span><span class="n">total_time</span> <span class="o">=</span> <span class="mi">0</span></div>
+<div class="viewcode-block" id="Timer.call_count"><a class="viewcode-back" href="../../../../autoapi/pynetim/py/decorator/decorator/index.html#pynetim.py.decorator.decorator.Timer.call_count">[文档]</a>        <span class="bp">self</span><span class="o">.</span><span class="n">call_count</span> <span class="o">=</span> <span class="mi">0</span></div>
+
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">func</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        使Timer实例可调用，作为装饰器使用。</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            func (Callable): 被装饰的函数</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Callable: 包装后的函数</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nd">@wraps</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
+        <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            包装函数，执行实际的计时逻辑。</span>
+
+<span class="sd">            Args:</span>
+<span class="sd">                *args: 传递给被装饰函数的位置参数</span>
+<span class="sd">                **kwargs: 传递给被装饰函数的关键字参数</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">                Any: 被装饰函数的返回值</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">repeat</span><span class="p">):</span>
+                <span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+                <span class="n">result</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+                <span class="n">elapsed</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">total_time</span> <span class="o">+=</span> <span class="n">elapsed</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">call_count</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="c1"># print(f&quot;[Timer] {func.__name__} run {_ + 1}/{self.repeat}: {elapsed:.6f}s&quot;)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;运行时间: </span><span class="si">{</span><span class="n">average_time</span><span class="p">()</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2">s&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">result</span>
+
+        <span class="k">def</span> <span class="nf">average_time</span><span class="p">():</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            计算函数的平均执行时间。</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">                float: 平均执行时间（秒）</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">call_count</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">return</span> <span class="mi">0</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">total_time</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">call_count</span>
+
+        <span class="n">wrapper</span><span class="o">.</span><span class="n">average_time</span> <span class="o">=</span> <span class="n">average_time</span>
+        <span class="k">return</span> <span class="n">wrapper</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2025, Kaijing Zhang。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

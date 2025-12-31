@@ -1,0 +1,18 @@
+pynetim.py
+==========
+
+.. py:module:: pynetim.py
+
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 1
+
+   /autoapi/pynetim/py/algorithms/index
+   /autoapi/pynetim/py/decorator/index
+   /autoapi/pynetim/py/diffusion_model/index
+   /autoapi/pynetim/py/graph/index
+
+

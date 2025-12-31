@@ -1,0 +1,67 @@
+pynetim.py.algorithms.base_algorithm
+====================================
+
+.. py:module:: pynetim.py.algorithms.base_algorithm
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   pynetim.py.algorithms.base_algorithm.BaseAlgorithm
+
+
+Module Contents
+---------------
+
+.. py:class:: BaseAlgorithm(graph: pynetim.py.graph.IMGraph, diffusion_model: str | pynetim.py.diffusion_model.BaseDiffusionModel = None)
+
+   算法基类。
+
+   该类为各种影响力最大化算法实现提供了基础框架，包含图结构和扩散模型，
+   以及需要子类实现的核心方法。
+
+   .. attribute:: graph
+
+      输入图对象
+
+      :type: IMGraph
+
+   .. attribute:: seeds
+
+      种子节点集合
+
+      :type: list
+
+   .. attribute:: diffusion_model
+
+      扩散模型实例
+
+      :type: BaseDiffusionModel
+
+
+   .. py:attribute:: graph
+
+
+   .. py:attribute:: seeds
+      :value: []
+
+
+
+   .. py:method:: run(k)
+      :abstractmethod:
+
+
+      执行算法的抽象方法。
+
+      子类必须实现此方法来定义具体的算法逻辑。
+
+      :param k: 需要选择的种子节点数量
+
+      :returns: 算法执行结果，具体类型由子类定义
+
+      :raises NotImplementedError: 当子类未实现此方法时抛出
+
+
+

@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pynetim.cpp.diffusion_model &mdash; PyNetIM v0.2.2 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css?v=eafc0fe6" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js?v=795308df"></script>
+        <script src="../../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../../_static/sphinx_highlight.js?v=4825356b"></script>
+        <script src="../../../../_static/translations.js?v=beaddf03"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../../search.html" />
+    <link rel="next" title="pynetim.cpp.diffusion_model.independent_cascade_model" href="independent_cascade_model/index.html" />
+    <link rel="prev" title="pynetim.cpp" href="../index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            PyNetIM
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <p class="caption" role="heading"><span class="caption-text">使用指南</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../installation.html">安装指南</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../installation.html#id2">环境要求</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../installation.html#pip">使用 pip 安装</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../installation.html#id3">从源码安装</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../installation.html#id4">验证安装</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../quickstart.html">快速开始</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../quickstart.html#id2">基本示例</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../quickstart.html#id3">导入库</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../quickstart.html#id4">创建图</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../quickstart.html#id5">运行算法</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../quickstart.html#id6">扩散模拟</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../examples.html">使用示例</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../examples.html#id2">完整示例：社交网络影响力分析</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../examples.html#id3">更多示例</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API 文档</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../index.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../index.html">pynetim</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../../index.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="../index.html">pynetim.cpp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../py/index.html">pynetim.py</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../utils/index.html">pynetim.utils</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">PyNetIM</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../index.html">API Reference</a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">pynetim</a></li>
+          <li class="breadcrumb-item"><a href="../index.html">pynetim.cpp</a></li>
+      <li class="breadcrumb-item active">pynetim.cpp.diffusion_model</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../../_sources/autoapi/pynetim/cpp/diffusion_model/index.rst.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-pynetim.cpp.diffusion_model">
+<span id="pynetim-cpp-diffusion-model"></span><h1>pynetim.cpp.diffusion_model<a class="headerlink" href="#module-pynetim.cpp.diffusion_model" title="此标题的永久链接"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="此标题的永久链接"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="independent_cascade_model/index.html">pynetim.cpp.diffusion_model.independent_cascade_model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="linear_threshold_model/index.html">pynetim.cpp.diffusion_model.linear_threshold_model</a></li>
+</ul>
+</div>
+</section>
+<section id="classes">
+<h2>Classes<a class="headerlink" href="#classes" title="此标题的永久链接"></a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pynetim.cpp.diffusion_model.IndependentCascadeModel" title="pynetim.cpp.diffusion_model.IndependentCascadeModel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">IndependentCascadeModel</span></code></a></p></td>
+<td><p>Independent Cascade (IC) diffusion model.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#pynetim.cpp.diffusion_model.LinearThresholdModel" title="pynetim.cpp.diffusion_model.LinearThresholdModel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LinearThresholdModel</span></code></a></p></td>
+<td><p>Linear Threshold (LT) diffusion model with randomized activation thresholds.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="package-contents">
+<h2>Package Contents<a class="headerlink" href="#package-contents" title="此标题的永久链接"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pynetim.cpp.diffusion_model.IndependentCascadeModel">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pynetim.cpp.diffusion_model.</span></span><span class="sig-name descname"><span class="pre">IndependentCascadeModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">seeds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Set</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../graph/graph/index.html#pynetim.cpp.graph.graph.IMGraphCpp" title="pynetim.cpp.graph.graph.IMGraphCpp"><span class="pre">pynetim.cpp.graph.graph.IMGraphCpp</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/pynetim/cpp/diffusion_model/independent_cascade_model.html#IndependentCascadeModel"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#pynetim.cpp.diffusion_model.IndependentCascadeModel" title="永久链接至目标"></a></dt>
+<dd><p>Independent Cascade (IC) diffusion model.</p>
+<p>本类实现经典的 Independent Cascade 传播模型，
+用于模拟信息 / 影响力在图结构中的随机扩散过程。</p>
+<p>具体传播逻辑由 C++ 后端实现，
+本文件仅用于 Python 侧的类型提示与文档说明。</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.cpp.diffusion_model.IndependentCascadeModel.set_seeds">
+<span class="sig-name descname"><span class="pre">set_seeds</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">seeds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Set</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../../../../_modules/pynetim/cpp/diffusion_model/independent_cascade_model.html#IndependentCascadeModel.set_seeds"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#pynetim.cpp.diffusion_model.IndependentCascadeModel.set_seeds" title="永久链接至目标"></a></dt>
+<dd><p>更新种子节点集合</p>
+<dl class="field-list simple">
+<dt class="field-odd">参数<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>seeds</strong> (<em>Set</em><em>[</em><em>int</em><em>]</em>) – 新的初始激活节点集合</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.cpp.diffusion_model.IndependentCascadeModel.run_monte_carlo_diffusion">
+<span class="sig-name descname"><span class="pre">run_monte_carlo_diffusion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rounds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">...</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_multithread</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">...</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../../../../_modules/pynetim/cpp/diffusion_model/independent_cascade_model.html#IndependentCascadeModel.run_monte_carlo_diffusion"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#pynetim.cpp.diffusion_model.IndependentCascadeModel.run_monte_carlo_diffusion" title="永久链接至目标"></a></dt>
+<dd><p>运行 Monte Carlo 扩散模拟</p>
+<p>在给定初始种子节点的情况下，
+重复进行多轮随机扩散实验，
+统计最终被激活节点数的期望值。</p>
+<dl class="field-list simple">
+<dt class="field-odd">参数<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>rounds</strong> (<em>int</em>) – Monte Carlo 模拟轮数</p></li>
+<li><p><strong>seed</strong> (<em>int</em><em>, </em><em>optional</em>) – 随机数种子（用于保证实验可复现性）</p></li>
+<li><p><strong>use_multithread</strong> (<em>bool</em><em>, </em><em>optional</em>) – 是否启用多线程加速模拟</p></li>
+</ul>
+</dd>
+<dt class="field-even">返回<span class="colon">:</span></dt>
+<dd class="field-even"><p>扩散结束后激活节点数量的期望值</p>
+</dd>
+<dt class="field-odd">返回类型<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pynetim.cpp.diffusion_model.LinearThresholdModel">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pynetim.cpp.diffusion_model.</span></span><span class="sig-name descname"><span class="pre">LinearThresholdModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">seeds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Set</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../graph/graph/index.html#pynetim.cpp.graph.graph.IMGraphCpp" title="pynetim.cpp.graph.graph.IMGraphCpp"><span class="pre">pynetim.cpp.graph.graph.IMGraphCpp</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">theta_l</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">theta_h</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/pynetim/cpp/diffusion_model/linear_threshold_model.html#LinearThresholdModel"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#pynetim.cpp.diffusion_model.LinearThresholdModel" title="永久链接至目标"></a></dt>
+<dd><p>Linear Threshold (LT) diffusion model with randomized activation thresholds.</p>
+<p>本模型是经典 Linear Threshold 模型的扩展版本。
+每个节点的激活阈值 θ 从区间 [θ_l, θ_h] 中随机采样，
+当来自已激活邻居的累积影响不小于该阈值时，节点被激活。</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.cpp.diffusion_model.LinearThresholdModel.set_seeds">
+<span class="sig-name descname"><span class="pre">set_seeds</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">seeds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Set</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../../../../_modules/pynetim/cpp/diffusion_model/linear_threshold_model.html#LinearThresholdModel.set_seeds"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#pynetim.cpp.diffusion_model.LinearThresholdModel.set_seeds" title="永久链接至目标"></a></dt>
+<dd><p>更新种子节点集合</p>
+<dl class="field-list simple">
+<dt class="field-odd">参数<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>seeds</strong> (<em>Set</em><em>[</em><em>int</em><em>]</em>) – 新的初始激活节点集合</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.cpp.diffusion_model.LinearThresholdModel.run_monte_carlo_diffusion">
+<span class="sig-name descname"><span class="pre">run_monte_carlo_diffusion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rounds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">...</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_multithread</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">...</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../../../../_modules/pynetim/cpp/diffusion_model/linear_threshold_model.html#LinearThresholdModel.run_monte_carlo_diffusion"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#pynetim.cpp.diffusion_model.LinearThresholdModel.run_monte_carlo_diffusion" title="永久链接至目标"></a></dt>
+<dd><p>运行 Monte Carlo 扩散模拟（LT 模型）</p>
+<p>在每一轮模拟中：
+- 为每个节点从区间 [θ_l, θ_h] 中随机采样激活阈值
+- 节点累积其所有已激活入邻居的影响权重
+- 当累积影响 ≥ 节点阈值时，该节点被激活
+- 扩散过程持续直到无新节点被激活</p>
+<dl class="field-list simple">
+<dt class="field-odd">参数<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>rounds</strong> (<em>int</em>) – Monte Carlo 模拟轮数</p></li>
+<li><p><strong>seed</strong> (<em>int</em><em>, </em><em>optional</em>) – 随机数种子（用于结果可复现）</p></li>
+<li><p><strong>use_multithread</strong> (<em>bool</em><em>, </em><em>optional</em>) – 是否启用多线程并行模拟</p></li>
+</ul>
+</dd>
+<dt class="field-even">返回<span class="colon">:</span></dt>
+<dd class="field-even"><p>扩散结束后激活节点数量的期望值</p>
+</dd>
+<dt class="field-odd">返回类型<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="../index.html" class="btn btn-neutral float-left" title="pynetim.cpp" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="independent_cascade_model/index.html" class="btn btn-neutral float-right" title="pynetim.cpp.diffusion_model.independent_cascade_model" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2025, Kaijing Zhang。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

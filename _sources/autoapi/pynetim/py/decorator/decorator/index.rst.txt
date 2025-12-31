@@ -1,0 +1,57 @@
+pynetim.py.decorator.decorator
+==============================
+
+.. py:module:: pynetim.py.decorator.decorator
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   pynetim.py.decorator.decorator.Timer
+
+
+Module Contents
+---------------
+
+.. py:class:: Timer(repeat=1)
+
+   计时器装饰器类，用于测量函数执行时间。
+
+   该装饰器可以重复运行函数多次并计算平均执行时间。
+
+   .. attribute:: repeat
+
+      函数每次调用时实际运行的次数
+
+      :type: int
+
+   .. attribute:: total_time
+
+      累计总执行时间
+
+      :type: float
+
+   .. attribute:: call_count
+
+      函数被调用的次数
+
+      :type: int
+
+
+   .. py:attribute:: repeat
+      :value: 1
+
+
+
+   .. py:attribute:: total_time
+      :value: 0
+
+
+
+   .. py:attribute:: call_count
+      :value: 0
+
+
+

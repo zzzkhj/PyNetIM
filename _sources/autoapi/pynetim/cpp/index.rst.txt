@@ -1,0 +1,16 @@
+pynetim.cpp
+===========
+
+.. py:module:: pynetim.cpp
+
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 1
+
+   /autoapi/pynetim/cpp/diffusion_model/index
+   /autoapi/pynetim/cpp/graph/index
+
+

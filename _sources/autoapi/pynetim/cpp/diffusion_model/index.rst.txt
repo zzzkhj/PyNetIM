@@ -1,0 +1,108 @@
+pynetim.cpp.diffusion_model
+===========================
+
+.. py:module:: pynetim.cpp.diffusion_model
+
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 1
+
+   /autoapi/pynetim/cpp/diffusion_model/independent_cascade_model/index
+   /autoapi/pynetim/cpp/diffusion_model/linear_threshold_model/index
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   pynetim.cpp.diffusion_model.IndependentCascadeModel
+   pynetim.cpp.diffusion_model.LinearThresholdModel
+
+
+Package Contents
+----------------
+
+.. py:class:: IndependentCascadeModel(seeds: Set[int], graph: pynetim.cpp.graph.graph.IMGraphCpp)
+
+   Independent Cascade (IC) diffusion model.
+
+   本类实现经典的 Independent Cascade 传播模型，
+   用于模拟信息 / 影响力在图结构中的随机扩散过程。
+
+   具体传播逻辑由 C++ 后端实现，
+   本文件仅用于 Python 侧的类型提示与文档说明。
+
+
+   .. py:method:: set_seeds(seeds: Set[int]) -> None
+
+      更新种子节点集合
+
+      :param seeds: 新的初始激活节点集合
+      :type seeds: Set[int]
+
+
+
+   .. py:method:: run_monte_carlo_diffusion(rounds: int, seed: int = ..., use_multithread: bool = ...) -> float
+
+      运行 Monte Carlo 扩散模拟
+
+      在给定初始种子节点的情况下，
+      重复进行多轮随机扩散实验，
+      统计最终被激活节点数的期望值。
+
+      :param rounds: Monte Carlo 模拟轮数
+      :type rounds: int
+      :param seed: 随机数种子（用于保证实验可复现性）
+      :type seed: int, optional
+      :param use_multithread: 是否启用多线程加速模拟
+      :type use_multithread: bool, optional
+
+      :returns: 扩散结束后激活节点数量的期望值
+      :rtype: float
+
+
+
+.. py:class:: LinearThresholdModel(seeds: Set[int], graph: pynetim.cpp.graph.graph.IMGraphCpp, theta_l: float, theta_h: float)
+
+   Linear Threshold (LT) diffusion model with randomized activation thresholds.
+
+   本模型是经典 Linear Threshold 模型的扩展版本。
+   每个节点的激活阈值 θ 从区间 [θ_l, θ_h] 中随机采样，
+   当来自已激活邻居的累积影响不小于该阈值时，节点被激活。
+
+
+   .. py:method:: set_seeds(seeds: Set[int]) -> None
+
+      更新种子节点集合
+
+      :param seeds: 新的初始激活节点集合
+      :type seeds: Set[int]
+
+
+
+   .. py:method:: run_monte_carlo_diffusion(rounds: int, seed: int = ..., use_multithread: bool = ...) -> float
+
+      运行 Monte Carlo 扩散模拟（LT 模型）
+
+      在每一轮模拟中：
+      - 为每个节点从区间 [θ_l, θ_h] 中随机采样激活阈值
+      - 节点累积其所有已激活入邻居的影响权重
+      - 当累积影响 ≥ 节点阈值时，该节点被激活
+      - 扩散过程持续直到无新节点被激活
+
+      :param rounds: Monte Carlo 模拟轮数
+      :type rounds: int
+      :param seed: 随机数种子（用于结果可复现）
+      :type seed: int, optional
+      :param use_multithread: 是否启用多线程并行模拟
+      :type use_multithread: bool, optional
+
+      :returns: 扩散结束后激活节点数量的期望值
+      :rtype: float
+
+
+
