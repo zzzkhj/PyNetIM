@@ -1,34 +1,12 @@
-__version__ = "0.2.3"
+# src/pynetim/__init__.py
+__version__ = "0.3.0"
+__author__ = "Zhang Kaijing"
 
-# -----------------------------
-# å¯¼å…¥å­æ¨¡å—å¯¹è±¡ï¼Œç”¨æˆ·å¯ä»¥è®¿é—®æ¨¡å—
-# -----------------------------
-from . import algorithms
-from . import diffusion_model
-from . import graph
-from . import utils
+# 1. µ¼Èë×Ó°ü£¨ÈÃÓÃ»§ÄÜ·ÃÎÊ im.py ºÍ im.cpp£©
+from . import py
+from . import cpp
 
-# -----------------------------
-# å¯¼å…¥æ ¸å¿ƒç±»åˆ°åŒ…é¡¶å±‚ï¼Œç”¨æˆ·å¯ä»¥ç›´æ¥è®¿é—®
-# -----------------------------
-from .graph import IMGraph
-from .diffusion_model import (IndependentCascadeModel, LinearThresholdModel, run_monte_carlo_diffusion,
-                              SusceptibleInfectedModel, SusceptibleInfectedRecoveredModel)
-
-# -----------------------------
-# __all__ åŒ…å«æ¨¡å—å’Œé¡¶å±‚ç±»
-# -----------------------------
 __all__ = [
-    # æ¨¡å—
-    "algorithms",
-    "diffusion_model",
-    "graph",
-    "utils",
-    # é¡¶å±‚ç±»/å‡½æ•°
-    "IMGraph",
-    "IndependentCascadeModel",
-    "LinearThresholdModel",
-    "SusceptibleInfectedModel",
-    "SusceptibleInfectedRecoveredModel",
-    "run_monte_carlo_diffusion"
+    'py',      # µ¼³ö×Ó°ü±¾Éí
+    'cpp',     # µ¼³ö×Ó°ü±¾Éí
 ]
