@@ -3,13 +3,14 @@ from typing import Union
 
 from networkx import Graph, DiGraph
 
+from ..cpp.graph import IMGraph
 
-def set_edge_weight(graph: Union[Graph, DiGraph], edge_weight_type: str, constant_weight: float = None):
+def set_edge_weight(graph: Union[Graph, DiGraph, IMGraph], edge_weight_type: str, constant_weight: float = None):
     """
     根据指定的权重模型为图中的边设置权重值。
 
     参数:
-        graph (Graph|DiGraph): 网络图对象，可以是有向图或无向图
+        graph (Graph|DiGraph|IMGraph): 网络图对象，可以是有向图或无向图
         edge_weight_type (str): 边权重类型，支持 'CONSTANT'、'TV'、'WC' 三种模式
         constant_weight (float, optional): 当使用常量权重模式时，指定的权重值
 
@@ -23,8 +24,11 @@ def set_edge_weight(graph: Union[Graph, DiGraph], edge_weight_type: str, constan
         if constant_weight is None:
             raise ValueError('使用CONSTANT模型时必须提供常量权重值')
         # 为每条边设置常量权重
-        for u, v, a in graph.edges(data=True):
-            a['weight'] = constant_weight
+        for u, v in graph.edges():
+            if isinstance(graph, IMGraph):
+                pass
+            else:
+                graph.edges[(u, v)]['weight'] = constant_weight
     elif edge_weight_type == 'TV':
         # 定义权重列表，用于随机选择
         weight_list = [0.001, 0.01, 0.1]
