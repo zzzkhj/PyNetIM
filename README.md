@@ -222,7 +222,7 @@ utils/
 
 ```python
 import networkx as nx
-from pynetim.py import IMGraph
+from pynetim.py.graph import IMGraph
 from pynetim.py.algorithms import DegreeDiscountAlgorithm
 
 # 创建图

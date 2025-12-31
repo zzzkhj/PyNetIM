@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "pynetim"
-version = "0.3.0"
+version = "0.3.1"
 authors = [{ name = "Kaijing Zhang", email = "zhkaij@foxmail.com" }]
 description = "A Python library for Network Influence Maximization"
 readme = "README.md"
