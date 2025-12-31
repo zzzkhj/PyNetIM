@@ -49,14 +49,16 @@ class LinearThresholdModel(BaseDiffusionModel):
         # 执行一次传播过程
         new_activated_nodes = set()
         node_theta = {node: random.random() for node in range(self.graph.number_of_nodes)}
+        influence_sum = {node: 0 for node in range(self.graph.number_of_nodes)}
         for node in current_activated_nodes:
             for neighbor in self.graph.neighbors(node):
                 if neighbor not in self.activated_nodes:
-                    in_neighbors = self.graph.in_neighbors(neighbor)
-                    sum_weights = sum(self.graph.edges[in_neighbor, neighbor]['weight']
-                                      for in_neighbor in in_neighbors
-                                      if in_neighbor in current_activated_nodes)
-                    if sum_weights >= node_theta[neighbor]:
+                    influence_sum[neighbor] += self.graph.edges[node, neighbor]['weight']
+                    # in_neighbors = self.graph.in_neighbors(neighbor)
+                    # sum_weights = sum(self.graph.edges[in_neighbor, neighbor]['weight']
+                    #                   for in_neighbor in in_neighbors
+                    #                   if in_neighbor in current_activated_nodes)
+                    if influence_sum[neighbor] >= node_theta[neighbor]:
                         new_activated_nodes.add(neighbor)
                         self.activated_nodes.add(neighbor)
         # 记录每轮的状态

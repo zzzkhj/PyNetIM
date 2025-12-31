@@ -3,7 +3,7 @@ import random
 from .run_monte_carlo_diffusion import run_monte_carlo_diffusion
 from ..graph import IMGraph
 from .base_diffusion_model import BaseDiffusionModel
-from ..utils import infection_threshold
+from ...utils import infection_threshold
 
 
 class SusceptibleInfectedRecoveredModel(BaseDiffusionModel):
