@@ -15,8 +15,8 @@ class LinearThresholdModel:
 
     def __init__(
         self,
-        seeds: Set[int],
         graph: IMGraphCpp,
+        seeds: Set[int],
         theta_l: float,
         theta_h: float
     ) -> None:
@@ -25,10 +25,10 @@ class LinearThresholdModel:
 
         Args
         ----------
-        seeds : Set[int]
-            初始种子节点集合
         graph : Graph
             底层图结构（只读）
+        seeds : Set[int]
+            初始种子节点集合
         theta_l : float
             激活阈值下界
         theta_h : float

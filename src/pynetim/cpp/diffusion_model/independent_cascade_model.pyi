@@ -15,16 +15,16 @@ class IndependentCascadeModel:
 
     # ================== 构造函数 ==================
 
-    def __init__(self, seeds: Set[int], graph: IMGraphCpp) -> None:
+    def __init__(self, graph: IMGraphCpp, seeds: Set[int]) -> None:
         """
         初始化 Independent Cascade 模型
 
         Args
         ----------
-        seeds : Set[int]
-            初始种子节点集合
         graph : Graph
             底层图结构（只读，不应在扩散过程中被修改）
+        seeds : Set[int]
+            初始种子节点集合
         """
         ...
 
