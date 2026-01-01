@@ -1,16 +1,15 @@
-// graph_binding.cpp
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>          // 自动转换 std::vector, std::unordered_map 等
 #include <pybind11/operators.h>    // 支持运算符重载（如 ==）
 
-#include "Graph.h"     // 假设你的 Graph 类定义在 Graph.h 中
-// 如果上面的代码就是完整的头文件，直接把上面的代码保存为 Graph.h
+#include "Graph.h"
 
 namespace py = pybind11;
 
 PYBIND11_MODULE(graph, m) {
     m.doc() = "C++ Graph implementation exposed to Python via pybind11";
 
+    // 需要先注册 PairHash 类型，以便 Python 可以识别 unordered_map 的键类型
     py::class_<Graph>(m, "IMGraphCpp")
         /* ===== 构造函数 ===== */
         .def(py::init<
@@ -24,7 +23,6 @@ PYBIND11_MODULE(graph, m) {
             py::arg("weights") = std::vector<double>{},
             py::arg("directed") = true
         )
-
 
         // 只读属性
         .def_readonly("num_nodes", &Graph::num_nodes, "Number of nodes")
@@ -72,6 +70,14 @@ PYBIND11_MODULE(graph, m) {
         .def("out_degree", &Graph::out_degree, py::arg("u"))
         .def("in_degree", &Graph::in_degree, py::arg("u"))
         .def("degree", &Graph::degree, py::arg("u"))
+
+        // 批量度计算
+        .def("degree", &Graph::degree,
+            "Return degree of all nodes as a list")
+        .def("in_degree", &Graph::in_degree,
+            "Return in-degree of all nodes as a list")
+        .def("out_degree", &Graph::out_degree,
+            "Return out-degree of all nodes as a list")
 
         .def("get_adj_list", &Graph::get_adj_list,
             py::return_value_policy::reference_internal,
