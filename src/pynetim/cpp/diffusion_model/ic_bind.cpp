@@ -10,8 +10,8 @@ PYBIND11_MODULE(independent_cascade_model, m) {
     m.doc() = "Independent Cascade (IC) Influence Maximization Model";
 
     py::class_<IndependentCascadeModel>(m, "IndependentCascadeModel")
-        .def(py::init<const std::set<int>&, const Graph&>(),
-            py::arg("seeds"), py::arg("graph"),
+        .def(py::init<const Graph&, const std::set<int>&>(),
+            py::arg("graph"), py::arg("seeds"),
             "Construct IC model with initial seed set and graph")
 
         .def("set_seeds", &IndependentCascadeModel::set_seeds,

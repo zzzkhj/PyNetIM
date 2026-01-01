@@ -46,7 +46,7 @@ private:
 
         while (front < q.size()) {
             int u = q[front++];
-            const auto& neighbors = graph.out_neighbors(u);  
+            const auto& neighbors = graph.out_neighbors(u);
 
             for (const auto& v : neighbors) {
                 //int v = edge.first;
@@ -64,8 +64,9 @@ private:
     }
 
 public:
-    IndependentCascadeModel(const std::set<int>& seeds,
-        const Graph& graph)
+    IndependentCascadeModel(
+        const Graph& graph,
+        const std::set<int>& seeds)
         : seeds(seeds), graph(graph), num_nodes(graph.num_nodes) {
     }
 
@@ -92,7 +93,7 @@ public:
         }
 
         // ---------- 单线程 ----------
-        if (!use_multithread) {  
+        if (!use_multithread) {
             std::uniform_real_distribution<double> dist(0.0, 1.0);
             double sum = 0.0;
 
@@ -194,8 +195,9 @@ private:
     }
 
 public:
-    LinearThresholdModel(const std::set<int>& seeds,
+    LinearThresholdModel(
         const Graph& graph,
+        const std::set<int>& seeds,
         double theta_l = 0.0,
         double theta_h = 1.0)
         : seeds(seeds), graph(graph), num_nodes(graph.num_nodes)

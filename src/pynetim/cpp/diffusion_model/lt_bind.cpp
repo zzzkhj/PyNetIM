@@ -9,8 +9,8 @@ PYBIND11_MODULE(linear_threshold_model, m) {
     m.doc() = "Linear Threshold (LT) Influence Maximization Model";
 
     py::class_<LinearThresholdModel>(m, "LinearThresholdModel")
-        .def(py::init<const std::set<int>&, const Graph&, double, double>(),
-             py::arg("seeds"), py::arg("graph"),
+        .def(py::init<const Graph&, const std::set<int>&, double, double>(),
+             py::arg("graph"), py::arg("seeds"),
              py::arg("theta_l") = 0.0, py::arg("theta_h") = 1.0,
              R"doc(
              Construct LT model.
