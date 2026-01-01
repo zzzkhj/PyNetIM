@@ -143,7 +143,31 @@ public:
     }
 
     int degree(int u) const {
-        return out_degree(u);
+        return directed ? in_degree(u) + out_degree(u) : out_degree(u);
+    }
+
+    std::vector<int> degree() const {
+        std::vector<int> degree_vector(num_nodes, 0);
+        for (int u = 0; u < num_nodes; u++) {
+            degree_vector[u] = degree(u);
+        }
+        return degree_vector;  // 添加返回语句
+    }
+
+    std::vector<int> in_degree() const {
+        std::vector<int> degree_vector(num_nodes, 0);
+        for (int u = 0; u < num_nodes; u++) {
+            degree_vector[u] = in_degree(u);
+        }
+        return degree_vector;  // 添加返回语句
+    }
+
+    std::vector<int> out_degree() const {
+        std::vector<int> degree_vector(num_nodes, 0);
+        for (int u = 0; u < num_nodes; u++) {
+            degree_vector[u] = out_degree(u);  // 修复：应该是 out_degree(u)
+        }
+        return degree_vector;  // 添加返回语句
     }
 
     const std::vector<std::unordered_set<int>>& get_adj_list() const {
