@@ -1,0 +1,17 @@
+include src/pynetim/cpp/include/*.h
+include src/pynetim/cpp/bindings/*.cpp
+include src/pynetim/cpp/diffusion_model/*.pyi
+include src/pynetim/cpp/graph/*.pyi
+recursive-include src/pynetim *.h *.cpp *.pyi
+include LICENSE
+include README.md
+include CHANGELOG.md
+include pyproject.toml
+include setup.py
+recursive-include tests *.py
+prune __pycache__
+prune *.pyc
+prune .git
+prune build
+prune dist
+prune *.egg-info
