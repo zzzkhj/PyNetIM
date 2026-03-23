@@ -14,6 +14,12 @@ class SusceptibleInfectedModel(BaseDiffusionModel):
     节点只有两种状态：易感(S)和感染(I)。一旦节点被感染，它将始终保持感染状态
     并持续尝试感染其邻居节点。
 
+    参考文献:
+        - Kermack, W. O., & McKendrick, A. G. (1927). "A contribution to the mathematical theory of epidemics."
+          Proceedings of the Royal Society of London. Series A, 115(772), 700-721.
+          DOI: 10.1098/rspa.1927.0118
+          URL: https://royalsocietypublishing.org/doi/10.1098/rspa.1927.0118
+
     Attributes:
         infected_nodes (set): 所有已被感染的节点集合
         graph (IMGraph): 表示传播网络结构（继承自BaseDiffusionModel）

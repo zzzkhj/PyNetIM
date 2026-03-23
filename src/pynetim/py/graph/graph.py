@@ -124,6 +124,48 @@ class IMGraph:
         """
         return self.nx_graph.degree()
 
+    def batch_out_degree(self, nodes):
+        """
+        批量获取指定节点的出度。
+
+        Args:
+            nodes: 节点列表
+
+        Returns:
+            list: 每个节点的出度列表
+        """
+        if self.direction:
+            return [self.nx_graph.out_degree(node) for node in nodes]
+        else:
+            return [self.nx_graph.degree(node) for node in nodes]
+
+    def batch_in_degree(self, nodes):
+        """
+        批量获取指定节点的入度。
+
+        Args:
+            nodes: 节点列表
+
+        Returns:
+            list: 每个节点的入度列表
+        """
+        if self.direction:
+            return [self.nx_graph.in_degree(node) for node in nodes]
+        else:
+            return [self.nx_graph.degree(node) for node in nodes]
+
+    def batch_degree(self, nodes):
+        """
+        批量获取指定节点的度。
+
+        Args:
+            nodes: 节点列表
+
+        Returns:
+            list: 每个节点的度列表
+        """
+        return [self.nx_graph.degree(node) for node in nodes]
+
     def __str__(self):
         """
         返回图对象的字符串表示。

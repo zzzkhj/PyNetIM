@@ -1,6 +1,48 @@
 # PyNetIM
 
+[![PyPI version](https://badge.fury.io/py/pynetim.svg)](https://pypi.org/project/pynetim/)
+[![Python Version](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+
 [PyNetIM](https://zzzkhj.github.io/PyNetIM/) 是一个用于**社交网络影响力最大化（Influence Maximization, IM）**问题的 Python 库，集成了多种经典算法与扩散模型，并提供 **Python 实现 + C++ 加速后端**，适用于算法复现、性能对比与科研实验。
+
+---
+
+## 📦 最新版本
+
+**当前版本**: [v0.4.0](https://github.com/zzzkhj/PyNetIM/releases/tag/v0.4.0)  
+**发布日期**: 2026-03-23
+
+### 🎯 v0.4.0 主要更新
+
+#### ✨ 新功能
+- **C++ 图完整支持**: 所有工具函数现在支持 `IMGraphCpp`（C++ 图）
+  - `set_edge_weight()` - 支持三种权重模型（CONSTANT、TV、WC）
+  - `infection_threshold()` - 支持基于度分布的感染阈值计算
+  - `graph_statistics()` - 支持完整的图统计信息
+  - `graph_density()` - 支持图密度计算
+  - `connectivity_analysis()` - 支持连通性分析
+
+#### ⚡ 性能优化
+- 避免重复计算度字典
+- 使用 `Counter` 优化度分布统计
+- 合并重复代码逻辑，提升可维护性
+
+#### 🐛 Bug 修复
+- 修复缺失的 `networkx` 模块导入
+- 修复整数除法导致的精度丢失问题
+- 修复连通性分析中的重复代码
+
+#### 📚 文档改进
+- 为所有主要模型和算法添加学术参考文献
+  - 4个传播模型（LT、IC、SIR、SI）
+  - 3个影响力最大化算法（Degree Discount、RIS、IMM）
+  - 1个关键工具函数（infection_threshold）
+- 新增文档：
+  - `CHANGELOG.md` - 完整的更新日志
+  - `REFERENCES_DOCUMENTATION.md` - 参考文献文档
+
+📖 **查看完整更新**: [CHANGELOG.md](CHANGELOG.md)
 
 ---
 
@@ -215,6 +257,50 @@ utils/
   * 随机权重
   * 自定义权重
 
+
+---
+
+## 🧪 测试
+
+### 运行测试
+
+PyNetIM 提供了完整的测试套件，用于验证库的功能和性能。
+
+#### NetworkX 图测试
+运行 NetworkX 图的测试：
+
+```bash
+conda run -n pynetim python tests/test.py
+```
+
+#### C++ 图测试
+运行 C++ 图的测试：
+
+```bash
+conda run -n pynetim python tests/test_cpp.py
+```
+
+### 测试覆盖
+
+测试套件涵盖了以下功能：
+
+**NetworkX 图测试** (`tests/test.py`):
+- 基本图操作（创建、节点、边）
+- 图统计信息计算
+- 图密度计算
+- 连通性分析
+- 边权重设置（CONSTANT、TV、WC）
+- 感染阈值计算
+
+**C++ 图测试** (`tests/test_cpp.py`):
+- 基本图操作（创建、节点、边）
+- 邻接查询
+- 度数查询（批量）
+- 边权重设置
+- IC 扩散模型测试
+- LT 扩散模型测试
+- SI 扩散模型测试
+- SIR 扩散模型测试
 
 ---
 

@@ -13,6 +13,12 @@ class LinearThresholdModel(BaseDiffusionModel):
     每个节点都有一个随机阈值，当其已激活邻居的影响力总和超过该阈值时，
     节点被激活。每个节点对其他节点的影响力通过边权重表示。
 
+    参考文献:
+        - Granovetter, M. (1978). "Threshold models of collective behavior."
+          American Journal of Sociology, 83(6), 1420-1443.
+          DOI: 10.1086/226707
+          URL: https://www.jstor.org/stable/2778111
+
     Attributes:
         activated_nodes (set): 所有已被激活的节点集合
         graph (IMGraph): 表示传播网络结构（继承自BaseDiffusionModel）

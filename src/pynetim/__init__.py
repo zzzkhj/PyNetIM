@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-__version__ = "0.3.0"
+__version__ = "0.4.0"
 __author__ = "Zhang Kaijing"
 
 # 1. 导入子包（让用户能访问 im.py 和 im.cpp）

@@ -12,6 +12,12 @@ class SingleDiscountAlgorithm(BaseAlgorithm):
 
     该算法通过逐步选择具有最高度数的节点作为种子，并对其邻居节点的度数进行折扣，
     以避免选择过多相互连接的节点。
+
+    参考文献:
+        - Chen, W., Wang, Y., & Yang, S. (2009). "Efficient influence maximization in social networks."
+          Proceedings of the 15th ACM SIGKDD International Conference on Knowledge Discovery and Data Mining (KDD), 199-208.
+          DOI: 10.1145/1557019.1557047
+          URL: https://dl.acm.org/doi/10.1145/1557019.1557047
     """
 
     def __init__(self, graph: IMGraph, diffusion_model=None):
@@ -68,6 +74,12 @@ class DegreeDiscountAlgorithm(BaseAlgorithm):
 
     该算法是Single Discount的改进版本，考虑了邻居节点之间的影响关系，
     使用更复杂的折扣公式来更好地评估节点的边际影响力。
+
+    参考文献:
+        - Chen, W., Wang, Y., & Yang, S. (2009). "Efficient influence maximization in social networks."
+          Proceedings of the 15th ACM SIGKDD International Conference on Knowledge Discovery and Data Mining (KDD), 199-208.
+          DOI: 10.1145/1557019.1557047
+          URL: https://dl.acm.org/doi/10.1145/1557019.1557047
     """
 
     def __init__(self, graph: IMGraph, diffusion_model='IC'):

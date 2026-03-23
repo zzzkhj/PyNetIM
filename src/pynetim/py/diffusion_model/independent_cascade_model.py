@@ -13,6 +13,12 @@ class IndependentCascadeModel(BaseDiffusionModel):
     在每一轮中，已激活的节点尝试激活其未激活的邻居节点。
     每条边都有固定的传播概率，当节点尝试传播时，根据概率决定是否成功激活邻居。
 
+    参考文献:
+        - Kempe, D., Kleinberg, J., & Tardos, É. (2003). "Maximizing the spread of influence through a social network."
+          Proceedings of the 9th ACM SIGKDD International Conference on Knowledge Discovery and Data Mining (KDD), 137-146.
+          DOI: 10.1145/956750.956769
+          URL: https://dl.acm.org/doi/10.1145/956750.956769
+
     Attributes:
         activated_nodes (set): 所有已被激活的节点集合
         graph (IMGraph): 表示传播网络结构（继承自BaseDiffusionModel）

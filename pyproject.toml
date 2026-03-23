@@ -9,7 +9,7 @@ authors = [{ name = "Kaijing Zhang", email = "zhkaij@foxmail.com" }]
 description = "A Python library for Network Influence Maximization"
 readme = "README.md"
 requires-python = ">=3.8"
-dependencies = ["networkx>=2.6", "numpy>=1.20"]
+dependencies = ["networkx>=2.6", "numpy>=1.20", "tqdm>=4.60"]
 classifiers = [
     "Programming Language :: Python :: 3",
     "License :: OSI Approved :: MIT License",

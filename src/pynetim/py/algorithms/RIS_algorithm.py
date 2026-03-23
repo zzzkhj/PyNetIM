@@ -22,6 +22,12 @@ class BaseRISAlgorithm(BaseAlgorithm):
     - 使用堆优化贪心选择(O(R log k)而非O(R k))
     - 支持IC/LT模型
 
+    参考文献:
+        - Borgs, C., Brautbar, M., Chitnis, N., & Tardos, É. (2014). "Maximizing social influence in nearly optimal time."
+          Proceedings of the 25th ACM-SIAM Symposium on Discrete Algorithms (SODA), 946-957.
+          DOI: 10.1137/1.9781611973402.70
+          URL: https://epubs.siam.org/doi/10.1137/1.9781611973402.70
+
     Attributes:
         graph (IMGraph): 输入图对象
         model (str): 扩散模型名称('IC'或'LT')
@@ -243,6 +249,12 @@ class IMMAlgorithm(BaseRISAlgorithm):
     基于鞅的影响力最大化算法(Influence Maximization via Martingales, IMM)
 
     支持IC和LT两种扩散模型
+
+    参考文献:
+        - Tang, Y., Xiao, X., & Shi, Y. (2015). "Influence maximization: Near-optimal time complexity meets practical efficiency."
+          Proceedings of the 2015 ACM SIGMOD International Conference on Management of Data (SIGMOD), 75-86.
+          DOI: 10.1145/2723372.2723734
+          URL: https://dl.acm.org/doi/10.1145/2723372.2723734
 
     Attributes:
         eps (float): 近似参数ε

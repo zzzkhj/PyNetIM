@@ -14,6 +14,12 @@ class SusceptibleInfectedRecoveredModel(BaseDiffusionModel):
     节点有三种状态：易感(S)、感染(I)和康复(R)。
     易感节点可被感染节点感染，感染节点可以康复为免疫状态。
 
+    参考文献:
+        - Kermack, W. O., & McKendrick, A. G. (1927). "A contribution to the mathematical theory of epidemics."
+          Proceedings of the Royal Society of London. Series A, 115(772), 700-721.
+          DOI: 10.1098/rspa.1927.0118
+          URL: https://royalsocietypublishing.org/doi/10.1098/rspa.1927.0118
+
     Attributes:
         infected_nodes (set): 所有已被感染的节点集合
         recovered_nodes (set): 所有已康复的节点集合

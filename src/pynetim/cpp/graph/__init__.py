@@ -1,3 +1,3 @@
 from .graph import IMGraphCpp
 
-__all__ = ["IMGraphCpp"]
+__all__ = ['IMGraphCpp']
