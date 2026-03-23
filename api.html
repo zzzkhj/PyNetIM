@@ -50,15 +50,49 @@
 <li class="toctree-l1"><a class="reference internal" href="changelog.html#id22">联系方式</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">API 参考</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#python">Python 模块</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id1">图模块</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id2">算法模块</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id3">扩散模型模块</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id4">工具函数模块</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pynetim.py.graph">图模块</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pynetim.py.graph.IMGraph"><code class="docutils literal notranslate"><span class="pre">IMGraph</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pynetim.py.algorithms">算法模块</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pynetim.py.algorithms.BaseRISAlgorithm"><code class="docutils literal notranslate"><span class="pre">BaseRISAlgorithm</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pynetim.py.algorithms.CELFAlgorithm"><code class="docutils literal notranslate"><span class="pre">CELFAlgorithm</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pynetim.py.algorithms.DegreeDiscountAlgorithm"><code class="docutils literal notranslate"><span class="pre">DegreeDiscountAlgorithm</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pynetim.py.algorithms.GreedyAlgorithm"><code class="docutils literal notranslate"><span class="pre">GreedyAlgorithm</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pynetim.py.algorithms.IMMAlgorithm"><code class="docutils literal notranslate"><span class="pre">IMMAlgorithm</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pynetim.py.algorithms.SingleDiscountAlgorithm"><code class="docutils literal notranslate"><span class="pre">SingleDiscountAlgorithm</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pynetim.py.diffusion_model">扩散模型模块</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pynetim.py.diffusion_model.IndependentCascadeModel"><code class="docutils literal notranslate"><span class="pre">IndependentCascadeModel</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pynetim.py.diffusion_model.LinearThresholdModel"><code class="docutils literal notranslate"><span class="pre">LinearThresholdModel</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pynetim.py.diffusion_model.SusceptibleInfectedModel"><code class="docutils literal notranslate"><span class="pre">SusceptibleInfectedModel</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pynetim.py.diffusion_model.SusceptibleInfectedRecoveredModel"><code class="docutils literal notranslate"><span class="pre">SusceptibleInfectedRecoveredModel</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pynetim.py.diffusion_model.run_monte_carlo_diffusion"><code class="docutils literal notranslate"><span class="pre">run_monte_carlo_diffusion()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pynetim.utils">工具函数模块</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pynetim.utils.connectivity_analysis"><code class="docutils literal notranslate"><span class="pre">connectivity_analysis()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pynetim.utils.graph_density"><code class="docutils literal notranslate"><span class="pre">graph_density()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pynetim.utils.graph_statistics"><code class="docutils literal notranslate"><span class="pre">graph_statistics()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pynetim.utils.infection_threshold"><code class="docutils literal notranslate"><span class="pre">infection_threshold()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pynetim.utils.set_edge_weight"><code class="docutils literal notranslate"><span class="pre">set_edge_weight()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pynetim.utils.topk"><code class="docutils literal notranslate"><span class="pre">topk()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pynetim.utils.truncate_padding"><code class="docutils literal notranslate"><span class="pre">truncate_padding()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#c">C++ 模块</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id5">C++ 图模块</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id6">C++ 扩散模型模块</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pynetim.cpp.graph">C++ 图模块</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pynetim.cpp.graph.IMGraphCpp"><code class="docutils literal notranslate"><span class="pre">IMGraphCpp</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pynetim.cpp.diffusion_model">C++ 扩散模型模块</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pynetim.cpp.diffusion_model.IndependentCascadeModel"><code class="docutils literal notranslate"><span class="pre">IndependentCascadeModel</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pynetim.cpp.diffusion_model.LinearThresholdModel"><code class="docutils literal notranslate"><span class="pre">LinearThresholdModel</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -93,26 +127,1595 @@
 <h1>API 参考<a class="headerlink" href="#api" title="Link to this heading"></a></h1>
 <section id="python">
 <h2>Python 模块<a class="headerlink" href="#python" title="Link to this heading"></a></h2>
-<section id="id1">
-<h3>图模块<a class="headerlink" href="#id1" title="Link to this heading"></a></h3>
+<section id="module-pynetim.py.graph">
+<span id="id1"></span><h3>图模块<a class="headerlink" href="#module-pynetim.py.graph" title="Link to this heading"></a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="pynetim.py.graph.IMGraph">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pynetim.py.graph.</span></span><span class="sig-name descname"><span class="pre">IMGraph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Graph</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">DiGraph</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edge_weight_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constant_weight</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynetim/py/graph/graph.html#IMGraph"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.py.graph.IMGraph" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>影响最大化图类，用于封装网络图结构和边权重设置。</p>
+<p>该类提供了对NetworkX图对象的封装，支持设置不同类型的边权重，
+并提供了便捷的图属性访问接口。</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pynetim.py.graph.IMGraph.graph">
+<span class="sig-name descname"><span class="pre">graph</span></span><a class="headerlink" href="#pynetim.py.graph.IMGraph.graph" title="Link to this definition"></a></dt>
+<dd><p>networkx图对象，可以是有向图或无向图</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Graph | DiGraph</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pynetim.py.graph.IMGraph.direction">
+<span class="sig-name descname"><span class="pre">direction</span></span><a class="headerlink" href="#pynetim.py.graph.IMGraph.direction" title="Link to this definition"></a></dt>
+<dd><p>指示图是否有向</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pynetim.py.graph.IMGraph.number_of_nodes">
+<span class="sig-name descname"><span class="pre">number_of_nodes</span></span><a class="headerlink" href="#pynetim.py.graph.IMGraph.number_of_nodes" title="Link to this definition"></a></dt>
+<dd><p>图中节点总数</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pynetim.py.graph.IMGraph.number_of_edges">
+<span class="sig-name descname"><span class="pre">number_of_edges</span></span><a class="headerlink" href="#pynetim.py.graph.IMGraph.number_of_edges" title="Link to this definition"></a></dt>
+<dd><p>图中边总数</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pynetim.py.graph.IMGraph.edge_weight_type">
+<span class="sig-name descname"><span class="pre">edge_weight_type</span></span><a class="headerlink" href="#pynetim.py.graph.IMGraph.edge_weight_type" title="Link to this definition"></a></dt>
+<dd><p>边权重类型</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.py.graph.IMGraph.batch_degree">
+<span class="sig-name descname"><span class="pre">batch_degree</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nodes</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynetim/py/graph/graph.html#IMGraph.batch_degree"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.py.graph.IMGraph.batch_degree" title="Link to this definition"></a></dt>
+<dd><p>批量获取指定节点的度。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>nodes</strong> – 节点列表</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>每个节点的度列表</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.py.graph.IMGraph.batch_in_degree">
+<span class="sig-name descname"><span class="pre">batch_in_degree</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nodes</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynetim/py/graph/graph.html#IMGraph.batch_in_degree"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.py.graph.IMGraph.batch_in_degree" title="Link to this definition"></a></dt>
+<dd><p>批量获取指定节点的入度。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>nodes</strong> – 节点列表</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>每个节点的入度列表</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.py.graph.IMGraph.batch_out_degree">
+<span class="sig-name descname"><span class="pre">batch_out_degree</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nodes</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynetim/py/graph/graph.html#IMGraph.batch_out_degree"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.py.graph.IMGraph.batch_out_degree" title="Link to this definition"></a></dt>
+<dd><p>批量获取指定节点的出度。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>nodes</strong> – 节点列表</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>每个节点的出度列表</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.py.graph.IMGraph.degree">
+<span class="sig-name descname"><span class="pre">degree</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynetim/py/graph/graph.html#IMGraph.degree"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.py.graph.IMGraph.degree" title="Link to this definition"></a></dt>
+<dd><p>获取图的度。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>图的度视图</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pynetim.py.graph.IMGraph.edges">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">edges</span></span><a class="headerlink" href="#pynetim.py.graph.IMGraph.edges" title="Link to this definition"></a></dt>
+<dd><p>获取图中所有边。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>图中所有边的视图</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>EdgeView</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pynetim.py.graph.IMGraph.in_degree">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">in_degree</span></span><a class="headerlink" href="#pynetim.py.graph.IMGraph.in_degree" title="Link to this definition"></a></dt>
+<dd><p>获取图的入度。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>图的入度视图</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.py.graph.IMGraph.in_neighbors">
+<span class="sig-name descname"><span class="pre">in_neighbors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynetim/py/graph/graph.html#IMGraph.in_neighbors"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.py.graph.IMGraph.in_neighbors" title="Link to this definition"></a></dt>
+<dd><p>获取指定节点的入邻居节点。</p>
+<p>对于有向图，返回前驱节点；对于无向图，返回所有邻居节点。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>node</strong> – 节点标识符</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>指定节点的入邻居节点迭代器</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>iterator</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.py.graph.IMGraph.neighbors">
+<span class="sig-name descname"><span class="pre">neighbors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynetim/py/graph/graph.html#IMGraph.neighbors"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.py.graph.IMGraph.neighbors" title="Link to this definition"></a></dt>
+<dd><p>获取指定节点的邻居节点。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>node</strong> – 节点标识符</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>指定节点的所有邻居节点迭代器</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>iterator</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pynetim.py.graph.IMGraph.nodes">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">nodes</span></span><a class="headerlink" href="#pynetim.py.graph.IMGraph.nodes" title="Link to this definition"></a></dt>
+<dd><p>获取图中所有节点。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>图中所有节点的视图</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>NodeView</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pynetim.py.graph.IMGraph.out_degree">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">out_degree</span></span><a class="headerlink" href="#pynetim.py.graph.IMGraph.out_degree" title="Link to this definition"></a></dt>
+<dd><p>获取图的出度。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>图的出度视图</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.py.graph.IMGraph.out_neighbors">
+<span class="sig-name descname"><span class="pre">out_neighbors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynetim/py/graph/graph.html#IMGraph.out_neighbors"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.py.graph.IMGraph.out_neighbors" title="Link to this definition"></a></dt>
+<dd><p>获取指定节点的出邻居节点。（同neighbors方法）</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>node</strong> – 节点标识符</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>指定节点的出邻居节点迭代器</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>iterator</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
 </section>
-<section id="id2">
-<h3>算法模块<a class="headerlink" href="#id2" title="Link to this heading"></a></h3>
+<section id="module-pynetim.py.algorithms">
+<span id="id2"></span><h3>算法模块<a class="headerlink" href="#module-pynetim.py.algorithms" title="Link to this heading"></a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="pynetim.py.algorithms.BaseRISAlgorithm">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pynetim.py.algorithms.</span></span><span class="sig-name descname"><span class="pre">BaseRISAlgorithm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pynetim.py.graph.IMGraph" title="pynetim.py.graph.graph.IMGraph"><span class="pre">IMGraph</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">diffusion_model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'IC'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">multi_process</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">processes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynetim/py/algorithms/RIS_algorithm.html#BaseRISAlgorithm"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.py.algorithms.BaseRISAlgorithm" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseAlgorithm</span></code></p>
+<p>最简版反向影响采样算法(Reverse Influence Sampling, RIS)</p>
+<p>说明:
+- 不自动估计采样数量
+- 用户指定RR集合数量(num_rr_sets)
+- 使用堆优化贪心选择(O(R log k)而非O(R k))
+- 支持IC/LT模型</p>
+<dl class="simple">
+<dt>参考文献:</dt><dd><ul class="simple">
+<li><p>Borgs, C., Brautbar, M., Chitnis, N., &amp; Tardos, É. (2014). “Maximizing social influence in nearly optimal time.”
+Proceedings of the 25th ACM-SIAM Symposium on Discrete Algorithms (SODA), 946-957.
+DOI: 10.1137/1.9781611973402.70
+URL: <a class="reference external" href="https://epubs.siam.org/doi/10.1137/1.9781611973402.70">https://epubs.siam.org/doi/10.1137/1.9781611973402.70</a></p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pynetim.py.algorithms.BaseRISAlgorithm.graph">
+<span class="sig-name descname"><span class="pre">graph</span></span><a class="headerlink" href="#pynetim.py.algorithms.BaseRISAlgorithm.graph" title="Link to this definition"></a></dt>
+<dd><p>输入图对象</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#pynetim.py.graph.IMGraph" title="pynetim.py.graph.IMGraph">IMGraph</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pynetim.py.algorithms.BaseRISAlgorithm.model">
+<span class="sig-name descname"><span class="pre">model</span></span><a class="headerlink" href="#pynetim.py.algorithms.BaseRISAlgorithm.model" title="Link to this definition"></a></dt>
+<dd><p>扩散模型名称(‘IC’或’LT’)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pynetim.py.algorithms.BaseRISAlgorithm.nodes">
+<span class="sig-name descname"><span class="pre">nodes</span></span><a class="headerlink" href="#pynetim.py.algorithms.BaseRISAlgorithm.nodes" title="Link to this definition"></a></dt>
+<dd><p>图中所有节点的列表</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pynetim.py.algorithms.BaseRISAlgorithm.rr_func">
+<span class="sig-name descname"><span class="pre">rr_func</span></span><a class="headerlink" href="#pynetim.py.algorithms.BaseRISAlgorithm.rr_func" title="Link to this definition"></a></dt>
+<dd><p>用于生成RR集合的函数</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Callable</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pynetim.py.algorithms.BaseRISAlgorithm.multi_process">
+<span class="sig-name descname"><span class="pre">multi_process</span></span><a class="headerlink" href="#pynetim.py.algorithms.BaseRISAlgorithm.multi_process" title="Link to this definition"></a></dt>
+<dd><p>是否启用多进程模式</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pynetim.py.algorithms.BaseRISAlgorithm.processes">
+<span class="sig-name descname"><span class="pre">processes</span></span><a class="headerlink" href="#pynetim.py.algorithms.BaseRISAlgorithm.processes" title="Link to this definition"></a></dt>
+<dd><p>多进程模式下的进程数</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pynetim.py.algorithms.BaseRISAlgorithm.seed">
+<span class="sig-name descname"><span class="pre">seed</span></span><a class="headerlink" href="#pynetim.py.algorithms.BaseRISAlgorithm.seed" title="Link to this definition"></a></dt>
+<dd><p>随机种子</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.py.algorithms.BaseRISAlgorithm.run">
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_rr_sets</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/pynetim/py/algorithms/RIS_algorithm.html#BaseRISAlgorithm.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.py.algorithms.BaseRISAlgorithm.run" title="Link to this definition"></a></dt>
+<dd><p>执行简单RIS算法。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>k</strong> (<em>int</em>) – 种子集合大小</p></li>
+<li><p><strong>num_rr_sets</strong> (<em>int</em>) – RR集合采样数量（越大越准）</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>选出的k个种子节点</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Set[int]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pynetim.py.algorithms.CELFAlgorithm">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pynetim.py.algorithms.</span></span><span class="sig-name descname"><span class="pre">CELFAlgorithm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pynetim.py.graph.IMGraph" title="pynetim.py.graph.graph.IMGraph"><span class="pre">IMGraph</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">diffusion_model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">BaseDiffusionModel</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynetim/py/algorithms/simulation_algorithm.html#CELFAlgorithm"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.py.algorithms.CELFAlgorithm" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseAlgorithm</span></code></p>
+<p>CELF算法选择影响力最大化种子节点</p>
+<p>CELF (Cost-Effective Lazy Forward) 算法是贪婪算法的优化版本，
+利用边际增益的子模特性减少计算量，通过优先队列维护节点的边际增益，
+避免重复计算已失效的边际增益。</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pynetim.py.algorithms.CELFAlgorithm.graph">
+<span class="sig-name descname"><span class="pre">graph</span></span><a class="headerlink" href="#pynetim.py.algorithms.CELFAlgorithm.graph" title="Link to this definition"></a></dt>
+<dd><p>输入图对象</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#pynetim.py.graph.IMGraph" title="pynetim.py.graph.IMGraph">IMGraph</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pynetim.py.algorithms.CELFAlgorithm.diffusion_model_class">
+<span class="sig-name descname"><span class="pre">diffusion_model_class</span></span><a class="headerlink" href="#pynetim.py.algorithms.CELFAlgorithm.diffusion_model_class" title="Link to this definition"></a></dt>
+<dd><p>影响传播模型类</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>BaseDiffusionModel</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.py.algorithms.CELFAlgorithm.run">
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">round</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">multi_process</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">processes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_progress</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynetim/py/algorithms/simulation_algorithm.html#CELFAlgorithm.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.py.algorithms.CELFAlgorithm.run" title="Link to this definition"></a></dt>
+<dd><p>运行CELF算法选择影响力最大化种子节点。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>k</strong> (<em>int</em>) – 种子节点数量</p></li>
+<li><p><strong>round</strong> (<em>int</em>) – 蒙特卡洛模拟次数</p></li>
+<li><p><strong>multi_process</strong> (<em>bool</em><em>, </em><em>optional</em>) – 是否启用多进程模式，默认为False</p></li>
+<li><p><strong>processes</strong> (<em>int</em><em>, </em><em>optional</em>) – 多进程模式下的进程数，为None时使用默认值</p></li>
+<li><p><strong>show_progress</strong> (<em>bool</em><em>, </em><em>optional</em>) – 是否显示进度条，默认为True</p></li>
+<li><p><strong>seed</strong> (<em>int</em><em>, </em><em>optional</em>) – 模拟的随机数种子，默认为None</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>选择的种子节点列表</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pynetim.py.algorithms.DegreeDiscountAlgorithm">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pynetim.py.algorithms.</span></span><span class="sig-name descname"><span class="pre">DegreeDiscountAlgorithm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pynetim.py.graph.IMGraph" title="pynetim.py.graph.graph.IMGraph"><span class="pre">IMGraph</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">diffusion_model</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'IC'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynetim/py/algorithms/heuristic_algorithm.html#DegreeDiscountAlgorithm"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.py.algorithms.DegreeDiscountAlgorithm" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseAlgorithm</span></code></p>
+<p>度折扣启发式算法(Degree Discount)用于选择影响力最大化种子节点。</p>
+<p>该算法是Single Discount的改进版本，考虑了邻居节点之间的影响关系，
+使用更复杂的折扣公式来更好地评估节点的边际影响力。</p>
+<dl class="simple">
+<dt>参考文献:</dt><dd><ul class="simple">
+<li><p>Chen, W., Wang, Y., &amp; Yang, S. (2009). “Efficient influence maximization in social networks.”
+Proceedings of the 15th ACM SIGKDD International Conference on Knowledge Discovery and Data Mining (KDD), 199-208.
+DOI: 10.1145/1557019.1557047
+URL: <a class="reference external" href="https://dl.acm.org/doi/10.1145/1557019.1557047">https://dl.acm.org/doi/10.1145/1557019.1557047</a></p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.py.algorithms.DegreeDiscountAlgorithm.run">
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynetim/py/algorithms/heuristic_algorithm.html#DegreeDiscountAlgorithm.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.py.algorithms.DegreeDiscountAlgorithm.run" title="Link to this definition"></a></dt>
+<dd><p>运行度折扣算法选择k个种子节点。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>k</strong> (<em>int</em>) – 需要选择的种子节点数量</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>选择的种子节点列表</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pynetim.py.algorithms.GreedyAlgorithm">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pynetim.py.algorithms.</span></span><span class="sig-name descname"><span class="pre">GreedyAlgorithm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pynetim.py.graph.IMGraph" title="pynetim.py.graph.graph.IMGraph"><span class="pre">IMGraph</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">diffusion_model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">BaseDiffusionModel</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynetim/py/algorithms/simulation_algorithm.html#GreedyAlgorithm"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.py.algorithms.GreedyAlgorithm" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseAlgorithm</span></code></p>
+<p>贪婪算法 (Greedy) 选择影响力最大化种子节点</p>
+<p>该算法通过迭代地选择具有最大边际影响力的节点作为种子节点，
+直到选够k个种子节点。每次选择都需要计算所有候选节点的边际增益。</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pynetim.py.algorithms.GreedyAlgorithm.graph">
+<span class="sig-name descname"><span class="pre">graph</span></span><a class="headerlink" href="#pynetim.py.algorithms.GreedyAlgorithm.graph" title="Link to this definition"></a></dt>
+<dd><p>输入图对象</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#pynetim.py.graph.IMGraph" title="pynetim.py.graph.IMGraph">IMGraph</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pynetim.py.algorithms.GreedyAlgorithm.diffusion_model_class">
+<span class="sig-name descname"><span class="pre">diffusion_model_class</span></span><a class="headerlink" href="#pynetim.py.algorithms.GreedyAlgorithm.diffusion_model_class" title="Link to this definition"></a></dt>
+<dd><p>影响传播模型类</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>BaseDiffusionModel</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.py.algorithms.GreedyAlgorithm.run">
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">round</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">multi_process</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">processes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_progress</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynetim/py/algorithms/simulation_algorithm.html#GreedyAlgorithm.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.py.algorithms.GreedyAlgorithm.run" title="Link to this definition"></a></dt>
+<dd><p>运行贪婪算法选择影响力最大化种子节点。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>k</strong> (<em>int</em>) – 种子节点数量</p></li>
+<li><p><strong>round</strong> (<em>int</em>) – 每次计算边际增益的蒙特卡洛模拟次数</p></li>
+<li><p><strong>multi_process</strong> (<em>bool</em><em>, </em><em>optional</em>) – 是否启用多进程模式，默认为False</p></li>
+<li><p><strong>processes</strong> (<em>int</em><em>, </em><em>optional</em>) – 多进程模式下的进程数，为None时使用默认值</p></li>
+<li><p><strong>show_progress</strong> (<em>bool</em><em>, </em><em>optional</em>) – 是否显示进度条，默认为True</p></li>
+<li><p><strong>seed</strong> (<em>int</em><em>, </em><em>optional</em>) – 模拟的随机种子，默认为None</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>选择的种子节点列表</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pynetim.py.algorithms.IMMAlgorithm">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pynetim.py.algorithms.</span></span><span class="sig-name descname"><span class="pre">IMMAlgorithm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pynetim.py.graph.IMGraph" title="pynetim.py.graph.graph.IMGraph"><span class="pre">IMGraph</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">diffusion_model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'IC'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">l</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">multi_process</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">processes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynetim/py/algorithms/RIS_algorithm.html#IMMAlgorithm"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.py.algorithms.IMMAlgorithm" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pynetim.py.algorithms.BaseRISAlgorithm" title="pynetim.py.algorithms.RIS_algorithm.BaseRISAlgorithm"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseRISAlgorithm</span></code></a></p>
+<p>基于鞅的影响力最大化算法(Influence Maximization via Martingales, IMM)</p>
+<p>支持IC和LT两种扩散模型</p>
+<dl class="simple">
+<dt>参考文献:</dt><dd><ul class="simple">
+<li><p>Tang, Y., Xiao, X., &amp; Shi, Y. (2015). “Influence maximization: Near-optimal time complexity meets practical efficiency.”
+Proceedings of the 2015 ACM SIGMOD International Conference on Management of Data (SIGMOD), 75-86.
+DOI: 10.1145/2723372.2723734
+URL: <a class="reference external" href="https://dl.acm.org/doi/10.1145/2723372.2723734">https://dl.acm.org/doi/10.1145/2723372.2723734</a></p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pynetim.py.algorithms.IMMAlgorithm.eps">
+<span class="sig-name descname"><span class="pre">eps</span></span><a class="headerlink" href="#pynetim.py.algorithms.IMMAlgorithm.eps" title="Link to this definition"></a></dt>
+<dd><p>近似参数ε</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pynetim.py.algorithms.IMMAlgorithm.l">
+<span class="sig-name descname"><span class="pre">l</span></span><a class="headerlink" href="#pynetim.py.algorithms.IMMAlgorithm.l" title="Link to this definition"></a></dt>
+<dd><p>失败概率参数l</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.py.algorithms.IMMAlgorithm.run">
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/pynetim/py/algorithms/RIS_algorithm.html#IMMAlgorithm.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.py.algorithms.IMMAlgorithm.run" title="Link to this definition"></a></dt>
+<dd><p>执行IMM算法，返回大小为k的种子集合。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>k</strong> (<em>int</em>) – 需要选择的种子节点数量</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>选出的种子节点集合</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Set[int]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pynetim.py.algorithms.SingleDiscountAlgorithm">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pynetim.py.algorithms.</span></span><span class="sig-name descname"><span class="pre">SingleDiscountAlgorithm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pynetim.py.graph.IMGraph" title="pynetim.py.graph.graph.IMGraph"><span class="pre">IMGraph</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">diffusion_model</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynetim/py/algorithms/heuristic_algorithm.html#SingleDiscountAlgorithm"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.py.algorithms.SingleDiscountAlgorithm" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseAlgorithm</span></code></p>
+<p>简单度折扣启发式算法(Single Discount)用于选择影响力最大化种子节点。</p>
+<p>该算法通过逐步选择具有最高度数的节点作为种子，并对其邻居节点的度数进行折扣，
+以避免选择过多相互连接的节点。</p>
+<dl class="simple">
+<dt>参考文献:</dt><dd><ul class="simple">
+<li><p>Chen, W., Wang, Y., &amp; Yang, S. (2009). “Efficient influence maximization in social networks.”
+Proceedings of the 15th ACM SIGKDD International Conference on Knowledge Discovery and Data Mining (KDD), 199-208.
+DOI: 10.1145/1557019.1557047
+URL: <a class="reference external" href="https://dl.acm.org/doi/10.1145/1557019.1557047">https://dl.acm.org/doi/10.1145/1557019.1557047</a></p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.py.algorithms.SingleDiscountAlgorithm.run">
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynetim/py/algorithms/heuristic_algorithm.html#SingleDiscountAlgorithm.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.py.algorithms.SingleDiscountAlgorithm.run" title="Link to this definition"></a></dt>
+<dd><p>运行简单度折扣算法选择k个种子节点。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>k</strong> (<em>int</em>) – 需要选择的种子节点数量</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>选择的种子节点列表</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
 </section>
-<section id="id3">
-<h3>扩散模型模块<a class="headerlink" href="#id3" title="Link to this heading"></a></h3>
+<section id="module-pynetim.py.diffusion_model">
+<span id="id3"></span><h3>扩散模型模块<a class="headerlink" href="#module-pynetim.py.diffusion_model" title="Link to this heading"></a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="pynetim.py.diffusion_model.IndependentCascadeModel">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pynetim.py.diffusion_model.</span></span><span class="sig-name descname"><span class="pre">IndependentCascadeModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pynetim.py.graph.IMGraph" title="pynetim.py.graph.graph.IMGraph"><span class="pre">IMGraph</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">init_seeds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">record_states</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynetim/py/diffusion_model/independent_cascade_model.html#IndependentCascadeModel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.py.diffusion_model.IndependentCascadeModel" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseDiffusionModel</span></code></p>
+<p>独立级联模型（Independent Cascade Model）。</p>
+<p>实现了经典的独立级联传播模型，该模型是一种离散时间传播模型，
+在每一轮中，已激活的节点尝试激活其未激活的邻居节点。
+每条边都有固定的传播概率，当节点尝试传播时，根据概率决定是否成功激活邻居。</p>
+<dl class="simple">
+<dt>参考文献:</dt><dd><ul class="simple">
+<li><p>Kempe, D., Kleinberg, J., &amp; Tardos, É. (2003). “Maximizing the spread of influence through a social network.”
+Proceedings of the 9th ACM SIGKDD International Conference on Knowledge Discovery and Data Mining (KDD), 137-146.
+DOI: 10.1145/956750.956769
+URL: <a class="reference external" href="https://dl.acm.org/doi/10.1145/956750.956769">https://dl.acm.org/doi/10.1145/956750.956769</a></p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pynetim.py.diffusion_model.IndependentCascadeModel.activated_nodes">
+<span class="sig-name descname"><span class="pre">activated_nodes</span></span><a class="headerlink" href="#pynetim.py.diffusion_model.IndependentCascadeModel.activated_nodes" title="Link to this definition"></a></dt>
+<dd><p>所有已被激活的节点集合</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>set</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pynetim.py.diffusion_model.IndependentCascadeModel.graph">
+<span class="sig-name descname"><span class="pre">graph</span></span><a class="headerlink" href="#pynetim.py.diffusion_model.IndependentCascadeModel.graph" title="Link to this definition"></a></dt>
+<dd><p>表示传播网络结构（继承自BaseDiffusionModel）</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#pynetim.py.graph.IMGraph" title="pynetim.py.graph.IMGraph">IMGraph</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pynetim.py.diffusion_model.IndependentCascadeModel.init_seeds">
+<span class="sig-name descname"><span class="pre">init_seeds</span></span><a class="headerlink" href="#pynetim.py.diffusion_model.IndependentCascadeModel.init_seeds" title="Link to this definition"></a></dt>
+<dd><p>初始种子集（继承自BaseDiffusionModel）</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pynetim.py.diffusion_model.IndependentCascadeModel.record_states">
+<span class="sig-name descname"><span class="pre">record_states</span></span><a class="headerlink" href="#pynetim.py.diffusion_model.IndependentCascadeModel.record_states" title="Link to this definition"></a></dt>
+<dd><p>指示是否记录传播过程中的状态变化（继承自BaseDiffusionModel）</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pynetim.py.diffusion_model.IndependentCascadeModel.states">
+<span class="sig-name descname"><span class="pre">states</span></span><a class="headerlink" href="#pynetim.py.diffusion_model.IndependentCascadeModel.states" title="Link to this definition"></a></dt>
+<dd><p>当record_states为True时存储传播过程的状态历史（继承自BaseDiffusionModel）</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.py.diffusion_model.IndependentCascadeModel.diffusion">
+<span class="sig-name descname"><span class="pre">diffusion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">update_counts</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynetim/py/diffusion_model/independent_cascade_model.html#IndependentCascadeModel.diffusion"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.py.diffusion_model.IndependentCascadeModel.diffusion" title="Link to this definition"></a></dt>
+<dd><p>执行完整的扩散过程。</p>
+<p>进行指定轮次的传播更新，直到达到最大轮次或没有新的节点被激活。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>update_counts</strong> (<em>int</em><em>, </em><em>optional</em>) – 最大更新轮次数。如果为None则持续传播直到无新节点激活</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>最终所有被激活的节点集合</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>set</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.py.diffusion_model.IndependentCascadeModel.reset">
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">init_seeds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynetim/py/diffusion_model/independent_cascade_model.html#IndependentCascadeModel.reset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.py.diffusion_model.IndependentCascadeModel.reset" title="Link to this definition"></a></dt>
+<dd><p>重置模型状态。</p>
+<p>将模型恢复到初始状态，如果启用状态记录则清空已记录的状态历史，
+并重新设置初始种子节点状态。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>init_seeds</strong> (<em>list</em><em>, </em><em>optional</em>) – 新的初始种子节点集合，若为None则使用原有种子集</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.py.diffusion_model.IndependentCascadeModel.run_monte_carlo_diffusion">
+<span class="sig-name descname"><span class="pre">run_monte_carlo_diffusion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rounds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">update_counts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">multi_process</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">processes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynetim/py/diffusion_model/independent_cascade_model.html#IndependentCascadeModel.run_monte_carlo_diffusion"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.py.diffusion_model.IndependentCascadeModel.run_monte_carlo_diffusion" title="Link to this definition"></a></dt>
+<dd><p>执行蒙特卡洛模拟扩散过程。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>rounds</strong> (<em>int</em>) – 总模拟轮数</p></li>
+<li><p><strong>update_counts</strong> (<em>int</em><em>, </em><em>optional</em>) – 更新轮次数，适用于SI模型等需要限制传播轮次的模型</p></li>
+<li><p><strong>multi_process</strong> (<em>bool</em>) – 是否启用多进程模式，默认为False</p></li>
+<li><p><strong>processes</strong> (<em>int</em><em>, </em><em>optional</em>) – 多进程模式下的进程数，为None时使用CPU核心数</p></li>
+<li><p><strong>seed</strong> (<em>int</em><em>, </em><em>optional</em>) – 模拟时的随机种子</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>所有模拟轮次的平均激活节点数</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.py.diffusion_model.IndependentCascadeModel.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">current_activated_nodes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">set</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynetim/py/diffusion_model/independent_cascade_model.html#IndependentCascadeModel.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.py.diffusion_model.IndependentCascadeModel.update" title="Link to this definition"></a></dt>
+<dd><p>执行一次传播更新。</p>
+<p>在当前轮次中，所有新激活的节点尝试激活它们的未激活邻居节点。
+成功激活的节点将在下一轮继续传播。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>current_activated_nodes</strong> (<em>set</em>) – 当前轮次需要尝试传播的已激活节点集合</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>本轮新激活的节点集合</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>set</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pynetim.py.diffusion_model.LinearThresholdModel">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pynetim.py.diffusion_model.</span></span><span class="sig-name descname"><span class="pre">LinearThresholdModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pynetim.py.graph.IMGraph" title="pynetim.py.graph.graph.IMGraph"><span class="pre">IMGraph</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">init_seeds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">record_states</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynetim/py/diffusion_model/linear_threshold_model.html#LinearThresholdModel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.py.diffusion_model.LinearThresholdModel" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseDiffusionModel</span></code></p>
+<p>线性阈值模型（Linear Threshold Model）。</p>
+<p>实现了经典的线性阈值传播模型，该模型是一种离散时间传播模型，
+每个节点都有一个随机阈值，当其已激活邻居的影响力总和超过该阈值时，
+节点被激活。每个节点对其他节点的影响力通过边权重表示。</p>
+<dl class="simple">
+<dt>参考文献:</dt><dd><ul class="simple">
+<li><p>Granovetter, M. (1978). “Threshold models of collective behavior.”
+American Journal of Sociology, 83(6), 1420-1443.
+DOI: 10.1086/226707
+URL: <a class="reference external" href="https://www.jstor.org/stable/2778111">https://www.jstor.org/stable/2778111</a></p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pynetim.py.diffusion_model.LinearThresholdModel.activated_nodes">
+<span class="sig-name descname"><span class="pre">activated_nodes</span></span><a class="headerlink" href="#pynetim.py.diffusion_model.LinearThresholdModel.activated_nodes" title="Link to this definition"></a></dt>
+<dd><p>所有已被激活的节点集合</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>set</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pynetim.py.diffusion_model.LinearThresholdModel.graph">
+<span class="sig-name descname"><span class="pre">graph</span></span><a class="headerlink" href="#pynetim.py.diffusion_model.LinearThresholdModel.graph" title="Link to this definition"></a></dt>
+<dd><p>表示传播网络结构（继承自BaseDiffusionModel）</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#pynetim.py.graph.IMGraph" title="pynetim.py.graph.IMGraph">IMGraph</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pynetim.py.diffusion_model.LinearThresholdModel.init_seeds">
+<span class="sig-name descname"><span class="pre">init_seeds</span></span><a class="headerlink" href="#pynetim.py.diffusion_model.LinearThresholdModel.init_seeds" title="Link to this definition"></a></dt>
+<dd><p>初始种子集（继承自BaseDiffusionModel）</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pynetim.py.diffusion_model.LinearThresholdModel.record_states">
+<span class="sig-name descname"><span class="pre">record_states</span></span><a class="headerlink" href="#pynetim.py.diffusion_model.LinearThresholdModel.record_states" title="Link to this definition"></a></dt>
+<dd><p>指示是否记录传播过程中的状态变化（继承自BaseDiffusionModel）</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pynetim.py.diffusion_model.LinearThresholdModel.states">
+<span class="sig-name descname"><span class="pre">states</span></span><a class="headerlink" href="#pynetim.py.diffusion_model.LinearThresholdModel.states" title="Link to this definition"></a></dt>
+<dd><p>当record_states为True时存储传播过程的状态历史（继承自BaseDiffusionModel）</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.py.diffusion_model.LinearThresholdModel.diffusion">
+<span class="sig-name descname"><span class="pre">diffusion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">update_counts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynetim/py/diffusion_model/linear_threshold_model.html#LinearThresholdModel.diffusion"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.py.diffusion_model.LinearThresholdModel.diffusion" title="Link to this definition"></a></dt>
+<dd><p>执行完整的扩散过程。</p>
+<p>进行指定轮次的传播更新，直到达到最大轮次或没有新的节点被激活。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>update_counts</strong> (<em>int</em><em>, </em><em>optional</em>) – 最大更新轮次数。如果为None则持续传播直到无新节点激活</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>最终所有被激活的节点集合</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>set</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.py.diffusion_model.LinearThresholdModel.reset">
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">init_seeds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynetim/py/diffusion_model/linear_threshold_model.html#LinearThresholdModel.reset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.py.diffusion_model.LinearThresholdModel.reset" title="Link to this definition"></a></dt>
+<dd><p>重置模型状态。</p>
+<p>将模型恢复到初始状态，如果启用状态记录则清空已记录的状态历史，
+并重新设置初始种子节点状态。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>init_seeds</strong> (<em>list</em><em>, </em><em>optional</em>) – 新的初始种子节点集合，若为None则使用原有种子集</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.py.diffusion_model.LinearThresholdModel.run_monte_carlo_diffusion">
+<span class="sig-name descname"><span class="pre">run_monte_carlo_diffusion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rounds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">update_counts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">multi_process</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">processes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynetim/py/diffusion_model/linear_threshold_model.html#LinearThresholdModel.run_monte_carlo_diffusion"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.py.diffusion_model.LinearThresholdModel.run_monte_carlo_diffusion" title="Link to this definition"></a></dt>
+<dd><p>执行蒙特卡洛模拟扩散过程。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>rounds</strong> (<em>int</em>) – 总模拟轮数</p></li>
+<li><p><strong>update_counts</strong> (<em>int</em><em>, </em><em>optional</em>) – 更新轮次数，适用于SI模型等需要限制传播轮次的模型</p></li>
+<li><p><strong>multi_process</strong> (<em>bool</em>) – 是否启用多进程模式，默认为False</p></li>
+<li><p><strong>processes</strong> (<em>int</em><em>, </em><em>optional</em>) – 多进程模式下的进程数，为None时使用CPU核心数</p></li>
+<li><p><strong>seed</strong> (<em>int</em><em>, </em><em>optional</em>) – 模拟时的随机种子</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>所有模拟轮次的平均激活节点数</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.py.diffusion_model.LinearThresholdModel.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">current_activated_nodes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">set</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynetim/py/diffusion_model/linear_threshold_model.html#LinearThresholdModel.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.py.diffusion_model.LinearThresholdModel.update" title="Link to this definition"></a></dt>
+<dd><p>执行一次传播更新。</p>
+<p>在线性阈值模型中，未激活的节点检查其已激活邻居的影响力总和，
+如果超过节点的阈值则被激活。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>current_activated_nodes</strong> (<em>set</em>) – 当前轮次需要尝试传播的已激活节点集合</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>本轮新激活的节点集合</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>set</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pynetim.py.diffusion_model.SusceptibleInfectedModel">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pynetim.py.diffusion_model.</span></span><span class="sig-name descname"><span class="pre">SusceptibleInfectedModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pynetim.py.graph.IMGraph" title="pynetim.py.graph.graph.IMGraph"><span class="pre">IMGraph</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">init_seeds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">record_states</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynetim/py/diffusion_model/susceptible_infected_model.html#SusceptibleInfectedModel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.py.diffusion_model.SusceptibleInfectedModel" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseDiffusionModel</span></code></p>
+<p>SI模型（Susceptible-Infected Model）。</p>
+<p>实现了经典的SI传播模型，该模型是一种简单的传染病传播模型，
+节点只有两种状态：易感(S)和感染(I)。一旦节点被感染，它将始终保持感染状态
+并持续尝试感染其邻居节点。</p>
+<dl class="simple">
+<dt>参考文献:</dt><dd><ul class="simple">
+<li><p>Kermack, W. O., &amp; McKendrick, A. G. (1927). “A contribution to the mathematical theory of epidemics.”
+Proceedings of the Royal Society of London. Series A, 115(772), 700-721.
+DOI: 10.1098/rspa.1927.0118
+URL: <a class="reference external" href="https://royalsocietypublishing.org/doi/10.1098/rspa.1927.0118">https://royalsocietypublishing.org/doi/10.1098/rspa.1927.0118</a></p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pynetim.py.diffusion_model.SusceptibleInfectedModel.infected_nodes">
+<span class="sig-name descname"><span class="pre">infected_nodes</span></span><a class="headerlink" href="#pynetim.py.diffusion_model.SusceptibleInfectedModel.infected_nodes" title="Link to this definition"></a></dt>
+<dd><p>所有已被感染的节点集合</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>set</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pynetim.py.diffusion_model.SusceptibleInfectedModel.graph">
+<span class="sig-name descname"><span class="pre">graph</span></span><a class="headerlink" href="#pynetim.py.diffusion_model.SusceptibleInfectedModel.graph" title="Link to this definition"></a></dt>
+<dd><p>表示传播网络结构（继承自BaseDiffusionModel）</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#pynetim.py.graph.IMGraph" title="pynetim.py.graph.IMGraph">IMGraph</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pynetim.py.diffusion_model.SusceptibleInfectedModel.init_seeds">
+<span class="sig-name descname"><span class="pre">init_seeds</span></span><a class="headerlink" href="#pynetim.py.diffusion_model.SusceptibleInfectedModel.init_seeds" title="Link to this definition"></a></dt>
+<dd><p>初始感染节点集（继承自BaseDiffusionModel）</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pynetim.py.diffusion_model.SusceptibleInfectedModel.record_states">
+<span class="sig-name descname"><span class="pre">record_states</span></span><a class="headerlink" href="#pynetim.py.diffusion_model.SusceptibleInfectedModel.record_states" title="Link to this definition"></a></dt>
+<dd><p>指示是否记录传播过程中的状态变化（继承自BaseDiffusionModel）</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pynetim.py.diffusion_model.SusceptibleInfectedModel.states">
+<span class="sig-name descname"><span class="pre">states</span></span><a class="headerlink" href="#pynetim.py.diffusion_model.SusceptibleInfectedModel.states" title="Link to this definition"></a></dt>
+<dd><p>当record_states为True时存储传播过程的状态历史（继承自BaseDiffusionModel）</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pynetim.py.diffusion_model.SusceptibleInfectedModel.beta">
+<span class="sig-name descname"><span class="pre">beta</span></span><a class="headerlink" href="#pynetim.py.diffusion_model.SusceptibleInfectedModel.beta" title="Link to this definition"></a></dt>
+<dd><p>感染概率</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.py.diffusion_model.SusceptibleInfectedModel.diffusion">
+<span class="sig-name descname"><span class="pre">diffusion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">update_counts</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynetim/py/diffusion_model/susceptible_infected_model.html#SusceptibleInfectedModel.diffusion"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.py.diffusion_model.SusceptibleInfectedModel.diffusion" title="Link to this definition"></a></dt>
+<dd><p>执行完整的扩散过程。</p>
+<p>进行指定轮次的传播更新，直到达到最大轮次或没有新的节点被感染。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>update_counts</strong> (<em>int</em>) – 最大更新轮次数。</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>最终所有被感染的节点集合</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>set</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.py.diffusion_model.SusceptibleInfectedModel.reset">
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">init_seeds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynetim/py/diffusion_model/susceptible_infected_model.html#SusceptibleInfectedModel.reset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.py.diffusion_model.SusceptibleInfectedModel.reset" title="Link to this definition"></a></dt>
+<dd><p>重置模型状态。</p>
+<p>将模型恢复到初始状态，如果启用状态记录则清空已记录的状态历史，
+并重新设置初始感染节点状态。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>init_seeds</strong> (<em>list</em><em>, </em><em>optional</em>) – 新的初始感染节点集合，若为None则使用原有种子集</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.py.diffusion_model.SusceptibleInfectedModel.run_monte_carlo_diffusion">
+<span class="sig-name descname"><span class="pre">run_monte_carlo_diffusion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rounds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">update_counts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">multi_process</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">processes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynetim/py/diffusion_model/susceptible_infected_model.html#SusceptibleInfectedModel.run_monte_carlo_diffusion"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.py.diffusion_model.SusceptibleInfectedModel.run_monte_carlo_diffusion" title="Link to this definition"></a></dt>
+<dd><p>执行蒙特卡洛模拟扩散过程。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>rounds</strong> (<em>int</em>) – 总模拟轮数</p></li>
+<li><p><strong>update_counts</strong> (<em>int</em>) – 更新轮次数，适用于SI模型等需要限制传播轮次的模型</p></li>
+<li><p><strong>multi_process</strong> (<em>bool</em>) – 是否启用多进程模式，默认为False</p></li>
+<li><p><strong>processes</strong> (<em>int</em><em>, </em><em>optional</em>) – 多进程模式下的进程数，为None时使用CPU核心数</p></li>
+<li><p><strong>seed</strong> (<em>int</em><em>, </em><em>optional</em>) – 模拟时的随机种子</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>所有模拟轮次的平均激活节点数</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.py.diffusion_model.SusceptibleInfectedModel.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynetim/py/diffusion_model/susceptible_infected_model.html#SusceptibleInfectedModel.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.py.diffusion_model.SusceptibleInfectedModel.update" title="Link to this definition"></a></dt>
+<dd><p>执行一次传播更新。</p>
+<p>在当前轮次中，所有已感染的节点尝试感染它们的易感邻居节点。
+成功感染的节点将在后续所有轮次中继续传播。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>本轮新感染的节点集合</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>set</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pynetim.py.diffusion_model.SusceptibleInfectedRecoveredModel">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pynetim.py.diffusion_model.</span></span><span class="sig-name descname"><span class="pre">SusceptibleInfectedRecoveredModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pynetim.py.graph.IMGraph" title="pynetim.py.graph.graph.IMGraph"><span class="pre">IMGraph</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">init_seeds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gamma</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">record_states</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynetim/py/diffusion_model/susceptible_infected_recovered_model.html#SusceptibleInfectedRecoveredModel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.py.diffusion_model.SusceptibleInfectedRecoveredModel" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseDiffusionModel</span></code></p>
+<p>SIR模型（Susceptible-Infected-Recovered Model）。</p>
+<p>实现了经典的SIR传播模型，该模型是一种传染病传播模型，
+节点有三种状态：易感(S)、感染(I)和康复(R)。
+易感节点可被感染节点感染，感染节点可以康复为免疫状态。</p>
+<dl class="simple">
+<dt>参考文献:</dt><dd><ul class="simple">
+<li><p>Kermack, W. O., &amp; McKendrick, A. G. (1927). “A contribution to the mathematical theory of epidemics.”
+Proceedings of the Royal Society of London. Series A, 115(772), 700-721.
+DOI: 10.1098/rspa.1927.0118
+URL: <a class="reference external" href="https://royalsocietypublishing.org/doi/10.1098/rspa.1927.0118">https://royalsocietypublishing.org/doi/10.1098/rspa.1927.0118</a></p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pynetim.py.diffusion_model.SusceptibleInfectedRecoveredModel.infected_nodes">
+<span class="sig-name descname"><span class="pre">infected_nodes</span></span><a class="headerlink" href="#pynetim.py.diffusion_model.SusceptibleInfectedRecoveredModel.infected_nodes" title="Link to this definition"></a></dt>
+<dd><p>所有已被感染的节点集合</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>set</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pynetim.py.diffusion_model.SusceptibleInfectedRecoveredModel.recovered_nodes">
+<span class="sig-name descname"><span class="pre">recovered_nodes</span></span><a class="headerlink" href="#pynetim.py.diffusion_model.SusceptibleInfectedRecoveredModel.recovered_nodes" title="Link to this definition"></a></dt>
+<dd><p>所有已康复的节点集合</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>set</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pynetim.py.diffusion_model.SusceptibleInfectedRecoveredModel.graph">
+<span class="sig-name descname"><span class="pre">graph</span></span><a class="headerlink" href="#pynetim.py.diffusion_model.SusceptibleInfectedRecoveredModel.graph" title="Link to this definition"></a></dt>
+<dd><p>表示传播网络结构（继承自BaseDiffusionModel）</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#pynetim.py.graph.IMGraph" title="pynetim.py.graph.IMGraph">IMGraph</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pynetim.py.diffusion_model.SusceptibleInfectedRecoveredModel.init_seeds">
+<span class="sig-name descname"><span class="pre">init_seeds</span></span><a class="headerlink" href="#pynetim.py.diffusion_model.SusceptibleInfectedRecoveredModel.init_seeds" title="Link to this definition"></a></dt>
+<dd><p>初始感染节点集（继承自BaseDiffusionModel）</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pynetim.py.diffusion_model.SusceptibleInfectedRecoveredModel.record_states">
+<span class="sig-name descname"><span class="pre">record_states</span></span><a class="headerlink" href="#pynetim.py.diffusion_model.SusceptibleInfectedRecoveredModel.record_states" title="Link to this definition"></a></dt>
+<dd><p>指示是否记录传播过程中的状态变化（继承自BaseDiffusionModel）</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pynetim.py.diffusion_model.SusceptibleInfectedRecoveredModel.states">
+<span class="sig-name descname"><span class="pre">states</span></span><a class="headerlink" href="#pynetim.py.diffusion_model.SusceptibleInfectedRecoveredModel.states" title="Link to this definition"></a></dt>
+<dd><p>当record_states为True时存储传播过程的状态历史（继承自BaseDiffusionModel）</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pynetim.py.diffusion_model.SusceptibleInfectedRecoveredModel.gamma">
+<span class="sig-name descname"><span class="pre">gamma</span></span><a class="headerlink" href="#pynetim.py.diffusion_model.SusceptibleInfectedRecoveredModel.gamma" title="Link to this definition"></a></dt>
+<dd><p>康复率</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pynetim.py.diffusion_model.SusceptibleInfectedRecoveredModel.beta">
+<span class="sig-name descname"><span class="pre">beta</span></span><a class="headerlink" href="#pynetim.py.diffusion_model.SusceptibleInfectedRecoveredModel.beta" title="Link to this definition"></a></dt>
+<dd><p>感染率</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.py.diffusion_model.SusceptibleInfectedRecoveredModel.diffusion">
+<span class="sig-name descname"><span class="pre">diffusion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">update_counts</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynetim/py/diffusion_model/susceptible_infected_recovered_model.html#SusceptibleInfectedRecoveredModel.diffusion"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.py.diffusion_model.SusceptibleInfectedRecoveredModel.diffusion" title="Link to this definition"></a></dt>
+<dd><p>执行完整的扩散过程。</p>
+<p>进行指定轮次的传播更新，直到达到最大轮次或没有新的节点被感染。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>update_counts</strong> (<em>int</em><em>, </em><em>optional</em>) – 最大更新轮次数。如果为None则持续传播直到无新节点感染</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>包含最终各状态节点集合的字典</dt><dd><ul class="simple">
+<li><p>’infected’: 最终被感染的节点集合</p></li>
+<li><p>’recovered’: 最终已康复的节点集合</p></li>
+<li><p>’susceptible’: 最终仍处于易感状态的节点集合</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.py.diffusion_model.SusceptibleInfectedRecoveredModel.reset">
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">init_seeds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynetim/py/diffusion_model/susceptible_infected_recovered_model.html#SusceptibleInfectedRecoveredModel.reset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.py.diffusion_model.SusceptibleInfectedRecoveredModel.reset" title="Link to this definition"></a></dt>
+<dd><p>重置模型状态。</p>
+<p>将模型恢复到初始状态，如果启用状态记录则清空已记录的状态历史，
+并重新设置初始感染节点状态。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>init_seeds</strong> (<em>list</em><em>, </em><em>optional</em>) – 新的初始感染节点集合，若为None则使用原有种子集</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.py.diffusion_model.SusceptibleInfectedRecoveredModel.run_monte_carlo_diffusion">
+<span class="sig-name descname"><span class="pre">run_monte_carlo_diffusion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rounds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">update_counts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">multi_process</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">processes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynetim/py/diffusion_model/susceptible_infected_recovered_model.html#SusceptibleInfectedRecoveredModel.run_monte_carlo_diffusion"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.py.diffusion_model.SusceptibleInfectedRecoveredModel.run_monte_carlo_diffusion" title="Link to this definition"></a></dt>
+<dd><p>执行蒙特卡洛模拟扩散过程。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>rounds</strong> (<em>int</em>) – 总模拟轮数</p></li>
+<li><p><strong>update_counts</strong> (<em>int</em><em>, </em><em>optional</em>) – 更新轮次数，适用于SI模型等需要限制传播轮次的模型</p></li>
+<li><p><strong>multi_process</strong> (<em>bool</em>) – 是否启用多进程模式，默认为False</p></li>
+<li><p><strong>processes</strong> (<em>int</em><em>, </em><em>optional</em>) – 多进程模式下的进程数，为None时使用CPU核心数</p></li>
+<li><p><strong>seed</strong> (<em>int</em><em>, </em><em>optional</em>) – 模拟时的随机种子</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>所有模拟轮次的平均激活节点数</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.py.diffusion_model.SusceptibleInfectedRecoveredModel.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynetim/py/diffusion_model/susceptible_infected_recovered_model.html#SusceptibleInfectedRecoveredModel.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.py.diffusion_model.SusceptibleInfectedRecoveredModel.update" title="Link to this definition"></a></dt>
+<dd><p>执行一次传播更新。</p>
+<p>在当前轮次中，先处理感染节点的康复，然后已感染的节点尝试感染它们的易感邻居节点。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>本轮新感染的节点集合</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>set</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pynetim.py.diffusion_model.run_monte_carlo_diffusion">
+<span class="sig-prename descclassname"><span class="pre">pynetim.py.diffusion_model.</span></span><span class="sig-name descname"><span class="pre">run_monte_carlo_diffusion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">diffusion_model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">BaseDiffusionModel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rounds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">update_counts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">multi_process</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">processes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynetim/py/diffusion_model/run_monte_carlo_diffusion.html#run_monte_carlo_diffusion"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.py.diffusion_model.run_monte_carlo_diffusion" title="Link to this definition"></a></dt>
+<dd><p>执行蒙特卡洛模拟扩散过程，支持单进程和多进程模式。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>diffusion_model</strong> (<em>BaseDiffusionModel</em>) – 扩散模型实例</p></li>
+<li><p><strong>rounds</strong> (<em>int</em>) – 总模拟轮数</p></li>
+<li><p><strong>update_counts</strong> (<em>int</em><em>, </em><em>optional</em>) – 更新轮次数，适用于SI等模型</p></li>
+<li><p><strong>multi_process</strong> (<em>bool</em><em>, </em><em>optional</em>) – 是否启用多进程模式，默认为False</p></li>
+<li><p><strong>processes</strong> (<em>int</em><em>, </em><em>optional</em>) – 多进程模式下的进程数，为None时使用CPU核心数</p></li>
+<li><p><strong>seed</strong> (<em>int</em><em>, </em><em>optional</em>) – 随机种子的基础值，默认为None</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>所有模拟轮次的平均激活节点数</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
-<section id="id4">
-<h3>工具函数模块<a class="headerlink" href="#id4" title="Link to this heading"></a></h3>
+<section id="module-pynetim.utils">
+<span id="id4"></span><h3>工具函数模块<a class="headerlink" href="#module-pynetim.utils" title="Link to this heading"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="pynetim.utils.connectivity_analysis">
+<span class="sig-prename descclassname"><span class="pre">pynetim.utils.</span></span><span class="sig-name descname"><span class="pre">connectivity_analysis</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Graph</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">DiGraph</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="#pynetim.cpp.graph.IMGraphCpp" title="pynetim.cpp.graph.IMGraphCpp"><span class="pre">IMGraphCpp</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/pynetim/utils/utils.html#connectivity_analysis"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.utils.connectivity_analysis" title="Link to this definition"></a></dt>
+<dd><p>分析图的连通性（支持NetworkX图和C++图）</p>
+<dl class="simple">
+<dt>参数:</dt><dd><p>graph (Graph|DiGraph|IMGraphCpp): 网络图对象，可以是有向图、无向图或C++图</p>
+</dd>
+<dt>返回:</dt><dd><dl class="simple">
+<dt>dict: 包含以下连通性信息的字典</dt><dd><ul class="simple">
+<li><p>is_connected: 是否连通（仅NetworkX图支持）</p></li>
+<li><p>num_components: 连通分量数（仅NetworkX图支持）</p></li>
+<li><p>largest_component_size: 最大连通分量大小（仅NetworkX图支持）</p></li>
+<li><p>component_sizes: 所有连通分量大小列表（仅NetworkX图支持）</p></li>
+<li><p>weakly_connected: 是否弱连通（仅NetworkX图支持）</p></li>
+</ul>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pynetim.utils.graph_density">
+<span class="sig-prename descclassname"><span class="pre">pynetim.utils.</span></span><span class="sig-name descname"><span class="pre">graph_density</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Graph</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">DiGraph</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="#pynetim.cpp.graph.IMGraphCpp" title="pynetim.cpp.graph.IMGraphCpp"><span class="pre">IMGraphCpp</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/pynetim/utils/utils.html#graph_density"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.utils.graph_density" title="Link to this definition"></a></dt>
+<dd><p>计算图的密度（支持NetworkX图和C++图）</p>
+<dl class="simple">
+<dt>参数:</dt><dd><p>graph (Graph|DiGraph|IMGraphCpp): 网络图对象，可以是有向图、无向图或C++图</p>
+</dd>
+<dt>返回:</dt><dd><p>float: 图密度值，范围在[0, 1]之间</p>
+</dd>
+<dt>说明:</dt><dd><p>图密度定义为实际边数与可能的最大边数的比值
+有向图: <a href="#id7"><span class="problematic" id="id8">|E|</span></a> / (<a href="#id9"><span class="problematic" id="id10">|V|</span></a> * (<a href="#id11"><span class="problematic" id="id12">|V|</span></a> - 1))
+无向图: 2 * <a href="#id13"><span class="problematic" id="id14">|E|</span></a> / (<a href="#id15"><span class="problematic" id="id16">|V|</span></a> * (<a href="#id17"><span class="problematic" id="id18">|V|</span></a> - 1))</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pynetim.utils.graph_statistics">
+<span class="sig-prename descclassname"><span class="pre">pynetim.utils.</span></span><span class="sig-name descname"><span class="pre">graph_statistics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Graph</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">DiGraph</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="#pynetim.cpp.graph.IMGraphCpp" title="pynetim.cpp.graph.IMGraphCpp"><span class="pre">IMGraphCpp</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/pynetim/utils/utils.html#graph_statistics"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.utils.graph_statistics" title="Link to this definition"></a></dt>
+<dd><p>计算并返回图的详细统计信息（支持NetworkX图和C++图）</p>
+<dl class="simple">
+<dt>参数:</dt><dd><p>graph (Graph|DiGraph|IMGraphCpp): 网络图对象，可以是有向图、无向图或C++图</p>
+</dd>
+<dt>返回:</dt><dd><dl class="simple">
+<dt>dict: 包含以下统计信息的字典</dt><dd><ul class="simple">
+<li><p>num_nodes: 节点数</p></li>
+<li><p>num_edges: 边数</p></li>
+<li><p>avg_degree: 平均度</p></li>
+<li><p>max_degree: 最大度</p></li>
+<li><p>min_degree: 最小度</p></li>
+<li><p>degree_distribution: 度分布</p></li>
+<li><p>density: 图密度</p></li>
+<li><p>is_connected: 是否连通（仅NetworkX图支持）</p></li>
+<li><p>num_components: 连通分量数（仅NetworkX图支持）</p></li>
+</ul>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pynetim.utils.infection_threshold">
+<span class="sig-prename descclassname"><span class="pre">pynetim.utils.</span></span><span class="sig-name descname"><span class="pre">infection_threshold</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Graph</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">DiGraph</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="#pynetim.cpp.graph.IMGraphCpp" title="pynetim.cpp.graph.IMGraphCpp"><span class="pre">IMGraphCpp</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/pynetim/utils/utils.html#infection_threshold"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.utils.infection_threshold" title="Link to this definition"></a></dt>
+<dd><p>计算基于图graph的度分布的感染阈值。</p>
+<dl class="simple">
+<dt>参数:</dt><dd><p>graph (Graph|DiGraph|IMGraphCpp): 网络图对象，可以是有向图、无向图或C++图</p>
+</dd>
+<dt>返回:</dt><dd><p>float: 感染阈值（是1.05倍的阈值）。</p>
+</dd>
+<dt>说明:</dt><dd><p>该函数首先计算图中所有节点的度之和（k），然后计算所有节点度的平方和（k2）。
+感染阈值计算公式为 k / (k2 - k)，其中k2是度的平方和，k是度的总和。
+这个阈值在某些流行病学模型（如SIR模型）中用于预测疾病传播的临界条件。</p>
+</dd>
+<dt>参考文献:</dt><dd><ul class="simple">
+<li><p>Pastor-Satorras, R., &amp; Vespignani, A. (2001). “Epidemic spreading in scale-free networks.”
+Physical Review Letters, 86(14), 3200-3203.
+DOI: 10.1103/PhysRevLett.86.3200
+URL: <a class="reference external" href="https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.86.3200">https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.86.3200</a></p></li>
+<li><p>Pastor-Satorras, R., Castellano, C., Van Mieghem, P., &amp; Vespignani, A. (2015).
+“Epidemic processes in complex networks.” Reviews of Modern Physics, 87(3), 925-979.
+DOI: 10.1103/RevModPhys.87.925
+URL: <a class="reference external" href="https://journals.aps.org/rmp/abstract/10.1103/RevModPhys.87.925">https://journals.aps.org/rmp/abstract/10.1103/RevModPhys.87.925</a></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pynetim.utils.set_edge_weight">
+<span class="sig-prename descclassname"><span class="pre">pynetim.utils.</span></span><span class="sig-name descname"><span class="pre">set_edge_weight</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Graph</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">DiGraph</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="#pynetim.cpp.graph.IMGraphCpp" title="pynetim.cpp.graph.IMGraphCpp"><span class="pre">IMGraphCpp</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">edge_weight_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constant_weight</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynetim/utils/utils.html#set_edge_weight"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.utils.set_edge_weight" title="Link to this definition"></a></dt>
+<dd><p>根据指定的权重模型为图中的边设置权重值。</p>
+<dl class="simple">
+<dt>参数:</dt><dd><p>graph (Graph|DiGraph|IMGraphCpp): 网络图对象，可以是有向图、无向图或C++图
+edge_weight_type (str): 边权重类型，支持 ‘CONSTANT’、’TV’、’WC’ 三种模式
+constant_weight (float, optional): 当使用常量权重模式时，指定的权重值</p>
+</dd>
+<dt>异常:</dt><dd><p>ValueError: 当权重类型不支持或参数不符合要求时抛出</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pynetim.utils.topk">
+<span class="sig-prename descclassname"><span class="pre">pynetim.utils.</span></span><span class="sig-name descname"><span class="pre">topk</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">res_dict</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">largest</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span></span></span><a class="reference internal" href="_modules/pynetim/utils/utils.html#topk"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.utils.topk" title="Link to this definition"></a></dt>
+<dd><p>从字典中返回具有最大（或最小）k个值的键的列表。</p>
+<dl class="simple">
+<dt>参数:</dt><dd><p>res_dict (dict): 输入的字典，其值用于比较以决定键的排序。
+k (int): 要返回的键的数量。
+largest (bool): 如果为True，则返回具有最大值的k个键；如果为False，则返回具有最小值的k个键。</p>
+</dd>
+<dt>返回:</dt><dd><p>list: 一个包含k个键的列表，这些键对应于字典中最大（或最小）的值。</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pynetim.utils.truncate_padding">
+<span class="sig-prename descclassname"><span class="pre">pynetim.utils.</span></span><span class="sig-name descname"><span class="pre">truncate_padding</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">seq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_len</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pad</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pynetim/utils/utils.html#truncate_padding"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.utils.truncate_padding" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
 </section>
 </section>
 <section id="c">
 <h2>C++ 模块<a class="headerlink" href="#c" title="Link to this heading"></a></h2>
-<section id="id5">
-<h3>C++ 图模块<a class="headerlink" href="#id5" title="Link to this heading"></a></h3>
+<section id="module-pynetim.cpp.graph">
+<span id="id5"></span><h3>C++ 图模块<a class="headerlink" href="#module-pynetim.cpp.graph" title="Link to this heading"></a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="pynetim.cpp.graph.IMGraphCpp">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pynetim.cpp.graph.</span></span><span class="sig-name descname"><span class="pre">IMGraphCpp</span></span><a class="headerlink" href="#pynetim.cpp.graph.IMGraphCpp" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.cpp.graph.IMGraphCpp.add_edge">
+<span class="sig-name descname"><span class="pre">add_edge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pynetim.cpp.graph.IMGraphCpp" title="pynetim.cpp.graph.graph.IMGraphCpp"><span class="pre">pynetim.cpp.graph.graph.IMGraphCpp</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">u</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SupportsInt</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">SupportsIndex</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SupportsInt</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">SupportsIndex</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">w</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SupportsFloat</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">SupportsIndex</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1.0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pynetim.cpp.graph.IMGraphCpp.add_edge" title="Link to this definition"></a></dt>
+<dd><p>Add a weighted edge u -&gt; v (or u - v if undirected)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.cpp.graph.IMGraphCpp.add_edges">
+<span class="sig-name descname"><span class="pre">add_edges</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pynetim.cpp.graph.IMGraphCpp" title="pynetim.cpp.graph.graph.IMGraphCpp"><span class="pre">pynetim.cpp.graph.graph.IMGraphCpp</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">edges</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">collections.abc.Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">SupportsInt</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">SupportsIndex</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">SupportsInt</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">SupportsIndex</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">collections.abc.Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">SupportsFloat</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">SupportsIndex</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pynetim.cpp.graph.IMGraphCpp.add_edges" title="Link to this definition"></a></dt>
+<dd><p>Add multiple edges at once. edges is a list of (u, v) tuples.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.cpp.graph.IMGraphCpp.batch_degree">
+<span class="sig-name descname"><span class="pre">batch_degree</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pynetim.cpp.graph.IMGraphCpp" title="pynetim.cpp.graph.graph.IMGraphCpp"><span class="pre">pynetim.cpp.graph.graph.IMGraphCpp</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">nodes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">collections.abc.Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">SupportsInt</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">SupportsIndex</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pynetim.cpp.graph.IMGraphCpp.batch_degree" title="Link to this definition"></a></dt>
+<dd><p>Return degrees of specified nodes</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.cpp.graph.IMGraphCpp.batch_get_edge_weight">
+<span class="sig-name descname"><span class="pre">batch_get_edge_weight</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pynetim.cpp.graph.IMGraphCpp" title="pynetim.cpp.graph.graph.IMGraphCpp"><span class="pre">pynetim.cpp.graph.graph.IMGraphCpp</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">edges</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">collections.abc.Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">SupportsInt</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">SupportsIndex</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">SupportsInt</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">SupportsIndex</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pynetim.cpp.graph.IMGraphCpp.batch_get_edge_weight" title="Link to this definition"></a></dt>
+<dd><p>Return weights of specified edges (list of (u, v) tuples)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.cpp.graph.IMGraphCpp.batch_in_degree">
+<span class="sig-name descname"><span class="pre">batch_in_degree</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pynetim.cpp.graph.IMGraphCpp" title="pynetim.cpp.graph.graph.IMGraphCpp"><span class="pre">pynetim.cpp.graph.graph.IMGraphCpp</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">nodes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">collections.abc.Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">SupportsInt</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">SupportsIndex</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pynetim.cpp.graph.IMGraphCpp.batch_in_degree" title="Link to this definition"></a></dt>
+<dd><p>Return in-degrees of specified nodes</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.cpp.graph.IMGraphCpp.batch_out_degree">
+<span class="sig-name descname"><span class="pre">batch_out_degree</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pynetim.cpp.graph.IMGraphCpp" title="pynetim.cpp.graph.graph.IMGraphCpp"><span class="pre">pynetim.cpp.graph.graph.IMGraphCpp</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">nodes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">collections.abc.Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">SupportsInt</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">SupportsIndex</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pynetim.cpp.graph.IMGraphCpp.batch_out_degree" title="Link to this definition"></a></dt>
+<dd><p>Return out-degrees of specified nodes</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.cpp.graph.IMGraphCpp.batch_out_neighbors">
+<span class="sig-name descname"><span class="pre">batch_out_neighbors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pynetim.cpp.graph.IMGraphCpp" title="pynetim.cpp.graph.graph.IMGraphCpp"><span class="pre">pynetim.cpp.graph.graph.IMGraphCpp</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">nodes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">collections.abc.Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">SupportsInt</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">SupportsIndex</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pynetim.cpp.graph.IMGraphCpp.batch_out_neighbors" title="Link to this definition"></a></dt>
+<dd><p>Return outgoing neighbors of specified nodes (list of lists of (neighbor, weight) tuples)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.cpp.graph.IMGraphCpp.degree">
+<span class="sig-name descname"><span class="pre">degree</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pynetim.cpp.graph.IMGraphCpp" title="pynetim.cpp.graph.graph.IMGraphCpp"><span class="pre">pynetim.cpp.graph.graph.IMGraphCpp</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">u</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SupportsInt</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">SupportsIndex</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#pynetim.cpp.graph.IMGraphCpp.degree" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pynetim.cpp.graph.IMGraphCpp.directed">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">directed</span></span><a class="headerlink" href="#pynetim.cpp.graph.IMGraphCpp.directed" title="Link to this definition"></a></dt>
+<dd><p>Whether the graph is directed</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pynetim.cpp.graph.IMGraphCpp.edges">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">edges</span></span><a class="headerlink" href="#pynetim.cpp.graph.IMGraphCpp.edges" title="Link to this definition"></a></dt>
+<dd><p>Edges and weights of graph</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.cpp.graph.IMGraphCpp.get_adj_list">
+<span class="sig-name descname"><span class="pre">get_adj_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pynetim.cpp.graph.IMGraphCpp" title="pynetim.cpp.graph.graph.IMGraphCpp"><span class="pre">pynetim.cpp.graph.graph.IMGraphCpp</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">pynetim.cpp.graph.graph.Edge</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pynetim.cpp.graph.IMGraphCpp.get_adj_list" title="Link to this definition"></a></dt>
+<dd><p>Return the full adjacency list (list of lists of Edge objects)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.cpp.graph.IMGraphCpp.get_adj_matrix">
+<span class="sig-name descname"><span class="pre">get_adj_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pynetim.cpp.graph.IMGraphCpp" title="pynetim.cpp.graph.graph.IMGraphCpp"><span class="pre">pynetim.cpp.graph.graph.IMGraphCpp</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pynetim.cpp.graph.IMGraphCpp.get_adj_matrix" title="Link to this definition"></a></dt>
+<dd><p>Return dense adjacency matrix (list of lists of float)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.cpp.graph.IMGraphCpp.get_adj_matrix_sparse">
+<span class="sig-name descname"><span class="pre">get_adj_matrix_sparse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pynetim.cpp.graph.IMGraphCpp" title="pynetim.cpp.graph.graph.IMGraphCpp"><span class="pre">pynetim.cpp.graph.graph.IMGraphCpp</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pynetim.cpp.graph.IMGraphCpp.get_adj_matrix_sparse" title="Link to this definition"></a></dt>
+<dd><p>Return sparse adjacency matrix (list of (u, v, weight) tuples)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.cpp.graph.IMGraphCpp.get_all_degrees">
+<span class="sig-name descname"><span class="pre">get_all_degrees</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pynetim.cpp.graph.IMGraphCpp" title="pynetim.cpp.graph.graph.IMGraphCpp"><span class="pre">pynetim.cpp.graph.graph.IMGraphCpp</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pynetim.cpp.graph.IMGraphCpp.get_all_degrees" title="Link to this definition"></a></dt>
+<dd><p>Return degree of all nodes as a list</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.cpp.graph.IMGraphCpp.get_all_in_degrees">
+<span class="sig-name descname"><span class="pre">get_all_in_degrees</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pynetim.cpp.graph.IMGraphCpp" title="pynetim.cpp.graph.graph.IMGraphCpp"><span class="pre">pynetim.cpp.graph.graph.IMGraphCpp</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pynetim.cpp.graph.IMGraphCpp.get_all_in_degrees" title="Link to this definition"></a></dt>
+<dd><p>Return in-degree of all nodes as a list</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.cpp.graph.IMGraphCpp.get_all_out_degrees">
+<span class="sig-name descname"><span class="pre">get_all_out_degrees</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pynetim.cpp.graph.IMGraphCpp" title="pynetim.cpp.graph.graph.IMGraphCpp"><span class="pre">pynetim.cpp.graph.graph.IMGraphCpp</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pynetim.cpp.graph.IMGraphCpp.get_all_out_degrees" title="Link to this definition"></a></dt>
+<dd><p>Return out-degree of all nodes as a list</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.cpp.graph.IMGraphCpp.get_edge_weight">
+<span class="sig-name descname"><span class="pre">get_edge_weight</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pynetim.cpp.graph.IMGraphCpp" title="pynetim.cpp.graph.graph.IMGraphCpp"><span class="pre">pynetim.cpp.graph.graph.IMGraphCpp</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">u</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SupportsInt</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">SupportsIndex</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SupportsInt</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">SupportsIndex</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="headerlink" href="#pynetim.cpp.graph.IMGraphCpp.get_edge_weight" title="Link to this definition"></a></dt>
+<dd><p>Get the weight of edge (u, v)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.cpp.graph.IMGraphCpp.in_degree">
+<span class="sig-name descname"><span class="pre">in_degree</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pynetim.cpp.graph.IMGraphCpp" title="pynetim.cpp.graph.graph.IMGraphCpp"><span class="pre">pynetim.cpp.graph.graph.IMGraphCpp</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">u</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SupportsInt</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">SupportsIndex</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#pynetim.cpp.graph.IMGraphCpp.in_degree" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.cpp.graph.IMGraphCpp.in_neighbors">
+<span class="sig-name descname"><span class="pre">in_neighbors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pynetim.cpp.graph.IMGraphCpp" title="pynetim.cpp.graph.graph.IMGraphCpp"><span class="pre">pynetim.cpp.graph.graph.IMGraphCpp</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">u</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SupportsInt</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">SupportsIndex</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pynetim.cpp.graph.IMGraphCpp.in_neighbors" title="Link to this definition"></a></dt>
+<dd><p>Return incoming neighbors of node u (as list of node IDs)</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pynetim.cpp.graph.IMGraphCpp.num_edges">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">num_edges</span></span><a class="headerlink" href="#pynetim.cpp.graph.IMGraphCpp.num_edges" title="Link to this definition"></a></dt>
+<dd><p>Number of edges</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pynetim.cpp.graph.IMGraphCpp.num_nodes">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">num_nodes</span></span><a class="headerlink" href="#pynetim.cpp.graph.IMGraphCpp.num_nodes" title="Link to this definition"></a></dt>
+<dd><p>Number of nodes</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.cpp.graph.IMGraphCpp.out_degree">
+<span class="sig-name descname"><span class="pre">out_degree</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pynetim.cpp.graph.IMGraphCpp" title="pynetim.cpp.graph.graph.IMGraphCpp"><span class="pre">pynetim.cpp.graph.graph.IMGraphCpp</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">u</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SupportsInt</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">SupportsIndex</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#pynetim.cpp.graph.IMGraphCpp.out_degree" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.cpp.graph.IMGraphCpp.out_neighbors">
+<span class="sig-name descname"><span class="pre">out_neighbors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pynetim.cpp.graph.IMGraphCpp" title="pynetim.cpp.graph.graph.IMGraphCpp"><span class="pre">pynetim.cpp.graph.graph.IMGraphCpp</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">u</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SupportsInt</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">SupportsIndex</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">pynetim.cpp.graph.graph.Edge</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pynetim.cpp.graph.IMGraphCpp.out_neighbors" title="Link to this definition"></a></dt>
+<dd><p>Return outgoing neighbors of node u (as list of Edge objects)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.cpp.graph.IMGraphCpp.remove_edge">
+<span class="sig-name descname"><span class="pre">remove_edge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pynetim.cpp.graph.IMGraphCpp" title="pynetim.cpp.graph.graph.IMGraphCpp"><span class="pre">pynetim.cpp.graph.graph.IMGraphCpp</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">u</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SupportsInt</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">SupportsIndex</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SupportsInt</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">SupportsIndex</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pynetim.cpp.graph.IMGraphCpp.remove_edge" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.cpp.graph.IMGraphCpp.remove_edges">
+<span class="sig-name descname"><span class="pre">remove_edges</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pynetim.cpp.graph.IMGraphCpp" title="pynetim.cpp.graph.graph.IMGraphCpp"><span class="pre">pynetim.cpp.graph.graph.IMGraphCpp</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">edges</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">collections.abc.Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">SupportsInt</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">SupportsIndex</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">SupportsInt</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">SupportsIndex</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pynetim.cpp.graph.IMGraphCpp.remove_edges" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.cpp.graph.IMGraphCpp.update_edge_weight">
+<span class="sig-name descname"><span class="pre">update_edge_weight</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pynetim.cpp.graph.IMGraphCpp" title="pynetim.cpp.graph.graph.IMGraphCpp"><span class="pre">pynetim.cpp.graph.graph.IMGraphCpp</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">u</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SupportsInt</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">SupportsIndex</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SupportsInt</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">SupportsIndex</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">w</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SupportsFloat</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">SupportsIndex</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pynetim.cpp.graph.IMGraphCpp.update_edge_weight" title="Link to this definition"></a></dt>
+<dd><p>Update the weight of an existing edge</p>
+</dd></dl>
+
+</dd></dl>
+
 </section>
-<section id="id6">
-<h3>C++ 扩散模型模块<a class="headerlink" href="#id6" title="Link to this heading"></a></h3>
+<section id="module-pynetim.cpp.diffusion_model">
+<span id="id6"></span><h3>C++ 扩散模型模块<a class="headerlink" href="#module-pynetim.cpp.diffusion_model" title="Link to this heading"></a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="pynetim.cpp.diffusion_model.IndependentCascadeModel">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pynetim.cpp.diffusion_model.</span></span><span class="sig-name descname"><span class="pre">IndependentCascadeModel</span></span><a class="headerlink" href="#pynetim.cpp.diffusion_model.IndependentCascadeModel" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.cpp.diffusion_model.IndependentCascadeModel.run_monte_carlo_diffusion">
+<span class="sig-name descname"><span class="pre">run_monte_carlo_diffusion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pynetim.cpp.diffusion_model.IndependentCascadeModel" title="pynetim.cpp.diffusion_model.independent_cascade_model.IndependentCascadeModel"><span class="pre">pynetim.cpp.diffusion_model.independent_cascade_model.IndependentCascadeModel</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">rounds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SupportsInt</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">SupportsIndex</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SupportsInt</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">SupportsIndex</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_multithread</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_threads</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SupportsInt</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">SupportsIndex</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="headerlink" href="#pynetim.cpp.diffusion_model.IndependentCascadeModel.run_monte_carlo_diffusion" title="Link to this definition"></a></dt>
+<dd><p>Run Monte Carlo simulation of IC diffusion.
+Returns average number of activated nodes over ‘rounds’ trials.
+Results are deterministic for the same seed (single/multi-thread).
+num_threads: number of threads to use (0 = auto-detect)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.cpp.diffusion_model.IndependentCascadeModel.set_seeds">
+<span class="sig-name descname"><span class="pre">set_seeds</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pynetim.cpp.diffusion_model.IndependentCascadeModel" title="pynetim.cpp.diffusion_model.independent_cascade_model.IndependentCascadeModel"><span class="pre">pynetim.cpp.diffusion_model.independent_cascade_model.IndependentCascadeModel</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_seeds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">collections.abc.Set</span><span class="p"><span class="pre">[</span></span><span class="pre">SupportsInt</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">SupportsIndex</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pynetim.cpp.diffusion_model.IndependentCascadeModel.set_seeds" title="Link to this definition"></a></dt>
+<dd><p>Update seed set</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pynetim.cpp.diffusion_model.LinearThresholdModel">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pynetim.cpp.diffusion_model.</span></span><span class="sig-name descname"><span class="pre">LinearThresholdModel</span></span><a class="headerlink" href="#pynetim.cpp.diffusion_model.LinearThresholdModel" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.cpp.diffusion_model.LinearThresholdModel.run_monte_carlo_diffusion">
+<span class="sig-name descname"><span class="pre">run_monte_carlo_diffusion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pynetim.cpp.diffusion_model.LinearThresholdModel" title="pynetim.cpp.diffusion_model.linear_threshold_model.LinearThresholdModel"><span class="pre">pynetim.cpp.diffusion_model.linear_threshold_model.LinearThresholdModel</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">rounds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SupportsInt</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">SupportsIndex</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SupportsInt</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">SupportsIndex</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_multithread</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_threads</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SupportsInt</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">SupportsIndex</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="headerlink" href="#pynetim.cpp.diffusion_model.LinearThresholdModel.run_monte_carlo_diffusion" title="Link to this definition"></a></dt>
+<dd><p>Run Monte Carlo simulation of LT diffusion.
+Returns average number of activated nodes.
+num_threads: number of threads to use (0 = auto-detect)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.cpp.diffusion_model.LinearThresholdModel.set_seeds">
+<span class="sig-name descname"><span class="pre">set_seeds</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pynetim.cpp.diffusion_model.LinearThresholdModel" title="pynetim.cpp.diffusion_model.linear_threshold_model.LinearThresholdModel"><span class="pre">pynetim.cpp.diffusion_model.linear_threshold_model.LinearThresholdModel</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_seeds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">collections.abc.Set</span><span class="p"><span class="pre">[</span></span><span class="pre">SupportsInt</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">SupportsIndex</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pynetim.cpp.diffusion_model.LinearThresholdModel.set_seeds" title="Link to this definition"></a></dt>
+<dd><p>Update seed set</p>
+</dd></dl>
+
+</dd></dl>
+
 </section>
 </section>
 </section>
