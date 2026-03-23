@@ -1,0 +1,56 @@
+API 参考
+========
+
+Python 模块
+-----------
+
+图模块
+~~~~~~
+
+.. automodule:: pynetim.py.graph
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+算法模块
+~~~~~~~~
+
+.. automodule:: pynetim.py.algorithms
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+扩散模型模块
+~~~~~~~~~~~~
+
+.. automodule:: pynetim.py.diffusion_model
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+工具函数模块
+~~~~~~~~~~~~
+
+.. automodule:: pynetim.utils
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+C++ 模块
+---------
+
+C++ 图模块
+~~~~~~~~~~
+
+.. automodule:: pynetim.cpp.graph
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+C++ 扩散模型模块
+~~~~~~~~~~~~~~~~
+
+.. automodule:: pynetim.cpp.diffusion_model
+   :members:
+   :undoc-members:
+   :show-inheritance:

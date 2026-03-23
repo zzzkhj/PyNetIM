@@ -1,68 +1,66 @@
+PyNetIM 文档
+============
+
 欢迎来到 PyNetIM 文档！
-========================
-
-PyNetIM 是一个用于网络影响力最大化和扩散建模的 Python 库。
 
 .. toctree::
    :maxdepth: 2
-   :caption: 使用指南
-   :hidden:
+   :caption: 目录:
 
-   installation
-   quickstart
-   examples
+   changelog
+   api
 
-.. toctree::
-   :maxdepth: 2
-   :caption: API 文档
-   :hidden:
+简介
+----
 
-   autoapi/index
+PyNetIM 是一个用于**社交网络影响力最大化（Influence Maximization, IM）**问题的 Python 库，集成了多种经典算法与扩散模型，并提供 **Python 实现 + C++ 加速后端**，适用于算法复现、性能对比与科研实验。
 
 功能特性
 --------
 
-* 🚀 多种影响力最大化算法
-* 🔥 扩散模型实现，支持自定义扩展
-* 🖇️ 图结构封装
-* ⚡ 支持单进程和多进程模式
-* 🛠️ 算法性能计时器装饰器
+* 多种经典影响力最大化算法（Heuristic / Simulation / RIS）
+* 多种传播模型（IC / LT / SI / SIR）
+* 统一的图结构封装（基于 NetworkX）
+* Python 可读实现 + C++ 高性能实现
+* 支持蒙特卡洛扩散模拟
+* 内置算法计时装饰器
 
 快速开始
 --------
 
+.. code-block:: python
+
+    import networkx as nx
+    from pynetim.py.graph import IMGraph
+    from pynetim.py.algorithms import DegreeDiscountAlgorithm
+
+    # 创建图
+    g = nx.erdos_renyi_graph(100, 0.1)
+
+    # 构建 IMGraph（WC 权重）
+    graph = IMGraph(g, edge_weight_type='WC')
+
+    # 运行算法
+    algo = DegreeDiscountAlgorithm(graph)
+    seeds = algo.run(k=10)
+
+    print(seeds)
+
 安装
-~~~~
+----
 
 .. code-block:: bash
 
-   pip install pynetim
+    pip install pynetim
 
-基本使用
-~~~~~~~~
+相关链接
+--------
 
-.. code-block:: python
+* `GitHub 仓库 <https://github.com/zzzkhj/PyNetIM>`_
+* `PyPI 包 <https://pypi.org/project/pynetim/>`_
+* `问题反馈 <https://github.com/zzzkhj/PyNetIM/issues>`_
 
-   import networkx as nx
-   import pynetim as im
-   
-   # 创建图
-   g = nx.erdos_renyi_graph(100, 0.2, seed=42)
-   graph = im.IMGraph(g, edge_weight_type='WC')
-   print(graph)
-    
-   # 使用度折扣算法获取种子集
-   k = 10
-   dd = im.algorithms.DegreeDiscountAlgorithm(graph)
-   seeds = dd.run(k)
-   print(seeds)
-   
-   # 在IC模型上进行传播模拟
-   ic = im.IndependentCascadeModel(graph, seeds, record_states=False)
-   influence_spread = im.run_monte_carlo_diffusion(ic, 1000, seed=42)
-   print(influence_spread)
-
-索引和搜索
+索引和表格
 ==========
 
 * :ref:`genindex`

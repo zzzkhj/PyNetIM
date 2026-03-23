@@ -1,0 +1,180 @@
+更新日志
+========
+
+本文档记录 PyNetIM 项目的所有重要变更。
+
+格式基于 `Keep a Changelog <https://keepachangelog.com/>`_。
+
+[0.4.0] - 2026-03-23
+------------------------
+
+新增
+~~~~
+
+* **C++ 图支持**: 为所有工具函数添加了对 ``IMGraphCpp``（C++ 图）的完整支持
+
+  - ``set_edge_weight()`` - 支持 C++ 图的边权重设置
+  - ``infection_threshold()`` - 支持 C++ 图的感染阈值计算
+  - ``graph_statistics()`` - 支持 C++ 图的统计信息计算
+  - ``graph_density()`` - 支持 C++ 图的密度计算
+  - ``connectivity_analysis()`` - 支持 C++ 图的连通性分析
+
+优化
+~~~~
+
+**性能优化**:
+
+* ``infection_threshold()`` - 避免重复计算度字典
+* ``graph_statistics()`` - 使用 ``Counter`` 替代手动循环统计度分布
+* ``connectivity_analysis()`` - 合并有向图和无向图的分支逻辑，消除重复代码
+* ``graph_density()`` - 修复整数除法问题，确保返回浮点数
+
+**代码质量**:
+
+* 删除无用的 ``TYPE_CHECKING`` 代码块
+* 统一函数签名，支持多种图类型
+* 优化导入语句，添加缺失的 ``networkx`` 模块
+
+修复
+~~~~
+
+**Bug 修复**:
+
+* 修复 ``utils.py`` 中缺失的 ``import networkx as nx`` 导入
+* 修复 ``graph_density()`` 函数中的整数除法 ``// 2`` 导致的精度丢失
+* 修复 ``infection_threshold()`` 函数中重复调用 ``dict(graph.degree())`` 的性能问题
+
+文档
+~~~~
+
+**学术参考文献**: 为所有主要模型和算法添加了学术参考文献
+
+**传播模型**:
+
+* Linear Threshold Model - Granovetter (1978)
+* Independent Cascade Model - Kempe et al. (2003)
+* SIR Model - Kermack & McKendrick (1927)
+* SI Model - Kermack & McKendrick (1927)
+
+**影响力最大化算法**:
+
+* Degree Discount Algorithm - Chen et al. (2009)
+* Reverse Influence Sampling (RIS) - Borgs et al. (2014)
+* IMM Algorithm - Tang et al. (2015)
+
+**工具函数**:
+
+* ``infection_threshold()`` - Pastor-Satorras & Vespignani (2001, 2015)
+
+**新增文档**:
+
+* ``UTILS_OPTIMIZATION_SUMMARY.md`` - utils.py 优化总结
+* ``OPTIMIZATION_SUMMARY.md`` - C++ 模块优化总结
+* ``REFERENCES_DOCUMENTATION.md`` - 参考文献添加文档
+* ``CHANGELOG.md`` - 本更新日志
+
+兼容性
+~~~~~~
+
+**向后兼容**: 所有修改都保持了向后兼容性
+
+* NetworkX 图的使用方式完全不变
+* 新增的 C++ 图支持是可选的
+* 函数签名使用 ``Union`` 类型，支持两种图类型
+
+技术细节
+~~~~~~~~
+
+* **图类型检测**: 使用 ``hasattr(graph, 'num_nodes') and hasattr(graph, 'directed')`` 检测 C++ 图
+* **类型注解**: 使用 ``TYPE_CHECKING`` 避免循环导入 ``IMGraphCpp``
+* **统一接口**: NetworkX 图和 C++ 图使用相同的函数接口
+
+[0.3.0] - 2025-XX-XX
+------------------------
+
+新增
+~~~~
+
+* 初始版本发布
+* 实现了多种影响力最大化算法
+* 实现了多种传播模型
+* 提供了 Python 和 C++ 双实现
+
+版本说明
+========
+
+PyNetIM 遵循 `语义化版本控制 <https://semver.org/>`_ (Semantic Versioning)：
+
+* **主版本号 (MAJOR)**: 不兼容的 API 修改
+* **次版本号 (MINOR)**: 向下兼容的功能性新增
+* **修订号 (PATCH)**: 向下兼容的问题修正
+
+版本类型
+--------
+
+* **主版本更新**: 重大架构变更、API 不兼容
+* **次版本更新**: 新增功能、性能优化
+* **修订版本更新**: Bug 修复、文档更新
+
+更新分类
+--------
+
+功能新增
+~~~~~~~~
+
+* 新的算法实现
+* 新的传播模型
+* 新的图操作功能
+
+性能优化
+~~~~~~~~
+
+* 算法效率提升
+* 内存使用优化
+* 计算速度提升
+
+Bug 修复
+~~~~~~~~
+
+* 代码错误修复
+* 边界情况处理
+* 兼容性问题修复
+
+文档改进
+~~~~~~~~
+
+* API 文档更新
+* 示例代码更新
+* 学术参考文献添加
+
+内部改进
+~~~~~~~~
+
+* 代码重构
+* 测试覆盖提升
+* 构建流程优化
+
+贡献指南
+========
+
+如果您想为 PyNetIM 做出贡献，请：
+
+1. Fork 本仓库
+2. 创建特性分支 (``git checkout -b feature/AmazingFeature``)
+3. 提交更改 (``git commit -m 'Add some AmazingFeature'``)
+4. 推送到分支 (``git push origin feature/AmazingFeature``)
+5. 开启 Pull Request
+
+许可证
+=======
+
+本项目采用 MIT 许可证 - 详见 `LICENSE <../LICENSE>`_ 文件。
+
+联系方式
+========
+
+* **作者**: Zhang Kaijing
+* **项目主页**: https://zzzkhj.github.io/PyNetIM/
+* **问题反馈**: `GitHub Issues <https://github.com/zzzkhj/PyNetIM/issues>`_
+
+**最后更新**: 2026-03-23
