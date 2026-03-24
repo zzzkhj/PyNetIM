@@ -13,8 +13,11 @@
 #include <memory>
 #include <stack>
 #include <immintrin.h>
+#include <pybind11/pybind11.h>
 
 #include "Graph.h"
+
+namespace py = pybind11;
 
 namespace pynetim {
 
@@ -66,8 +69,9 @@ public:
 class IndependentCascadeModel {
 private:
     std::set<int> seeds;
-    const Graph& graph;
+    std::shared_ptr<Graph> graph;
     int num_nodes;
+    py::object py_graph_ref;
 
     inline int count_activated_simd(const std::vector<char>& activated) const {
         int count = 0;
@@ -107,7 +111,7 @@ private:
 
         while (front < q.size()) {
             int u = q[front++];
-            const auto& neighbors = graph.out_neighbors(u);
+            const auto& neighbors = graph->out_neighbors(u);
 
             for (const auto& edge : neighbors) {
                 int v = edge.to;
@@ -125,9 +129,10 @@ private:
 
 public:
     IndependentCascadeModel(
-        const Graph& graph,
-        const std::set<int>& seeds)
-        : seeds(seeds), graph(graph), num_nodes(graph.num_nodes) {
+        std::shared_ptr<Graph> graph_ptr,
+        const std::set<int>& seeds,
+        py::object py_graph = py::none())
+        : seeds(seeds), graph(graph_ptr), num_nodes(graph_ptr->num_nodes), py_graph_ref(py_graph) {
     }
 
     void set_seeds(const std::set<int>& new_seeds) {
@@ -191,7 +196,7 @@ public:
 class LinearThresholdModel {
 private:
     std::set<int> seeds;
-    const Graph& graph;
+    std::shared_ptr<Graph> graph;
     int num_nodes;
     double theta_l;
     double theta_h;
@@ -239,7 +244,7 @@ private:
         size_t front = 0;
         while (front < q.size()) {
             int u = q[front++];
-            const auto& neighbors = graph.out_neighbors(u);
+            const auto& neighbors = graph->out_neighbors(u);
 
             for (const auto& edge : neighbors) {
                 int v = edge.to;
@@ -261,11 +266,11 @@ private:
 
 public:
     LinearThresholdModel(
-        const Graph& graph,
+        std::shared_ptr<Graph> graph_ptr,
         const std::set<int>& seeds,
         double theta_l = 0.0,
         double theta_h = 1.0)
-        : seeds(seeds), graph(graph), num_nodes(graph.num_nodes),
+        : seeds(seeds), graph(graph_ptr), num_nodes(graph_ptr->num_nodes),
           theta_l(theta_l), theta_h(theta_h) {
 
         if (theta_l < 0.0 || theta_l > 1.0) {

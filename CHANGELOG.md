@@ -4,6 +4,29 @@
 
 格式基于 [Keep a Changelog](https://keepachangelog.com/)。
 
+## [0.4.2] - 2026-03-24
+
+### 修复 (Fixed)
+- **修复 Graph 对象生命周期管理问题**:
+  - 修复了 Python 层 Graph 对象被垃圾回收后，C++ 层模型仍持有悬空指针导致的段错误
+  - 根本原因：Graph 没有以正确的 `std::shared_ptr` 形式被 Python 管理
+  - 解决方案：在 `graph_bind.cpp` 中使用 `std::make_shared` 创建 Graph 对象
+  - 现在 Python 和 C++ 共享同一个 `shared_ptr`，引用计数统一管理
+  - `py::keep_alive` 真正生效，确保 Graph 对象在模型使用期间不会被回收
+
+### 测试 (Testing)
+- **新增生命周期验证测试**:
+  - `test_weakref.py` - 使用 weakref 验证 Graph 对象生命周期
+  - `test_weakref2.py` - 带 seeds 的生命周期测试
+  - 测试结果：Graph 对象在模型使用期间保持存活，不会发生段错误
+
+### 技术细节 (Technical Details)
+- **关键知识点**: `py::class_<T, std::shared_ptr<T>>` 只保证 Python 用 shared_ptr 管理对象，但前提是这个对象本来就是 shared_ptr 创建的
+- **修改文件**: `src/pynetim/cpp/bindings/graph_bind.cpp` (L18-L28)
+- **修改内容**: 将 `py::init<int, ...>()` 改为使用 lambda 函数和 `std::make_shared` 创建 Graph 对象
+
+---
+
 ## [0.4.1] - 2026-03-24
 
 ### 修复 (Fixed)
@@ -172,4 +195,4 @@ PyNetIM 遵循 [语义化版本控制](https://semver.org/) (Semantic Versioning
 
 ---
 
-**最后更新**: 2026-03-23
+**最后更新**: 2026-03-24

@@ -9,9 +9,10 @@ PYBIND11_MODULE(linear_threshold_model, m) {
     m.doc() = "Linear Threshold (LT) Influence Maximization Model";
 
     py::class_<pynetim::LinearThresholdModel>(m, "LinearThresholdModel")
-        .def(py::init<const pynetim::Graph&, const std::set<int>&, double, double>(),
+        .def(py::init<std::shared_ptr<pynetim::Graph>, const std::set<int>&, double, double>(),
              py::arg("graph"), py::arg("seeds"),
              py::arg("theta_l") = 0.0, py::arg("theta_h") = 1.0,
+             py::keep_alive<0, 1>(),
              R"doc(
              Construct LT model.
              Each node gets a random threshold uniformly from [theta_l, theta_h).

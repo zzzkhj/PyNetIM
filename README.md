@@ -9,8 +9,32 @@
 ---
 
 ## 📦 最新版本
-**当前版本**: [v0.4.1](https://github.com/zzzkhj/PyNetIM/releases/tag/v0.4.1)  
+**当前版本**: [v0.4.2](https://github.com/zzzkhj/PyNetIM/releases/tag/v0.4.2)  
 **发布日期**: 2026-03-24
+
+### 🎯 v0.4.2 主要更新
+
+#### 🐛 Bug 修复
+- **修复 Graph 对象生命周期管理问题**:
+  - 修复了 Python 层 Graph 对象被垃圾回收后，C++ 层模型仍持有悬空指针导致的段错误
+  - 根本原因：Graph 没有以正确的 `std::shared_ptr` 形式被 Python 管理
+  - 解决方案：在 [graph_bind.cpp](src/pynetim/cpp/bindings/graph_bind.cpp) 中使用 `std::make_shared` 创建 Graph 对象
+  - 现在 Python 和 C++ 共享同一个 `shared_ptr`，引用计数统一管理
+  - `py::keep_alive` 真正生效，确保 Graph 对象在模型使用期间不会被回收
+
+#### 🧪 测试
+- 新增生命周期验证测试：
+  - `test_weakref.py` - 使用 weakref 验证 Graph 对象生命周期
+  - `test_weakref2.py` - 带 seeds 的生命周期测试
+  - 测试结果：Graph 对象在模型使用期间保持存活，不会发生段错误
+
+#### 📚 技术细节
+- **关键知识点**: `py::class_<T, std::shared_ptr<T>>` 只保证 Python 用 shared_ptr 管理对象，但前提是这个对象本来就是 shared_ptr 创建的
+- **修改文件**: [graph_bind.cpp](src/pynetim/cpp/bindings/graph_bind.cpp#L18-L28)
+
+📖 **查看完整更新**: [CHANGELOG.md](CHANGELOG.md)
+
+---
 
 ### 🎯 v0.4.1 主要更新
 
@@ -360,6 +384,15 @@ print(seeds)
 ```bash
 pip install pynetim
 ```
+
+---
+
+## 🙏 致谢
+
+感谢以下对本项目提供帮助的个人和工具：
+
+- **TraeAI** - 提供了强大的 AI 辅助开发环境，显著提升了代码开发效率和问题解决能力
+- **GLM-4.7 (Trae AI Assistant)** - 在项目开发过程中提供了关键的技术支持，特别是在 C++/Python 互操作、对象生命周期管理等复杂问题上提供了精准的分析和解决方案
 
 ---
 

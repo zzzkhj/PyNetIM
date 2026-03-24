@@ -75,9 +75,9 @@ public:
         : num_nodes(other.num_nodes),
           num_edges(other.num_edges),
           directed(other.directed),
+          edges(std::move(other.edges)),
           adj(std::move(other.adj)),
           rev_adj(std::move(other.rev_adj)),
-          edges(std::move(other.edges)),
           out_degree_cache(std::move(other.out_degree_cache)),
           in_degree_cache(std::move(other.in_degree_cache)),
           degrees_dirty(other.degrees_dirty) {

@@ -16,13 +16,13 @@ PYBIND11_MODULE(graph, m) {
             return py::str("Edge(to={}, weight={})").format(e.to, e.weight);
         });
 
-    py::class_<pynetim::Graph>(m, "IMGraphCpp")
-        .def(py::init<
-            int,
-            const std::vector<std::tuple<int, int>>&,
-            const std::vector<double>&,
-            bool
-        >(),
+    py::class_<pynetim::Graph, std::shared_ptr<pynetim::Graph>>(m, "IMGraphCpp")
+        .def(py::init([](int num_nodes,
+                         const std::vector<std::tuple<int, int>>& edges,
+                         const std::vector<double>& weights,
+                         bool directed) {
+            return std::make_shared<pynetim::Graph>(num_nodes, edges, weights, directed);
+        }),
             py::arg("num_nodes"),
             py::arg("edges"),
             py::arg("weights") = std::vector<double>{},

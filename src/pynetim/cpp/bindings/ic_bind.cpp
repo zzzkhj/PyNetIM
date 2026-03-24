@@ -8,8 +8,12 @@ PYBIND11_MODULE(independent_cascade_model, m) {
     m.doc() = "Independent Cascade (IC) Influence Maximization Model";
 
     py::class_<pynetim::IndependentCascadeModel>(m, "IndependentCascadeModel")
-        .def(py::init<const pynetim::Graph&, const std::set<int>&>(),
+        .def(py::init([](py::object graph_obj, const std::set<int>& seeds) {
+            auto graph_ptr = py::cast<std::shared_ptr<pynetim::Graph>>(graph_obj);
+            return std::make_unique<pynetim::IndependentCascadeModel>(graph_ptr, seeds, graph_obj);
+        }),
             py::arg("graph"), py::arg("seeds"),
+            py::keep_alive<0, 1>(),
             "Construct IC model with initial seed set and graph")
 
         .def("set_seeds", &pynetim::IndependentCascadeModel::set_seeds,
