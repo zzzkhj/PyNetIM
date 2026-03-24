@@ -90,18 +90,19 @@ private:
     }
 
     int run_single_trial(std::mt19937& rng,
-        std::uniform_real_distribution<double>& dist) const {
+        std::uniform_real_distribution<double>& dist,
+        const std::set<int>& trial_seeds) const {
 
         std::vector<char> activated(num_nodes, 0);
         std::vector<int> q;
 
         q.reserve(num_nodes);
 
-        for (int s : seeds) {
+        for (int s : trial_seeds) {
             activated[s] = 1;
         }
 
-        q.assign(seeds.begin(), seeds.end());
+        q.assign(trial_seeds.begin(), trial_seeds.end());
         size_t front = 0;
 
         while (front < q.size()) {
@@ -154,7 +155,7 @@ public:
 
             for (int i = 0; i < rounds; ++i) {
                 std::mt19937 rng(trial_seeds[i]);
-                sum += run_single_trial(rng, dist);
+                sum += run_single_trial(rng, dist, seeds);
             }
             return sum / rounds;
         }
@@ -172,7 +173,7 @@ public:
 
                 for (int i = t; i < rounds; i += actual_num_threads) {
                     std::mt19937 rng(trial_seeds[i]);
-                    local_sum += this->run_single_trial(rng, dist);
+                    local_sum += this->run_single_trial(rng, dist, seeds);
                 }
                 partial_sums[t] = local_sum;
             });
@@ -216,7 +217,8 @@ private:
     }
 
     int run_single_trial(std::mt19937& rng,
-        std::uniform_real_distribution<double>& dist) const {
+        std::uniform_real_distribution<double>& dist,
+        const std::set<int>& trial_seeds) const {
 
         std::vector<double> threshold(num_nodes);
         std::vector<char> activated(num_nodes, 0);
@@ -229,8 +231,8 @@ private:
             threshold[i] = theta_l + dist(rng) * (theta_h - theta_l);
         }
 
-        q.assign(seeds.begin(), seeds.end());
-        for (int s : seeds) {
+        q.assign(trial_seeds.begin(), trial_seeds.end());
+        for (int s : trial_seeds) {
             activated[s] = 1;
         }
 
@@ -302,7 +304,7 @@ public:
 
             for (int i = 0; i < rounds; ++i) {
                 std::mt19937 rng(trial_seeds[i]);
-                sum += run_single_trial(rng, dist);
+                sum += run_single_trial(rng, dist, seeds);
             }
             return sum / rounds;
         }
@@ -320,7 +322,7 @@ public:
 
                 for (int i = t; i < rounds; i += actual_num_threads) {
                     std::mt19937 rng(trial_seeds[i]);
-                    local_sum += this->run_single_trial(rng, dist);
+                    local_sum += this->run_single_trial(rng, dist, seeds);
                 }
                 partial_sums[t] = local_sum;
             });

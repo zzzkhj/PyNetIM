@@ -4,6 +4,26 @@
 
 格式基于 [Keep a Changelog](https://keepachangelog.com/)。
 
+## [0.4.1] - 2026-03-24
+
+### 修复 (Fixed)
+- **修复 C++ 扩展的线程安全问题**:
+  - 修复 `IndependentCascadeModel` 和 `LinearThresholdModel` 在多线程模式下的线程安全问题
+  - 通过参数传递替代直接访问成员变量 `seeds`，消除跨线程共享 `std::set` 的状态
+  - 解决了与 PyTorch 等多线程库结合使用时的 segmentation fault 问题
+  - 经过严格测试：5000 次迭代、8 线程并发、10 图并发均稳定运行
+  - 单线程和多线程结果完全一致，确保正确性
+
+### 测试 (Testing)
+- **新增严格验证测试**:
+  - 单线程/多线程一致性测试
+  - 长时间多线程压力测试 (2000 次迭代)
+  - 多线程并发访问测试 (8 线程)
+  - 多图并发处理测试 (10 个图)
+  - 极限压力测试 (5000 次迭代)
+
+---
+
 ## [0.4.0] - 2026-03-23
 
 ### 新增 (Added)
@@ -31,6 +51,12 @@
   - 修复 `utils.py` 中缺失的 `import networkx as nx` 导入
   - 修复 `graph_density()` 函数中的整数除法 `// 2` 导致的精度丢失
   - 修复 `infection_threshold()` 函数中重复调用 `dict(graph.degree())` 的性能问题
+  - **修复 C++ 扩展的线程安全问题**:
+    - 修复 `IndependentCascadeModel` 和 `LinearThresholdModel` 在多线程模式下的线程安全问题
+    - 通过参数传递替代直接访问成员变量 `seeds`，消除跨线程共享 `std::set` 的状态
+    - 解决了与 PyTorch 等多线程库结合使用时的 segmentation fault 问题
+    - 经过严格测试：5000 次迭代、8 线程并发、10 图并发均稳定运行
+    - 单线程和多线程结果完全一致，确保正确性
 
 ### 文档 (Documentation)
 - **学术参考文献**: 为所有主要模型和算法添加了学术参考文献
