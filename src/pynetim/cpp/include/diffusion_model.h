@@ -72,6 +72,7 @@ private:
     std::shared_ptr<Graph> graph;
     int num_nodes;
     py::object py_graph_ref;
+    bool record_activated;
 
     inline int count_activated_simd(const std::vector<char>& activated) const {
         int count = 0;
@@ -95,7 +96,8 @@ private:
 
     int run_single_trial(std::mt19937& rng,
         std::uniform_real_distribution<double>& dist,
-        const std::set<int>& trial_seeds) const {
+        const std::set<int>& trial_seeds,
+        std::set<int>* activated_nodes = nullptr) const {
 
         std::vector<char> activated(num_nodes, 0);
         std::vector<int> q;
@@ -124,6 +126,14 @@ private:
             }
         }
 
+        if (record_activated && activated_nodes != nullptr) {
+            for (int i = 0; i < num_nodes; ++i) {
+                if (activated[i]) {
+                    activated_nodes->insert(i);
+                }
+            }
+        }
+
         return count_activated_simd(activated);
     }
 
@@ -131,12 +141,25 @@ public:
     IndependentCascadeModel(
         std::shared_ptr<Graph> graph_ptr,
         const std::set<int>& seeds,
-        py::object py_graph = py::none())
-        : seeds(seeds), graph(graph_ptr), num_nodes(graph_ptr->num_nodes), py_graph_ref(py_graph) {
+        py::object py_graph = py::none(),
+        bool record_activated = false)
+        : seeds(seeds), graph(graph_ptr), num_nodes(graph_ptr->num_nodes), py_graph_ref(py_graph), record_activated(record_activated) {
     }
 
     void set_seeds(const std::set<int>& new_seeds) {
         seeds = new_seeds;
+    }
+
+    void set_record_activated(bool record) {
+        record_activated = record;
+    }
+
+    std::set<int> run_single_simulation(unsigned int seed = 0) const {
+        std::mt19937 rng(seed);
+        std::uniform_real_distribution<double> dist(0.0, 1.0);
+        std::set<int> activated_nodes;
+        run_single_trial(rng, dist, seeds, &activated_nodes);
+        return activated_nodes;
     }
 
     double run_monte_carlo_diffusion(int rounds,
@@ -200,6 +223,7 @@ private:
     int num_nodes;
     double theta_l;
     double theta_h;
+    bool record_activated;
 
     inline int count_activated_simd(const std::vector<char>& activated) const {
         int count = 0;
@@ -223,7 +247,8 @@ private:
 
     int run_single_trial(std::mt19937& rng,
         std::uniform_real_distribution<double>& dist,
-        const std::set<int>& trial_seeds) const {
+        const std::set<int>& trial_seeds,
+        std::set<int>* activated_nodes = nullptr) const {
 
         std::vector<double> threshold(num_nodes);
         std::vector<char> activated(num_nodes, 0);
@@ -261,6 +286,14 @@ private:
             }
         }
 
+        if (record_activated && activated_nodes != nullptr) {
+            for (int i = 0; i < num_nodes; ++i) {
+                if (activated[i]) {
+                    activated_nodes->insert(i);
+                }
+            }
+        }
+
         return count_activated_simd(activated);
     }
 
@@ -269,9 +302,10 @@ public:
         std::shared_ptr<Graph> graph_ptr,
         const std::set<int>& seeds,
         double theta_l = 0.0,
-        double theta_h = 1.0)
+        double theta_h = 1.0,
+        bool record_activated = false)
         : seeds(seeds), graph(graph_ptr), num_nodes(graph_ptr->num_nodes),
-          theta_l(theta_l), theta_h(theta_h) {
+          theta_l(theta_l), theta_h(theta_h), record_activated(record_activated) {
 
         if (theta_l < 0.0 || theta_l > 1.0) {
             throw std::invalid_argument("theta_l must be in [0,1]");
@@ -286,6 +320,18 @@ public:
 
     void set_seeds(const std::set<int>& new_seeds) {
         seeds = new_seeds;
+    }
+
+    void set_record_activated(bool record) {
+        record_activated = record;
+    }
+
+    std::set<int> run_single_simulation(unsigned int seed = 0) const {
+        std::mt19937 rng(seed);
+        std::uniform_real_distribution<double> dist(0.0, 1.0);
+        std::set<int> activated_nodes;
+        run_single_trial(rng, dist, seeds, &activated_nodes);
+        return activated_nodes;
     }
 
     double run_monte_carlo_diffusion(int rounds,

@@ -9,9 +9,10 @@ PYBIND11_MODULE(linear_threshold_model, m) {
     m.doc() = "Linear Threshold (LT) Influence Maximization Model";
 
     py::class_<pynetim::LinearThresholdModel>(m, "LinearThresholdModel")
-        .def(py::init<std::shared_ptr<pynetim::Graph>, const std::set<int>&, double, double>(),
+        .def(py::init<std::shared_ptr<pynetim::Graph>, const std::set<int>&, double, double, bool>(),
              py::arg("graph"), py::arg("seeds"),
              py::arg("theta_l") = 0.0, py::arg("theta_h") = 1.0,
+             py::arg("record_activated") = false,
              py::keep_alive<0, 1>(),
              R"doc(
              Construct LT model.
@@ -21,6 +22,15 @@ PYBIND11_MODULE(linear_threshold_model, m) {
         .def("set_seeds", &pynetim::LinearThresholdModel::set_seeds,
              py::arg("new_seeds"),
              "Update seed set")
+
+        .def("set_record_activated", &pynetim::LinearThresholdModel::set_record_activated,
+             py::arg("record"),
+             "Enable or disable recording of activated nodes")
+
+        .def("run_single_simulation",
+            &pynetim::LinearThresholdModel::run_single_simulation,
+            py::arg("seed") = 0,
+            "Run a single diffusion simulation and return set of activated nodes")
 
         .def("run_monte_carlo_diffusion",
             &pynetim::LinearThresholdModel::run_monte_carlo_diffusion,

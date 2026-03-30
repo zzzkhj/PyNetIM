@@ -9,8 +9,74 @@
 ---
 
 ## 📦 最新版本
-**当前版本**: [v0.4.2](https://github.com/zzzkhj/PyNetIM/releases/tag/v0.4.2)  
-**发布日期**: 2026-03-24
+**当前版本**: [v0.4.3](https://github.com/zzzkhj/PyNetIM/releases/tag/v0.4.3)  
+**发布日期**: 2026-03-30
+
+### 🎯 v0.4.3 主要更新
+
+#### ✨ 新功能
+- **IC 和 LT 模型新增激活节点记录功能**:
+  - 添加 `record_activated` 参数（默认为 `false`），用于控制是否记录种子集激活的节点
+  - 添加 `set_record_activated(record)` 方法，可在运行时动态开启/关闭记录功能
+  - 添加 `run_single_simulation(seed=0)` 方法，用于单次独立传播模拟
+  - 每次调用 `run_single_simulation` 都会进行一次独立的传播模拟，从种子集出发，返回该次模拟中被激活的所有节点
+  - 支持通过不同的 `seed` 参数进行多次独立的模拟实验
+
+#### 📚 API 更新
+- **IndependentCascadeModel**:
+  - 构造函数新增 `record_activated` 参数
+  - 新增 `set_record_activated(record: bool)` 方法
+  - 新增 `run_single_simulation(seed: int = 0) -> Set[int]` 方法
+
+- **LinearThresholdModel**:
+  - 构造函数新增 `record_activated` 参数
+  - 新增 `set_record_activated(record: bool)` 方法
+  - 新增 `run_single_simulation(seed: int = 0) -> Set[int]` 方法
+
+#### 🧪 测试
+- 新增功能验证测试：
+  - IC 模型单次模拟测试
+  - LT 模型单次模拟测试
+  - 多次独立模拟测试
+  - `set_record_activated` 动态切换测试
+  - 编译和运行测试全部通过
+
+#### 📝 使用示例
+```python
+# IC 模型
+from pynetim.cpp.diffusion_model import IndependentCascadeModel
+
+ic_model = IndependentCascadeModel(graph, seeds, record_activated=True)
+activated_nodes = ic_model.run_single_simulation(seed=42)
+print(f"激活的节点: {activated_nodes}")
+
+# LT 模型
+from pynetim.cpp.diffusion_model import LinearThresholdModel
+
+lt_model = LinearThresholdModel(graph, seeds, theta_l=0.0, theta_h=1.0, record_activated=True)
+activated_nodes = lt_model.run_single_simulation(seed=42)
+print(f"激活的节点: {activated_nodes}")
+
+# 动态开启/关闭记录
+ic_model.set_record_activated(True)
+```
+
+#### 🔧 技术细节
+- **修改文件**:
+  - `src/pynetim/cpp/include/diffusion_model.h` - 添加核心功能实现
+  - `src/pynetim/cpp/bindings/ic_bind.cpp` - IC 模型 Python 绑定
+  - `src/pynetim/cpp/bindings/lt_bind.cpp` - LT 模型 Python 绑定
+  - `src/pynetim/cpp/diffusion_model/independent_cascade_model.pyi` - 类型提示
+  - `src/pynetim/cpp/diffusion_model/linear_threshold_model.pyi` - 类型提示
+
+- **实现细节**:
+  - `run_single_trial` 方法新增 `activated_nodes` 参数，用于记录激活节点
+  - 当 `record_activated` 为 `true` 时，遍历所有节点收集激活的节点
+  - 使用独立的随机数生成器确保每次模拟的独立性
+
+📖 **查看完整更新**: [CHANGELOG.md](CHANGELOG.md)
+
+---
 
 ### 🎯 v0.4.2 主要更新
 
