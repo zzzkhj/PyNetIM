@@ -1680,12 +1680,115 @@ largest (bool): 如果为True，则返回具有最大值的k个键；如果为Fa
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pynetim.cpp.diffusion_model.</span></span><span class="sig-name descname"><span class="pre">IndependentCascadeModel</span></span><a class="headerlink" href="#pynetim.cpp.diffusion_model.IndependentCascadeModel" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_object</span></code></p>
 <dl class="py method">
+<dt class="sig sig-object py" id="pynetim.cpp.diffusion_model.IndependentCascadeModel.get_activated_nodes">
+<span class="sig-name descname"><span class="pre">get_activated_nodes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pynetim.cpp.diffusion_model.IndependentCascadeModel" title="pynetim.cpp.diffusion_model.independent_cascade_model.IndependentCascadeModel"><span class="pre">pynetim.cpp.diffusion_model.independent_cascade_model.IndependentCascadeModel</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">set</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pynetim.cpp.diffusion_model.IndependentCascadeModel.get_activated_nodes" title="Link to this definition"></a></dt>
+<dd><p>Get set of activated nodes from last simulation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Set of activated nodes from the last simulation.
+For single simulation: nodes activated in that simulation.
+For Monte Carlo: union of all activated nodes across all trials.
+Only valid when record_activated is set to True.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Set[int]</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">.</span><span class="n">set_record_activated</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">count</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">run_single_simulation</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">activated_nodes</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">get_activated_nodes</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Activated </span><span class="si">{</span><span class="n">count</span><span class="si">}</span><span class="s2"> nodes: </span><span class="si">{</span><span class="n">activated_nodes</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.cpp.diffusion_model.IndependentCascadeModel.get_activation_frequency">
+<span class="sig-name descname"><span class="pre">get_activation_frequency</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pynetim.cpp.diffusion_model.IndependentCascadeModel" title="pynetim.cpp.diffusion_model.independent_cascade_model.IndependentCascadeModel"><span class="pre">pynetim.cpp.diffusion_model.independent_cascade_model.IndependentCascadeModel</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pynetim.cpp.diffusion_model.IndependentCascadeModel.get_activation_frequency" title="Link to this definition"></a></dt>
+<dd><p>Get activation frequency of each node from all simulations.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List where index i represents how many times node i was activated.
+Only valid when record_activation_frequency is set to True.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>List[int]</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">.</span><span class="n">set_record_activation_frequency</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">avg</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">run_monte_carlo_diffusion</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">freq</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">get_activation_frequency</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Node 0 was activated </span><span class="si">{</span><span class="n">freq</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2"> times&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="pynetim.cpp.diffusion_model.IndependentCascadeModel.run_monte_carlo_diffusion">
-<span class="sig-name descname"><span class="pre">run_monte_carlo_diffusion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pynetim.cpp.diffusion_model.IndependentCascadeModel" title="pynetim.cpp.diffusion_model.independent_cascade_model.IndependentCascadeModel"><span class="pre">pynetim.cpp.diffusion_model.independent_cascade_model.IndependentCascadeModel</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">rounds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SupportsInt</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">SupportsIndex</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SupportsInt</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">SupportsIndex</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_multithread</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_threads</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SupportsInt</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">SupportsIndex</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="headerlink" href="#pynetim.cpp.diffusion_model.IndependentCascadeModel.run_monte_carlo_diffusion" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">run_monte_carlo_diffusion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pynetim.cpp.diffusion_model.IndependentCascadeModel" title="pynetim.cpp.diffusion_model.independent_cascade_model.IndependentCascadeModel"><span class="pre">pynetim.cpp.diffusion_model.independent_cascade_model.IndependentCascadeModel</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">rounds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SupportsInt</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">SupportsIndex</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">object</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_multithread</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_threads</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SupportsInt</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">SupportsIndex</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="headerlink" href="#pynetim.cpp.diffusion_model.IndependentCascadeModel.run_monte_carlo_diffusion" title="Link to this definition"></a></dt>
 <dd><p>Run Monte Carlo simulation of IC diffusion.
-Returns average number of activated nodes over ‘rounds’ trials.
-Results are deterministic for the same seed (single/multi-thread).
-num_threads: number of threads to use (0 = auto-detect)</p>
+Returns average number of activated nodes over ‘rounds’ trials.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>rounds</strong> (<em>int</em>) – Number of simulation trials</p></li>
+<li><p><strong>seed</strong> (<em>int</em><em> or </em><em>None</em><em>, </em><em>optional</em>) – Random seed for reproducibility. If None (default), uses a truly random seed.
+Use the same seed to get reproducible results.</p></li>
+<li><p><strong>use_multithread</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to use multithreading (default: False)</p></li>
+<li><p><strong>num_threads</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of threads to use (0 = auto-detect, default: 0)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Average number of activated nodes over all trials</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">avg</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">run_monte_carlo_diffusion</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>  <span class="c1"># Random seed</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">avg</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">run_monte_carlo_diffusion</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>  <span class="c1"># Reproducible result</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">avg</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">run_monte_carlo_diffusion</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">use_multithread</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">num_threads</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.cpp.diffusion_model.IndependentCascadeModel.run_single_simulation">
+<span class="sig-name descname"><span class="pre">run_single_simulation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pynetim.cpp.diffusion_model.IndependentCascadeModel" title="pynetim.cpp.diffusion_model.independent_cascade_model.IndependentCascadeModel"><span class="pre">pynetim.cpp.diffusion_model.independent_cascade_model.IndependentCascadeModel</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">object</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#pynetim.cpp.diffusion_model.IndependentCascadeModel.run_single_simulation" title="Link to this definition"></a></dt>
+<dd><p>Run a single diffusion simulation and return number of activated nodes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>seed</strong> (<em>int</em><em> or </em><em>None</em><em>, </em><em>optional</em>) – Random seed for reproducibility. If None (default), uses a truly random seed.
+Use the same seed to get reproducible results.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Number of activated nodes in this simulation</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">count</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">run_single_simulation</span><span class="p">()</span>  <span class="c1"># Random result</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">count</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">run_single_simulation</span><span class="p">(</span><span class="n">seed</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>  <span class="c1"># Reproducible result</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">activated_nodes</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">get_activated_nodes</span><span class="p">()</span>  <span class="c1"># Get recorded nodes (if record_activated=True)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.cpp.diffusion_model.IndependentCascadeModel.set_record_activated">
+<span class="sig-name descname"><span class="pre">set_record_activated</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pynetim.cpp.diffusion_model.IndependentCascadeModel" title="pynetim.cpp.diffusion_model.independent_cascade_model.IndependentCascadeModel"><span class="pre">pynetim.cpp.diffusion_model.independent_cascade_model.IndependentCascadeModel</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">record</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pynetim.cpp.diffusion_model.IndependentCascadeModel.set_record_activated" title="Link to this definition"></a></dt>
+<dd><p>Enable or disable recording of activated nodes</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.cpp.diffusion_model.IndependentCascadeModel.set_record_activation_frequency">
+<span class="sig-name descname"><span class="pre">set_record_activation_frequency</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pynetim.cpp.diffusion_model.IndependentCascadeModel" title="pynetim.cpp.diffusion_model.independent_cascade_model.IndependentCascadeModel"><span class="pre">pynetim.cpp.diffusion_model.independent_cascade_model.IndependentCascadeModel</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">record</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pynetim.cpp.diffusion_model.IndependentCascadeModel.set_record_activation_frequency" title="Link to this definition"></a></dt>
+<dd><p>Enable or disable recording of activation frequency</p>
 </dd></dl>
 
 <dl class="py method">
@@ -1701,11 +1804,115 @@ num_threads: number of threads to use (0 = auto-detect)</p>
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pynetim.cpp.diffusion_model.</span></span><span class="sig-name descname"><span class="pre">LinearThresholdModel</span></span><a class="headerlink" href="#pynetim.cpp.diffusion_model.LinearThresholdModel" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_object</span></code></p>
 <dl class="py method">
+<dt class="sig sig-object py" id="pynetim.cpp.diffusion_model.LinearThresholdModel.get_activated_nodes">
+<span class="sig-name descname"><span class="pre">get_activated_nodes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pynetim.cpp.diffusion_model.LinearThresholdModel" title="pynetim.cpp.diffusion_model.linear_threshold_model.LinearThresholdModel"><span class="pre">pynetim.cpp.diffusion_model.linear_threshold_model.LinearThresholdModel</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">set</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pynetim.cpp.diffusion_model.LinearThresholdModel.get_activated_nodes" title="Link to this definition"></a></dt>
+<dd><p>Get set of activated nodes from last simulation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Set of activated nodes from the last simulation.
+For single simulation: nodes activated in that simulation.
+For Monte Carlo: union of all activated nodes across all trials.
+Only valid when record_activated is set to True.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Set[int]</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">.</span><span class="n">set_record_activated</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">count</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">run_single_simulation</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">activated_nodes</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">get_activated_nodes</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Activated </span><span class="si">{</span><span class="n">count</span><span class="si">}</span><span class="s2"> nodes: </span><span class="si">{</span><span class="n">activated_nodes</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.cpp.diffusion_model.LinearThresholdModel.get_activation_frequency">
+<span class="sig-name descname"><span class="pre">get_activation_frequency</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pynetim.cpp.diffusion_model.LinearThresholdModel" title="pynetim.cpp.diffusion_model.linear_threshold_model.LinearThresholdModel"><span class="pre">pynetim.cpp.diffusion_model.linear_threshold_model.LinearThresholdModel</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pynetim.cpp.diffusion_model.LinearThresholdModel.get_activation_frequency" title="Link to this definition"></a></dt>
+<dd><p>Get activation frequency of each node from all simulations.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List where index i represents how many times node i was activated.
+Only valid when record_activation_frequency is set to True.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>List[int]</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">.</span><span class="n">set_record_activation_frequency</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">avg</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">run_monte_carlo_diffusion</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">freq</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">get_activation_frequency</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Node 0 was activated </span><span class="si">{</span><span class="n">freq</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2"> times&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="pynetim.cpp.diffusion_model.LinearThresholdModel.run_monte_carlo_diffusion">
-<span class="sig-name descname"><span class="pre">run_monte_carlo_diffusion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pynetim.cpp.diffusion_model.LinearThresholdModel" title="pynetim.cpp.diffusion_model.linear_threshold_model.LinearThresholdModel"><span class="pre">pynetim.cpp.diffusion_model.linear_threshold_model.LinearThresholdModel</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">rounds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SupportsInt</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">SupportsIndex</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SupportsInt</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">SupportsIndex</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_multithread</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_threads</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SupportsInt</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">SupportsIndex</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="headerlink" href="#pynetim.cpp.diffusion_model.LinearThresholdModel.run_monte_carlo_diffusion" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">run_monte_carlo_diffusion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pynetim.cpp.diffusion_model.LinearThresholdModel" title="pynetim.cpp.diffusion_model.linear_threshold_model.LinearThresholdModel"><span class="pre">pynetim.cpp.diffusion_model.linear_threshold_model.LinearThresholdModel</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">rounds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SupportsInt</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">SupportsIndex</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">object</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_multithread</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_threads</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SupportsInt</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">SupportsIndex</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="headerlink" href="#pynetim.cpp.diffusion_model.LinearThresholdModel.run_monte_carlo_diffusion" title="Link to this definition"></a></dt>
 <dd><p>Run Monte Carlo simulation of LT diffusion.
-Returns average number of activated nodes.
-num_threads: number of threads to use (0 = auto-detect)</p>
+Returns average number of activated nodes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>rounds</strong> (<em>int</em>) – Number of simulation trials</p></li>
+<li><p><strong>seed</strong> (<em>int</em><em> or </em><em>None</em><em>, </em><em>optional</em>) – Random seed for reproducibility. If None (default), uses a truly random seed.
+Use the same seed to get reproducible results.</p></li>
+<li><p><strong>use_multithread</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to use multithreading (default: False)</p></li>
+<li><p><strong>num_threads</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of threads to use (0 = auto-detect, default: 0)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Average number of activated nodes over all trials</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">avg</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">run_monte_carlo_diffusion</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>  <span class="c1"># Random seed</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">avg</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">run_monte_carlo_diffusion</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>  <span class="c1"># Reproducible result</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">avg</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">run_monte_carlo_diffusion</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">use_multithread</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">num_threads</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.cpp.diffusion_model.LinearThresholdModel.run_single_simulation">
+<span class="sig-name descname"><span class="pre">run_single_simulation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pynetim.cpp.diffusion_model.LinearThresholdModel" title="pynetim.cpp.diffusion_model.linear_threshold_model.LinearThresholdModel"><span class="pre">pynetim.cpp.diffusion_model.linear_threshold_model.LinearThresholdModel</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">object</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#pynetim.cpp.diffusion_model.LinearThresholdModel.run_single_simulation" title="Link to this definition"></a></dt>
+<dd><p>Run a single diffusion simulation and return number of activated nodes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>seed</strong> (<em>int</em><em> or </em><em>None</em><em>, </em><em>optional</em>) – Random seed for reproducibility. If None (default), uses a truly random seed.
+Use the same seed to get reproducible results.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Number of activated nodes in this simulation</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">count</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">run_single_simulation</span><span class="p">()</span>  <span class="c1"># Random result</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">count</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">run_single_simulation</span><span class="p">(</span><span class="n">seed</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>  <span class="c1"># Reproducible result</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">activated_nodes</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">get_activated_nodes</span><span class="p">()</span>  <span class="c1"># Get recorded nodes (if record_activated=True)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.cpp.diffusion_model.LinearThresholdModel.set_record_activated">
+<span class="sig-name descname"><span class="pre">set_record_activated</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pynetim.cpp.diffusion_model.LinearThresholdModel" title="pynetim.cpp.diffusion_model.linear_threshold_model.LinearThresholdModel"><span class="pre">pynetim.cpp.diffusion_model.linear_threshold_model.LinearThresholdModel</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">record</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pynetim.cpp.diffusion_model.LinearThresholdModel.set_record_activated" title="Link to this definition"></a></dt>
+<dd><p>Enable or disable recording of activated nodes</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.cpp.diffusion_model.LinearThresholdModel.set_record_activation_frequency">
+<span class="sig-name descname"><span class="pre">set_record_activation_frequency</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pynetim.cpp.diffusion_model.LinearThresholdModel" title="pynetim.cpp.diffusion_model.linear_threshold_model.LinearThresholdModel"><span class="pre">pynetim.cpp.diffusion_model.linear_threshold_model.LinearThresholdModel</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">record</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pynetim.cpp.diffusion_model.LinearThresholdModel.set_record_activation_frequency" title="Link to this definition"></a></dt>
+<dd><p>Enable or disable recording of activation frequency</p>
 </dd></dl>
 
 <dl class="py method">
