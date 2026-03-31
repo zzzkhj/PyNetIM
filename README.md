@@ -9,8 +9,163 @@
 ---
 
 ## 📦 最新版本
-**当前版本**: [v0.4.3](https://github.com/zzzkhj/PyNetIM/releases/tag/v0.4.3)  
+**当前版本**: [v0.4.4](https://github.com/zzzkhj/PyNetIM/releases/tag/v0.4.4)  
 **发布日期**: 2026-03-30
+
+### 🎯 v0.4.4 主要更新
+
+#### 📚 API 更新
+- **分离模拟执行和结果获取**:
+  - `run_single_simulation()` 现在只返回激活节点数量（`int`），不再返回节点集合
+  - 新增 `get_activated_nodes()` 方法，专门用于获取记录的激活节点集合
+  - 只有在 `record_activated=True` 时，`get_activated_nodes()` 才返回有效数据
+  - 当 `record_activated=False` 时，`get_activated_nodes()` 返回空集合
+
+- **IndependentCascadeModel**:
+  - `run_single_simulation()` 的返回值从 `Set[int]` 改为 `int`（激活节点数量）
+  - 新增 `get_activated_nodes() -> Set[int]` 方法
+  - 新增 `get_activation_frequency() -> List[int]` 方法，用于获取每个节点的激活频率
+  - 新增 `set_record_activation_frequency(record: bool)` 方法，用于动态开启/关闭激活频率记录
+  - `run_single_simulation()` 的 `seed` 参数类型从 `int` 改为 `int | None`，默认值从 `0` 改为 `None`
+  - `run_monte_carlo_diffusion()` 的 `seed` 参数类型从 `int` 改为 `int | None`，默认值从 `0` 改为 `None`
+  - 构造函数新增 `record_activation_frequency` 参数（默认为 `false`）
+
+- **LinearThresholdModel**:
+  - `run_single_simulation()` 的返回值从 `Set[int]` 改为 `int`（激活节点数量）
+  - 新增 `get_activated_nodes() -> Set[int]` 方法
+  - 新增 `get_activation_frequency() -> List[int]` 方法，用于获取每个节点的激活频率
+  - 新增 `set_record_activation_frequency(record: bool)` 方法，用于动态开启/关闭激活频率记录
+  - `run_single_simulation()` 的 `seed` 参数类型从 `int` 改为 `int | None`，默认值从 `0` 改为 `None`
+  - `run_monte_carlo_diffusion()` 的 `seed` 参数类型从 `int` 改为 `int | None`，默认值从 `0` 改为 `None`
+  - 构造函数新增 `record_activation_frequency` 参数（默认为 `false`）
+
+#### 🆕 新增功能
+- **多轮模拟记录激活节点并集**:
+  - `run_monte_carlo_diffusion()` 现在支持记录所有试验的激活节点并集
+  - 当 `record_activated=True` 时，`get_activated_nodes()` 返回所有试验中被激活过的节点（并集）
+  - 对于单次模拟：返回该次模拟的激活节点集合
+  - 对于 Monte Carlo 模拟：返回所有试验的激活节点并集
+
+- **激活频率记录功能**:
+  - 新增 `record_activation_frequency` 参数（默认为 `false`），用于控制是否记录每个节点的激活频率
+  - 新增 `set_record_activation_frequency(record)` 方法，可在运行时动态开启/关闭记录功能
+  - 新增 `get_activation_frequency()` 方法，返回每个节点被激活的次数
+  - 只有在 `record_activation_frequency=True` 时，`get_activation_frequency()` 才返回有效数据
+  - 当 `record_activation_frequency=False` 时，`get_activation_frequency()` 返回全 0 的列表
+  - 可以同时开启 `record_activated` 和 `record_activation_frequency`，记录两种数据
+
+#### ⚡ 优化
+- **改进随机种子生成机制**:
+  - `run_single_simulation()` 和 `run_monte_carlo_diffusion()` 方法现在都支持 `seed=None` 参数
+  - 当 `seed=None` 时，使用多个 `std::random_device` 值的组合来增强随机性
+  - 当 `seed=固定值` 时，使用固定种子，确保模拟结果可重现
+  - 改进后的随机种子生成方式解决了在某些平台（虚拟环境、容器）上 `std::random_device` 返回相同值的问题
+
+- **多线程随机种子一致性**:
+  - `run_monte_carlo_diffusion()` 采用种子预生成策略
+  - 在开始任何模拟之前，使用主随机数生成器预生成所有试验的种子
+  - 每个试验使用独立的种子，确保单线程和多线程结果完全一致
+  - 多线程只是改变了试验的执行顺序和并行度，但没有改变每个试验使用的随机数序列
+
+#### 🐛 Bug 修复
+- **修复 `set_record_activated()` 的清空逻辑**:
+  - 当 `set_record_activated(False)` 被调用时，现在会清空 `last_activated_nodes`
+  - 避免了返回过期的激活节点数据
+  - 确保当 `record_activated=False` 时，`get_activated_nodes()` 总是返回空集合
+
+- **修复 `set_record_activation_frequency()` 的清空逻辑**:
+  - 当 `set_record_activation_frequency(False)` 被调用时，现在会清空 `activation_frequency`
+  - 避免了返回过期的激活频率数据
+  - 确保当 `record_activation_frequency=False` 时，`get_activation_frequency()` 总是返回全 0 的列表
+
+#### 🧪 测试
+- 新增功能验证测试：
+  - IC 模型单次模拟测试（简单链式图、星形图、低权重图）
+  - LT 模型单次模拟测试
+  - 多个种子节点测试
+  - `record_activated=False` 测试
+  - `set_record_activated()` 动态切换测试
+  - 多次调用 `get_activated_nodes()` 测试
+  - 无向图测试
+  - 随机种子功能测试
+  - 多轮模拟测试（单线程和多线程）
+  - 大规模模拟测试（10000 轮）
+  - `record_activated` 对多轮模拟性能影响测试
+  - 多轮模拟 vs 单次模拟对比测试
+  - 编译和运行测试全部通过
+
+#### 📝 使用示例
+```python
+# IC 模型
+from pynetim.cpp.diffusion_model import IndependentCascadeModel
+
+# 不记录激活节点（默认）
+ic_model = IndependentCascadeModel(graph, seeds)
+count = ic_model.run_single_simulation()  # 随机种子
+print(f"激活节点数量: {count}")
+
+# 记录激活节点
+ic_model = IndependentCascadeModel(graph, seeds, record_activated=True)
+count = ic_model.run_single_simulation(seed=42)  # 固定种子
+activated_nodes = ic_model.get_activated_nodes()
+print(f"激活节点数量: {count}")
+print(f"激活的节点: {activated_nodes}")
+
+# 动态切换记录
+ic_model.set_record_activated(True)
+count = ic_model.run_single_simulation()
+activated_nodes = ic_model.get_activated_nodes()
+
+ic_model.set_record_activated(False)
+count = ic_model.run_single_simulation()
+activated_nodes = ic_model.get_activated_nodes()  # 空集合
+
+# LT 模型
+from pynetim.cpp.diffusion_model import LinearThresholdModel
+
+lt_model = LinearThresholdModel(graph, seeds, theta_l=0.0, theta_h=1.0, record_activated=True)
+count = lt_model.run_single_simulation()  # 随机种子
+activated_nodes = lt_model.get_activated_nodes()
+print(f"激活节点数量: {count}")
+print(f"激活的节点: {activated_nodes}")
+
+# 多轮模拟
+avg_count = ic_model.run_monte_carlo_diffusion(1000)  # 随机种子
+print(f"平均激活节点数: {avg_count:.2f}")
+
+avg_count = ic_model.run_monte_carlo_diffusion(1000, seed=42)  # 固定种子
+print(f"平均激活节点数: {avg_count:.2f}")
+
+# 多线程多轮模拟
+avg_count = ic_model.run_monte_carlo_diffusion(1000, seed=42, use_multithread=True, num_threads=4)
+print(f"平均激活节点数: {avg_count:.2f}")
+
+# 激活频率记录
+ic_model = IndependentCascadeModel(graph, seeds, record_activation_frequency=True)
+avg_count = ic_model.run_monte_carlo_diffusion(1000, seed=42)
+freq = ic_model.get_activation_frequency()
+print(f"节点激活频率: {freq}")
+
+# 同时记录激活节点和频率
+ic_model = IndependentCascadeModel(graph, seeds, record_activated=True, record_activation_frequency=True)
+avg_count = ic_model.run_monte_carlo_diffusion(1000, seed=42)
+activated_nodes = ic_model.get_activated_nodes()  # 所有试验的激活节点并集
+freq = ic_model.get_activation_frequency()  # 每个节点的激活次数
+print(f"所有试验中被激活过的节点: {activated_nodes}")
+print(f"节点激活频率: {freq}")
+```
+
+#### 🔧 技术细节
+- **修改文件**:
+  - [diffusion_model.h](src/pynetim/cpp/include/diffusion_model.h) - 添加核心功能实现、改进随机种子生成、修复清空逻辑
+  - [ic_bind.cpp](src/pynetim/cpp/bindings/ic_bind.cpp) - IC 模型 Python 绑定，更新 API 文档
+  - [lt_bind.cpp](src/pynetim/cpp/bindings/lt_bind.cpp) - LT 模型 Python 绑定，更新 API 文档
+  - [independent_cascade_model.pyi](src/pynetim/cpp/diffusion_model/independent_cascade_model.pyi) - 类型提示
+  - [linear_threshold_model.pyi](src/pynetim/cpp/diffusion_model/linear_threshold_model.pyi) - 类型提示
+
+📖 **查看完整更新**: [CHANGELOG.md](CHANGELOG.md)
+
+---
 
 ### 🎯 v0.4.3 主要更新
 
