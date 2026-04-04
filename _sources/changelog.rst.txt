@@ -5,6 +5,135 @@
 
 格式基于 `Keep a Changelog <https://keepachangelog.com/>`_。
 
+[0.4.5] - 2026-04-04
+------------------------
+
+新增
+~~~~
+
+**SI 和 SIR 扩散模型 (C++ 后端)**:
+
+* 新增 ``SusceptibleInfectedModel`` - SI 传播模型
+* 新增 ``SusceptibleInfectedRecoveredModel`` - SIR 传播模型
+* 支持参数设置：``beta``（感染概率）、``gamma``（恢复概率）、``max_steps``（最大步数）
+* 支持单次模拟和 Monte Carlo 多轮模拟
+* 支持多线程并行模拟
+* 支持激活节点记录和激活频率记录
+
+**Graph 构造函数支持统一权重**:
+
+* ``IMGraphCpp(num_nodes, edges, weights=1.0)`` - 默认所有边权重为 1.0
+* ``IMGraphCpp(num_nodes, edges, 0.3)`` - 所有边使用统一权重 0.3
+* ``IMGraphCpp(num_nodes, edges, [0.1, 0.2, ...])`` - 每条边使用各自的权重
+
+API 更新
+~~~~~~~~
+
+**SusceptibleInfectedModel**:
+
+* 构造函数：``SusceptibleInfectedModel(graph, seeds, beta=0.1, max_steps=100, record_activated=False, record_activation_frequency=False)``
+* ``set_beta(beta: float)`` - 设置感染概率
+* ``set_max_steps(max_steps: int)`` - 设置最大传播步数
+* ``run_single_simulation(seed=None) -> int`` - 单次模拟
+* ``run_monte_carlo_diffusion(rounds, seed=None, use_multithread=False, num_threads=0) -> float`` - Monte Carlo 模拟
+* ``get_activated_nodes() -> Set[int]`` - 获取激活节点集合
+* ``get_activation_frequency() -> List[int]`` - 获取激活频率
+
+**SusceptibleInfectedRecoveredModel**:
+
+* 构造函数：``SusceptibleInfectedRecoveredModel(graph, seeds, beta=0.1, gamma=0.1, record_activated=False, record_activation_frequency=False)``
+* ``set_beta(beta: float)`` - 设置感染概率
+* ``set_gamma(gamma: float)`` - 设置恢复概率
+* ``run_single_simulation(seed=None) -> int`` - 单次模拟
+* ``run_monte_carlo_diffusion(rounds, seed=None, use_multithread=False, num_threads=0) -> float`` - Monte Carlo 模拟
+* ``get_activated_nodes() -> Set[int]`` - 获取激活节点集合
+* ``get_activation_frequency() -> List[int]`` - 获取激活频率
+
+**IMGraphCpp**:
+
+* ``weights`` 参数现在支持 ``float`` 类型，表示所有边使用统一权重
+
+代码重构
+~~~~~~~~
+
+**扩散模型文件分离**:
+
+* 将扩散模型从单一文件分离到独立文件
+* ``independent_cascade.h`` - IC 模型
+* ``linear_threshold.h`` - LT 模型
+* ``susceptible_infected.h`` - SI 模型
+* ``susceptible_infected_recovered.h`` - SIR 模型
+* ``common.h`` - 共享代码（ObjectPool、RNG 工具函数）
+
+测试
+~~~~
+
+**新增完整测试覆盖**:
+
+* ``test_ic_model.py`` - IC 模型完整测试
+* ``test_lt_model.py`` - LT 模型完整测试
+* ``test_si_model.py`` - SI 模型完整测试
+* ``test_sir_model.py`` - SIR 模型完整测试
+* 单线程和多线程结果一致性验证通过
+* 参数验证测试通过（beta、gamma 范围检查）
+
+技术细节
+~~~~~~~~
+
+**修改文件**:
+
+* ``src/pynetim/cpp/include/common.h`` - 共享工具代码
+* ``src/pynetim/cpp/include/independent_cascade.h`` - IC 模型
+* ``src/pynetim/cpp/include/linear_threshold.h`` - LT 模型
+* ``src/pynetim/cpp/include/susceptible_infected.h`` - SI 模型
+* ``src/pynetim/cpp/include/susceptible_infected_recovered.h`` - SIR 模型
+* ``src/pynetim/cpp/include/diffusion_model.h`` - 主头文件
+* ``src/pynetim/cpp/bindings/si_bind.cpp`` - SI 模型绑定
+* ``src/pynetim/cpp/bindings/sir_bind.cpp`` - SIR 模型绑定
+* ``src/pynetim/cpp/include/Graph.h`` - Graph 类统一权重支持
+* ``src/pynetim/cpp/bindings/graph_bind.cpp`` - Graph 绑定更新
+
+**实现细节**:
+
+* SI 模型：每个时间步，感染节点以概率 beta 尝试感染邻居
+* SIR 模型：在 SI 基础上，感染节点每步以概率 gamma 恢复
+* 参数验证：beta、gamma ∈ (0, 1]，max_steps > 0
+* 多线程种子预生成策略确保单线程和多线程结果完全一致
+
+使用示例
+~~~~~~~~
+
+.. code-block:: python
+
+    import pynetim.cpp.graph as im_graph
+    import pynetim.cpp.diffusion_model as diffusion_model
+
+    # 创建图（统一权重）
+    graph = im_graph.IMGraphCpp(100, [(i, i+1) for i in range(99)], 0.3)
+    seeds = {0}
+
+    # SI 模型
+    si = diffusion_model.SusceptibleInfectedModel(graph, seeds, beta=0.3)
+    avg = si.run_monte_carlo_diffusion(1000, seed=42)
+    print(f"SI 平均感染节点数: {avg:.2f}")
+
+    # SIR 模型
+    sir = diffusion_model.SusceptibleInfectedRecoveredModel(graph, seeds, beta=0.3, gamma=0.1)
+    avg = sir.run_monte_carlo_diffusion(1000, seed=42)
+    print(f"SIR 平均感染节点数: {avg:.2f}")
+
+    # 多线程模拟
+    avg = sir.run_monte_carlo_diffusion(10000, seed=42, use_multithread=True)
+    print(f"多线程 SIR 平均感染节点数: {avg:.2f}")
+
+    # 记录激活节点
+    sir = diffusion_model.SusceptibleInfectedRecoveredModel(
+        graph, seeds, beta=0.3, gamma=0.1, record_activated=True
+    )
+    count = sir.run_single_simulation(seed=42)
+    activated = sir.get_activated_nodes()
+    print(f"激活节点: {activated}")
+
 [0.4.4] - 2026-03-30
 ------------------------
 
@@ -497,4 +626,4 @@ Bug 修复
 * **项目主页**: https://zzzkhj.github.io/PyNetIM/
 * **问题反馈**: `GitHub Issues <https://github.com/zzzkhj/PyNetIM/issues>`_
 
-**最后更新**: 2026-03-24
+**最后更新**: 2026-04-04
