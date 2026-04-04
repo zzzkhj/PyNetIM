@@ -32,6 +32,26 @@ ext_modules = [
         cxx_std=20,
         extra_compile_args=["-mavx2"],
     ),
+    Pybind11Extension(
+        "pynetim.cpp.diffusion_model.susceptible_infected_model",
+        [
+            os.path.join(cpp_dir, "bindings", "si_bind.cpp"),
+            os.path.join(cpp_dir, "bindings", "graph_bind.cpp"),
+        ],
+        include_dirs=[os.path.join(cpp_dir, "bindings"), os.path.join(cpp_dir, "include")],
+        cxx_std=20,
+        extra_compile_args=["-mavx2"],
+    ),
+    Pybind11Extension(
+        "pynetim.cpp.diffusion_model.susceptible_infected_recovered_model",
+        [
+            os.path.join(cpp_dir, "bindings", "sir_bind.cpp"),
+            os.path.join(cpp_dir, "bindings", "graph_bind.cpp"),
+        ],
+        include_dirs=[os.path.join(cpp_dir, "bindings"), os.path.join(cpp_dir, "include")],
+        cxx_std=20,
+        extra_compile_args=["-mavx2"],
+    ),
 ]
 
 setup(

@@ -18,15 +18,57 @@ PYBIND11_MODULE(graph, m) {
 
     py::class_<pynetim::Graph, std::shared_ptr<pynetim::Graph>>(m, "IMGraphCpp")
         .def(py::init([](int num_nodes,
-                         const std::vector<std::tuple<int, int>>& edges,
-                         const std::vector<double>& weights,
+                         py::object edges_obj,
+                         py::object weights_obj,
                          bool directed) {
-            return std::make_shared<pynetim::Graph>(num_nodes, edges, weights, directed);
+            std::vector<std::tuple<int, int>> edges;
+            if (py::isinstance<py::list>(edges_obj)) {
+                for (auto item : edges_obj.cast<py::list>()) {
+                    if (py::isinstance<py::tuple>(item)) {
+                        auto t = item.cast<py::tuple>();
+                        edges.emplace_back(t[0].cast<int>(), t[1].cast<int>());
+                    } else if (py::isinstance<py::list>(item)) {
+                        auto l = item.cast<py::list>();
+                        edges.emplace_back(l[0].cast<int>(), l[1].cast<int>());
+                    }
+                }
+            }
+            
+            if (weights_obj.is_none()) {
+                return std::make_shared<pynetim::Graph>(num_nodes, edges, std::vector<double>{}, directed);
+            } else if (py::isinstance<py::float_>(weights_obj) || py::isinstance<py::int_>(weights_obj)) {
+                double uniform_weight = weights_obj.cast<double>();
+                return std::make_shared<pynetim::Graph>(num_nodes, edges, uniform_weight, directed);
+            } else {
+                std::vector<double> weights = weights_obj.cast<std::vector<double>>();
+                return std::make_shared<pynetim::Graph>(num_nodes, edges, weights, directed);
+            }
         }),
             py::arg("num_nodes"),
             py::arg("edges"),
-            py::arg("weights") = std::vector<double>{},
-            py::arg("directed") = true
+            py::arg("weights") = 1.0,
+            py::arg("directed") = true,
+            R"doc(
+            Construct a graph.
+            
+            Parameters
+            ----------
+            num_nodes : int
+                Number of nodes in the graph
+            edges : list of (int, int)
+                List of edges as (u, v) tuples
+            weights : list of float or float, optional
+                If list: weights for each edge
+                If float: uniform weight for all edges (default: 1.0)
+            directed : bool, optional
+                Whether the graph is directed (default: True)
+            
+            Examples
+            --------
+            >>> g = IMGraphCpp(3, [(0, 1), (1, 2)])  # all weights = 1.0
+            >>> g = IMGraphCpp(3, [(0, 1), (1, 2)], [0.5, 0.3])  # individual weights
+            >>> g = IMGraphCpp(3, [(0, 1), (1, 2)], 0.5)  # uniform weight 0.5
+            )doc"
         )
 
         .def_readonly("num_nodes", &pynetim::Graph::num_nodes, "Number of nodes")

@@ -68,6 +68,24 @@ public:
         add_edges(edges_list, weights);
     }
 
+    Graph(int n,
+        const std::vector<std::tuple<int, int>>& edges_list,
+        double uniform_weight,
+        bool directed = true)
+        : num_nodes(n), num_edges(0), directed(directed), degrees_dirty(true) {
+
+        adj.resize(n);
+        rev_adj.resize(n);
+        out_degree_cache.resize(n, 0);
+        in_degree_cache.resize(n, 0);
+
+        for (const auto& e : edges_list) {
+            int u = std::get<0>(e);
+            int v = std::get<1>(e);
+            add_edge(u, v, uniform_weight);
+        }
+    }
+
     Graph(const Graph& other) = delete;
     Graph& operator=(const Graph& other) = delete;
 
