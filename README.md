@@ -1,8 +1,8 @@
 # PyNetIM
 
-[!\[PyPI version\](https://badge.fury.io/py/pynetim.svg null)](https://pypi.org/project/pynetim/)
-[!\[Python Version\](https://img.shields.io/badge/python-3.8+-blue.svg null)](https://www.python.org/downloads/)
-[!\[License\](https://img.shields.io/badge/license-MIT-green.svg null)](LICENSE)
+[![PyPI version](https://badge.fury.io/py/pynetim.svg)](https://pypi.org/project/pynetim/)
+[![Python Version](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
 [PyNetIM](https://zzzkhj.github.io/PyNetIM/) 是一个用于**社交网络影响力最大化（Influence Maximization, IM）问题**的 Python 库，集成了多种经典算法与扩散模型，提供 **C++ 高性能后端**，适用于算法研究、性能对比与科研实验。
 
