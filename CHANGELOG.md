@@ -32,6 +32,10 @@
 
 **新增功能**:
 - 影响力最大化算法模块 (`pynetim.algorithms`)
+  - 启发式: SingleDiscount, DegreeDiscount
+  - 模拟类: Greedy, CELF, CELF++
+  - RIS类: BaseRIS, IMM, TIM, TIM+
+  - OPIM类: OPIM, OPIM-C (SIGMOD 2018)
 - 自定义传播模型支持 (`BaseCallbackDiffusionModel`, `BaseMultiprocessDiffusionModel`)
 - 类型提示改进，`help()` 显示清晰类型
 

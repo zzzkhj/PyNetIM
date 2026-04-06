@@ -69,6 +69,20 @@ ext_modules = [
         cxx_std=20,
         extra_compile_args=["-mavx2"],
     ),
+    Pybind11Extension(
+        "pynetim.algorithms.ris_algorithm",
+        [os.path.join(cpp_dir, "bindings", "ris_algorithm_bind.cpp")],
+        include_dirs=[os.path.join(cpp_dir, "bindings"), os.path.join(cpp_dir, "include")],
+        cxx_std=20,
+        extra_compile_args=["-mavx2"],
+    ),
+    Pybind11Extension(
+        "pynetim.algorithms.opim_algorithm",
+        [os.path.join(cpp_dir, "bindings", "opim_algorithm_bind.cpp")],
+        include_dirs=[os.path.join(cpp_dir, "bindings"), os.path.join(cpp_dir, "include")],
+        cxx_std=20,
+        extra_compile_args=["-mavx2"],
+    ),
 ]
 
 setup(
