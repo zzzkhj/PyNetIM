@@ -1,4 +1,4 @@
-from ..graph import IMGraph
+from ..graph import IMGraphPy
 
 
 class BaseDiffusionModel:
@@ -16,7 +16,7 @@ class BaseDiffusionModel:
         states (list): 当record_states为True时存储传播过程的状态历史
     """
 
-    def __init__(self, graph: IMGraph, init_seeds: list, record_states: bool = False):
+    def __init__(self, graph: IMGraphPy, init_seeds: list, record_states: bool = False):
         """
         初始化扩散模型基类。
 

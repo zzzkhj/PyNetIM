@@ -4,7 +4,7 @@ import logging
 from typing import List, Set, Dict, Callable, Tuple
 from multiprocessing import Pool, cpu_count
 
-from ..graph import IMGraph
+from ..graph import IMGraphPy
 from .base_algorithm import BaseAlgorithm
 
 # 配置日志
@@ -38,7 +38,7 @@ class BaseRISAlgorithm(BaseAlgorithm):
         seed (int): 随机种子
     """
 
-    def __init__(self, graph: IMGraph, diffusion_model: str = "IC", multi_process: bool = False, processes: int = None,
+    def __init__(self, graph: IMGraphPy, diffusion_model: str = "IC", multi_process: bool = False, processes: int = None,
                  seed: int = None):
         """
         初始化基础RIS算法实例。
@@ -262,7 +262,7 @@ class IMMAlgorithm(BaseRISAlgorithm):
     """
 
     def __init__(self,
-                 graph: IMGraph,
+                 graph: IMGraphPy,
                  diffusion_model: str = "IC",
                  eps: float = 0.5,
                  l: int = 1,

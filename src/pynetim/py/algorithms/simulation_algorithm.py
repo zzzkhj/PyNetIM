@@ -3,7 +3,7 @@ import heapq
 
 from tqdm import tqdm
 
-from ..graph import IMGraph
+from ..graph import IMGraphPy
 from ..diffusion_model import run_monte_carlo_diffusion, BaseDiffusionModel
 from .base_algorithm import BaseAlgorithm
 
@@ -20,7 +20,7 @@ class GreedyAlgorithm(BaseAlgorithm):
         diffusion_model_class (BaseDiffusionModel): 影响传播模型类
     """
 
-    def __init__(self, graph: IMGraph, diffusion_model: BaseDiffusionModel):
+    def __init__(self, graph: IMGraphPy, diffusion_model: BaseDiffusionModel):
         """
         初始化贪婪算法实例。
 
@@ -101,7 +101,7 @@ class CELFAlgorithm(BaseAlgorithm):
         diffusion_model_class (BaseDiffusionModel): 影响传播模型类
     """
 
-    def __init__(self, graph: IMGraph, diffusion_model: BaseDiffusionModel):
+    def __init__(self, graph: IMGraphPy, diffusion_model: BaseDiffusionModel):
         """
         初始化CELF算法实例。
 

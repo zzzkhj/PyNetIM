@@ -2,8 +2,8 @@ import random
 
 from .base_diffusion_model import BaseDiffusionModel
 from .run_monte_carlo_diffusion import run_monte_carlo_diffusion
-from ..graph import IMGraph
-from ...utils import infection_threshold
+from ..graph import IMGraphPy
+from .._utils import infection_threshold
 
 
 class SusceptibleInfectedModel(BaseDiffusionModel):
@@ -29,7 +29,7 @@ class SusceptibleInfectedModel(BaseDiffusionModel):
         beta (float): 感染概率
     """
 
-    def __init__(self, graph: IMGraph, init_seeds: list, beta: float = None, record_states: bool = False):
+    def __init__(self, graph: IMGraphPy, init_seeds: list, beta: float = None, record_states: bool = False):
         """
         初始化SI模型。
 

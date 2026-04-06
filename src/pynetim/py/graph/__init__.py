@@ -1,5 +1,3 @@
-from .graph import IMGraph
+from .graph import IMGraphPy
 
-__all__ = [
-    'IMGraph'
-]
+__all__ = ['IMGraphPy']

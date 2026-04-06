@@ -2,10 +2,10 @@ from __future__ import annotations
 
 from networkx import Graph, DiGraph
 
-from ...utils import set_edge_weight
+from .._utils import set_edge_weight
 
 
-class IMGraph:
+class IMGraphPy:
     """
     影响最大化图类，用于封装网络图结构和边权重设置。
 
@@ -165,6 +165,37 @@ class IMGraph:
             list: 每个节点的度列表
         """
         return [self.nx_graph.degree(node) for node in nodes]
+
+    def has_edge(self, u, v) -> bool:
+        """
+        检查边是否存在。
+
+        Args:
+            u: 源节点。
+            v: 目标节点。
+
+        Returns:
+            bool: 边存在返回 True，否则返回 False。
+        """
+        return self.nx_graph.has_edge(u, v)
+
+    def get_edge_weight(self, u, v) -> float:
+        """
+        获取边的权重。若边不存在则抛出异常。
+
+        Args:
+            u: 源节点。
+            v: 目标节点。
+
+        Returns:
+            float: 边权重。
+
+        Raises:
+            KeyError: 边不存在。
+        """
+        if not self.nx_graph.has_edge(u, v):
+            raise KeyError(f"Edge ({u}, {v}) does not exist")
+        return self.nx_graph.edges[u, v]["weight"]
 
     def __str__(self):
         """

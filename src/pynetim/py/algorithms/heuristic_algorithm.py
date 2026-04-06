@@ -2,7 +2,7 @@ import heapq
 import time
 from collections import defaultdict
 
-from ..graph import IMGraph
+from ..graph import IMGraphPy
 from .base_algorithm import BaseAlgorithm
 
 
@@ -20,7 +20,7 @@ class SingleDiscountAlgorithm(BaseAlgorithm):
           URL: https://dl.acm.org/doi/10.1145/1557019.1557047
     """
 
-    def __init__(self, graph: IMGraph, diffusion_model=None):
+    def __init__(self, graph: IMGraphPy, diffusion_model=None):
         """
         初始化简单度折扣算法实例。
 
@@ -82,7 +82,7 @@ class DegreeDiscountAlgorithm(BaseAlgorithm):
           URL: https://dl.acm.org/doi/10.1145/1557019.1557047
     """
 
-    def __init__(self, graph: IMGraph, diffusion_model='IC'):
+    def __init__(self, graph: IMGraphPy, diffusion_model='IC'):
         """
         初始化度折扣算法实例。
 

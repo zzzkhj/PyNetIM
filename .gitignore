@@ -26,6 +26,11 @@ TestResults.xml
 
 # 构建输出目录
 dist/
+build/
+
+# 测试脚本
+test_*.py
+analyze_*.py
 # Git版本控制目录
 .git/
 # IDE配置目录（IntelliJ IDEA）

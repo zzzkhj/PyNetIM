@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from ..diffusion_model import BaseDiffusionModel, IndependentCascadeModel, LinearThresholdModel
-from ..graph import IMGraph
+from ..graph import IMGraphPy
 
 
 class BaseAlgorithm:
@@ -17,7 +17,7 @@ class BaseAlgorithm:
         diffusion_model (BaseDiffusionModel): 扩散模型实例
     """
 
-    def __init__(self, graph: IMGraph, diffusion_model: str | BaseDiffusionModel = None):
+    def __init__(self, graph: IMGraphPy, diffusion_model: str | BaseDiffusionModel = None):
         """
         初始化算法基类。
 
