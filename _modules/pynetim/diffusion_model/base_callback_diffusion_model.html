@@ -1,0 +1,189 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pynetim.diffusion_model.base_callback_diffusion_model &mdash; PyNetIM  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            PyNetIM
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">目录:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">更新日志</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html#id50">版本说明</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html#id58">贡献指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html#id59">许可证</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html#id60">联系方式</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api.html">API 参考</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">PyNetIM</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">pynetim.diffusion_model.base_callback_diffusion_model</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for pynetim.diffusion_model.base_callback_diffusion_model</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Set</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">TYPE_CHECKING</span>
+
+<span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">..graph</span><span class="w"> </span><span class="kn">import</span> <span class="n">IMGraph</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">.py_diffusion_model_base</span><span class="w"> </span><span class="kn">import</span> <span class="n">PyDiffusionModelBase</span>
+
+
+<div class="viewcode-block" id="BaseCallbackDiffusionModel">
+<a class="viewcode-back" href="../../../api.html#pynetim.diffusion_model.BaseCallbackDiffusionModel">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">BaseCallbackDiffusionModel</span><span class="p">(</span><span class="n">PyDiffusionModelBase</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;C++回调版自定义传播模型基类。</span>
+
+<span class="sd">    继承 C++ 的 PyDiffusionModelBase，通过回调机制实现自定义传播逻辑。</span>
+<span class="sd">    单线程模式下可用，比纯 Python 实现快。</span>
+<span class="sd">    多线程模式受 Python GIL 限制，无法真正并行。</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        graph: 图对象。</span>
+<span class="sd">        seeds: 种子节点集合。</span>
+<span class="sd">        num_nodes: 节点数量。</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        &gt;&gt;&gt; from pynetim.diffusion_model import BaseCallbackDiffusionModel</span>
+<span class="sd">        &gt;&gt;&gt; </span>
+<span class="sd">        &gt;&gt;&gt; class MyICModel(BaseCallbackDiffusionModel):</span>
+<span class="sd">        ...     def run_single_trial(self, seeds, rng_seed):</span>
+<span class="sd">        ...         import random</span>
+<span class="sd">        ...         random.seed(rng_seed)</span>
+<span class="sd">        ...         activated = set(seeds)</span>
+<span class="sd">        ...         current = list(seeds)</span>
+<span class="sd">        ...         count = len(seeds)</span>
+<span class="sd">        ...         frequency = [0] * self.graph.num_nodes</span>
+<span class="sd">        ...         </span>
+<span class="sd">        ...         while current:</span>
+<span class="sd">        ...             new_active = []</span>
+<span class="sd">        ...             for node in current:</span>
+<span class="sd">        ...                 for neighbor, weight in self.graph.out_neighbors(node):</span>
+<span class="sd">        ...                     if neighbor not in activated and random.random() &lt; weight:</span>
+<span class="sd">        ...                         activated.add(neighbor)</span>
+<span class="sd">        ...                         new_active.append(neighbor)</span>
+<span class="sd">        ...                         count += 1</span>
+<span class="sd">        ...                         frequency[neighbor] += 1</span>
+<span class="sd">        ...             current = new_active</span>
+<span class="sd">        ...         </span>
+<span class="sd">        ...         return count, activated, frequency</span>
+<span class="sd">        ...</span>
+<span class="sd">        &gt;&gt;&gt; model = MyICModel(graph, {0, 1})</span>
+<span class="sd">        &gt;&gt;&gt; avg = model.run_monte_carlo_diffusion(1000)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+<div class="viewcode-block" id="BaseCallbackDiffusionModel.run_single_trial">
+<a class="viewcode-back" href="../../../api.html#pynetim.diffusion_model.BaseCallbackDiffusionModel.run_single_trial">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">run_single_trial</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">seeds</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
+        <span class="n">rng_seed</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Set</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;执行单次传播试验。</span>
+
+<span class="sd">        子类必须重写此方法实现自定义传播逻辑。</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            seeds: 初始种子节点列表。</span>
+<span class="sd">            rng_seed: 随机数种子，用于确保结果可重现。</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Tuple[int, Set[int], List[int]]: 包含三个元素的元组：</span>
+<span class="sd">                - 激活节点总数</span>
+<span class="sd">                - 激活的节点集合</span>
+<span class="sd">                - 每个节点的激活频数列表</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            NotImplementedError: 子类未实现此方法时抛出。</span>
+
+<span class="sd">        Note:</span>
+<span class="sd">            此方法会被 C++ 层回调，因此需要保持签名一致。</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2"> 必须实现 run_single_trial(seeds, rng_seed) 方法&quot;</span>
+        <span class="p">)</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Kaijing Zhang.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

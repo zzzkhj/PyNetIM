@@ -1,0 +1,350 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pynetim.diffusion_model.base_multiprocess_diffusion_model &mdash; PyNetIM  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            PyNetIM
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">目录:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">更新日志</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html#id50">版本说明</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html#id58">贡献指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html#id59">许可证</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html#id60">联系方式</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api.html">API 参考</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">PyNetIM</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">pynetim.diffusion_model.base_multiprocess_diffusion_model</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for pynetim.diffusion_model.base_multiprocess_diffusion_model</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">random</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">multiprocessing</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mp</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Set</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">TYPE_CHECKING</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">ABC</span><span class="p">,</span> <span class="n">abstractmethod</span>
+
+<span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">..graph</span><span class="w"> </span><span class="kn">import</span> <span class="n">IMGraph</span>
+
+<span class="n">_global_graph</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="n">_global_model_class</span> <span class="o">=</span> <span class="kc">None</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_init_worker</span><span class="p">(</span><span class="n">graph_data</span><span class="p">,</span> <span class="n">model_class</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;初始化工作进程。</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        graph_data: 图数据字典，包含 edges、weights、directed。</span>
+<span class="sd">        model_class: 模型类。</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">global</span> <span class="n">_global_graph</span><span class="p">,</span> <span class="n">_global_model_class</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;/root/PyNetIM/src&#39;</span><span class="p">)</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">pynetim</span><span class="w"> </span><span class="kn">import</span> <span class="n">IMGraph</span>
+    <span class="n">_global_graph</span> <span class="o">=</span> <span class="n">IMGraph</span><span class="p">(</span><span class="n">graph_data</span><span class="p">[</span><span class="s1">&#39;edges&#39;</span><span class="p">],</span> <span class="n">graph_data</span><span class="p">[</span><span class="s1">&#39;weights&#39;</span><span class="p">],</span> <span class="n">graph_data</span><span class="p">[</span><span class="s1">&#39;directed&#39;</span><span class="p">])</span>
+    <span class="n">_global_model_class</span> <span class="o">=</span> <span class="n">model_class</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_run_trial_worker</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;执行单次试验的工作函数。</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        args: 包含 (seeds, rng_seed) 的元组。</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        单次试验的结果元组。</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">seeds</span><span class="p">,</span> <span class="n">rng_seed</span> <span class="o">=</span> <span class="n">args</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">_global_model_class</span><span class="p">(</span><span class="n">_global_graph</span><span class="p">,</span> <span class="n">seeds</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">model</span><span class="o">.</span><span class="n">run_single_trial</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">seeds</span><span class="p">),</span> <span class="n">rng_seed</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="BaseMultiprocessDiffusionModel">
+<a class="viewcode-back" href="../../../api.html#pynetim.diffusion_model.BaseMultiprocessDiffusionModel">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">BaseMultiprocessDiffusionModel</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;多进程版自定义传播模型基类。</span>
+
+<span class="sd">    纯 Python 实现，使用 multiprocessing 实现真正的并行计算。</span>
+<span class="sd">    不受 Python GIL 限制，多进程可真正并行加速。</span>
+<span class="sd">    适合大规模模拟和需要并行加速的自定义模型。</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        graph: 图对象。</span>
+<span class="sd">        seeds: 种子节点集合。</span>
+<span class="sd">        num_nodes: 节点数量。</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        &gt;&gt;&gt; from pynetim.diffusion_model import BaseMultiprocessDiffusionModel</span>
+<span class="sd">        &gt;&gt;&gt; </span>
+<span class="sd">        &gt;&gt;&gt; class MyICModel(BaseMultiprocessDiffusionModel):</span>
+<span class="sd">        ...     def run_single_trial(self, seeds, rng_seed):</span>
+<span class="sd">        ...         import random</span>
+<span class="sd">        ...         random.seed(rng_seed)</span>
+<span class="sd">        ...         activated = set(seeds)</span>
+<span class="sd">        ...         current = list(seeds)</span>
+<span class="sd">        ...         count = len(seeds)</span>
+<span class="sd">        ...         frequency = [0] * self.graph.num_nodes</span>
+<span class="sd">        ...         </span>
+<span class="sd">        ...         while current:</span>
+<span class="sd">        ...             new_active = []</span>
+<span class="sd">        ...             for node in current:</span>
+<span class="sd">        ...                 for neighbor, weight in self.graph.out_neighbors_with_weights(node):</span>
+<span class="sd">        ...                     if neighbor not in activated and random.random() &lt; weight:</span>
+<span class="sd">        ...                         activated.add(neighbor)</span>
+<span class="sd">        ...                         new_active.append(neighbor)</span>
+<span class="sd">        ...                         count += 1</span>
+<span class="sd">        ...                         frequency[neighbor] += 1</span>
+<span class="sd">        ...             current = new_active</span>
+<span class="sd">        ...         </span>
+<span class="sd">        ...         return count, activated, frequency</span>
+<span class="sd">        ...</span>
+<span class="sd">        &gt;&gt;&gt; model = MyICModel(graph, {0, 1})</span>
+<span class="sd">        &gt;&gt;&gt; avg = model.run_monte_carlo_diffusion(1000, num_processes=4)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">graph</span><span class="p">:</span> <span class="s1">&#39;IMGraph&#39;</span><span class="p">,</span> <span class="n">seeds</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="nb">int</span><span class="p">]):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;初始化传播模型。</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            graph: 图对象。</span>
+<span class="sd">            seeds: 种子节点集合。</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">graph</span> <span class="o">=</span> <span class="n">graph</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">seeds</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">seeds</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">num_nodes</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="n">num_nodes</span>
+    
+<div class="viewcode-block" id="BaseMultiprocessDiffusionModel.set_seeds">
+<a class="viewcode-back" href="../../../api.html#pynetim.diffusion_model.BaseMultiprocessDiffusionModel.set_seeds">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_seeds</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">seeds</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="nb">int</span><span class="p">]):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;设置种子节点集合。</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            seeds: 新的种子节点集合。</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">seeds</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">seeds</span><span class="p">)</span></div>
+
+    
+<div class="viewcode-block" id="BaseMultiprocessDiffusionModel.run_single_trial">
+<a class="viewcode-back" href="../../../api.html#pynetim.diffusion_model.BaseMultiprocessDiffusionModel.run_single_trial">[docs]</a>
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">run_single_trial</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">seeds</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">rng_seed</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Set</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;执行单次传播试验。</span>
+
+<span class="sd">        子类必须重写此方法实现自定义传播逻辑。</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            seeds: 初始种子节点列表。</span>
+<span class="sd">            rng_seed: 随机数种子，用于确保结果可重现。</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Tuple[int, Set[int], List[int]]: 包含三个元素的元组：</span>
+<span class="sd">                - 激活节点总数</span>
+<span class="sd">                - 激活的节点集合</span>
+<span class="sd">                - 每个节点的激活频数列表</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+    
+    <span class="k">def</span><span class="w"> </span><span class="nf">_get_graph_data</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;获取图数据用于进程间传递。</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: 包含 edges、weights、directed 的字典。</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">sparse_matrix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">get_adj_matrix_sparse</span><span class="p">()</span>
+        <span class="n">edges</span> <span class="o">=</span> <span class="p">[(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">sparse_matrix</span><span class="p">]</span>
+        <span class="n">weights</span> <span class="o">=</span> <span class="p">[</span><span class="n">w</span> <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">sparse_matrix</span><span class="p">]</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s1">&#39;edges&#39;</span><span class="p">:</span> <span class="n">edges</span><span class="p">,</span>
+            <span class="s1">&#39;weights&#39;</span><span class="p">:</span> <span class="n">weights</span><span class="p">,</span>
+            <span class="s1">&#39;directed&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">directed</span>
+        <span class="p">}</span>
+    
+<div class="viewcode-block" id="BaseMultiprocessDiffusionModel.run_monte_carlo_diffusion">
+<a class="viewcode-back" href="../../../api.html#pynetim.diffusion_model.BaseMultiprocessDiffusionModel.run_monte_carlo_diffusion">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">run_monte_carlo_diffusion</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> 
+        <span class="n">num_trials</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> 
+        <span class="n">num_processes</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">show_progress</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;运行蒙特卡洛模拟，计算平均影响力。</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            num_trials: 模拟次数，建议 1000-10000 次。</span>
+<span class="sd">            num_processes: 进程数，默认使用 CPU 核心数。</span>
+<span class="sd">            show_progress: 是否显示进度条（暂未实现）。</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            float: 平均激活节点数。</span>
+
+<span class="sd">        Note:</span>
+<span class="sd">            当模拟次数较多时（&gt;= 进程数 * 10），自动启用多进程并行。</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">num_processes</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">num_processes</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">cpu_count</span><span class="p">()</span>
+        
+        <span class="n">base_seed</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="o">**</span><span class="mi">31</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">rng_seeds</span> <span class="o">=</span> <span class="p">[</span><span class="n">base_seed</span> <span class="o">+</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_trials</span><span class="p">)]</span>
+        
+        <span class="k">if</span> <span class="n">num_processes</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">num_trials</span> <span class="o">&gt;=</span> <span class="n">num_processes</span> <span class="o">*</span> <span class="mi">10</span><span class="p">:</span>
+            <span class="n">graph_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_graph_data</span><span class="p">()</span>
+            <span class="n">args_list</span> <span class="o">=</span> <span class="p">[(</span><span class="bp">self</span><span class="o">.</span><span class="n">seeds</span><span class="p">,</span> <span class="n">rng_seeds</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_trials</span><span class="p">)]</span>
+            
+            <span class="n">ctx</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">get_context</span><span class="p">(</span><span class="s1">&#39;fork&#39;</span><span class="p">)</span>
+            <span class="k">with</span> <span class="n">ctx</span><span class="o">.</span><span class="n">Pool</span><span class="p">(</span>
+                <span class="n">processes</span><span class="o">=</span><span class="n">num_processes</span><span class="p">,</span>
+                <span class="n">initializer</span><span class="o">=</span><span class="n">_init_worker</span><span class="p">,</span>
+                <span class="n">initargs</span><span class="o">=</span><span class="p">(</span><span class="n">graph_data</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">)</span>
+            <span class="p">)</span> <span class="k">as</span> <span class="n">pool</span><span class="p">:</span>
+                <span class="n">results</span> <span class="o">=</span> <span class="n">pool</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">_run_trial_worker</span><span class="p">,</span> <span class="n">args_list</span><span class="p">)</span>
+            
+            <span class="n">total_activated</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">results</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">total_activated</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_trials</span><span class="p">):</span>
+                <span class="n">count</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">run_single_trial</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">seeds</span><span class="p">),</span> <span class="n">rng_seeds</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+                <span class="n">total_activated</span> <span class="o">+=</span> <span class="n">count</span>
+        
+        <span class="k">return</span> <span class="n">total_activated</span> <span class="o">/</span> <span class="n">num_trials</span></div>
+
+    
+<div class="viewcode-block" id="BaseMultiprocessDiffusionModel.run_monte_carlo_with_frequency">
+<a class="viewcode-back" href="../../../api.html#pynetim.diffusion_model.BaseMultiprocessDiffusionModel.run_monte_carlo_with_frequency">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">run_monte_carlo_with_frequency</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> 
+        <span class="n">num_trials</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> 
+        <span class="n">num_processes</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;运行蒙特卡洛模拟，返回平均影响力和激活频数。</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            num_trials: 模拟次数，建议 1000-10000 次。</span>
+<span class="sd">            num_processes: 进程数，默认使用 CPU 核心数。</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Tuple[float, List[int]]: 包含两个元素：</span>
+<span class="sd">                - 平均激活节点数</span>
+<span class="sd">                - 每个节点的激活频数列表</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">num_processes</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">num_processes</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">cpu_count</span><span class="p">()</span>
+        
+        <span class="n">base_seed</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="o">**</span><span class="mi">31</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">rng_seeds</span> <span class="o">=</span> <span class="p">[</span><span class="n">base_seed</span> <span class="o">+</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_trials</span><span class="p">)]</span>
+        
+        <span class="k">if</span> <span class="n">num_processes</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">num_trials</span> <span class="o">&gt;=</span> <span class="n">num_processes</span> <span class="o">*</span> <span class="mi">10</span><span class="p">:</span>
+            <span class="n">graph_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_graph_data</span><span class="p">()</span>
+            <span class="n">args_list</span> <span class="o">=</span> <span class="p">[(</span><span class="bp">self</span><span class="o">.</span><span class="n">seeds</span><span class="p">,</span> <span class="n">rng_seeds</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_trials</span><span class="p">)]</span>
+            
+            <span class="n">ctx</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">get_context</span><span class="p">(</span><span class="s1">&#39;fork&#39;</span><span class="p">)</span>
+            <span class="k">with</span> <span class="n">ctx</span><span class="o">.</span><span class="n">Pool</span><span class="p">(</span>
+                <span class="n">processes</span><span class="o">=</span><span class="n">num_processes</span><span class="p">,</span>
+                <span class="n">initializer</span><span class="o">=</span><span class="n">_init_worker</span><span class="p">,</span>
+                <span class="n">initargs</span><span class="o">=</span><span class="p">(</span><span class="n">graph_data</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">)</span>
+            <span class="p">)</span> <span class="k">as</span> <span class="n">pool</span><span class="p">:</span>
+                <span class="n">results</span> <span class="o">=</span> <span class="n">pool</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">_run_trial_worker</span><span class="p">,</span> <span class="n">args_list</span><span class="p">)</span>
+            
+            <span class="n">total_activated</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">results</span><span class="p">)</span>
+            <span class="n">total_frequency</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_nodes</span>
+            <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">freq</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">f</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">freq</span><span class="p">):</span>
+                    <span class="n">total_frequency</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+=</span> <span class="n">f</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">total_activated</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">total_frequency</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_nodes</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_trials</span><span class="p">):</span>
+                <span class="n">count</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">freq</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">run_single_trial</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">seeds</span><span class="p">),</span> <span class="n">rng_seeds</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+                <span class="n">total_activated</span> <span class="o">+=</span> <span class="n">count</span>
+                <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">f</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">freq</span><span class="p">):</span>
+                    <span class="n">total_frequency</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">+=</span> <span class="n">f</span>
+        
+        <span class="k">return</span> <span class="n">total_activated</span> <span class="o">/</span> <span class="n">num_trials</span><span class="p">,</span> <span class="n">total_frequency</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Kaijing Zhang.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

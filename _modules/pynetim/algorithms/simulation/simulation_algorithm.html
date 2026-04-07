@@ -1,0 +1,452 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pynetim.algorithms.simulation.simulation_algorithm &mdash; PyNetIM  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            PyNetIM
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">目录:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changelog.html">更新日志</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changelog.html#id50">版本说明</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changelog.html#id58">贡献指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changelog.html#id59">许可证</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changelog.html#id60">联系方式</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api.html">API 参考</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">PyNetIM</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">pynetim.algorithms.simulation.simulation_algorithm</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for pynetim.algorithms.simulation.simulation_algorithm</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">heapq</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Set</span><span class="p">,</span> <span class="n">TYPE_CHECKING</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">tqdm</span><span class="w"> </span><span class="kn">import</span> <span class="n">tqdm</span>
+
+<span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">...graph</span><span class="w"> </span><span class="kn">import</span> <span class="n">IMGraph</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">...diffusion_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">IndependentCascadeModel</span><span class="p">,</span> <span class="n">LinearThresholdModel</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">..base_algorithm</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseAlgorithm</span>
+
+
+<div class="viewcode-block" id="GreedyAlgorithm">
+<a class="viewcode-back" href="../../../../api.html#pynetim.algorithms.simulation.GreedyAlgorithm">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">GreedyAlgorithm</span><span class="p">(</span><span class="n">BaseAlgorithm</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;贪婪算法。</span>
+
+<span class="sd">    通过迭代地选择具有最大边际影响力的节点作为种子节点，</span>
+<span class="sd">    直到选够 k 个种子节点。每次选择都需要计算所有候选节点的边际增益。</span>
+
+<span class="sd">    该算法精度高，但速度较慢，适合小规模图或需要高精度的场景。</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        graph: 输入图对象。</span>
+<span class="sd">        seeds: 种子节点集合。</span>
+<span class="sd">        diffusion_model: 扩散模型类。</span>
+
+<span class="sd">    References:</span>
+<span class="sd">        Kempe, D., Kleinberg, J., &amp; Tardos, É. (2003). Maximizing the spread </span>
+<span class="sd">        of influence through a social network. KDD, 137-146.</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        &gt;&gt;&gt; from pynetim import IMGraph</span>
+<span class="sd">        &gt;&gt;&gt; from pynetim.algorithms import GreedyAlgorithm</span>
+<span class="sd">        &gt;&gt;&gt; </span>
+<span class="sd">        &gt;&gt;&gt; graph = IMGraph(edges, weights=0.3)</span>
+<span class="sd">        &gt;&gt;&gt; algo = GreedyAlgorithm(graph, diffusion_model=&#39;IC&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; seeds = algo.run(k=10, rounds=1000, num_threads=4)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">graph</span><span class="p">:</span> <span class="s1">&#39;IMGraph&#39;</span><span class="p">,</span> <span class="n">diffusion_model</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;IC&#39;</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;初始化贪婪算法。</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            graph: 输入图对象。</span>
+<span class="sd">            diffusion_model: 扩散模型名称，支持 &#39;IC&#39; 或 &#39;LT&#39;，默认为 &#39;IC&#39;。</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">diffusion_model</span><span class="p">)</span>
+
+<div class="viewcode-block" id="GreedyAlgorithm.run">
+<a class="viewcode-back" href="../../../../api.html#pynetim.algorithms.simulation.GreedyAlgorithm.run">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">rounds</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">,</span> <span class="n">num_threads</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span> 
+            <span class="n">show_progress</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">seed</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Set</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;运行贪婪算法选择种子节点。</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            k: 需要选择的种子节点数量。</span>
+<span class="sd">            rounds: 每次计算边际增益的蒙特卡洛模拟次数，默认 1000。</span>
+<span class="sd">            num_threads: 多线程数，默认 4。</span>
+<span class="sd">            show_progress: 是否显示进度条，默认 True。</span>
+<span class="sd">            seed: 模拟的随机种子，默认 None。</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Set[int]: 选中的种子节点集合。</span>
+
+<span class="sd">        Note:</span>
+<span class="sd">            时间复杂度为 O(k * n * rounds)，其中 n 为节点数。</span>
+<span class="sd">            对于大规模图，建议使用 CELFAlgorithm 或 IMMAlgorithm。</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">seeds</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="n">nodes</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">num_nodes</span><span class="p">))</span>
+
+        <span class="n">outer_pbar</span> <span class="o">=</span> <span class="n">tqdm</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">k</span><span class="p">),</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;选择种子节点&quot;</span><span class="p">,</span> <span class="n">disable</span><span class="o">=</span><span class="ow">not</span> <span class="n">show_progress</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">outer_pbar</span><span class="p">:</span>
+            <span class="n">best_node</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="n">best_gain</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.0</span>
+
+            <span class="n">node_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">nodes</span> <span class="o">-</span> <span class="n">seeds</span><span class="p">)</span>
+            <span class="n">inner_pbar</span> <span class="o">=</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">node_list</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;评估候选节点(</span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">,</span>
+                             <span class="n">leave</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">disable</span><span class="o">=</span><span class="ow">not</span> <span class="n">show_progress</span><span class="p">)</span>
+
+            <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">inner_pbar</span><span class="p">:</span>
+                <span class="n">model_with</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">diffusion_model</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="p">,</span> <span class="n">seeds</span> <span class="o">|</span> <span class="p">{</span><span class="n">node</span><span class="p">})</span>
+                <span class="n">avg_with</span> <span class="o">=</span> <span class="n">model_with</span><span class="o">.</span><span class="n">run_monte_carlo_diffusion</span><span class="p">(</span><span class="n">rounds</span><span class="p">,</span> <span class="n">num_threads</span><span class="p">)</span>
+                
+                <span class="n">model_without</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">diffusion_model</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="p">,</span> <span class="n">seeds</span><span class="p">)</span>
+                <span class="n">avg_without</span> <span class="o">=</span> <span class="n">model_without</span><span class="o">.</span><span class="n">run_monte_carlo_diffusion</span><span class="p">(</span><span class="n">rounds</span><span class="p">,</span> <span class="n">num_threads</span><span class="p">)</span>
+                
+                <span class="n">marginal_gain</span> <span class="o">=</span> <span class="n">avg_with</span> <span class="o">-</span> <span class="n">avg_without</span>
+
+                <span class="k">if</span> <span class="n">marginal_gain</span> <span class="o">&gt;</span> <span class="n">best_gain</span><span class="p">:</span>
+                    <span class="n">best_gain</span> <span class="o">=</span> <span class="n">marginal_gain</span>
+                    <span class="n">best_node</span> <span class="o">=</span> <span class="n">node</span>
+
+                <span class="k">if</span> <span class="n">show_progress</span><span class="p">:</span>
+                    <span class="n">inner_pbar</span><span class="o">.</span><span class="n">set_postfix</span><span class="p">({</span><span class="s1">&#39;当前最佳增益&#39;</span><span class="p">:</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">best_gain</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">})</span>
+
+            <span class="n">seeds</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">best_node</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">show_progress</span><span class="p">:</span>
+                <span class="n">outer_pbar</span><span class="o">.</span><span class="n">set_description</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;已选中节点: </span><span class="si">{</span><span class="n">best_node</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">seeds</span> <span class="o">=</span> <span class="n">seeds</span>
+        <span class="k">return</span> <span class="n">seeds</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="CELFPlusAlgorithm">
+<a class="viewcode-back" href="../../../../api.html#pynetim.algorithms.simulation.CELFPlusAlgorithm">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">CELFPlusAlgorithm</span><span class="p">(</span><span class="n">BaseAlgorithm</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;CELF++ 算法。</span>
+
+<span class="sd">    CELF++ 是 CELF 算法的改进版本，进一步利用子模特性减少计算量。</span>
+<span class="sd">    在更新节点边际增益时，同时考虑当前最佳候选节点，如果该节点增益仍然最大，</span>
+<span class="sd">    则直接选择它，避免额外的重新计算。</span>
+
+<span class="sd">    该算法精度高，比 CELF 更快，适合中等规模图。</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        graph: 输入图对象。</span>
+<span class="sd">        seeds: 种子节点集合。</span>
+<span class="sd">        diffusion_model: 扩散模型类。</span>
+
+<span class="sd">    References:</span>
+<span class="sd">        Goyal, A., Lu, W., &amp; Lakshmanan, L. V. (2011). </span>
+<span class="sd">        CELF++: Optimizing the greedy algorithm for influence maximization </span>
+<span class="sd">        in social networks. WWW, 47-48.</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        &gt;&gt;&gt; from pynetim import IMGraph</span>
+<span class="sd">        &gt;&gt;&gt; from pynetim.algorithms import CELFPlusAlgorithm</span>
+<span class="sd">        &gt;&gt;&gt; </span>
+<span class="sd">        &gt;&gt;&gt; graph = IMGraph(edges, weights=0.3)</span>
+<span class="sd">        &gt;&gt;&gt; algo = CELFPlusAlgorithm(graph, diffusion_model=&#39;IC&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; seeds = algo.run(k=10, rounds=1000, num_threads=4)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">graph</span><span class="p">:</span> <span class="s1">&#39;IMGraph&#39;</span><span class="p">,</span> <span class="n">diffusion_model</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;IC&#39;</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;初始化 CELF++ 算法。</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            graph: 输入图对象。</span>
+<span class="sd">            diffusion_model: 扩散模型名称，支持 &#39;IC&#39; 或 &#39;LT&#39;，默认为 &#39;IC&#39;。</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">diffusion_model</span><span class="p">)</span>
+
+<div class="viewcode-block" id="CELFPlusAlgorithm.run">
+<a class="viewcode-back" href="../../../../api.html#pynetim.algorithms.simulation.CELFPlusAlgorithm.run">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">rounds</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">,</span> <span class="n">num_threads</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span>
+            <span class="n">show_progress</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">seed</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Set</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;运行 CELF++ 算法选择种子节点。</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            k: 需要选择的种子节点数量。</span>
+<span class="sd">            rounds: 蒙特卡洛模拟次数，默认 1000。</span>
+<span class="sd">            num_threads: 多线程数，默认 4。</span>
+<span class="sd">            show_progress: 是否显示进度条，默认 True。</span>
+<span class="sd">            seed: 模拟的随机数种子，默认 None。</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Set[int]: 选中的种子节点集合。</span>
+
+<span class="sd">        Note:</span>
+<span class="sd">            CELF++ 比 CELF 更快，同时保证相同的近似比。</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">seeds</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="n">nodes</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">num_nodes</span><span class="p">))</span>
+        
+        <span class="n">mg1</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">prev_best</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">mg2</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">flag</span> <span class="o">=</span> <span class="p">{}</span>
+        
+        <span class="n">node_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">nodes</span><span class="p">)</span>
+        <span class="n">init_pbar</span> <span class="o">=</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">node_list</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;初始化边际增益&quot;</span><span class="p">,</span> <span class="n">disable</span><span class="o">=</span><span class="ow">not</span> <span class="n">show_progress</span><span class="p">)</span>
+        
+        <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">init_pbar</span><span class="p">:</span>
+            <span class="n">model</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">diffusion_model</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="p">,</span> <span class="p">{</span><span class="n">node</span><span class="p">})</span>
+            <span class="n">mg1</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">run_monte_carlo_diffusion</span><span class="p">(</span><span class="n">rounds</span><span class="p">,</span> <span class="n">num_threads</span><span class="p">)</span>
+            <span class="n">flag</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+        
+        <span class="n">prev_best</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">mg1</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">mg1</span><span class="o">.</span><span class="n">get</span><span class="p">)</span>
+        
+        <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">node_list</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">node</span> <span class="o">!=</span> <span class="n">prev_best</span><span class="p">:</span>
+                <span class="n">model</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">diffusion_model</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="p">,</span> <span class="p">{</span><span class="n">prev_best</span><span class="p">,</span> <span class="n">node</span><span class="p">})</span>
+                <span class="n">mg2</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">run_monte_carlo_diffusion</span><span class="p">(</span><span class="n">rounds</span><span class="p">,</span> <span class="n">num_threads</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">mg2</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">=</span> <span class="n">mg1</span><span class="p">[</span><span class="n">node</span><span class="p">]</span>
+        
+        <span class="n">heap</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">node_list</span><span class="p">:</span>
+            <span class="n">heapq</span><span class="o">.</span><span class="n">heappush</span><span class="p">(</span><span class="n">heap</span><span class="p">,</span> <span class="p">(</span><span class="o">-</span><span class="n">mg1</span><span class="p">[</span><span class="n">node</span><span class="p">],</span> <span class="n">node</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">mg2</span><span class="p">[</span><span class="n">node</span><span class="p">]))</span>
+        
+        <span class="n">main_pbar</span> <span class="o">=</span> <span class="n">tqdm</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">k</span><span class="p">),</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;选择种子节点&quot;</span><span class="p">,</span> <span class="n">disable</span><span class="o">=</span><span class="ow">not</span> <span class="n">show_progress</span><span class="p">)</span>
+        
+        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">main_pbar</span><span class="p">:</span>
+            <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+                <span class="n">neg_gain</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">last_s_size</span><span class="p">,</span> <span class="n">mg2_val</span> <span class="o">=</span> <span class="n">heapq</span><span class="o">.</span><span class="n">heappop</span><span class="p">(</span><span class="n">heap</span><span class="p">)</span>
+                <span class="n">gain</span> <span class="o">=</span> <span class="o">-</span><span class="n">neg_gain</span>
+                
+                <span class="k">if</span> <span class="n">last_s_size</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">seeds</span><span class="p">):</span>
+                    <span class="n">seeds</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">show_progress</span><span class="p">:</span>
+                        <span class="n">main_pbar</span><span class="o">.</span><span class="n">set_description</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;已选中节点: </span><span class="si">{</span><span class="n">node</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                    
+                    <span class="n">prev_best</span> <span class="o">=</span> <span class="kc">None</span>
+                    <span class="n">max_mg1</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+                    <span class="k">for</span> <span class="n">n</span><span class="p">,</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">mg1</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                        <span class="k">if</span> <span class="n">n</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">seeds</span> <span class="ow">and</span> <span class="n">g</span> <span class="o">&gt;</span> <span class="n">max_mg1</span><span class="p">:</span>
+                            <span class="n">max_mg1</span> <span class="o">=</span> <span class="n">g</span>
+                            <span class="n">prev_best</span> <span class="o">=</span> <span class="n">n</span>
+                    <span class="k">break</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">flag</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">seeds</span><span class="p">):</span>
+                        <span class="n">new_mg1</span> <span class="o">=</span> <span class="n">mg2_val</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">model_with</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">diffusion_model</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="p">,</span> <span class="n">seeds</span> <span class="o">|</span> <span class="p">{</span><span class="n">node</span><span class="p">})</span>
+                        <span class="n">avg_with</span> <span class="o">=</span> <span class="n">model_with</span><span class="o">.</span><span class="n">run_monte_carlo_diffusion</span><span class="p">(</span><span class="n">rounds</span><span class="p">,</span> <span class="n">num_threads</span><span class="p">)</span>
+                        
+                        <span class="n">model_without</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">diffusion_model</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="p">,</span> <span class="n">seeds</span><span class="p">)</span>
+                        <span class="n">avg_without</span> <span class="o">=</span> <span class="n">model_without</span><span class="o">.</span><span class="n">run_monte_carlo_diffusion</span><span class="p">(</span><span class="n">rounds</span><span class="p">,</span> <span class="n">num_threads</span><span class="p">)</span>
+                        
+                        <span class="n">new_mg1</span> <span class="o">=</span> <span class="n">avg_with</span> <span class="o">-</span> <span class="n">avg_without</span>
+                    
+                    <span class="k">if</span> <span class="n">prev_best</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">prev_best</span> <span class="o">!=</span> <span class="n">node</span><span class="p">:</span>
+                        <span class="n">model_with</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">diffusion_model</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="p">,</span> <span class="n">seeds</span> <span class="o">|</span> <span class="p">{</span><span class="n">prev_best</span><span class="p">,</span> <span class="n">node</span><span class="p">})</span>
+                        <span class="n">avg_with</span> <span class="o">=</span> <span class="n">model_with</span><span class="o">.</span><span class="n">run_monte_carlo_diffusion</span><span class="p">(</span><span class="n">rounds</span><span class="p">,</span> <span class="n">num_threads</span><span class="p">)</span>
+                        
+                        <span class="n">model_without</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">diffusion_model</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="p">,</span> <span class="n">seeds</span> <span class="o">|</span> <span class="p">{</span><span class="n">prev_best</span><span class="p">})</span>
+                        <span class="n">avg_without</span> <span class="o">=</span> <span class="n">model_without</span><span class="o">.</span><span class="n">run_monte_carlo_diffusion</span><span class="p">(</span><span class="n">rounds</span><span class="p">,</span> <span class="n">num_threads</span><span class="p">)</span>
+                        
+                        <span class="n">new_mg2</span> <span class="o">=</span> <span class="n">avg_with</span> <span class="o">-</span> <span class="n">avg_without</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">new_mg2</span> <span class="o">=</span> <span class="n">new_mg1</span>
+                    
+                    <span class="n">mg1</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_mg1</span>
+                    <span class="n">mg2</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_mg2</span>
+                    <span class="n">flag</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">seeds</span><span class="p">)</span>
+                    
+                    <span class="n">heapq</span><span class="o">.</span><span class="n">heappush</span><span class="p">(</span><span class="n">heap</span><span class="p">,</span> <span class="p">(</span><span class="o">-</span><span class="n">new_mg1</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">seeds</span><span class="p">),</span> <span class="n">new_mg2</span><span class="p">))</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">seeds</span> <span class="o">=</span> <span class="n">seeds</span>
+        <span class="k">return</span> <span class="n">seeds</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="CELFAlgorithm">
+<a class="viewcode-back" href="../../../../api.html#pynetim.algorithms.simulation.CELFAlgorithm">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">CELFAlgorithm</span><span class="p">(</span><span class="n">BaseAlgorithm</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;CELF 算法。</span>
+
+<span class="sd">    CELF (Cost-Effective Lazy Forward) 是贪婪算法的优化版本，</span>
+<span class="sd">    利用边际增益的子模特性减少计算量，通过优先队列维护节点的边际增益，</span>
+<span class="sd">    避免重复计算已失效的边际增益。</span>
+
+<span class="sd">    该算法精度高，比贪婪算法快 2-7 倍，适合中等规模图。</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        graph: 输入图对象。</span>
+<span class="sd">        seeds: 种子节点集合。</span>
+<span class="sd">        diffusion_model: 扩散模型类。</span>
+
+<span class="sd">    References:</span>
+<span class="sd">        Leskovec, J., Krause, A., Guestrin, C., Faloutsos, C., VanBriesen, J., </span>
+<span class="sd">        &amp; Glance, N. (2007). Cost-effective outbreak detection in networks. </span>
+<span class="sd">        KDD, 420-429.</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        &gt;&gt;&gt; from pynetim import IMGraph</span>
+<span class="sd">        &gt;&gt;&gt; from pynetim.algorithms import CELFAlgorithm</span>
+<span class="sd">        &gt;&gt;&gt; </span>
+<span class="sd">        &gt;&gt;&gt; graph = IMGraph(edges, weights=0.3)</span>
+<span class="sd">        &gt;&gt;&gt; algo = CELFAlgorithm(graph, diffusion_model=&#39;IC&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; seeds = algo.run(k=10, rounds=1000, num_threads=4)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">graph</span><span class="p">:</span> <span class="s1">&#39;IMGraph&#39;</span><span class="p">,</span> <span class="n">diffusion_model</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;IC&#39;</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;初始化 CELF 算法。</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            graph: 输入图对象。</span>
+<span class="sd">            diffusion_model: 扩散模型名称，支持 &#39;IC&#39; 或 &#39;LT&#39;，默认为 &#39;IC&#39;。</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">diffusion_model</span><span class="p">)</span>
+
+<div class="viewcode-block" id="CELFAlgorithm.run">
+<a class="viewcode-back" href="../../../../api.html#pynetim.algorithms.simulation.CELFAlgorithm.run">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">rounds</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">,</span> <span class="n">num_threads</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span>
+            <span class="n">show_progress</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">seed</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Set</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;运行 CELF 算法选择种子节点。</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            k: 需要选择的种子节点数量。</span>
+<span class="sd">            rounds: 蒙特卡洛模拟次数，默认 1000。</span>
+<span class="sd">            num_threads: 多线程数，默认 4。</span>
+<span class="sd">            show_progress: 是否显示进度条，默认 True。</span>
+<span class="sd">            seed: 模拟的随机数种子，默认 None。</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Set[int]: 选中的种子节点集合。</span>
+
+<span class="sd">        Note:</span>
+<span class="sd">            利用子模特性，CELF 比贪婪算法快 2-7 倍，同时保证相同的近似比。</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">seeds</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="n">nodes</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">num_nodes</span><span class="p">))</span>
+        <span class="n">heap</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="n">node_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">nodes</span><span class="p">)</span>
+        <span class="n">init_pbar</span> <span class="o">=</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">node_list</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;初始化边际增益&quot;</span><span class="p">,</span> <span class="n">disable</span><span class="o">=</span><span class="ow">not</span> <span class="n">show_progress</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">init_pbar</span><span class="p">:</span>
+            <span class="n">model</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">diffusion_model</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="p">,</span> <span class="p">{</span><span class="n">node</span><span class="p">})</span>
+            <span class="n">mg</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">run_monte_carlo_diffusion</span><span class="p">(</span><span class="n">rounds</span><span class="p">,</span> <span class="n">num_threads</span><span class="p">)</span>
+            <span class="n">heap</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="o">-</span><span class="n">mg</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+
+        <span class="n">heapq</span><span class="o">.</span><span class="n">heapify</span><span class="p">(</span><span class="n">heap</span><span class="p">)</span>
+
+        <span class="n">main_pbar</span> <span class="o">=</span> <span class="n">tqdm</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">k</span><span class="p">),</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;选择种子节点&quot;</span><span class="p">,</span> <span class="n">disable</span><span class="o">=</span><span class="ow">not</span> <span class="n">show_progress</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">main_pbar</span><span class="p">:</span>
+            <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+                <span class="n">neg_gain</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">last_s_size</span> <span class="o">=</span> <span class="n">heapq</span><span class="o">.</span><span class="n">heappop</span><span class="p">(</span><span class="n">heap</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="n">last_s_size</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">seeds</span><span class="p">):</span>
+                    <span class="n">seeds</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">show_progress</span><span class="p">:</span>
+                        <span class="n">main_pbar</span><span class="o">.</span><span class="n">set_description</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;已选中节点: </span><span class="si">{</span><span class="n">node</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                    <span class="k">break</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">model_with</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">diffusion_model</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="p">,</span> <span class="n">seeds</span> <span class="o">|</span> <span class="p">{</span><span class="n">node</span><span class="p">})</span>
+                    <span class="n">avg_with</span> <span class="o">=</span> <span class="n">model_with</span><span class="o">.</span><span class="n">run_monte_carlo_diffusion</span><span class="p">(</span><span class="n">rounds</span><span class="p">,</span> <span class="n">num_threads</span><span class="p">)</span>
+                    
+                    <span class="n">model_without</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">diffusion_model</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="p">,</span> <span class="n">seeds</span><span class="p">)</span>
+                    <span class="n">avg_without</span> <span class="o">=</span> <span class="n">model_without</span><span class="o">.</span><span class="n">run_monte_carlo_diffusion</span><span class="p">(</span><span class="n">rounds</span><span class="p">,</span> <span class="n">num_threads</span><span class="p">)</span>
+                    
+                    <span class="n">marginal_gain</span> <span class="o">=</span> <span class="n">avg_with</span> <span class="o">-</span> <span class="n">avg_without</span>
+                    <span class="n">heapq</span><span class="o">.</span><span class="n">heappush</span><span class="p">(</span><span class="n">heap</span><span class="p">,</span> <span class="p">(</span><span class="o">-</span><span class="n">marginal_gain</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">seeds</span><span class="p">)))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">seeds</span> <span class="o">=</span> <span class="n">seeds</span>
+        <span class="k">return</span> <span class="n">seeds</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Kaijing Zhang.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,8 +1,75 @@
 API 参考
 ========
 
-Python 模块
------------
+主模块 (C++ 后端)
+-----------------
+
+图模块
+~~~~~~
+
+.. automodule:: pynetim.graph
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+扩散模型模块
+~~~~~~~~~~~~
+
+.. automodule:: pynetim.diffusion_model
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+算法模块
+~~~~~~~~
+
+基础类
+^^^^^^
+
+.. automodule:: pynetim.algorithms.base_algorithm
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+启发式算法
+^^^^^^^^^^
+
+.. automodule:: pynetim.algorithms.heuristic
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+模拟类算法
+^^^^^^^^^^
+
+.. automodule:: pynetim.algorithms.simulation
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+RIS 类算法
+^^^^^^^^^^
+
+.. automodule:: pynetim.algorithms.ris
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+工具函数模块
+~~~~~~~~~~~~
+
+.. automodule:: pynetim.utils
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Python 模块 (维护模式)
+----------------------
+
+.. warning::
+
+   ``pynetim.py`` 模块目前处于维护模式，不再添加新功能。
+   新功能和性能优化集中在 C++ 主模块 (pynetim) 中。
 
 图模块
 ~~~~~~
@@ -24,33 +91,6 @@ Python 模块
 ~~~~~~~~~~~~
 
 .. automodule:: pynetim.py.diffusion_model
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-工具函数模块
-~~~~~~~~~~~~
-
-.. automodule:: pynetim.utils
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-C++ 模块
----------
-
-C++ 图模块
-~~~~~~~~~~
-
-.. automodule:: pynetim.cpp.graph
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-C++ 扩散模型模块
-~~~~~~~~~~~~~~~~
-
-.. automodule:: pynetim.cpp.diffusion_model
    :members:
    :undoc-members:
    :show-inheritance:

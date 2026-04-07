@@ -48,33 +48,79 @@ PyNetIM 是一个用于**社交网络影响力最大化（Influence Maximization
 传播模型
 --------
 
-==============================  ============  ===============
-模型                            说明           使用场景
-==============================  ============  ===============
-IndependentCascadeModel         独立级联模型   社交网络传播
-LinearThresholdModel            线性阈值模型   观点传播
-SusceptibleInfectedModel        SI 模型       疫情传播
-SusceptibleInfectedRecoveredModel  SIR 模型  疫情传播（含恢复）
-==============================  ============  ===============
+.. list-table::
+   :header-rows: 1
+
+   * - 模型
+     - 说明
+     - 使用场景
+   * - IndependentCascadeModel
+     - 独立级联模型
+     - 社交网络传播
+   * - LinearThresholdModel
+     - 线性阈值模型
+     - 观点传播
+   * - SusceptibleInfectedModel
+     - SI 模型
+     - 疫情传播
+   * - SusceptibleInfectedRecoveredModel
+     - SIR 模型
+     - 疫情传播（含恢复）
 
 影响力最大化算法
 ----------------
 
-==============================  ============  ===============  ===============
-算法                            类型          特点             参考文献
-==============================  ============  ===============  ===============
-SingleDiscountAlgorithm         启发式        速度快           -
-DegreeDiscountAlgorithm         启发式        速度快，效果好    -
-GreedyAlgorithm                模拟类        精度高，速度慢    Kemper et al., 2003
-CELFAlgorithm                  模拟类        精度高，比贪婪快  Leskovec et al., 2007
-CELFPlusAlgorithm              模拟类        CELF 优化版      Goyal et al., WWW 2011
-BaseRISAlgorithm               RIS 类        基础反向影响采样  Borgs et al., 2014
-IMMAlgorithm                   RIS 类        大规模图首选      Tang et al., SIGMOD 2015
-TIMAlgorithm                   RIS 类        两阶段影响力估计   Tang et al., 2014
-TIMPlusAlgorithm               RIS 类        TIM 优化版       Tang et al., 2014
-OPIMAlgorithm                  OPIM 类       可证明近似保证    Tang et al., SIGMOD 2018
-OPIMCAlgorithm                 OPIM 类       自适应采样版本    Tang et al., SIGMOD 2018
-==============================  ============  ===============  ===============
+.. list-table::
+   :header-rows: 1
+
+   * - 算法
+     - 类型
+     - 特点
+     - 参考文献
+   * - SingleDiscountAlgorithm
+     - 启发式
+     - 速度快
+     - -
+   * - DegreeDiscountAlgorithm
+     - 启发式
+     - 速度快，效果好
+     - -
+   * - GreedyAlgorithm
+     - 模拟类
+     - 精度高，速度慢
+     - Kemper et al., 2003
+   * - CELFAlgorithm
+     - 模拟类
+     - 精度高，比贪婪快
+     - Leskovec et al., 2007
+   * - CELFPlusAlgorithm
+     - 模拟类
+     - CELF 优化版
+     - Goyal et al., WWW 2011
+   * - BaseRISAlgorithm
+     - RIS 类
+     - 基础反向影响采样
+     - Borgs et al., 2014
+   * - IMMAlgorithm
+     - RIS 类
+     - 大规模图首选
+     - Tang et al., SIGMOD 2015
+   * - TIMAlgorithm
+     - RIS 类
+     - 两阶段影响力估计
+     - Tang et al., 2014
+   * - TIMPlusAlgorithm
+     - RIS 类
+     - TIM 优化版
+     - Tang et al., 2014
+   * - OPIMAlgorithm
+     - OPIM 类
+     - 可证明近似保证
+     - Tang et al., SIGMOD 2018
+   * - OPIMCAlgorithm
+     - OPIM 类
+     - 自适应采样版本
+     - Tang et al., SIGMOD 2018
 
 安装
 ----
