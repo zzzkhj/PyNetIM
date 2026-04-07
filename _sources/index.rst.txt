@@ -13,38 +13,68 @@ PyNetIM 文档
 简介
 ----
 
-PyNetIM 是一个用于**社交网络影响力最大化（Influence Maximization, IM）**问题的 Python 库，集成了多种经典算法与扩散模型，并提供 **Python 实现 + C++ 加速后端**，适用于算法复现、性能对比与科研实验。
+PyNetIM 是一个用于**社交网络影响力最大化（Influence Maximization, IM）问题**的 Python 库，集成了多种经典算法与扩散模型，提供 **C++ 高性能后端**，适用于算法研究、性能对比与科研实验。
 
 功能特性
 --------
 
-* 多种经典影响力最大化算法（Heuristic / Simulation / RIS）
-* 多种传播模型（IC / LT / SI / SIR）
-* 统一的图结构封装（基于 NetworkX）
-* Python 可读实现 + C++ 高性能实现
-* 支持蒙特卡洛扩散模拟
-* 内置算法计时装饰器
+* **多种传播模型** - IC、LT、SI、SIR
+* **多种 IM 算法** - 启发式、模拟类、RIS 类、OPIM 类
+* **高性能 C++ 后端** - 比纯 Python 快 20-30 倍
+* **自定义模型支持** - 支持用户自定义传播模型
+* **简洁 API** - 一行代码完成复杂任务
 
 快速开始
 --------
 
 .. code-block:: python
 
-    import networkx as nx
-    from pynetim.py.graph import IMGraph
-    from pynetim.py.algorithms import DegreeDiscountAlgorithm
+    from pynetim import IMGraph, IndependentCascadeModel, IMMAlgorithm
 
-    # 创建图
-    g = nx.erdos_renyi_graph(100, 0.1)
+    # 1. 创建图
+    edges = [(0, 1), (1, 2), (2, 3), (3, 4), (4, 5)]
+    graph = IMGraph(edges, weights=0.3)
 
-    # 构建 IMGraph（WC 权重）
-    graph = IMGraph(g, edge_weight_type='WC')
+    # 2. 使用 IMM 算法选择种子节点
+    imm = IMMAlgorithm(graph, model='IC', epsilon=0.5)
+    seeds = imm.run(k=2)
+    print(f"种子节点: {seeds}")
 
-    # 运行算法
-    algo = DegreeDiscountAlgorithm(graph)
-    seeds = algo.run(k=10)
+    # 3. 评估影响力
+    model = IndependentCascadeModel(graph, set(seeds))
+    avg_influence = model.run_monte_carlo_diffusion(1000, num_threads=4)
+    print(f"平均影响力: {avg_influence:.2f}")
 
-    print(seeds)
+传播模型
+--------
+
+==============================  ============  ===============
+模型                            说明           使用场景
+==============================  ============  ===============
+IndependentCascadeModel         独立级联模型   社交网络传播
+LinearThresholdModel            线性阈值模型   观点传播
+SusceptibleInfectedModel        SI 模型       疫情传播
+SusceptibleInfectedRecoveredModel  SIR 模型  疫情传播（含恢复）
+==============================  ============  ===============
+
+影响力最大化算法
+----------------
+
+==============================  ============  ===============  ===============
+算法                            类型          特点             参考文献
+==============================  ============  ===============  ===============
+SingleDiscountAlgorithm         启发式        速度快           -
+DegreeDiscountAlgorithm         启发式        速度快，效果好    -
+GreedyAlgorithm                模拟类        精度高，速度慢    Kemper et al., 2003
+CELFAlgorithm                  模拟类        精度高，比贪婪快  Leskovec et al., 2007
+CELFPlusAlgorithm              模拟类        CELF 优化版      Goyal et al., WWW 2011
+BaseRISAlgorithm               RIS 类        基础反向影响采样  Borgs et al., 2014
+IMMAlgorithm                   RIS 类        大规模图首选      Tang et al., SIGMOD 2015
+TIMAlgorithm                   RIS 类        两阶段影响力估计   Tang et al., 2014
+TIMPlusAlgorithm               RIS 类        TIM 优化版       Tang et al., 2014
+OPIMAlgorithm                  OPIM 类       可证明近似保证    Tang et al., SIGMOD 2018
+OPIMCAlgorithm                 OPIM 类       自适应采样版本    Tang et al., SIGMOD 2018
+==============================  ============  ===============  ===============
 
 安装
 ----
@@ -52,6 +82,11 @@ PyNetIM 是一个用于**社交网络影响力最大化（Influence Maximization
 .. code-block:: bash
 
     pip install pynetim
+
+**系统要求：**
+
+* Python 3.8+（推荐 3.10+）
+* C++20 编译器（GCC 10+, Clang 10+, MSVC 19.28+）
 
 相关链接
 --------

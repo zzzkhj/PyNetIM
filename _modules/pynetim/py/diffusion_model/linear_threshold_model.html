@@ -42,10 +42,10 @@
               <p class="caption" role="heading"><span class="caption-text">目录:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../changelog.html">更新日志</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../changelog.html#id45">版本说明</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../changelog.html#id53">贡献指南</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../changelog.html#id54">许可证</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../changelog.html#id55">联系方式</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changelog.html#id50">版本说明</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changelog.html#id58">贡献指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changelog.html#id59">许可证</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changelog.html#id60">联系方式</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../api.html">API 参考</a></li>
 </ul>
 
@@ -77,7 +77,7 @@
 <span></span><span class="kn">import</span><span class="w"> </span><span class="nn">random</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">.run_monte_carlo_diffusion</span><span class="w"> </span><span class="kn">import</span> <span class="n">run_monte_carlo_diffusion</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">..graph</span><span class="w"> </span><span class="kn">import</span> <span class="n">IMGraph</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..graph</span><span class="w"> </span><span class="kn">import</span> <span class="n">IMGraphPy</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">.</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseDiffusionModel</span>
 
 
@@ -105,7 +105,7 @@
 <span class="sd">        states (list): 当record_states为True时存储传播过程的状态历史（继承自BaseDiffusionModel）</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">graph</span><span class="p">:</span> <span class="n">IMGraph</span><span class="p">,</span> <span class="n">init_seeds</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">record_states</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">graph</span><span class="p">:</span> <span class="n">IMGraphPy</span><span class="p">,</span> <span class="n">init_seeds</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">record_states</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        初始化线性阈值模型。</span>
 

@@ -44,10 +44,10 @@
               <p class="caption" role="heading"><span class="caption-text">目录:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">更新日志</a></li>
-<li class="toctree-l1"><a class="reference internal" href="changelog.html#id45">版本说明</a></li>
-<li class="toctree-l1"><a class="reference internal" href="changelog.html#id53">贡献指南</a></li>
-<li class="toctree-l1"><a class="reference internal" href="changelog.html#id54">许可证</a></li>
-<li class="toctree-l1"><a class="reference internal" href="changelog.html#id55">联系方式</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html#id50">版本说明</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html#id58">贡献指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html#id59">许可证</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html#id60">联系方式</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api.html">API 参考</a></li>
 </ul>
 
@@ -82,22 +82,23 @@
 <p class="caption" role="heading"><span class="caption-text">目录:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">更新日志</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id2">[0.4.5] - 2026-04-04</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id14">[0.4.4] - 2026-03-30</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id26">[0.4.3] - 2026-03-30</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id32">[0.4.2] - 2026-03-24</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id35">[0.4.0] - 2026-03-23</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id2">[0.5.0] - 2026-04-07</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id7">[0.4.5] - 2026-04-04</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id19">[0.4.4] - 2026-03-30</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id31">[0.4.3] - 2026-03-30</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id37">[0.4.2] - 2026-03-24</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id40">[0.4.0] - 2026-03-23</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog.html#xx-xx">[0.3.0] - 2025-XX-XX</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="changelog.html#id45">版本说明</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id47">版本类型</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id48">更新分类</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html#id50">版本说明</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id52">版本类型</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id53">更新分类</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="changelog.html#id53">贡献指南</a></li>
-<li class="toctree-l1"><a class="reference internal" href="changelog.html#id54">许可证</a></li>
-<li class="toctree-l1"><a class="reference internal" href="changelog.html#id55">联系方式</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html#id58">贡献指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html#id59">许可证</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html#id60">联系方式</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api.html">API 参考</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="api.html#python">Python 模块</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api.html#c">C++ 模块</a></li>
@@ -107,47 +108,57 @@
 </div>
 <section id="id1">
 <h2>简介<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
-<p>PyNetIM 是一个用于**社交网络影响力最大化（Influence Maximization, IM）**问题的 Python 库，集成了多种经典算法与扩散模型，并提供 <strong>Python 实现 + C++ 加速后端</strong>，适用于算法复现、性能对比与科研实验。</p>
+<p>PyNetIM 是一个用于**社交网络影响力最大化（Influence Maximization, IM）问题**的 Python 库，集成了多种经典算法与扩散模型，提供 <strong>C++ 高性能后端</strong>，适用于算法研究、性能对比与科研实验。</p>
 </section>
 <section id="id2">
 <h2>功能特性<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
 <ul class="simple">
-<li><p>多种经典影响力最大化算法（Heuristic / Simulation / RIS）</p></li>
-<li><p>多种传播模型（IC / LT / SI / SIR）</p></li>
-<li><p>统一的图结构封装（基于 NetworkX）</p></li>
-<li><p>Python 可读实现 + C++ 高性能实现</p></li>
-<li><p>支持蒙特卡洛扩散模拟</p></li>
-<li><p>内置算法计时装饰器</p></li>
+<li><p><strong>多种传播模型</strong> - IC、LT、SI、SIR</p></li>
+<li><p><strong>多种 IM 算法</strong> - 启发式、模拟类、RIS 类、OPIM 类</p></li>
+<li><p><strong>高性能 C++ 后端</strong> - 比纯 Python 快 20-30 倍</p></li>
+<li><p><strong>自定义模型支持</strong> - 支持用户自定义传播模型</p></li>
+<li><p><strong>简洁 API</strong> - 一行代码完成复杂任务</p></li>
 </ul>
 </section>
 <section id="id3">
 <h2>快速开始<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">networkx</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nx</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pynetim.py.graph</span><span class="w"> </span><span class="kn">import</span> <span class="n">IMGraph</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pynetim.py.algorithms</span><span class="w"> </span><span class="kn">import</span> <span class="n">DegreeDiscountAlgorithm</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pynetim</span><span class="w"> </span><span class="kn">import</span> <span class="n">IMGraph</span><span class="p">,</span> <span class="n">IndependentCascadeModel</span><span class="p">,</span> <span class="n">IMMAlgorithm</span>
 
-<span class="c1"># 创建图</span>
-<span class="n">g</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">erdos_renyi_graph</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)</span>
+<span class="c1"># 1. 创建图</span>
+<span class="n">edges</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">)]</span>
+<span class="n">graph</span> <span class="o">=</span> <span class="n">IMGraph</span><span class="p">(</span><span class="n">edges</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
 
-<span class="c1"># 构建 IMGraph（WC 权重）</span>
-<span class="n">graph</span> <span class="o">=</span> <span class="n">IMGraph</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">edge_weight_type</span><span class="o">=</span><span class="s1">&#39;WC&#39;</span><span class="p">)</span>
+<span class="c1"># 2. 使用 IMM 算法选择种子节点</span>
+<span class="n">imm</span> <span class="o">=</span> <span class="n">IMMAlgorithm</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="s1">&#39;IC&#39;</span><span class="p">,</span> <span class="n">epsilon</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">seeds</span> <span class="o">=</span> <span class="n">imm</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">k</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;种子节点: </span><span class="si">{</span><span class="n">seeds</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
-<span class="c1"># 运行算法</span>
-<span class="n">algo</span> <span class="o">=</span> <span class="n">DegreeDiscountAlgorithm</span><span class="p">(</span><span class="n">graph</span><span class="p">)</span>
-<span class="n">seeds</span> <span class="o">=</span> <span class="n">algo</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">k</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="n">seeds</span><span class="p">)</span>
+<span class="c1"># 3. 评估影响力</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">IndependentCascadeModel</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="nb">set</span><span class="p">(</span><span class="n">seeds</span><span class="p">))</span>
+<span class="n">avg_influence</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">run_monte_carlo_diffusion</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="n">num_threads</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;平均影响力: </span><span class="si">{</span><span class="n">avg_influence</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
 <section id="id4">
-<h2>安装<a class="headerlink" href="#id4" title="Link to this heading"></a></h2>
+<h2>传播模型<a class="headerlink" href="#id4" title="Link to this heading"></a></h2>
+</section>
+<section id="id5">
+<h2>影响力最大化算法<a class="headerlink" href="#id5" title="Link to this heading"></a></h2>
+</section>
+<section id="id6">
+<h2>安装<a class="headerlink" href="#id6" title="Link to this heading"></a></h2>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>pynetim
 </pre></div>
 </div>
+<p><strong>系统要求：</strong></p>
+<ul class="simple">
+<li><p>Python 3.8+（推荐 3.10+）</p></li>
+<li><p>C++20 编译器（GCC 10+, Clang 10+, MSVC 19.28+）</p></li>
+</ul>
 </section>
-<section id="id5">
-<h2>相关链接<a class="headerlink" href="#id5" title="Link to this heading"></a></h2>
+<section id="id7">
+<h2>相关链接<a class="headerlink" href="#id7" title="Link to this heading"></a></h2>
 <ul class="simple">
 <li><p><a class="reference external" href="https://github.com/zzzkhj/PyNetIM">GitHub 仓库</a></p></li>
 <li><p><a class="reference external" href="https://pypi.org/project/pynetim/">PyPI 包</a></p></li>
@@ -155,8 +166,8 @@
 </ul>
 </section>
 </section>
-<section id="id7">
-<h1>索引和表格<a class="headerlink" href="#id7" title="Link to this heading"></a></h1>
+<section id="id9">
+<h1>索引和表格<a class="headerlink" href="#id9" title="Link to this heading"></a></h1>
 <ul class="simple">
 <li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
 <li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>

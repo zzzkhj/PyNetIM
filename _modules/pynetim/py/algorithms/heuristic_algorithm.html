@@ -42,10 +42,10 @@
               <p class="caption" role="heading"><span class="caption-text">目录:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../changelog.html">更新日志</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../changelog.html#id45">版本说明</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../changelog.html#id53">贡献指南</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../changelog.html#id54">许可证</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../changelog.html#id55">联系方式</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changelog.html#id50">版本说明</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changelog.html#id58">贡献指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changelog.html#id59">许可证</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changelog.html#id60">联系方式</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../api.html">API 参考</a></li>
 </ul>
 
@@ -78,7 +78,7 @@
 <span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">defaultdict</span>
 
-<span class="kn">from</span><span class="w"> </span><span class="nn">..graph</span><span class="w"> </span><span class="kn">import</span> <span class="n">IMGraph</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..graph</span><span class="w"> </span><span class="kn">import</span> <span class="n">IMGraphPy</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">.base_algorithm</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseAlgorithm</span>
 
 
@@ -98,7 +98,7 @@
 <span class="sd">          URL: https://dl.acm.org/doi/10.1145/1557019.1557047</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">graph</span><span class="p">:</span> <span class="n">IMGraph</span><span class="p">,</span> <span class="n">diffusion_model</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">graph</span><span class="p">:</span> <span class="n">IMGraphPy</span><span class="p">,</span> <span class="n">diffusion_model</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        初始化简单度折扣算法实例。</span>
 
@@ -166,7 +166,7 @@
 <span class="sd">          URL: https://dl.acm.org/doi/10.1145/1557019.1557047</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">graph</span><span class="p">:</span> <span class="n">IMGraph</span><span class="p">,</span> <span class="n">diffusion_model</span><span class="o">=</span><span class="s1">&#39;IC&#39;</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">graph</span><span class="p">:</span> <span class="n">IMGraphPy</span><span class="p">,</span> <span class="n">diffusion_model</span><span class="o">=</span><span class="s1">&#39;IC&#39;</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        初始化度折扣算法实例。</span>
 

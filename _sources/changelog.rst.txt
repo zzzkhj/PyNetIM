@@ -5,6 +5,120 @@
 
 格式基于 `Keep a Changelog <https://keepachangelog.com/>`_。
 
+[0.5.0] - 2026-04-07
+------------------------
+
+重大变更
+~~~~~~~~
+
+**模块结构扁平化**:
+
+* 将 ``src/pynetim/cpp/`` 下的所有内容移动到 ``src/pynetim/`` 主目录
+* 删除 ``cpp`` 子目录，C++ 模块直接作为主模块
+* 新的导入方式：
+
+.. code-block:: python
+
+    # 之前 (v0.4.5)
+    from pynetim.cpp.graph import IMGraphCpp
+    from pynetim.cpp.diffusion_model import IndependentCascadeModel
+    
+    # 现在 (v0.5.0)
+    from pynetim import IMGraph
+    from pynetim import IndependentCascadeModel
+
+**``pynetim.py`` 模块进入维护模式**:
+
+* 该模块不再添加新功能，仅进行维护和 bug 修复
+* 新功能和性能优化集中在 C++ 主模块 (``pynetim``)
+
+**``out_neighbors()`` 返回类型变更**:
+
+* 之前：返回 ``List[Edge]`` 对象，需要通过 ``edge.to`` 和 ``edge.weight`` 访问
+* 现在：直接返回 ``List[Tuple[int, float]]``，更简洁高效
+
+新增
+~~~~
+
+**影响力最大化算法模块 (pynetim.algorithms)**:
+
+* **启发式算法**:
+  
+  - ``SingleDiscountAlgorithm`` - 简单度折扣算法
+  - ``DegreeDiscountAlgorithm`` - 度折扣算法
+
+* **模拟类算法**:
+  
+  - ``GreedyAlgorithm`` - 贪婪算法
+  - ``CELFAlgorithm`` - CELF 优化算法
+  - ``CELFPlusAlgorithm`` - CELF++ 优化算法 (WWW 2011)
+
+* **RIS 类算法**:
+  
+  - ``BaseRISAlgorithm`` - 基础反向影响采样算法
+  - ``IMMAlgorithm`` - IMM 算法 (SIGMOD 2015)
+  - ``TIMAlgorithm`` - TIM 算法
+  - ``TIMPlusAlgorithm`` - TIM+ 算法
+
+* **OPIM 类算法 (SIGMOD 2018)**:
+  
+  - ``OPIMAlgorithm`` - Online Processing for Influence Maximization，使用训练集/验证集双采样提供可证明的近似保证
+  - ``OPIMCAlgorithm`` - OPIM-C 自适应采样版本，迭代增加采样数量直到达到 (1-1/e-ε) 近似保证
+
+**自定义传播模型支持**:
+
+* 新增 ``BaseCallbackDiffusionModel`` Python 抽象基类，位于 ``pynetim.diffusion_model`` 主模块
+* 新增 ``BaseMultiprocessDiffusionModel`` 抽象基类，支持真正的多进程并行
+* 用户只需实现 ``run_single_trial(seeds, rng_seed)`` 方法
+
+**中文输出支持**:
+
+* 所有算法的 verbose 输出信息已本地化为中文
+* 所有错误提示信息已本地化为中文
+* 包括 IMM、TIM、TIM+、OPIM、OPIM-C 等算法
+
+**类型提示改进**:
+
+* ``help()`` 现在显示清晰的类型提示
+* 所有 C++ 绑定模块的 docstring 都包含清晰的签名和参数说明
+
+修复
+~~~~
+
+**SIR/SI 模型参数验证**:
+
+* 移除 ``beta`` 和 ``gamma`` 参数的默认值，用户必须显式提供
+* 避免 ``gamma=0.0`` 与 C++ 层 ``(0,1]`` 范围要求的冲突
+
+**编译输出路径修复**:
+
+* 修复 C++ 模块编译输出路径，确保 ``.so`` 文件生成到正确的 ``algorithms/ris/`` 目录
+
+**图 API 改进**:
+
+* 新增 ``has_edge(u, v)`` 方法，检查边是否存在
+* ``get_edge_weight(u, v)`` 边不存在时抛出 ``RuntimeError``
+
+使用示例
+~~~~~~~~
+
+.. code-block:: python
+
+    from pynetim import IMGraph, IMMAlgorithm, OPIMCAlgorithm
+
+    # 创建图
+    graph = IMGraph(edges, weights=0.1, directed=True)
+
+    # IMM 算法
+    imm = IMMAlgorithm(graph, model='IC', epsilon=0.5, random_seed=42, verbose=True)
+    seeds = imm.run(k=5)
+    print(f"种子集: {seeds}")
+
+    # OPIM-C 算法
+    opimc = OPIMCAlgorithm(graph, model='IC', random_seed=42, verbose=True)
+    seeds = opimc.run(k=5, epsilon=0.3)
+    print(f"种子集: {seeds}")
+
 [0.4.5] - 2026-04-04
 ------------------------
 
