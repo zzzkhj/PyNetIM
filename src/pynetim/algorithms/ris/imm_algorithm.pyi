@@ -1,0 +1,9 @@
+from typing import Set, Optional
+from ..graph import IMGraph
+
+class IMMAlgorithm:
+    def __init__(self, graph: IMGraph, model: str, epsilon: float = 0.5,
+                 l: int = 1, random_seed: Optional[int] = None,
+                 verbose: bool = False) -> None: ...
+    def run(self, k: int) -> Set[int]: ...
+    def get_seeds(self) -> Set[int]: ...

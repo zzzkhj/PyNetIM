@@ -13,7 +13,7 @@
 PyNetIM 提供完整的影响力最大化解决方案：
 
 - **多种传播模型** - IC、LT、SI、SIR
-- **多种 IM 算法** - 启发式、模拟类、RIS 类
+- **多种 IM 算法** - 启发式、模拟类、RIS 类、OPIM 类
 - **高性能 C++ 后端** - 比纯 Python 快 20-30 倍
 - **自定义模型支持** - 支持用户自定义传播模型
 - **简洁 API** - 一行代码完成复杂任务
@@ -42,7 +42,7 @@ edges = [(0, 1), (1, 2), (2, 3), (3, 4), (4, 5)]
 graph = IMGraph(edges, weights=0.3)
 
 # 2. 使用 IMM 算法选择种子节点
-imm = IMMAlgorithm(graph, diffusion_model='IC', eps=0.5)
+imm = IMMAlgorithm(graph, model='IC', epsilon=0.5)
 seeds = imm.run(k=2)
 print(f"种子节点: {seeds}")
 
@@ -114,28 +114,38 @@ activated = model.get_activated_nodes()
 
 ### 影响力最大化算法
 
-| 算法                        | 类型    | 特点       |
-| ------------------------- | ----- | -------- |
-| `SingleDiscountAlgorithm` | 启发式   | 速度快      |
-| `DegreeDiscountAlgorithm` | 启发式   | 速度快，效果好  |
-| `GreedyAlgorithm`         | 模拟类   | 精度高，速度慢  |
-| `CELFAlgorithm`           | 模拟类   | 精度高，比贪婪快 |
-| `IMMAlgorithm`            | RIS 类 | 大规模图首选   |
+| 算法                        | 类型    | 特点       | 参考文献 |
+| ------------------------- | ----- | -------- | ------ |
+| `SingleDiscountAlgorithm` | 启发式   | 速度快      | - |
+| `DegreeDiscountAlgorithm` | 启发式   | 速度快，效果好  | - |
+| `GreedyAlgorithm`         | 模拟类   | 精度高，速度慢  | Kemper et al., 2003 |
+| `CELFAlgorithm`           | 模拟类   | 精度高，比贪婪快 | Leskovec et al., 2007 |
+| `CELFPlusAlgorithm`       | 模拟类   | CELF 优化版 | Goyal et al., WWW 2011 |
+| `BaseRISAlgorithm`        | RIS 类 | 基础反向影响采样 | Borgs et al., 2014 |
+| `IMMAlgorithm`            | RIS 类 | 大规模图首选   | Tang et al., SIGMOD 2015 |
+| `TIMAlgorithm`            | RIS 类 | 两阶段影响力估计 | Tang et al., 2014 |
+| `TIMPlusAlgorithm`        | RIS 类 | TIM 优化版  | Tang et al., 2014 |
+| `OPIMAlgorithm`           | OPIM 类 | 可证明近似保证  | Tang et al., SIGMOD 2018 |
+| `OPIMCAlgorithm`          | OPIM 类 | 自适应采样版本 | Tang et al., SIGMOD 2018 |
 
 ```python
-from pynetim import DegreeDiscountAlgorithm, GreedyAlgorithm, IMMAlgorithm
+from pynetim import DegreeDiscountAlgorithm, GreedyAlgorithm, IMMAlgorithm, OPIMCAlgorithm
 
 # 启发式算法（快）
 algo = DegreeDiscountAlgorithm(graph)
 seeds = algo.run(k=10)
 
 # 模拟类算法（精确）
-algo = GreedyAlgorithm(graph, diffusion_model='IC', num_trials=1000)
+algo = GreedyAlgorithm(graph, model='IC', num_trials=1000)
 seeds = algo.run(k=10)
 
 # RIS 算法（大规模图）
-algo = IMMAlgorithm(graph, diffusion_model='IC', eps=0.5)
+algo = IMMAlgorithm(graph, model='IC', epsilon=0.5)
 seeds = algo.run(k=10)
+
+# OPIM-C 算法（自适应采样，可证明近似保证）
+algo = OPIMCAlgorithm(graph, model='IC', random_seed=42, verbose=True)
+seeds = algo.run(k=10, epsilon=0.3)
 ```
 
 ### 自定义传播模型
@@ -212,8 +222,13 @@ src/pynetim/
 │   ├── DegreeDiscountAlgorithm
 │   ├── GreedyAlgorithm
 │   ├── CELFAlgorithm
-│   ├── BaseRISAlgorithm
-│   └── IMMAlgorithm
+│   ├── ris/                  # RIS 类算法
+│   │   ├── BaseRISAlgorithm
+│   │   ├── IMMAlgorithm
+│   │   ├── TIMAlgorithm
+│   │   ├── TIMPlusAlgorithm
+│   │   ├── OPIMAlgorithm
+│   │   └── OPIMCAlgorithm
 ├── utils/                    # 工具函数
 └── py/                       # Python 实现（维护模式）
 ```
@@ -260,4 +275,3 @@ python tests/test_diffusion_comparison.py
 
 - **TraeAI** - 提供了强大的 AI 辅助开发环境，显著提升了代码开发效率和问题解决能力
 - **GLM-5** - 智谱 AI 大语言模型，在代码开发、调试优化和文档编写过程中提供了重要帮助
-

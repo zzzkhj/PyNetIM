@@ -33,6 +33,10 @@ from .algorithms import (
     CELFAlgorithm,
     BaseRISAlgorithm,
     IMMAlgorithm,
+    TIMAlgorithm,
+    TIMPlusAlgorithm,
+    OPIMAlgorithm,
+    OPIMCAlgorithm,
 )
 
 __all__ = [
@@ -61,4 +65,8 @@ __all__ = [
     'CELFAlgorithm',
     'BaseRISAlgorithm',
     'IMMAlgorithm',
+    'TIMAlgorithm',
+    'TIMPlusAlgorithm',
+    'OPIMAlgorithm',
+    'OPIMCAlgorithm',
 ]

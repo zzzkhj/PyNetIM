@@ -1,8 +1,7 @@
 from .base_algorithm import BaseAlgorithm
-from .heuristic_algorithm import SingleDiscountAlgorithm, DegreeDiscountAlgorithm
-from .simulation_algorithm import GreedyAlgorithm, CELFAlgorithm, CELFPlusAlgorithm
-from .ris_algorithm import BaseRISAlgorithm, IMMAlgorithm
-from .opim_algorithm import OPIMAlgorithm, OPIMCAlgorithm
+from .heuristic import SingleDiscountAlgorithm, DegreeDiscountAlgorithm
+from .simulation import GreedyAlgorithm, CELFAlgorithm, CELFPlusAlgorithm
+from .ris import BaseRISAlgorithm, IMMAlgorithm, TIMAlgorithm, TIMPlusAlgorithm, OPIMAlgorithm, OPIMCAlgorithm
 
 __all__ = [
     'BaseAlgorithm',
@@ -13,6 +12,8 @@ __all__ = [
     'CELFPlusAlgorithm',
     'BaseRISAlgorithm',
     'IMMAlgorithm',
+    'TIMAlgorithm',
+    'TIMPlusAlgorithm',
     'OPIMAlgorithm',
     'OPIMCAlgorithm',
 ]
