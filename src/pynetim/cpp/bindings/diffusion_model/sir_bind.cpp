@@ -62,18 +62,18 @@ Args:
 )doc")
 
             .def("run_single_simulation",
-                [](pynetim::SusceptibleInfectedRecoveredModel& self, py::object seed_obj) {
-                    bool use_random_seed = seed_obj.is_none();
-                    unsigned int seed = use_random_seed ? 0 : py::cast<unsigned int>(seed_obj);
-                    return self.run_single_simulation(use_random_seed, seed);
+                [](pynetim::SusceptibleInfectedRecoveredModel& self, py::object random_seed_obj) {
+                    bool use_random_seed = random_seed_obj.is_none();
+                    unsigned int random_seed = use_random_seed ? 0 : py::cast<unsigned int>(random_seed_obj);
+                    return self.run_single_simulation(use_random_seed, random_seed);
                 },
-                py::arg("seed") = py::none(),
-                R"doc(run_single_simulation(seed: int | None = None) -> int
+                py::arg("random_seed") = py::none(),
+                R"doc(run_single_simulation(random_seed: int | None = None) -> int
 
 执行单次传播模拟。
 
 Args:
-    seed: 随机种子，用于结果可重现。若为 None 则使用真随机种子。
+    random_seed: 随机种子，用于结果可重现。若为 None 则使用真随机种子。
 
 Returns:
     int: 本次模拟感染的节点数。
@@ -100,27 +100,33 @@ Returns:
 )doc")
 
             .def("run_monte_carlo_diffusion",
-                [](pynetim::SusceptibleInfectedRecoveredModel& self, int rounds, py::object seed_obj, bool use_multithread = false, int num_threads = 0) {
-                    bool use_random_seed = seed_obj.is_none();
-                    unsigned int seed = use_random_seed ? 0 : py::cast<unsigned int>(seed_obj);
-                    return self.run_monte_carlo_diffusion(rounds, use_random_seed, seed, use_multithread, num_threads);
+                [](pynetim::SusceptibleInfectedRecoveredModel& self, int mc_rounds, py::object random_seed_obj, bool use_multithread = false, int num_threads = 0) {
+                    if (use_multithread && num_threads <= 0) {
+                        throw std::invalid_argument("启用多线程时，线程数(num_threads)必须大于0");
+                    }
+                    bool use_random_seed = random_seed_obj.is_none();
+                    unsigned int random_seed = use_random_seed ? 0 : py::cast<unsigned int>(random_seed_obj);
+                    return self.run_monte_carlo_diffusion(mc_rounds, use_random_seed, random_seed, use_multithread, num_threads);
                 },
-                py::arg("rounds"),
-                py::arg("seed") = py::none(),
+                py::arg("mc_rounds"),
+                py::arg("random_seed") = py::none(),
                 py::arg("use_multithread") = false,
                 py::arg("num_threads") = 0,
-                R"doc(run_monte_carlo_diffusion(rounds: int, seed: int | None = None, use_multithread: bool = False, num_threads: int = 0) -> float
+                R"doc(run_monte_carlo_diffusion(mc_rounds: int, random_seed: int | None = None, use_multithread: bool = False, num_threads: int = 0) -> float
 
 运行蒙特卡洛模拟，计算平均影响力。
 
 Args:
-    rounds: 模拟次数，建议 1000-10000 次。
-    seed: 随机种子，用于结果可重现。若为 None 则使用真随机种子。
+    mc_rounds: 蒙特卡洛模拟次数，建议 1000-10000 次。
+    random_seed: 随机种子，用于结果可重现。若为 None 则使用真随机种子。
     use_multithread: 是否启用多线程，默认为 False。
-    num_threads: 线程数，0 表示自动检测。
+    num_threads: 线程数，当 use_multithread=True 时必须大于 0。
 
 Returns:
     float: 平均感染节点数。
+
+Raises:
+    ValueError: 当 use_multithread=True 但 num_threads <= 0 时抛出。
 )doc");
     }
 }

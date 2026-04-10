@@ -33,7 +33,7 @@ class GreedyAlgorithm(BaseAlgorithm):
         >>> 
         >>> graph = IMGraph(edges, weights=0.3)
         >>> algo = GreedyAlgorithm(graph, diffusion_model='IC')
-        >>> seeds = algo.run(k=10, rounds=1000, num_threads=4)
+        >>> seeds = algo.run(k=10, mc_rounds=1000, use_multithread=True, num_threads=4)
     """
 
     def __init__(self, graph: 'IMGraph', diffusion_model: str = 'IC'):
@@ -45,24 +45,31 @@ class GreedyAlgorithm(BaseAlgorithm):
         """
         super().__init__(graph, diffusion_model)
 
-    def run(self, k: int, rounds: int = 1000, num_threads: int = 4, 
-            show_progress: bool = True, seed: int = None) -> Set[int]:
+    def run(self, k: int, mc_rounds: int = 1000, use_multithread: bool = False, 
+            num_threads: int = 4, show_progress: bool = True, random_seed: int = None) -> Set[int]:
         """运行贪婪算法选择种子节点。
 
         Args:
             k: 需要选择的种子节点数量。
-            rounds: 每次计算边际增益的蒙特卡洛模拟次数，默认 1000。
-            num_threads: 多线程数，默认 4。
+            mc_rounds: 蒙特卡洛模拟次数，默认 1000。
+            use_multithread: 是否启用多线程，默认 False。
+            num_threads: 多线程数，默认 4。当 use_multithread=True 时必须大于 0。
             show_progress: 是否显示进度条，默认 True。
-            seed: 模拟的随机种子，默认 None。
+            random_seed: 随机数种子，默认 None（每次结果不同）。
 
         Returns:
             Set[int]: 选中的种子节点集合。
 
+        Raises:
+            ValueError: 当 use_multithread=True 但 num_threads <= 0 时抛出。
+
         Note:
-            时间复杂度为 O(k * n * rounds)，其中 n 为节点数。
+            时间复杂度为 O(k * n * mc_rounds)，其中 n 为节点数。
             对于大规模图，建议使用 CELFAlgorithm 或 IMMAlgorithm。
         """
+        if use_multithread and num_threads <= 0:
+            raise ValueError("启用多线程时，线程数(num_threads)必须大于0")
+        
         seeds: Set[int] = set()
         nodes = set(range(self.graph.num_nodes))
 
@@ -78,10 +85,12 @@ class GreedyAlgorithm(BaseAlgorithm):
 
             for node in inner_pbar:
                 model_with = self.diffusion_model(self.graph, seeds | {node})
-                avg_with = model_with.run_monte_carlo_diffusion(rounds, num_threads)
+                avg_with = model_with.run_monte_carlo_diffusion(
+                    mc_rounds, random_seed, use_multithread, num_threads)
                 
                 model_without = self.diffusion_model(self.graph, seeds)
-                avg_without = model_without.run_monte_carlo_diffusion(rounds, num_threads)
+                avg_without = model_without.run_monte_carlo_diffusion(
+                    mc_rounds, random_seed, use_multithread, num_threads)
                 
                 marginal_gain = avg_with - avg_without
 
@@ -125,7 +134,7 @@ class CELFPlusAlgorithm(BaseAlgorithm):
         >>> 
         >>> graph = IMGraph(edges, weights=0.3)
         >>> algo = CELFPlusAlgorithm(graph, diffusion_model='IC')
-        >>> seeds = algo.run(k=10, rounds=1000, num_threads=4)
+        >>> seeds = algo.run(k=10, mc_rounds=1000, use_multithread=True, num_threads=4)
     """
 
     def __init__(self, graph: 'IMGraph', diffusion_model: str = 'IC'):
@@ -137,23 +146,30 @@ class CELFPlusAlgorithm(BaseAlgorithm):
         """
         super().__init__(graph, diffusion_model)
 
-    def run(self, k: int, rounds: int = 1000, num_threads: int = 4,
-            show_progress: bool = True, seed: int = None) -> Set[int]:
+    def run(self, k: int, mc_rounds: int = 1000, use_multithread: bool = False,
+            num_threads: int = 4, show_progress: bool = True, random_seed: int = None) -> Set[int]:
         """运行 CELF++ 算法选择种子节点。
 
         Args:
             k: 需要选择的种子节点数量。
-            rounds: 蒙特卡洛模拟次数，默认 1000。
-            num_threads: 多线程数，默认 4。
+            mc_rounds: 蒙特卡洛模拟次数，默认 1000。
+            use_multithread: 是否启用多线程，默认 False。
+            num_threads: 多线程数，默认 4。当 use_multithread=True 时必须大于 0。
             show_progress: 是否显示进度条，默认 True。
-            seed: 模拟的随机数种子，默认 None。
+            random_seed: 随机数种子，默认 None（每次结果不同）。
 
         Returns:
             Set[int]: 选中的种子节点集合。
 
+        Raises:
+            ValueError: 当 use_multithread=True 但 num_threads <= 0 时抛出。
+
         Note:
             CELF++ 比 CELF 更快，同时保证相同的近似比。
         """
+        if use_multithread and num_threads <= 0:
+            raise ValueError("启用多线程时，线程数(num_threads)必须大于0")
+        
         seeds: Set[int] = set()
         nodes = set(range(self.graph.num_nodes))
         
@@ -167,7 +183,8 @@ class CELFPlusAlgorithm(BaseAlgorithm):
         
         for node in init_pbar:
             model = self.diffusion_model(self.graph, {node})
-            mg1[node] = model.run_monte_carlo_diffusion(rounds, num_threads)
+            mg1[node] = model.run_monte_carlo_diffusion(
+                mc_rounds, random_seed, use_multithread, num_threads)
             flag[node] = 0
         
         prev_best = max(mg1, key=mg1.get)
@@ -175,7 +192,8 @@ class CELFPlusAlgorithm(BaseAlgorithm):
         for node in node_list:
             if node != prev_best:
                 model = self.diffusion_model(self.graph, {prev_best, node})
-                mg2[node] = model.run_monte_carlo_diffusion(rounds, num_threads)
+                mg2[node] = model.run_monte_carlo_diffusion(
+                    mc_rounds, random_seed, use_multithread, num_threads)
             else:
                 mg2[node] = mg1[node]
         
@@ -207,19 +225,23 @@ class CELFPlusAlgorithm(BaseAlgorithm):
                         new_mg1 = mg2_val
                     else:
                         model_with = self.diffusion_model(self.graph, seeds | {node})
-                        avg_with = model_with.run_monte_carlo_diffusion(rounds, num_threads)
+                        avg_with = model_with.run_monte_carlo_diffusion(
+                            mc_rounds, random_seed, use_multithread, num_threads)
                         
                         model_without = self.diffusion_model(self.graph, seeds)
-                        avg_without = model_without.run_monte_carlo_diffusion(rounds, num_threads)
+                        avg_without = model_without.run_monte_carlo_diffusion(
+                            mc_rounds, random_seed, use_multithread, num_threads)
                         
                         new_mg1 = avg_with - avg_without
                     
                     if prev_best is not None and prev_best != node:
                         model_with = self.diffusion_model(self.graph, seeds | {prev_best, node})
-                        avg_with = model_with.run_monte_carlo_diffusion(rounds, num_threads)
+                        avg_with = model_with.run_monte_carlo_diffusion(
+                            mc_rounds, random_seed, use_multithread, num_threads)
                         
                         model_without = self.diffusion_model(self.graph, seeds | {prev_best})
-                        avg_without = model_without.run_monte_carlo_diffusion(rounds, num_threads)
+                        avg_without = model_without.run_monte_carlo_diffusion(
+                            mc_rounds, random_seed, use_multithread, num_threads)
                         
                         new_mg2 = avg_with - avg_without
                     else:
@@ -260,7 +282,7 @@ class CELFAlgorithm(BaseAlgorithm):
         >>> 
         >>> graph = IMGraph(edges, weights=0.3)
         >>> algo = CELFAlgorithm(graph, diffusion_model='IC')
-        >>> seeds = algo.run(k=10, rounds=1000, num_threads=4)
+        >>> seeds = algo.run(k=10, mc_rounds=1000, use_multithread=True, num_threads=4)
     """
 
     def __init__(self, graph: 'IMGraph', diffusion_model: str = 'IC'):
@@ -272,23 +294,30 @@ class CELFAlgorithm(BaseAlgorithm):
         """
         super().__init__(graph, diffusion_model)
 
-    def run(self, k: int, rounds: int = 1000, num_threads: int = 4,
-            show_progress: bool = True, seed: int = None) -> Set[int]:
+    def run(self, k: int, mc_rounds: int = 1000, use_multithread: bool = False,
+            num_threads: int = 4, show_progress: bool = True, random_seed: int = None) -> Set[int]:
         """运行 CELF 算法选择种子节点。
 
         Args:
             k: 需要选择的种子节点数量。
-            rounds: 蒙特卡洛模拟次数，默认 1000。
-            num_threads: 多线程数，默认 4。
+            mc_rounds: 蒙特卡洛模拟次数，默认 1000。
+            use_multithread: 是否启用多线程，默认 False。
+            num_threads: 多线程数，默认 4。当 use_multithread=True 时必须大于 0。
             show_progress: 是否显示进度条，默认 True。
-            seed: 模拟的随机数种子，默认 None。
+            random_seed: 随机数种子，默认 None（每次结果不同）。
 
         Returns:
             Set[int]: 选中的种子节点集合。
 
+        Raises:
+            ValueError: 当 use_multithread=True 但 num_threads <= 0 时抛出。
+
         Note:
             利用子模特性，CELF 比贪婪算法快 2-7 倍，同时保证相同的近似比。
         """
+        if use_multithread and num_threads <= 0:
+            raise ValueError("启用多线程时，线程数(num_threads)必须大于0")
+        
         seeds: Set[int] = set()
         nodes = set(range(self.graph.num_nodes))
         heap = []
@@ -298,7 +327,7 @@ class CELFAlgorithm(BaseAlgorithm):
 
         for node in init_pbar:
             model = self.diffusion_model(self.graph, {node})
-            mg = model.run_monte_carlo_diffusion(rounds, num_threads)
+            mg = model.run_monte_carlo_diffusion(mc_rounds, random_seed, use_multithread, num_threads)
             heap.append((-mg, node, 0))
 
         heapq.heapify(heap)
@@ -316,10 +345,12 @@ class CELFAlgorithm(BaseAlgorithm):
                     break
                 else:
                     model_with = self.diffusion_model(self.graph, seeds | {node})
-                    avg_with = model_with.run_monte_carlo_diffusion(rounds, num_threads)
+                    avg_with = model_with.run_monte_carlo_diffusion(
+                        mc_rounds, random_seed, use_multithread, num_threads)
                     
                     model_without = self.diffusion_model(self.graph, seeds)
-                    avg_without = model_without.run_monte_carlo_diffusion(rounds, num_threads)
+                    avg_without = model_without.run_monte_carlo_diffusion(
+                        mc_rounds, random_seed, use_multithread, num_threads)
                     
                     marginal_gain = avg_with - avg_without
                     heapq.heappush(heap, (-marginal_gain, node, len(seeds)))

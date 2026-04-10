@@ -29,14 +29,14 @@ def _run_trial_worker(args):
     """执行单次试验的工作函数。
 
     Args:
-        args: 包含 (seeds, rng_seed) 的元组。
+        args: 包含 (seeds, random_seed) 的元组。
 
     Returns:
         单次试验的结果元组。
     """
-    seeds, rng_seed = args
+    seeds, random_seed = args
     model = _global_model_class(_global_graph, seeds)
-    return model.run_single_trial(list(seeds), rng_seed)
+    return model.run_single_trial(list(seeds), random_seed)
 
 
 class BaseMultiprocessDiffusionModel(ABC):
@@ -55,9 +55,9 @@ class BaseMultiprocessDiffusionModel(ABC):
         >>> from pynetim.diffusion_model import BaseMultiprocessDiffusionModel
         >>> 
         >>> class MyICModel(BaseMultiprocessDiffusionModel):
-        ...     def run_single_trial(self, seeds, rng_seed):
+        ...     def run_single_trial(self, seeds, random_seed):
         ...         import random
-        ...         random.seed(rng_seed)
+        ...         random.seed(random_seed)
         ...         activated = set(seeds)
         ...         current = list(seeds)
         ...         count = len(seeds)
@@ -77,7 +77,7 @@ class BaseMultiprocessDiffusionModel(ABC):
         ...         return count, activated, frequency
         ...
         >>> model = MyICModel(graph, {0, 1})
-        >>> avg = model.run_monte_carlo_diffusion(1000, num_processes=4)
+        >>> avg = model.run_monte_carlo_diffusion(mc_rounds=1000, num_processes=4, random_seed=42)
     """
     
     def __init__(self, graph: 'IMGraph', seeds: Set[int]):
@@ -100,14 +100,14 @@ class BaseMultiprocessDiffusionModel(ABC):
         self.seeds = set(seeds)
     
     @abstractmethod
-    def run_single_trial(self, seeds: List[int], rng_seed: int) -> Tuple[int, Set[int], List[int]]:
+    def run_single_trial(self, seeds: List[int], random_seed: int) -> Tuple[int, Set[int], List[int]]:
         """执行单次传播试验。
 
         子类必须重写此方法实现自定义传播逻辑。
 
         Args:
             seeds: 初始种子节点列表。
-            rng_seed: 随机数种子，用于确保结果可重现。
+            random_seed: 随机数种子，用于确保结果可重现。
 
         Returns:
             Tuple[int, Set[int], List[int]]: 包含三个元素的元组：
@@ -134,16 +134,18 @@ class BaseMultiprocessDiffusionModel(ABC):
     
     def run_monte_carlo_diffusion(
         self, 
-        num_trials: int, 
+        mc_rounds: int, 
         num_processes: int = None,
-        show_progress: bool = False
+        show_progress: bool = False,
+        random_seed: int = None
     ) -> float:
         """运行蒙特卡洛模拟，计算平均影响力。
 
         Args:
-            num_trials: 模拟次数，建议 1000-10000 次。
+            mc_rounds: 蒙特卡洛模拟次数，建议 1000-10000 次。
             num_processes: 进程数，默认使用 CPU 核心数。
             show_progress: 是否显示进度条（暂未实现）。
+            random_seed: 随机数种子，默认为 None（每次结果不同）。
 
         Returns:
             float: 平均激活节点数。
@@ -154,12 +156,15 @@ class BaseMultiprocessDiffusionModel(ABC):
         if num_processes is None:
             num_processes = mp.cpu_count()
         
-        base_seed = random.randint(0, 2**31 - 1)
-        rng_seeds = [base_seed + i for i in range(num_trials)]
+        if random_seed is None:
+            base_seed = random.randint(0, 2**31 - 1)
+        else:
+            base_seed = random_seed
+        rng_seeds = [base_seed + i for i in range(mc_rounds)]
         
-        if num_processes > 1 and num_trials >= num_processes * 10:
+        if num_processes > 1 and mc_rounds >= num_processes * 10:
             graph_data = self._get_graph_data()
-            args_list = [(self.seeds, rng_seeds[i]) for i in range(num_trials)]
+            args_list = [(self.seeds, rng_seeds[i]) for i in range(mc_rounds)]
             
             ctx = mp.get_context('fork')
             with ctx.Pool(
@@ -172,22 +177,24 @@ class BaseMultiprocessDiffusionModel(ABC):
             total_activated = sum(r[0] for r in results)
         else:
             total_activated = 0
-            for i in range(num_trials):
+            for i in range(mc_rounds):
                 count, _, _ = self.run_single_trial(list(self.seeds), rng_seeds[i])
                 total_activated += count
         
-        return total_activated / num_trials
+        return total_activated / mc_rounds
     
     def run_monte_carlo_with_frequency(
         self, 
-        num_trials: int, 
-        num_processes: int = None
+        mc_rounds: int, 
+        num_processes: int = None,
+        random_seed: int = None
     ) -> Tuple[float, List[int]]:
         """运行蒙特卡洛模拟，返回平均影响力和激活频数。
 
         Args:
-            num_trials: 模拟次数，建议 1000-10000 次。
+            mc_rounds: 蒙特卡洛模拟次数，建议 1000-10000 次。
             num_processes: 进程数，默认使用 CPU 核心数。
+            random_seed: 随机数种子，默认为 None（每次结果不同）。
 
         Returns:
             Tuple[float, List[int]]: 包含两个元素：
@@ -197,12 +204,15 @@ class BaseMultiprocessDiffusionModel(ABC):
         if num_processes is None:
             num_processes = mp.cpu_count()
         
-        base_seed = random.randint(0, 2**31 - 1)
-        rng_seeds = [base_seed + i for i in range(num_trials)]
+        if random_seed is None:
+            base_seed = random.randint(0, 2**31 - 1)
+        else:
+            base_seed = random_seed
+        rng_seeds = [base_seed + i for i in range(mc_rounds)]
         
-        if num_processes > 1 and num_trials >= num_processes * 10:
+        if num_processes > 1 and mc_rounds >= num_processes * 10:
             graph_data = self._get_graph_data()
-            args_list = [(self.seeds, rng_seeds[i]) for i in range(num_trials)]
+            args_list = [(self.seeds, rng_seeds[i]) for i in range(mc_rounds)]
             
             ctx = mp.get_context('fork')
             with ctx.Pool(
@@ -220,10 +230,10 @@ class BaseMultiprocessDiffusionModel(ABC):
         else:
             total_activated = 0
             total_frequency = [0] * self.num_nodes
-            for i in range(num_trials):
+            for i in range(mc_rounds):
                 count, _, freq = self.run_single_trial(list(self.seeds), rng_seeds[i])
                 total_activated += count
                 for j, f in enumerate(freq):
                     total_frequency[j] += f
         
-        return total_activated / num_trials, total_frequency
+        return total_activated / mc_rounds, total_frequency

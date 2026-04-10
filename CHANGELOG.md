@@ -10,6 +10,7 @@
 
 | 版本 | 发布日期 | 主要更新 |
 |------|----------|----------|
+| [v0.5.1](changelog/v0.5.1.md) | 2026-04-10 | 评估指标模块、时间测量工具、7个启发式算法 |
 | [v0.5.0](changelog/v0.5.0.md) | 2026-04-07 | 模块扁平化、算法模块、自定义传播模型、OPIM算法、中文输出 |
 | [v0.4.5](changelog/v0.4.5.md) | 2026-04-04 | SI/SIR 扩散模型、统一权重支持 |
 | [v0.4.4](changelog/v0.4.4.md) | 2026-03-30 | 激活频率记录、随机种子改进 |
@@ -22,6 +23,21 @@
 ---
 
 ## 最新版本
+
+### [v0.5.1] - 2026-04-10
+
+**新增功能**:
+- 评估指标模块 (evaluation)：排名指标、影响力指标、种子质量指标、网络指标
+- 时间测量模块 (timing)：装饰器、AlgorithmTimer、多次运行统计
+- 工具函数 (utils)：最短路径计算（支持跳数和权重）
+- 7个经典启发式算法：DegreeCentrality, PageRank, VoteRank, K-shell, Betweenness, Closeness, Eigenvector
+
+**API 变更**:
+- 参数重命名：`rounds` → `mc_rounds`，`seed` → `random_seed`
+- 所有 `random_seed` 默认值改为 `None`（每次结果不同）
+- 多线程参数验证：`use_multithread=True` 时 `num_threads` 必须 > 0
+
+👉 [查看完整更新内容](changelog/v0.5.1.md)
 
 ### [v0.5.0] - 2026-04-07
 
@@ -115,4 +131,4 @@ PyNetIM 遵循 [语义化版本控制](https://semver.org/) (Semantic Versioning
 
 ---
 
-**最后更新**: 2026-04-07
+**最后更新**: 2026-04-10

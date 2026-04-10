@@ -31,17 +31,17 @@ class GreedyAlgorithm(BaseAlgorithm):
         super().__init__(graph, diffusion_model)
         self.diffusion_model_class = diffusion_model
 
-    def run(self, k: int, round: int, multi_process=False, processes=None, show_progress=True, seed: int = None):
+    def run(self, k: int, mc_rounds: int, multi_process=False, processes=None, show_progress=True, random_seed: int = None):
         """
         运行贪婪算法选择影响力最大化种子节点。
 
         Args:
             k (int): 种子节点数量
-            round (int): 每次计算边际增益的蒙特卡洛模拟次数
+            mc_rounds (int): 每次计算边际增益的蒙特卡洛模拟次数
             multi_process (bool, optional): 是否启用多进程模式，默认为False
             processes (int, optional): 多进程模式下的进程数，为None时使用默认值
             show_progress (bool, optional): 是否显示进度条，默认为True
-            seed (int, optional): 模拟的随机种子，默认为None
+            random_seed (int, optional): 随机数种子，默认为None（每次结果不同）
 
         Returns:
             list: 选择的种子节点列表
@@ -65,10 +65,10 @@ class GreedyAlgorithm(BaseAlgorithm):
             for node in inner_pbar:
                 # 更新模型种子集合，重置模型
                 diffusion_model.reset(list(seeds | {node}))
-                avg_influence = run_monte_carlo_diffusion(diffusion_model, round, multi_process, processes, seed)
+                avg_influence = run_monte_carlo_diffusion(diffusion_model, mc_rounds, multi_process, processes, random_seed)
                 # 更新模型种子集合，重置模型
                 diffusion_model.reset(list(seeds))
-                avg_without = run_monte_carlo_diffusion(diffusion_model, round, multi_process, processes, seed)
+                avg_without = run_monte_carlo_diffusion(diffusion_model, mc_rounds, multi_process, processes, random_seed)
                 marginal_gain = avg_influence - avg_without
 
                 if marginal_gain > best_gain:
@@ -112,17 +112,17 @@ class CELFAlgorithm(BaseAlgorithm):
         super().__init__(graph, diffusion_model)
         self.diffusion_model_class = diffusion_model
 
-    def run(self, k: int, round: int, multi_process=False, processes=None, show_progress=True, seed: int = None):
+    def run(self, k: int, mc_rounds: int, multi_process=False, processes=None, show_progress=True, random_seed: int = None):
         """
         运行CELF算法选择影响力最大化种子节点。
 
         Args:
             k (int): 种子节点数量
-            round (int): 蒙特卡洛模拟次数
+            mc_rounds (int): 蒙特卡洛模拟次数
             multi_process (bool, optional): 是否启用多进程模式，默认为False
             processes (int, optional): 多进程模式下的进程数，为None时使用默认值
             show_progress (bool, optional): 是否显示进度条，默认为True
-            seed (int, optional): 模拟的随机数种子，默认为None
+            random_seed (int, optional): 随机数种子，默认为None（每次结果不同）
 
         Returns:
             list: 选择的种子节点列表
@@ -140,7 +140,7 @@ class CELFAlgorithm(BaseAlgorithm):
         diffusion_model = self.diffusion_model_class(self.graph, [])
         for node in init_pbar:
             diffusion_model.reset([node])
-            mg = run_monte_carlo_diffusion(diffusion_model, round, multi_process, processes, seed)
+            mg = run_monte_carlo_diffusion(diffusion_model, mc_rounds, multi_process, processes, random_seed)
             heap.append((-mg, node, 0))  # (负边际增益, 节点, 上次计算时种子集合大小)
         heapq.heapify(heap)
 
@@ -165,9 +165,9 @@ class CELFAlgorithm(BaseAlgorithm):
                 else:
                     # 重新计算该节点边际增益
                     diffusion_model.reset(list(seeds | {node}))
-                    avg_with = run_monte_carlo_diffusion(diffusion_model, round, multi_process, processes, seed)
+                    avg_with = run_monte_carlo_diffusion(diffusion_model, mc_rounds, multi_process, processes, random_seed)
                     diffusion_model.reset(list(seeds))
-                    avg_without = run_monte_carlo_diffusion(diffusion_model, round, multi_process, processes, seed)
+                    avg_without = run_monte_carlo_diffusion(diffusion_model, mc_rounds, multi_process, processes, random_seed)
                     marginal_gain = avg_with - avg_without
                     heapq.heappush(heap, (-marginal_gain, node, len(seeds)))  # 修复变量名
 

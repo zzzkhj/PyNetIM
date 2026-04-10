@@ -22,9 +22,9 @@ class BaseCallbackDiffusionModel(PyDiffusionModelBase):
         >>> from pynetim.diffusion_model import BaseCallbackDiffusionModel
         >>> 
         >>> class MyICModel(BaseCallbackDiffusionModel):
-        ...     def run_single_trial(self, seeds, rng_seed):
+        ...     def run_single_trial(self, seeds, random_seed):
         ...         import random
-        ...         random.seed(rng_seed)
+        ...         random.seed(random_seed)
         ...         activated = set(seeds)
         ...         current = list(seeds)
         ...         count = len(seeds)
@@ -44,13 +44,13 @@ class BaseCallbackDiffusionModel(PyDiffusionModelBase):
         ...         return count, activated, frequency
         ...
         >>> model = MyICModel(graph, {0, 1})
-        >>> avg = model.run_monte_carlo_diffusion(1000)
+        >>> avg = model.run_monte_carlo_diffusion(mc_rounds=1000, random_seed=42)
     """
     
     def run_single_trial(
         self,
         seeds: List[int],
-        rng_seed: int
+        random_seed: int
     ) -> Tuple[int, Set[int], List[int]]:
         """执行单次传播试验。
 
@@ -58,7 +58,7 @@ class BaseCallbackDiffusionModel(PyDiffusionModelBase):
 
         Args:
             seeds: 初始种子节点列表。
-            rng_seed: 随机数种子，用于确保结果可重现。
+            random_seed: 随机数种子，用于确保结果可重现。
 
         Returns:
             Tuple[int, Set[int], List[int]]: 包含三个元素的元组：
@@ -73,5 +73,5 @@ class BaseCallbackDiffusionModel(PyDiffusionModelBase):
             此方法会被 C++ 层回调，因此需要保持签名一致。
         """
         raise NotImplementedError(
-            f"{self.__class__.__name__} 必须实现 run_single_trial(seeds, rng_seed) 方法"
+            f"{self.__class__.__name__} 必须实现 run_single_trial(seeds, random_seed) 方法"
         )

@@ -1,8 +1,8 @@
 # PyNetIM
 
-[![PyPI version](https://badge.fury.io/py/pynetim.svg)](https://pypi.org/project/pynetim/)
-[![Python Version](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
-[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+[!\[PyPI version\](https://badge.fury.io/py/pynetim.svg null)](https://pypi.org/project/pynetim/)
+[!\[Python Version\](https://img.shields.io/badge/python-3.8+-blue.svg null)](https://www.python.org/downloads/)
+[!\[License\](https://img.shields.io/badge/license-MIT-green.svg null)](LICENSE)
 
 [PyNetIM](https://zzzkhj.github.io/PyNetIM/) 是一个用于**社交网络影响力最大化（Influence Maximization, IM）问题**的 Python 库，集成了多种经典算法与扩散模型，提供 **C++ 高性能后端**，适用于算法研究、性能对比与科研实验。
 
@@ -13,7 +13,9 @@
 PyNetIM 提供完整的影响力最大化解决方案：
 
 - **多种传播模型** - IC、LT、SI、SIR
-- **多种 IM 算法** - 启发式、模拟类、RIS 类、OPIM 类
+- **多种 IM 算法** - 启发式、模拟类、RIS  类
+- **评估指标** - 排名指标、影响力指标、种子质量指标、网络指标
+- **时间测量** - 装饰器、AlgorithmTimer、多次运行统计
 - **高性能 C++ 后端** - 比纯 Python 快 20-30 倍
 - **自定义模型支持** - 支持用户自定义传播模型
 - **简洁 API** - 一行代码完成复杂任务
@@ -27,6 +29,7 @@ pip install pynetim
 ```
 
 **系统要求：**
+
 - Python 3.8+（推荐 3.10+）
 - C++20 编译器（GCC 10+, Clang 10+, MSVC 19.28+）
 
@@ -114,25 +117,41 @@ activated = model.get_activated_nodes()
 
 ### 影响力最大化算法
 
-| 算法                        | 类型    | 特点       | 参考文献 |
-| ------------------------- | ----- | -------- | ------ |
-| `SingleDiscountAlgorithm` | 启发式   | 速度快      | - |
-| `DegreeDiscountAlgorithm` | 启发式   | 速度快，效果好  | - |
-| `GreedyAlgorithm`         | 模拟类   | 精度高，速度慢  | Kemper et al., 2003 |
-| `CELFAlgorithm`           | 模拟类   | 精度高，比贪婪快 | Leskovec et al., 2007 |
-| `CELFPlusAlgorithm`       | 模拟类   | CELF 优化版 | Goyal et al., WWW 2011 |
-| `BaseRISAlgorithm`        | RIS 类 | 基础反向影响采样 | Borgs et al., 2014 |
-| `IMMAlgorithm`            | RIS 类 | 大规模图首选   | Tang et al., SIGMOD 2015 |
-| `TIMAlgorithm`            | RIS 类 | 两阶段影响力估计 | Tang et al., 2014 |
-| `TIMPlusAlgorithm`        | RIS 类 | TIM 优化版  | Tang et al., 2014 |
-| `OPIMAlgorithm`           | OPIM 类 | 可证明近似保证  | Tang et al., SIGMOD 2018 |
-| `OPIMCAlgorithm`          | OPIM 类 | 自适应采样版本 | Tang et al., SIGMOD 2018 |
+| 算法                               | 类型     | 特点          | 参考文献                     |
+| -------------------------------- | ------ | ----------- | ------------------------ |
+| `DegreeCentralityAlgorithm`      | 启发式    | 度中心性，最快     | -                        |
+| `PageRankAlgorithm`              | 启发式    | 经典 PageRank | Brin & Page 1998         |
+| `VoteRankAlgorithm`              | 启发式    | 投票机制，避免聚集   | Zhang et al. 2016        |
+| `KShellDecompositionAlgorithm`   | 启发式    | K-shell 分解  | Kitsak et al. 2010       |
+| `BetweennessCentralityAlgorithm` | 启发式    | 介数中心性       | Freeman 1977             |
+| `ClosenessCentralityAlgorithm`   | 启发式    | 接近中心性       | Sabidussi 1966           |
+| `EigenvectorCentralityAlgorithm` | 启发式    | 特征向量中心性     | Bonacich 1972            |
+| `SingleDiscountAlgorithm`        | 启发式    | 速度快         | -                        |
+| `DegreeDiscountAlgorithm`        | 启发式    | 速度快，效果好     | -                        |
+| `GreedyAlgorithm`                | 模拟类    | 精度高，速度慢     | Kemper et al., 2003      |
+| `CELFAlgorithm`                  | 模拟类    | 精度高，比贪婪快    | Leskovec et al., 2007    |
+| `CELFPlusAlgorithm`              | 模拟类    | CELF 优化版    | Goyal et al., WWW 2011   |
+| `BaseRISAlgorithm`               | RIS 类  | 基础反向影响采样    | Borgs et al., 2014       |
+| `IMMAlgorithm`                   | RIS 类  | 大规模图首选      | Tang et al., SIGMOD 2015 |
+| `TIMAlgorithm`                   | RIS 类  | 两阶段影响力估计    | Tang et al., 2014        |
+| `TIMPlusAlgorithm`               | RIS 类  | TIM 优化版     | Tang et al., 2014        |
+| `OPIMAlgorithm`                  | OPIM 类 | 可证明近似保证     | Tang et al., SIGMOD 2018 |
+| `OPIMCAlgorithm`                 | OPIM 类 | 自适应采样版本     | Tang et al., SIGMOD 2018 |
 
 ```python
 from pynetim import DegreeDiscountAlgorithm, GreedyAlgorithm, IMMAlgorithm, OPIMCAlgorithm
+from pynetim.algorithms import PageRankAlgorithm, VoteRankAlgorithm
 
 # 启发式算法（快）
 algo = DegreeDiscountAlgorithm(graph)
+seeds = algo.run(k=10)
+
+# PageRank 算法
+algo = PageRankAlgorithm(graph, damping=0.85)
+seeds = algo.run(k=10)
+
+# VoteRank 算法（避免种子聚集）
+algo = VoteRankAlgorithm(graph)
 seeds = algo.run(k=10)
 
 # 模拟类算法（精确）
@@ -186,6 +205,56 @@ model = MyICModel(graph, {0, 1})
 avg = model.run_monte_carlo_diffusion(1000, num_processes=4)
 ```
 
+### 评估指标
+
+PyNetIM 提供完整的评估指标模块，用于评估影响力最大化算法的性能：
+
+```python
+from pynetim.evaluation import (
+    kendall_tau,
+    monotonicity_score,
+    top_k_accuracy,
+    average_shortest_distance,
+    degree_statistics,
+)
+
+# 排名相关性评估
+tau, p = kendall_tau(ranking1, ranking2)
+
+# 单调性评估（区分节点重要性的能力）
+mono = monotonicity_score(importance_scores)
+
+# Top-K 准确率
+acc = top_k_accuracy(predicted_seeds, ground_truth_seeds, k=10)
+
+# 种子节点分布评估
+avg_dist = average_shortest_distance(graph, seeds)
+stats = degree_statistics(graph, seeds)
+```
+
+### 时间测量
+
+支持多种时间测量方式：
+
+```python
+from pynetim.timing import measure_time, AlgorithmTimer
+
+# 装饰器方式
+@measure_time
+def my_algorithm(graph, k):
+    return seeds
+
+seeds, runtime = my_algorithm(graph, k=10)
+
+# AlgorithmTimer 类
+timer = AlgorithmTimer(algorithm)
+seeds, runtime = timer.run(k=10, mc_rounds=1000, random_seed=42)
+
+# 多次运行统计
+stats = timer.run_multiple(k=10, num_runs=5)
+print(f"Mean: {stats['mean']:.4f}s, Std: {stats['std']:.4f}s")
+```
+
 ***
 
 ## 性能对比
@@ -222,13 +291,29 @@ src/pynetim/
 │   ├── DegreeDiscountAlgorithm
 │   ├── GreedyAlgorithm
 │   ├── CELFAlgorithm
-│   ├── ris/                  # RIS 类算法
-│   │   ├── BaseRISAlgorithm
-│   │   ├── IMMAlgorithm
-│   │   ├── TIMAlgorithm
-│   │   ├── TIMPlusAlgorithm
-│   │   ├── OPIMAlgorithm
-│   │   └── OPIMCAlgorithm
+│   ├── heuristic/            # 启发式算法
+│   │   ├── DegreeCentralityAlgorithm
+│   │   ├── PageRankAlgorithm
+│   │   ├── VoteRankAlgorithm
+│   │   ├── KShellDecompositionAlgorithm
+│   │   ├── BetweennessCentralityAlgorithm
+│   │   ├── ClosenessCentralityAlgorithm
+│   │   └── EigenvectorCentralityAlgorithm
+│   └── ris/                  # RIS 类算法
+│       ├── BaseRISAlgorithm
+│       ├── IMMAlgorithm
+│       ├── TIMAlgorithm
+│       ├── TIMPlusAlgorithm
+│       ├── OPIMAlgorithm
+│       └── OPIMCAlgorithm
+├── evaluation/               # 评估指标
+│   ├── ranking_metrics       # 排名指标
+│   ├── influence_metrics     # 影响力指标
+│   ├── seed_quality_metrics  # 种子质量指标
+│   └── network_metrics       # 网络指标
+├── timing/                   # 时间测量
+│   ├── measure_time          # 装饰器
+│   └── AlgorithmTimer        # 计时器类
 ├── utils/                    # 工具函数
 └── py/                       # Python 实现（维护模式）
 ```
@@ -275,3 +360,4 @@ python tests/test_diffusion_comparison.py
 
 - **TraeAI** - 提供了强大的 AI 辅助开发环境，显著提升了代码开发效率和问题解决能力
 - **GLM-5** - 智谱 AI 大语言模型，在代码开发、调试优化和文档编写过程中提供了重要帮助
+
