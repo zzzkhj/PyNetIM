@@ -42,10 +42,10 @@
               <p class="caption" role="heading"><span class="caption-text">目录:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">更新日志</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html#id50">版本说明</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html#id58">贡献指南</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html#id59">许可证</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html#id60">联系方式</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html#id57">版本说明</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html#id65">贡献指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html#id66">许可证</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html#id67">联系方式</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../api.html">API 参考</a></li>
 </ul>
 
@@ -100,9 +100,9 @@
 <span class="sd">        &gt;&gt;&gt; from pynetim.diffusion_model import BaseCallbackDiffusionModel</span>
 <span class="sd">        &gt;&gt;&gt; </span>
 <span class="sd">        &gt;&gt;&gt; class MyICModel(BaseCallbackDiffusionModel):</span>
-<span class="sd">        ...     def run_single_trial(self, seeds, rng_seed):</span>
+<span class="sd">        ...     def run_single_trial(self, seeds, random_seed):</span>
 <span class="sd">        ...         import random</span>
-<span class="sd">        ...         random.seed(rng_seed)</span>
+<span class="sd">        ...         random.seed(random_seed)</span>
 <span class="sd">        ...         activated = set(seeds)</span>
 <span class="sd">        ...         current = list(seeds)</span>
 <span class="sd">        ...         count = len(seeds)</span>
@@ -122,7 +122,7 @@
 <span class="sd">        ...         return count, activated, frequency</span>
 <span class="sd">        ...</span>
 <span class="sd">        &gt;&gt;&gt; model = MyICModel(graph, {0, 1})</span>
-<span class="sd">        &gt;&gt;&gt; avg = model.run_monte_carlo_diffusion(1000)</span>
+<span class="sd">        &gt;&gt;&gt; avg = model.run_monte_carlo_diffusion(mc_rounds=1000, random_seed=42)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     
 <div class="viewcode-block" id="BaseCallbackDiffusionModel.run_single_trial">
@@ -130,7 +130,7 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">run_single_trial</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">seeds</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
-        <span class="n">rng_seed</span><span class="p">:</span> <span class="nb">int</span>
+        <span class="n">random_seed</span><span class="p">:</span> <span class="nb">int</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Set</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;执行单次传播试验。</span>
 
@@ -138,7 +138,7 @@
 
 <span class="sd">        Args:</span>
 <span class="sd">            seeds: 初始种子节点列表。</span>
-<span class="sd">            rng_seed: 随机数种子，用于确保结果可重现。</span>
+<span class="sd">            random_seed: 随机数种子，用于确保结果可重现。</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            Tuple[int, Set[int], List[int]]: 包含三个元素的元组：</span>
@@ -153,7 +153,7 @@
 <span class="sd">            此方法会被 C++ 层回调，因此需要保持签名一致。</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2"> 必须实现 run_single_trial(seeds, rng_seed) 方法&quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2"> 必须实现 run_single_trial(seeds, random_seed) 方法&quot;</span>
         <span class="p">)</span></div>
 </div>
 

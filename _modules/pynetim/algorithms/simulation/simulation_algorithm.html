@@ -42,10 +42,10 @@
               <p class="caption" role="heading"><span class="caption-text">目录:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../changelog.html">更新日志</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../changelog.html#id50">版本说明</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../changelog.html#id58">贡献指南</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../changelog.html#id59">许可证</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../changelog.html#id60">联系方式</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changelog.html#id57">版本说明</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changelog.html#id65">贡献指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changelog.html#id66">许可证</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changelog.html#id67">联系方式</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../api.html">API 参考</a></li>
 </ul>
 
@@ -111,7 +111,7 @@
 <span class="sd">        &gt;&gt;&gt; </span>
 <span class="sd">        &gt;&gt;&gt; graph = IMGraph(edges, weights=0.3)</span>
 <span class="sd">        &gt;&gt;&gt; algo = GreedyAlgorithm(graph, diffusion_model=&#39;IC&#39;)</span>
-<span class="sd">        &gt;&gt;&gt; seeds = algo.run(k=10, rounds=1000, num_threads=4)</span>
+<span class="sd">        &gt;&gt;&gt; seeds = algo.run(k=10, mc_rounds=1000, use_multithread=True, num_threads=4)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">graph</span><span class="p">:</span> <span class="s1">&#39;IMGraph&#39;</span><span class="p">,</span> <span class="n">diffusion_model</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;IC&#39;</span><span class="p">):</span>
@@ -125,24 +125,31 @@
 
 <div class="viewcode-block" id="GreedyAlgorithm.run">
 <a class="viewcode-back" href="../../../../api.html#pynetim.algorithms.simulation.GreedyAlgorithm.run">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">rounds</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">,</span> <span class="n">num_threads</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span> 
-            <span class="n">show_progress</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">seed</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Set</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">mc_rounds</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">,</span> <span class="n">use_multithread</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> 
+            <span class="n">num_threads</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span> <span class="n">show_progress</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">random_seed</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Set</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;运行贪婪算法选择种子节点。</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            k: 需要选择的种子节点数量。</span>
-<span class="sd">            rounds: 每次计算边际增益的蒙特卡洛模拟次数，默认 1000。</span>
-<span class="sd">            num_threads: 多线程数，默认 4。</span>
+<span class="sd">            mc_rounds: 蒙特卡洛模拟次数，默认 1000。</span>
+<span class="sd">            use_multithread: 是否启用多线程，默认 False。</span>
+<span class="sd">            num_threads: 多线程数，默认 4。当 use_multithread=True 时必须大于 0。</span>
 <span class="sd">            show_progress: 是否显示进度条，默认 True。</span>
-<span class="sd">            seed: 模拟的随机种子，默认 None。</span>
+<span class="sd">            random_seed: 随机数种子，默认 None（每次结果不同）。</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            Set[int]: 选中的种子节点集合。</span>
 
+<span class="sd">        Raises:</span>
+<span class="sd">            ValueError: 当 use_multithread=True 但 num_threads &lt;= 0 时抛出。</span>
+
 <span class="sd">        Note:</span>
-<span class="sd">            时间复杂度为 O(k * n * rounds)，其中 n 为节点数。</span>
+<span class="sd">            时间复杂度为 O(k * n * mc_rounds)，其中 n 为节点数。</span>
 <span class="sd">            对于大规模图，建议使用 CELFAlgorithm 或 IMMAlgorithm。</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">use_multithread</span> <span class="ow">and</span> <span class="n">num_threads</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;启用多线程时，线程数(num_threads)必须大于0&quot;</span><span class="p">)</span>
+        
         <span class="n">seeds</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
         <span class="n">nodes</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">num_nodes</span><span class="p">))</span>
 
@@ -158,10 +165,12 @@
 
             <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">inner_pbar</span><span class="p">:</span>
                 <span class="n">model_with</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">diffusion_model</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="p">,</span> <span class="n">seeds</span> <span class="o">|</span> <span class="p">{</span><span class="n">node</span><span class="p">})</span>
-                <span class="n">avg_with</span> <span class="o">=</span> <span class="n">model_with</span><span class="o">.</span><span class="n">run_monte_carlo_diffusion</span><span class="p">(</span><span class="n">rounds</span><span class="p">,</span> <span class="n">num_threads</span><span class="p">)</span>
+                <span class="n">avg_with</span> <span class="o">=</span> <span class="n">model_with</span><span class="o">.</span><span class="n">run_monte_carlo_diffusion</span><span class="p">(</span>
+                    <span class="n">mc_rounds</span><span class="p">,</span> <span class="n">random_seed</span><span class="p">,</span> <span class="n">use_multithread</span><span class="p">,</span> <span class="n">num_threads</span><span class="p">)</span>
                 
                 <span class="n">model_without</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">diffusion_model</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="p">,</span> <span class="n">seeds</span><span class="p">)</span>
-                <span class="n">avg_without</span> <span class="o">=</span> <span class="n">model_without</span><span class="o">.</span><span class="n">run_monte_carlo_diffusion</span><span class="p">(</span><span class="n">rounds</span><span class="p">,</span> <span class="n">num_threads</span><span class="p">)</span>
+                <span class="n">avg_without</span> <span class="o">=</span> <span class="n">model_without</span><span class="o">.</span><span class="n">run_monte_carlo_diffusion</span><span class="p">(</span>
+                    <span class="n">mc_rounds</span><span class="p">,</span> <span class="n">random_seed</span><span class="p">,</span> <span class="n">use_multithread</span><span class="p">,</span> <span class="n">num_threads</span><span class="p">)</span>
                 
                 <span class="n">marginal_gain</span> <span class="o">=</span> <span class="n">avg_with</span> <span class="o">-</span> <span class="n">avg_without</span>
 
@@ -209,7 +218,7 @@
 <span class="sd">        &gt;&gt;&gt; </span>
 <span class="sd">        &gt;&gt;&gt; graph = IMGraph(edges, weights=0.3)</span>
 <span class="sd">        &gt;&gt;&gt; algo = CELFPlusAlgorithm(graph, diffusion_model=&#39;IC&#39;)</span>
-<span class="sd">        &gt;&gt;&gt; seeds = algo.run(k=10, rounds=1000, num_threads=4)</span>
+<span class="sd">        &gt;&gt;&gt; seeds = algo.run(k=10, mc_rounds=1000, use_multithread=True, num_threads=4)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">graph</span><span class="p">:</span> <span class="s1">&#39;IMGraph&#39;</span><span class="p">,</span> <span class="n">diffusion_model</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;IC&#39;</span><span class="p">):</span>
@@ -223,23 +232,30 @@
 
 <div class="viewcode-block" id="CELFPlusAlgorithm.run">
 <a class="viewcode-back" href="../../../../api.html#pynetim.algorithms.simulation.CELFPlusAlgorithm.run">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">rounds</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">,</span> <span class="n">num_threads</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span>
-            <span class="n">show_progress</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">seed</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Set</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">mc_rounds</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">,</span> <span class="n">use_multithread</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+            <span class="n">num_threads</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span> <span class="n">show_progress</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">random_seed</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Set</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;运行 CELF++ 算法选择种子节点。</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            k: 需要选择的种子节点数量。</span>
-<span class="sd">            rounds: 蒙特卡洛模拟次数，默认 1000。</span>
-<span class="sd">            num_threads: 多线程数，默认 4。</span>
+<span class="sd">            mc_rounds: 蒙特卡洛模拟次数，默认 1000。</span>
+<span class="sd">            use_multithread: 是否启用多线程，默认 False。</span>
+<span class="sd">            num_threads: 多线程数，默认 4。当 use_multithread=True 时必须大于 0。</span>
 <span class="sd">            show_progress: 是否显示进度条，默认 True。</span>
-<span class="sd">            seed: 模拟的随机数种子，默认 None。</span>
+<span class="sd">            random_seed: 随机数种子，默认 None（每次结果不同）。</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            Set[int]: 选中的种子节点集合。</span>
 
+<span class="sd">        Raises:</span>
+<span class="sd">            ValueError: 当 use_multithread=True 但 num_threads &lt;= 0 时抛出。</span>
+
 <span class="sd">        Note:</span>
 <span class="sd">            CELF++ 比 CELF 更快，同时保证相同的近似比。</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">use_multithread</span> <span class="ow">and</span> <span class="n">num_threads</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;启用多线程时，线程数(num_threads)必须大于0&quot;</span><span class="p">)</span>
+        
         <span class="n">seeds</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
         <span class="n">nodes</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">num_nodes</span><span class="p">))</span>
         
@@ -253,7 +269,8 @@
         
         <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">init_pbar</span><span class="p">:</span>
             <span class="n">model</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">diffusion_model</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="p">,</span> <span class="p">{</span><span class="n">node</span><span class="p">})</span>
-            <span class="n">mg1</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">run_monte_carlo_diffusion</span><span class="p">(</span><span class="n">rounds</span><span class="p">,</span> <span class="n">num_threads</span><span class="p">)</span>
+            <span class="n">mg1</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">run_monte_carlo_diffusion</span><span class="p">(</span>
+                <span class="n">mc_rounds</span><span class="p">,</span> <span class="n">random_seed</span><span class="p">,</span> <span class="n">use_multithread</span><span class="p">,</span> <span class="n">num_threads</span><span class="p">)</span>
             <span class="n">flag</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
         
         <span class="n">prev_best</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">mg1</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">mg1</span><span class="o">.</span><span class="n">get</span><span class="p">)</span>
@@ -261,7 +278,8 @@
         <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">node_list</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">node</span> <span class="o">!=</span> <span class="n">prev_best</span><span class="p">:</span>
                 <span class="n">model</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">diffusion_model</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="p">,</span> <span class="p">{</span><span class="n">prev_best</span><span class="p">,</span> <span class="n">node</span><span class="p">})</span>
-                <span class="n">mg2</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">run_monte_carlo_diffusion</span><span class="p">(</span><span class="n">rounds</span><span class="p">,</span> <span class="n">num_threads</span><span class="p">)</span>
+                <span class="n">mg2</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">run_monte_carlo_diffusion</span><span class="p">(</span>
+                    <span class="n">mc_rounds</span><span class="p">,</span> <span class="n">random_seed</span><span class="p">,</span> <span class="n">use_multithread</span><span class="p">,</span> <span class="n">num_threads</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">mg2</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">=</span> <span class="n">mg1</span><span class="p">[</span><span class="n">node</span><span class="p">]</span>
         
@@ -293,19 +311,23 @@
                         <span class="n">new_mg1</span> <span class="o">=</span> <span class="n">mg2_val</span>
                     <span class="k">else</span><span class="p">:</span>
                         <span class="n">model_with</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">diffusion_model</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="p">,</span> <span class="n">seeds</span> <span class="o">|</span> <span class="p">{</span><span class="n">node</span><span class="p">})</span>
-                        <span class="n">avg_with</span> <span class="o">=</span> <span class="n">model_with</span><span class="o">.</span><span class="n">run_monte_carlo_diffusion</span><span class="p">(</span><span class="n">rounds</span><span class="p">,</span> <span class="n">num_threads</span><span class="p">)</span>
+                        <span class="n">avg_with</span> <span class="o">=</span> <span class="n">model_with</span><span class="o">.</span><span class="n">run_monte_carlo_diffusion</span><span class="p">(</span>
+                            <span class="n">mc_rounds</span><span class="p">,</span> <span class="n">random_seed</span><span class="p">,</span> <span class="n">use_multithread</span><span class="p">,</span> <span class="n">num_threads</span><span class="p">)</span>
                         
                         <span class="n">model_without</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">diffusion_model</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="p">,</span> <span class="n">seeds</span><span class="p">)</span>
-                        <span class="n">avg_without</span> <span class="o">=</span> <span class="n">model_without</span><span class="o">.</span><span class="n">run_monte_carlo_diffusion</span><span class="p">(</span><span class="n">rounds</span><span class="p">,</span> <span class="n">num_threads</span><span class="p">)</span>
+                        <span class="n">avg_without</span> <span class="o">=</span> <span class="n">model_without</span><span class="o">.</span><span class="n">run_monte_carlo_diffusion</span><span class="p">(</span>
+                            <span class="n">mc_rounds</span><span class="p">,</span> <span class="n">random_seed</span><span class="p">,</span> <span class="n">use_multithread</span><span class="p">,</span> <span class="n">num_threads</span><span class="p">)</span>
                         
                         <span class="n">new_mg1</span> <span class="o">=</span> <span class="n">avg_with</span> <span class="o">-</span> <span class="n">avg_without</span>
                     
                     <span class="k">if</span> <span class="n">prev_best</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">prev_best</span> <span class="o">!=</span> <span class="n">node</span><span class="p">:</span>
                         <span class="n">model_with</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">diffusion_model</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="p">,</span> <span class="n">seeds</span> <span class="o">|</span> <span class="p">{</span><span class="n">prev_best</span><span class="p">,</span> <span class="n">node</span><span class="p">})</span>
-                        <span class="n">avg_with</span> <span class="o">=</span> <span class="n">model_with</span><span class="o">.</span><span class="n">run_monte_carlo_diffusion</span><span class="p">(</span><span class="n">rounds</span><span class="p">,</span> <span class="n">num_threads</span><span class="p">)</span>
+                        <span class="n">avg_with</span> <span class="o">=</span> <span class="n">model_with</span><span class="o">.</span><span class="n">run_monte_carlo_diffusion</span><span class="p">(</span>
+                            <span class="n">mc_rounds</span><span class="p">,</span> <span class="n">random_seed</span><span class="p">,</span> <span class="n">use_multithread</span><span class="p">,</span> <span class="n">num_threads</span><span class="p">)</span>
                         
                         <span class="n">model_without</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">diffusion_model</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="p">,</span> <span class="n">seeds</span> <span class="o">|</span> <span class="p">{</span><span class="n">prev_best</span><span class="p">})</span>
-                        <span class="n">avg_without</span> <span class="o">=</span> <span class="n">model_without</span><span class="o">.</span><span class="n">run_monte_carlo_diffusion</span><span class="p">(</span><span class="n">rounds</span><span class="p">,</span> <span class="n">num_threads</span><span class="p">)</span>
+                        <span class="n">avg_without</span> <span class="o">=</span> <span class="n">model_without</span><span class="o">.</span><span class="n">run_monte_carlo_diffusion</span><span class="p">(</span>
+                            <span class="n">mc_rounds</span><span class="p">,</span> <span class="n">random_seed</span><span class="p">,</span> <span class="n">use_multithread</span><span class="p">,</span> <span class="n">num_threads</span><span class="p">)</span>
                         
                         <span class="n">new_mg2</span> <span class="o">=</span> <span class="n">avg_with</span> <span class="o">-</span> <span class="n">avg_without</span>
                     <span class="k">else</span><span class="p">:</span>
@@ -350,7 +372,7 @@
 <span class="sd">        &gt;&gt;&gt; </span>
 <span class="sd">        &gt;&gt;&gt; graph = IMGraph(edges, weights=0.3)</span>
 <span class="sd">        &gt;&gt;&gt; algo = CELFAlgorithm(graph, diffusion_model=&#39;IC&#39;)</span>
-<span class="sd">        &gt;&gt;&gt; seeds = algo.run(k=10, rounds=1000, num_threads=4)</span>
+<span class="sd">        &gt;&gt;&gt; seeds = algo.run(k=10, mc_rounds=1000, use_multithread=True, num_threads=4)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">graph</span><span class="p">:</span> <span class="s1">&#39;IMGraph&#39;</span><span class="p">,</span> <span class="n">diffusion_model</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;IC&#39;</span><span class="p">):</span>
@@ -364,23 +386,30 @@
 
 <div class="viewcode-block" id="CELFAlgorithm.run">
 <a class="viewcode-back" href="../../../../api.html#pynetim.algorithms.simulation.CELFAlgorithm.run">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">rounds</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">,</span> <span class="n">num_threads</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span>
-            <span class="n">show_progress</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">seed</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Set</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">mc_rounds</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">,</span> <span class="n">use_multithread</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+            <span class="n">num_threads</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span> <span class="n">show_progress</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">random_seed</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Set</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;运行 CELF 算法选择种子节点。</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            k: 需要选择的种子节点数量。</span>
-<span class="sd">            rounds: 蒙特卡洛模拟次数，默认 1000。</span>
-<span class="sd">            num_threads: 多线程数，默认 4。</span>
+<span class="sd">            mc_rounds: 蒙特卡洛模拟次数，默认 1000。</span>
+<span class="sd">            use_multithread: 是否启用多线程，默认 False。</span>
+<span class="sd">            num_threads: 多线程数，默认 4。当 use_multithread=True 时必须大于 0。</span>
 <span class="sd">            show_progress: 是否显示进度条，默认 True。</span>
-<span class="sd">            seed: 模拟的随机数种子，默认 None。</span>
+<span class="sd">            random_seed: 随机数种子，默认 None（每次结果不同）。</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            Set[int]: 选中的种子节点集合。</span>
 
+<span class="sd">        Raises:</span>
+<span class="sd">            ValueError: 当 use_multithread=True 但 num_threads &lt;= 0 时抛出。</span>
+
 <span class="sd">        Note:</span>
 <span class="sd">            利用子模特性，CELF 比贪婪算法快 2-7 倍，同时保证相同的近似比。</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">use_multithread</span> <span class="ow">and</span> <span class="n">num_threads</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;启用多线程时，线程数(num_threads)必须大于0&quot;</span><span class="p">)</span>
+        
         <span class="n">seeds</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
         <span class="n">nodes</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">num_nodes</span><span class="p">))</span>
         <span class="n">heap</span> <span class="o">=</span> <span class="p">[]</span>
@@ -390,7 +419,7 @@
 
         <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">init_pbar</span><span class="p">:</span>
             <span class="n">model</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">diffusion_model</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="p">,</span> <span class="p">{</span><span class="n">node</span><span class="p">})</span>
-            <span class="n">mg</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">run_monte_carlo_diffusion</span><span class="p">(</span><span class="n">rounds</span><span class="p">,</span> <span class="n">num_threads</span><span class="p">)</span>
+            <span class="n">mg</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">run_monte_carlo_diffusion</span><span class="p">(</span><span class="n">mc_rounds</span><span class="p">,</span> <span class="n">random_seed</span><span class="p">,</span> <span class="n">use_multithread</span><span class="p">,</span> <span class="n">num_threads</span><span class="p">)</span>
             <span class="n">heap</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="o">-</span><span class="n">mg</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
 
         <span class="n">heapq</span><span class="o">.</span><span class="n">heapify</span><span class="p">(</span><span class="n">heap</span><span class="p">)</span>
@@ -408,10 +437,12 @@
                     <span class="k">break</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="n">model_with</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">diffusion_model</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="p">,</span> <span class="n">seeds</span> <span class="o">|</span> <span class="p">{</span><span class="n">node</span><span class="p">})</span>
-                    <span class="n">avg_with</span> <span class="o">=</span> <span class="n">model_with</span><span class="o">.</span><span class="n">run_monte_carlo_diffusion</span><span class="p">(</span><span class="n">rounds</span><span class="p">,</span> <span class="n">num_threads</span><span class="p">)</span>
+                    <span class="n">avg_with</span> <span class="o">=</span> <span class="n">model_with</span><span class="o">.</span><span class="n">run_monte_carlo_diffusion</span><span class="p">(</span>
+                        <span class="n">mc_rounds</span><span class="p">,</span> <span class="n">random_seed</span><span class="p">,</span> <span class="n">use_multithread</span><span class="p">,</span> <span class="n">num_threads</span><span class="p">)</span>
                     
                     <span class="n">model_without</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">diffusion_model</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="p">,</span> <span class="n">seeds</span><span class="p">)</span>
-                    <span class="n">avg_without</span> <span class="o">=</span> <span class="n">model_without</span><span class="o">.</span><span class="n">run_monte_carlo_diffusion</span><span class="p">(</span><span class="n">rounds</span><span class="p">,</span> <span class="n">num_threads</span><span class="p">)</span>
+                    <span class="n">avg_without</span> <span class="o">=</span> <span class="n">model_without</span><span class="o">.</span><span class="n">run_monte_carlo_diffusion</span><span class="p">(</span>
+                        <span class="n">mc_rounds</span><span class="p">,</span> <span class="n">random_seed</span><span class="p">,</span> <span class="n">use_multithread</span><span class="p">,</span> <span class="n">num_threads</span><span class="p">)</span>
                     
                     <span class="n">marginal_gain</span> <span class="o">=</span> <span class="n">avg_with</span> <span class="o">-</span> <span class="n">avg_without</span>
                     <span class="n">heapq</span><span class="o">.</span><span class="n">heappush</span><span class="p">(</span><span class="n">heap</span><span class="p">,</span> <span class="p">(</span><span class="o">-</span><span class="n">marginal_gain</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">seeds</span><span class="p">)))</span>

@@ -42,10 +42,10 @@
               <p class="caption" role="heading"><span class="caption-text">目录:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../changelog.html">更新日志</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../changelog.html#id50">版本说明</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../changelog.html#id58">贡献指南</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../changelog.html#id59">许可证</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../changelog.html#id60">联系方式</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changelog.html#id57">版本说明</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changelog.html#id65">贡献指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changelog.html#id66">许可证</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changelog.html#id67">联系方式</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../api.html">API 参考</a></li>
 </ul>
 
@@ -111,17 +111,17 @@
 
 <div class="viewcode-block" id="GreedyAlgorithm.run">
 <a class="viewcode-back" href="../../../../api.html#pynetim.py.algorithms.GreedyAlgorithm.run">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">round</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">multi_process</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">processes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">show_progress</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">seed</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">mc_rounds</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">multi_process</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">processes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">show_progress</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">random_seed</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        运行贪婪算法选择影响力最大化种子节点。</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            k (int): 种子节点数量</span>
-<span class="sd">            round (int): 每次计算边际增益的蒙特卡洛模拟次数</span>
+<span class="sd">            mc_rounds (int): 每次计算边际增益的蒙特卡洛模拟次数</span>
 <span class="sd">            multi_process (bool, optional): 是否启用多进程模式，默认为False</span>
 <span class="sd">            processes (int, optional): 多进程模式下的进程数，为None时使用默认值</span>
 <span class="sd">            show_progress (bool, optional): 是否显示进度条，默认为True</span>
-<span class="sd">            seed (int, optional): 模拟的随机种子，默认为None</span>
+<span class="sd">            random_seed (int, optional): 随机数种子，默认为None（每次结果不同）</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            list: 选择的种子节点列表</span>
@@ -145,10 +145,10 @@
             <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">inner_pbar</span><span class="p">:</span>
                 <span class="c1"># 更新模型种子集合，重置模型</span>
                 <span class="n">diffusion_model</span><span class="o">.</span><span class="n">reset</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">seeds</span> <span class="o">|</span> <span class="p">{</span><span class="n">node</span><span class="p">}))</span>
-                <span class="n">avg_influence</span> <span class="o">=</span> <span class="n">run_monte_carlo_diffusion</span><span class="p">(</span><span class="n">diffusion_model</span><span class="p">,</span> <span class="nb">round</span><span class="p">,</span> <span class="n">multi_process</span><span class="p">,</span> <span class="n">processes</span><span class="p">,</span> <span class="n">seed</span><span class="p">)</span>
+                <span class="n">avg_influence</span> <span class="o">=</span> <span class="n">run_monte_carlo_diffusion</span><span class="p">(</span><span class="n">diffusion_model</span><span class="p">,</span> <span class="n">mc_rounds</span><span class="p">,</span> <span class="n">multi_process</span><span class="p">,</span> <span class="n">processes</span><span class="p">,</span> <span class="n">random_seed</span><span class="p">)</span>
                 <span class="c1"># 更新模型种子集合，重置模型</span>
                 <span class="n">diffusion_model</span><span class="o">.</span><span class="n">reset</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">seeds</span><span class="p">))</span>
-                <span class="n">avg_without</span> <span class="o">=</span> <span class="n">run_monte_carlo_diffusion</span><span class="p">(</span><span class="n">diffusion_model</span><span class="p">,</span> <span class="nb">round</span><span class="p">,</span> <span class="n">multi_process</span><span class="p">,</span> <span class="n">processes</span><span class="p">,</span> <span class="n">seed</span><span class="p">)</span>
+                <span class="n">avg_without</span> <span class="o">=</span> <span class="n">run_monte_carlo_diffusion</span><span class="p">(</span><span class="n">diffusion_model</span><span class="p">,</span> <span class="n">mc_rounds</span><span class="p">,</span> <span class="n">multi_process</span><span class="p">,</span> <span class="n">processes</span><span class="p">,</span> <span class="n">random_seed</span><span class="p">)</span>
                 <span class="n">marginal_gain</span> <span class="o">=</span> <span class="n">avg_influence</span> <span class="o">-</span> <span class="n">avg_without</span>
 
                 <span class="k">if</span> <span class="n">marginal_gain</span> <span class="o">&gt;</span> <span class="n">best_gain</span><span class="p">:</span>
@@ -198,17 +198,17 @@
 
 <div class="viewcode-block" id="CELFAlgorithm.run">
 <a class="viewcode-back" href="../../../../api.html#pynetim.py.algorithms.CELFAlgorithm.run">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">round</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">multi_process</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">processes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">show_progress</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">seed</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">mc_rounds</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">multi_process</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">processes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">show_progress</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">random_seed</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        运行CELF算法选择影响力最大化种子节点。</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            k (int): 种子节点数量</span>
-<span class="sd">            round (int): 蒙特卡洛模拟次数</span>
+<span class="sd">            mc_rounds (int): 蒙特卡洛模拟次数</span>
 <span class="sd">            multi_process (bool, optional): 是否启用多进程模式，默认为False</span>
 <span class="sd">            processes (int, optional): 多进程模式下的进程数，为None时使用默认值</span>
 <span class="sd">            show_progress (bool, optional): 是否显示进度条，默认为True</span>
-<span class="sd">            seed (int, optional): 模拟的随机数种子，默认为None</span>
+<span class="sd">            random_seed (int, optional): 随机数种子，默认为None（每次结果不同）</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            list: 选择的种子节点列表</span>
@@ -226,7 +226,7 @@
         <span class="n">diffusion_model</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">diffusion_model_class</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="p">,</span> <span class="p">[])</span>
         <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">init_pbar</span><span class="p">:</span>
             <span class="n">diffusion_model</span><span class="o">.</span><span class="n">reset</span><span class="p">([</span><span class="n">node</span><span class="p">])</span>
-            <span class="n">mg</span> <span class="o">=</span> <span class="n">run_monte_carlo_diffusion</span><span class="p">(</span><span class="n">diffusion_model</span><span class="p">,</span> <span class="nb">round</span><span class="p">,</span> <span class="n">multi_process</span><span class="p">,</span> <span class="n">processes</span><span class="p">,</span> <span class="n">seed</span><span class="p">)</span>
+            <span class="n">mg</span> <span class="o">=</span> <span class="n">run_monte_carlo_diffusion</span><span class="p">(</span><span class="n">diffusion_model</span><span class="p">,</span> <span class="n">mc_rounds</span><span class="p">,</span> <span class="n">multi_process</span><span class="p">,</span> <span class="n">processes</span><span class="p">,</span> <span class="n">random_seed</span><span class="p">)</span>
             <span class="n">heap</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="o">-</span><span class="n">mg</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>  <span class="c1"># (负边际增益, 节点, 上次计算时种子集合大小)</span>
         <span class="n">heapq</span><span class="o">.</span><span class="n">heapify</span><span class="p">(</span><span class="n">heap</span><span class="p">)</span>
 
@@ -251,9 +251,9 @@
                 <span class="k">else</span><span class="p">:</span>
                     <span class="c1"># 重新计算该节点边际增益</span>
                     <span class="n">diffusion_model</span><span class="o">.</span><span class="n">reset</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">seeds</span> <span class="o">|</span> <span class="p">{</span><span class="n">node</span><span class="p">}))</span>
-                    <span class="n">avg_with</span> <span class="o">=</span> <span class="n">run_monte_carlo_diffusion</span><span class="p">(</span><span class="n">diffusion_model</span><span class="p">,</span> <span class="nb">round</span><span class="p">,</span> <span class="n">multi_process</span><span class="p">,</span> <span class="n">processes</span><span class="p">,</span> <span class="n">seed</span><span class="p">)</span>
+                    <span class="n">avg_with</span> <span class="o">=</span> <span class="n">run_monte_carlo_diffusion</span><span class="p">(</span><span class="n">diffusion_model</span><span class="p">,</span> <span class="n">mc_rounds</span><span class="p">,</span> <span class="n">multi_process</span><span class="p">,</span> <span class="n">processes</span><span class="p">,</span> <span class="n">random_seed</span><span class="p">)</span>
                     <span class="n">diffusion_model</span><span class="o">.</span><span class="n">reset</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">seeds</span><span class="p">))</span>
-                    <span class="n">avg_without</span> <span class="o">=</span> <span class="n">run_monte_carlo_diffusion</span><span class="p">(</span><span class="n">diffusion_model</span><span class="p">,</span> <span class="nb">round</span><span class="p">,</span> <span class="n">multi_process</span><span class="p">,</span> <span class="n">processes</span><span class="p">,</span> <span class="n">seed</span><span class="p">)</span>
+                    <span class="n">avg_without</span> <span class="o">=</span> <span class="n">run_monte_carlo_diffusion</span><span class="p">(</span><span class="n">diffusion_model</span><span class="p">,</span> <span class="n">mc_rounds</span><span class="p">,</span> <span class="n">multi_process</span><span class="p">,</span> <span class="n">processes</span><span class="p">,</span> <span class="n">random_seed</span><span class="p">)</span>
                     <span class="n">marginal_gain</span> <span class="o">=</span> <span class="n">avg_with</span> <span class="o">-</span> <span class="n">avg_without</span>
                     <span class="n">heapq</span><span class="o">.</span><span class="n">heappush</span><span class="p">(</span><span class="n">heap</span><span class="p">,</span> <span class="p">(</span><span class="o">-</span><span class="n">marginal_gain</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">seeds</span><span class="p">)))</span>  <span class="c1"># 修复变量名</span>
 

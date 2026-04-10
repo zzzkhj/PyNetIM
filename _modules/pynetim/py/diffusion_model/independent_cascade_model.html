@@ -42,10 +42,10 @@
               <p class="caption" role="heading"><span class="caption-text">目录:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../changelog.html">更新日志</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../changelog.html#id50">版本说明</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../changelog.html#id58">贡献指南</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../changelog.html#id59">许可证</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../changelog.html#id60">联系方式</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changelog.html#id57">版本说明</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changelog.html#id65">贡献指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changelog.html#id66">许可证</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changelog.html#id67">联系方式</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../api.html">API 参考</a></li>
 </ul>
 
@@ -176,22 +176,22 @@
 
 <div class="viewcode-block" id="IndependentCascadeModel.run_monte_carlo_diffusion">
 <a class="viewcode-back" href="../../../../api.html#pynetim.py.diffusion_model.IndependentCascadeModel.run_monte_carlo_diffusion">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">run_monte_carlo_diffusion</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rounds</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">update_counts</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">multi_process</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-                                  <span class="n">processes</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">seed</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">run_monte_carlo_diffusion</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mc_rounds</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">update_counts</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">multi_process</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+                                  <span class="n">processes</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">random_seed</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        执行蒙特卡洛模拟扩散过程。</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            rounds (int): 总模拟轮数</span>
+<span class="sd">            mc_rounds (int): 蒙特卡洛模拟总轮数</span>
 <span class="sd">            update_counts (int, optional): 更新轮次数，适用于SI模型等需要限制传播轮次的模型</span>
 <span class="sd">            multi_process (bool): 是否启用多进程模式，默认为False</span>
 <span class="sd">            processes (int, optional): 多进程模式下的进程数，为None时使用CPU核心数</span>
-<span class="sd">            seed (int, optional): 模拟时的随机种子</span>
+<span class="sd">            random_seed (int, optional): 模拟时的随机种子，默认为None（每次结果不同）</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            float: 所有模拟轮次的平均激活节点数</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">run_monte_carlo_diffusion</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rounds</span><span class="p">,</span> <span class="n">update_counts</span><span class="p">,</span> <span class="n">multi_process</span><span class="p">,</span> <span class="n">processes</span><span class="p">,</span> <span class="n">seed</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="n">run_monte_carlo_diffusion</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mc_rounds</span><span class="p">,</span> <span class="n">update_counts</span><span class="p">,</span> <span class="n">multi_process</span><span class="p">,</span> <span class="n">processes</span><span class="p">,</span> <span class="n">random_seed</span><span class="p">)</span></div>
 
 
 

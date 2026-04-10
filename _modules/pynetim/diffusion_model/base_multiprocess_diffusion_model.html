@@ -42,10 +42,10 @@
               <p class="caption" role="heading"><span class="caption-text">目录:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">更新日志</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html#id50">版本说明</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html#id58">贡献指南</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html#id59">许可证</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html#id60">联系方式</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html#id57">版本说明</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html#id65">贡献指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html#id66">许可证</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html#id67">联系方式</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../api.html">API 参考</a></li>
 </ul>
 
@@ -105,14 +105,14 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;执行单次试验的工作函数。</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        args: 包含 (seeds, rng_seed) 的元组。</span>
+<span class="sd">        args: 包含 (seeds, random_seed) 的元组。</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        单次试验的结果元组。</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">seeds</span><span class="p">,</span> <span class="n">rng_seed</span> <span class="o">=</span> <span class="n">args</span>
+    <span class="n">seeds</span><span class="p">,</span> <span class="n">random_seed</span> <span class="o">=</span> <span class="n">args</span>
     <span class="n">model</span> <span class="o">=</span> <span class="n">_global_model_class</span><span class="p">(</span><span class="n">_global_graph</span><span class="p">,</span> <span class="n">seeds</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">model</span><span class="o">.</span><span class="n">run_single_trial</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">seeds</span><span class="p">),</span> <span class="n">rng_seed</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">model</span><span class="o">.</span><span class="n">run_single_trial</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">seeds</span><span class="p">),</span> <span class="n">random_seed</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="BaseMultiprocessDiffusionModel">
@@ -133,9 +133,9 @@
 <span class="sd">        &gt;&gt;&gt; from pynetim.diffusion_model import BaseMultiprocessDiffusionModel</span>
 <span class="sd">        &gt;&gt;&gt; </span>
 <span class="sd">        &gt;&gt;&gt; class MyICModel(BaseMultiprocessDiffusionModel):</span>
-<span class="sd">        ...     def run_single_trial(self, seeds, rng_seed):</span>
+<span class="sd">        ...     def run_single_trial(self, seeds, random_seed):</span>
 <span class="sd">        ...         import random</span>
-<span class="sd">        ...         random.seed(rng_seed)</span>
+<span class="sd">        ...         random.seed(random_seed)</span>
 <span class="sd">        ...         activated = set(seeds)</span>
 <span class="sd">        ...         current = list(seeds)</span>
 <span class="sd">        ...         count = len(seeds)</span>
@@ -155,7 +155,7 @@
 <span class="sd">        ...         return count, activated, frequency</span>
 <span class="sd">        ...</span>
 <span class="sd">        &gt;&gt;&gt; model = MyICModel(graph, {0, 1})</span>
-<span class="sd">        &gt;&gt;&gt; avg = model.run_monte_carlo_diffusion(1000, num_processes=4)</span>
+<span class="sd">        &gt;&gt;&gt; avg = model.run_monte_carlo_diffusion(mc_rounds=1000, num_processes=4, random_seed=42)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">graph</span><span class="p">:</span> <span class="s1">&#39;IMGraph&#39;</span><span class="p">,</span> <span class="n">seeds</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="nb">int</span><span class="p">]):</span>
@@ -183,14 +183,14 @@
 <div class="viewcode-block" id="BaseMultiprocessDiffusionModel.run_single_trial">
 <a class="viewcode-back" href="../../../api.html#pynetim.diffusion_model.BaseMultiprocessDiffusionModel.run_single_trial">[docs]</a>
     <span class="nd">@abstractmethod</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">run_single_trial</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">seeds</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">rng_seed</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Set</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]]:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">run_single_trial</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">seeds</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">random_seed</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Set</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;执行单次传播试验。</span>
 
 <span class="sd">        子类必须重写此方法实现自定义传播逻辑。</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            seeds: 初始种子节点列表。</span>
-<span class="sd">            rng_seed: 随机数种子，用于确保结果可重现。</span>
+<span class="sd">            random_seed: 随机数种子，用于确保结果可重现。</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            Tuple[int, Set[int], List[int]]: 包含三个元素的元组：</span>
@@ -220,16 +220,18 @@
 <a class="viewcode-back" href="../../../api.html#pynetim.diffusion_model.BaseMultiprocessDiffusionModel.run_monte_carlo_diffusion">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">run_monte_carlo_diffusion</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> 
-        <span class="n">num_trials</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> 
+        <span class="n">mc_rounds</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> 
         <span class="n">num_processes</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">show_progress</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">show_progress</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">random_seed</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;运行蒙特卡洛模拟，计算平均影响力。</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            num_trials: 模拟次数，建议 1000-10000 次。</span>
+<span class="sd">            mc_rounds: 蒙特卡洛模拟次数，建议 1000-10000 次。</span>
 <span class="sd">            num_processes: 进程数，默认使用 CPU 核心数。</span>
 <span class="sd">            show_progress: 是否显示进度条（暂未实现）。</span>
+<span class="sd">            random_seed: 随机数种子，默认为 None（每次结果不同）。</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            float: 平均激活节点数。</span>
@@ -240,12 +242,15 @@
         <span class="k">if</span> <span class="n">num_processes</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">num_processes</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">cpu_count</span><span class="p">()</span>
         
-        <span class="n">base_seed</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="o">**</span><span class="mi">31</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
-        <span class="n">rng_seeds</span> <span class="o">=</span> <span class="p">[</span><span class="n">base_seed</span> <span class="o">+</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_trials</span><span class="p">)]</span>
+        <span class="k">if</span> <span class="n">random_seed</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">base_seed</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="o">**</span><span class="mi">31</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">base_seed</span> <span class="o">=</span> <span class="n">random_seed</span>
+        <span class="n">rng_seeds</span> <span class="o">=</span> <span class="p">[</span><span class="n">base_seed</span> <span class="o">+</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">mc_rounds</span><span class="p">)]</span>
         
-        <span class="k">if</span> <span class="n">num_processes</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">num_trials</span> <span class="o">&gt;=</span> <span class="n">num_processes</span> <span class="o">*</span> <span class="mi">10</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">num_processes</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">mc_rounds</span> <span class="o">&gt;=</span> <span class="n">num_processes</span> <span class="o">*</span> <span class="mi">10</span><span class="p">:</span>
             <span class="n">graph_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_graph_data</span><span class="p">()</span>
-            <span class="n">args_list</span> <span class="o">=</span> <span class="p">[(</span><span class="bp">self</span><span class="o">.</span><span class="n">seeds</span><span class="p">,</span> <span class="n">rng_seeds</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_trials</span><span class="p">)]</span>
+            <span class="n">args_list</span> <span class="o">=</span> <span class="p">[(</span><span class="bp">self</span><span class="o">.</span><span class="n">seeds</span><span class="p">,</span> <span class="n">rng_seeds</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">mc_rounds</span><span class="p">)]</span>
             
             <span class="n">ctx</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">get_context</span><span class="p">(</span><span class="s1">&#39;fork&#39;</span><span class="p">)</span>
             <span class="k">with</span> <span class="n">ctx</span><span class="o">.</span><span class="n">Pool</span><span class="p">(</span>
@@ -258,25 +263,27 @@
             <span class="n">total_activated</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">results</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">total_activated</span> <span class="o">=</span> <span class="mi">0</span>
-            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_trials</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">mc_rounds</span><span class="p">):</span>
                 <span class="n">count</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">run_single_trial</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">seeds</span><span class="p">),</span> <span class="n">rng_seeds</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
                 <span class="n">total_activated</span> <span class="o">+=</span> <span class="n">count</span>
         
-        <span class="k">return</span> <span class="n">total_activated</span> <span class="o">/</span> <span class="n">num_trials</span></div>
+        <span class="k">return</span> <span class="n">total_activated</span> <span class="o">/</span> <span class="n">mc_rounds</span></div>
 
     
 <div class="viewcode-block" id="BaseMultiprocessDiffusionModel.run_monte_carlo_with_frequency">
 <a class="viewcode-back" href="../../../api.html#pynetim.diffusion_model.BaseMultiprocessDiffusionModel.run_monte_carlo_with_frequency">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">run_monte_carlo_with_frequency</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> 
-        <span class="n">num_trials</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> 
-        <span class="n">num_processes</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">mc_rounds</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> 
+        <span class="n">num_processes</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">random_seed</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;运行蒙特卡洛模拟，返回平均影响力和激活频数。</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            num_trials: 模拟次数，建议 1000-10000 次。</span>
+<span class="sd">            mc_rounds: 蒙特卡洛模拟次数，建议 1000-10000 次。</span>
 <span class="sd">            num_processes: 进程数，默认使用 CPU 核心数。</span>
+<span class="sd">            random_seed: 随机数种子，默认为 None（每次结果不同）。</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            Tuple[float, List[int]]: 包含两个元素：</span>
@@ -286,12 +293,15 @@
         <span class="k">if</span> <span class="n">num_processes</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">num_processes</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">cpu_count</span><span class="p">()</span>
         
-        <span class="n">base_seed</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="o">**</span><span class="mi">31</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
-        <span class="n">rng_seeds</span> <span class="o">=</span> <span class="p">[</span><span class="n">base_seed</span> <span class="o">+</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_trials</span><span class="p">)]</span>
+        <span class="k">if</span> <span class="n">random_seed</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">base_seed</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="o">**</span><span class="mi">31</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">base_seed</span> <span class="o">=</span> <span class="n">random_seed</span>
+        <span class="n">rng_seeds</span> <span class="o">=</span> <span class="p">[</span><span class="n">base_seed</span> <span class="o">+</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">mc_rounds</span><span class="p">)]</span>
         
-        <span class="k">if</span> <span class="n">num_processes</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">num_trials</span> <span class="o">&gt;=</span> <span class="n">num_processes</span> <span class="o">*</span> <span class="mi">10</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">num_processes</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">mc_rounds</span> <span class="o">&gt;=</span> <span class="n">num_processes</span> <span class="o">*</span> <span class="mi">10</span><span class="p">:</span>
             <span class="n">graph_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_graph_data</span><span class="p">()</span>
-            <span class="n">args_list</span> <span class="o">=</span> <span class="p">[(</span><span class="bp">self</span><span class="o">.</span><span class="n">seeds</span><span class="p">,</span> <span class="n">rng_seeds</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_trials</span><span class="p">)]</span>
+            <span class="n">args_list</span> <span class="o">=</span> <span class="p">[(</span><span class="bp">self</span><span class="o">.</span><span class="n">seeds</span><span class="p">,</span> <span class="n">rng_seeds</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">mc_rounds</span><span class="p">)]</span>
             
             <span class="n">ctx</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">get_context</span><span class="p">(</span><span class="s1">&#39;fork&#39;</span><span class="p">)</span>
             <span class="k">with</span> <span class="n">ctx</span><span class="o">.</span><span class="n">Pool</span><span class="p">(</span>
@@ -309,13 +319,13 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="n">total_activated</span> <span class="o">=</span> <span class="mi">0</span>
             <span class="n">total_frequency</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_nodes</span>
-            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_trials</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">mc_rounds</span><span class="p">):</span>
                 <span class="n">count</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">freq</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">run_single_trial</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">seeds</span><span class="p">),</span> <span class="n">rng_seeds</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
                 <span class="n">total_activated</span> <span class="o">+=</span> <span class="n">count</span>
                 <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">f</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">freq</span><span class="p">):</span>
                     <span class="n">total_frequency</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">+=</span> <span class="n">f</span>
         
-        <span class="k">return</span> <span class="n">total_activated</span> <span class="o">/</span> <span class="n">num_trials</span><span class="p">,</span> <span class="n">total_frequency</span></div>
+        <span class="k">return</span> <span class="n">total_activated</span> <span class="o">/</span> <span class="n">mc_rounds</span><span class="p">,</span> <span class="n">total_frequency</span></div>
 </div>
 
 </pre></div>
