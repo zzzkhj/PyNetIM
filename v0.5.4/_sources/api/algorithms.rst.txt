@@ -1,0 +1,51 @@
+算法模块
+========
+
+基础类
+------
+
+.. automodule:: pynetim.algorithms.base_algorithm
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :special-members: __init__
+
+启发式算法
+----------
+
+.. automodule:: pynetim.algorithms.heuristic
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :inherited-members:
+   :special-members: __init__
+
+模拟类算法
+----------
+
+.. automodule:: pynetim.algorithms.simulation
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :inherited-members:
+   :special-members: __init__
+
+RIS 类算法
+----------
+
+.. automodule:: pynetim.algorithms.ris
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :inherited-members:
+   :special-members: __init__
+
+深度学习算法
+------------
+
+.. automodule:: pynetim.algorithms.deep_learning
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :inherited-members:
+   :special-members: __init__

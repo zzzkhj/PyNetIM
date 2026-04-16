@@ -1,0 +1,1117 @@
+更新日志
+========
+
+本文档记录 PyNetIM 项目的所有重要变更。
+
+格式基于 `Keep a Changelog <https://keepachangelog.com/>`_。
+
+[0.5.3] - 2026-04-16
+------------------------
+
+Bug 修复
+~~~~~~~~
+
+**跨平台编译问题**:
+
+* 修复 GitHub Actions 中 Linux/macOS 平台的构建失败问题
+* 修复 macOS ARM64 编译失败（移除不兼容的 -mavx2 编译选项）
+* 移除 C++20 ``<format>`` 依赖，改用 C++17 兼容的 ``std::ostringstream``
+
+**utils 模块参数签名显示问题**:
+
+PyBind11 自动生成的函数签名格式不符合 Python 类型提示规范，导致文档显示不正确。
+
+* 修复 ``generate_rr_sets`` 和 ``sample_rr_set_ic`` 函数的参数签名显示
+* 禁用 PyBind11 自动签名，在 docstring 中手动定义 Python 风格的类型提示
+
+改进
+~~~~
+
+**C++ 标准兼容性**:
+
+* C++ 标准要求从 C++20 降至 C++17
+* 编译器要求降低：GCC 8+, Clang 7+, MSVC 19.14+
+* 平台特定编译选项自动选择
+
+**深度学习模块重构**:
+
+* 新增 DRL 算法基类: ``BaseDRLAlgorithm``, ``BiGDNBaseAlgorithm``
+* 移除算法类冗余 ``train()`` 方法，训练功能统一由 Trainer 类提供
+* 移除算法类中的训练参数（gamma, epsilon, lr, target_update, n_steps, ntype 等）
+* 移除算法类中的 ``save_weights()`` 方法（推理阶段不需要）
+* Trainer 内部方法私有化（``select_action`` → ``_select_action`` 等）
+* 统一 ``device`` 参数默认值为 ``'auto'``
+* 重构 Trainer 参数，将配置参数从 ``train()`` 移到 ``__init__``
+* 统一 n_steps 参数命名（ToupleGDD 模块 ``n_step`` → ``n_steps``）
+
+文档更新
+~~~~~~~~
+
+* 修正 BiGDNS 使用说明（推理时不需要 teacher_path）
+* 添加预训练权重说明
+* 更新系统要求
+
+升级指南
+~~~~~~~~
+
+**API 变更**:
+
+此版本包含 API 变更，如果您使用了 BiGDN/BiGDNS 算法类的训练参数，需要修改代码。
+
+.. code-block:: python
+
+    # 旧代码（v0.5.2）
+    algo = BiGDNAlgorithm(
+        graph, num_features=64,
+        gamma=0.99, epsilon=1.0, lr=0.001,
+        target_update=100, n_steps=2, ntype='DQN',
+        device='auto', pretrained=True
+    )
+    algo.save_weights('weights.pth')
+
+    # 新代码（v0.5.3）
+    algo = BiGDNAlgorithm(
+        graph, num_features=64,
+        device='auto', pretrained=True
+    )
+    # save_weights 已移除，训练时使用 Trainer 保存权重
+
+[0.5.2] - 2026-04-16
+------------------------
+
+新增
+~~~~
+
+**深度学习影响力最大化算法模块**:
+
+新增 ``pynetim.algorithms.deep_learning`` 模块，集成基于深度强化学习的影响力最大化算法。
+
+* **ToupleGDDAlgorithm** - 三重门控图神经网络 + DQN (IEEE TCSS 2024)
+* **S2VDQNAlgorithm** - Structure2Vec + DQN (NeurIPS 2017)
+* **BiGDNAlgorithm** - 端到端图神经网络 + DQN (Expert Syst. Appl. 2025)
+* **BiGDNSAlgorithm** - BiGDN 学生模型，支持知识蒸馏
+
+**训练框架**:
+
+* ``ToupleGDDTrainer`` - ToupleGDD 训练器
+* ``S2VDQNTrainer`` - S2V-DQN 训练器
+* ``BiGDNTrainer`` - BiGDN 训练器
+* ``BiGDNNodeEncoderTrainer`` - BiGDN 节点编码器训练器
+
+**推理模式**:
+
+* 支持 topk 一次性选择和迭代选择两种推理模式
+* 预训练权重自动加载
+
+修复
+~~~~
+
+**pybind 绑定问题**:
+
+* 修复 pybind 算法绑定文件签名文档重复问题（IMM/TIM/OPIM/BaseRIS）
+* 修复 ``opim_algorithm.pyi`` 中 ``run()`` 方法多余的 ``mode`` 参数
+* 添加 SI/SIR 模型缺失的 ``set_beta()``, ``set_max_steps()``, ``set_gamma()`` 方法绑定
+* 添加 ``graph.pyi`` 缺失的 ``get_adj_list_py()`` 方法
+
+改进
+~~~~
+
+**错误提示**:
+
+* 所有 pybind 绑定添加友好的中文错误提示
+
+使用示例
+~~~~~~~~
+
+**推理使用**:
+
+.. code-block:: python
+
+    from pynetim.algorithms import ToupleGDDAlgorithm, S2VDQNAlgorithm
+
+    # 加载预训练模型进行推理
+    algo = ToupleGDDAlgorithm(graph, pretrained=True)
+    seeds = algo.run(k=10)
+
+    algo2 = S2VDQNAlgorithm(graph, pretrained=True)
+    seeds2 = algo2.run(k=10)
+
+**训练使用**:
+
+.. code-block:: python
+
+    from pynetim.algorithms import ToupleGDDTrainer
+
+    trainer = ToupleGDDTrainer(device='auto')
+    trainer.train(
+        graphs=[graph],
+        budget=10,
+        num_epochs=100,
+        save_path='model.ckpt'
+    )
+
+[0.5.1] - 2026-04-10
+------------------------
+
+新增
+~~~~
+
+**评估指标模块 (evaluation)**:
+
+新增完整的评估指标模块，提供影响力最大化算法的多种评估指标：
+
+* **排名指标 (ranking_metrics)**:
+  
+  - ``kendall_tau`` - Kendall's Tau 系数，评估两个排名的相关性
+  - ``spearman_correlation`` - Spearman 相关系数
+  - ``monotonicity_score`` - 单调性得分，评估算法区分节点重要性的能力
+  - ``ranking_distance`` - 排名距离（支持 Kendall、Spearman、Hamming）
+  - ``ranking_stability`` - 多次运行排名的稳定性
+
+* **影响力指标 (influence_metrics)**:
+  
+  - ``average_shortest_distance`` - 种子节点之间的平均最短距离（支持权重）
+  - ``top_k_accuracy`` - Top-K 准确率，评估预测种子与真实种子的重叠
+  - ``top_k_overlap`` - 两个排名在 Top-K 位置的重叠率
+
+* **种子质量指标 (seed_quality_metrics)**:
+  
+  - ``neighbor_coverage`` - 邻居覆盖率
+  - ``degree_statistics`` - 度统计信息（均值、最大、最小、标准差）
+  - ``degree_distribution`` - 度分布
+  - ``mean_centrality`` - 平均中心性
+  - ``seed_overlap`` - 种子集重叠率（Jaccard）
+  - ``seed_diversity`` - 种子多样性
+  - ``weight_statistics`` - 权重统计
+  - ``clustering_coefficient`` - 聚类系数
+
+* **网络指标 (network_metrics)**:
+  
+  - ``distribution_entropy`` - 分布熵
+  - ``local_clustering`` - 局部聚类系数
+  - ``reachability`` - 可达性
+
+**时间测量模块 (timing)**:
+
+新增时间测量工具，支持多种测量方式：
+
+* ``measure_time`` - 装饰器，测量函数运行时间
+* ``AlgorithmTimer`` - 算法计时器类，支持单次和多次运行统计
+* ``measure_runtime`` - 函数式测量运行时间
+* ``measure_runtime_multiple_runs`` - 多次运行统计
+* ``compare_algorithms_runtime`` - 比较多个算法的运行时间
+
+**工具函数 (utils)**:
+
+新增最短路径计算函数：
+
+* ``shortest_path_length`` - 计算两节点间最短路径（支持跳数和权重）
+* ``all_pairs_shortest_path_length`` - 计算节点对之间的最短路径
+* ``renumber_edges`` - 重新编号边列表节点
+
+**启发式算法**:
+
+新增 7 个经典影响力最大化启发式算法：
+
+* ``DegreeCentralityAlgorithm`` - 度中心性算法，最快
+* ``PageRankAlgorithm`` - 经典 PageRank 算法 (Brin & Page 1998)
+* ``VoteRankAlgorithm`` - 投票机制选择分散的影响力节点 (Zhang et al. 2016)
+* ``KShellDecompositionAlgorithm`` - K-shell 分解找到核心节点 (Kitsak et al. 2010)
+* ``BetweennessCentralityAlgorithm`` - 介数中心性算法 (Freeman 1977)
+* ``ClosenessCentralityAlgorithm`` - 接近中心性算法 (Sabidussi 1966)
+* ``EigenvectorCentralityAlgorithm`` - 特征向量中心性算法 (Bonacich 1972)
+
+API 变更
+~~~~~~~~
+
+**参数重命名**:
+
+为了避免与种子集 ``seeds`` 混淆，以下参数进行了重命名：
+
+* ``rounds`` → ``mc_rounds`` - 所有传播模型、算法
+* ``seed`` → ``random_seed`` - 所有传播模型、算法
+
+**随机种子默认值变更**:
+
+* 所有 ``random_seed`` 参数的默认值改为 ``None``，表示每次运行结果不同
+* 当 ``random_seed=None`` 时，每次运行产生不同的结果
+* 当 ``random_seed=固定值`` 时，结果可重现
+
+**多线程参数验证**:
+
+* 当 ``use_multithread=True`` 时，``num_threads`` 必须大于 0
+* 否则抛出中文错误：``启用多线程时，线程数(num_threads)必须大于0``
+
+统一接口
+~~~~~~~~
+
+**BaseCallbackDiffusionModel**:
+
+``run_single_trial`` 方法参数统一：
+
+.. code-block:: python
+
+    # 旧版本
+    def run_single_trial(self, seeds, rng_seed):
+        ...
+
+    # 新版本
+    def run_single_trial(self, seeds, random_seed):
+        ...
+
+**BaseMultiprocessDiffusionModel**:
+
+``run_single_trial`` 和 ``run_monte_carlo_diffusion`` 方法参数统一：
+
+.. code-block:: python
+
+    # 旧版本
+    def run_single_trial(self, seeds, rng_seed):
+        ...
+
+    def run_monte_carlo_diffusion(self, num_trials, num_processes=None):
+        ...
+
+    # 新版本
+    def run_single_trial(self, seeds, random_seed):
+        ...
+
+    def run_monte_carlo_diffusion(self, mc_rounds, num_processes=None, random_seed=None):
+        ...
+
+测试
+~~~~
+
+**新增测试脚本**:
+
+* ``test_evaluation.py`` - 评估指标和时间测量工具测试
+* ``test_params.py`` - 参数重命名和多线程验证测试
+* ``test_heuristic.py`` - 启发式算法测试和性能对比
+
+**测试覆盖**:
+
+* 所有评估指标函数测试
+* 时间测量工具测试
+* IC/LT/SI/SIR 模型参数验证
+* Greedy/CELF 算法参数验证
+* Python 回调模型参数验证
+* BaseCallbackDiffusionModel 参数验证
+* BaseMultiprocessDiffusionModel 参数验证
+* 多线程验证测试
+* random_seed=None 随机性测试
+* 所有新增启发式算法测试
+
+文档更新
+~~~~~~~~
+
+* 更新所有示例代码中的参数名
+* 更新类型提示文件 (.pyi)
+* 更新 API 文档
+* 新增评估模块文档
+* 新增时间测量模块文档
+* 新增启发式算法文档和参考文献
+
+使用示例
+~~~~~~~~
+
+**评估指标**:
+
+.. code-block:: python
+
+    from pynetim.evaluation import (
+        kendall_tau,
+        monotonicity_score,
+        top_k_accuracy,
+        average_shortest_distance,
+    )
+
+    # 排名相关性
+    tau, p = kendall_tau(ranking1, ranking2)
+
+    # 单调性（区分度）
+    mono = monotonicity_score(importance_scores)
+
+    # Top-K 准确率
+    acc = top_k_accuracy(predicted_seeds, ground_truth_seeds, k=10)
+
+    # 种子节点分布
+    avg_dist = average_shortest_distance(graph, seeds)
+
+**时间测量**:
+
+.. code-block:: python
+
+    from pynetim.timing import measure_time, AlgorithmTimer
+
+    # 装饰器方式
+    @measure_time
+    def my_algorithm(graph, k):
+        return seeds
+
+    seeds, runtime = my_algorithm(graph, k=10)
+
+    # AlgorithmTimer 类
+    timer = AlgorithmTimer(algorithm)
+    seeds, runtime = timer.run(k=10, mc_rounds=1000, random_seed=42)
+
+    # 多次运行统计
+    stats = timer.run_multiple(k=10, num_runs=5)
+
+**启发式算法**:
+
+.. code-block:: python
+
+    from pynetim.algorithms import (
+        DegreeCentralityAlgorithm,
+        PageRankAlgorithm,
+        VoteRankAlgorithm,
+    )
+
+    # 度中心性 - 最快
+    algo = DegreeCentralityAlgorithm(graph)
+    seeds = algo.run(k=10)
+
+    # PageRank - 经典算法
+    algo = PageRankAlgorithm(graph, damping=0.85)
+    seeds = algo.run(k=10)
+
+    # VoteRank - 避免种子聚集
+    algo = VoteRankAlgorithm(graph)
+    seeds = algo.run(k=10)
+
+[0.5.0] - 2026-04-07
+------------------------
+
+重大变更
+~~~~~~~~
+
+**模块结构扁平化**:
+
+* 将 ``src/pynetim/cpp/`` 下的所有内容移动到 ``src/pynetim/`` 主目录
+* 删除 ``cpp`` 子目录，C++ 模块直接作为主模块
+* 新的导入方式：
+
+.. code-block:: python
+
+    # 之前 (v0.4.5)
+    from pynetim.cpp.graph import IMGraphCpp
+    from pynetim.cpp.diffusion_model import IndependentCascadeModel
+    
+    # 现在 (v0.5.0)
+    from pynetim import IMGraph
+    from pynetim import IndependentCascadeModel
+
+**``pynetim.py`` 模块进入维护模式**:
+
+* 该模块不再添加新功能，仅进行维护和 bug 修复
+* 新功能和性能优化集中在 C++ 主模块 (``pynetim``)
+
+**``out_neighbors()`` 返回类型变更**:
+
+* 之前：返回 ``List[Edge]`` 对象，需要通过 ``edge.to`` 和 ``edge.weight`` 访问
+* 现在：直接返回 ``List[Tuple[int, float]]``，更简洁高效
+
+新增
+~~~~
+
+**影响力最大化算法模块 (pynetim.algorithms)**:
+
+* **启发式算法**:
+  
+  - ``SingleDiscountAlgorithm`` - 简单度折扣算法
+  - ``DegreeDiscountAlgorithm`` - 度折扣算法
+
+* **模拟类算法**:
+  
+  - ``GreedyAlgorithm`` - 贪婪算法
+  - ``CELFAlgorithm`` - CELF 优化算法
+  - ``CELFPlusAlgorithm`` - CELF++ 优化算法 (WWW 2011)
+
+* **RIS 类算法**:
+  
+  - ``BaseRISAlgorithm`` - 基础反向影响采样算法
+  - ``IMMAlgorithm`` - IMM 算法 (SIGMOD 2015)
+  - ``TIMAlgorithm`` - TIM 算法
+  - ``TIMPlusAlgorithm`` - TIM+ 算法
+
+* **OPIM 类算法 (SIGMOD 2018)**:
+  
+  - ``OPIMAlgorithm`` - Online Processing for Influence Maximization，使用训练集/验证集双采样提供可证明的近似保证
+  - ``OPIMCAlgorithm`` - OPIM-C 自适应采样版本，迭代增加采样数量直到达到 (1-1/e-ε) 近似保证
+
+**自定义传播模型支持**:
+
+* 新增 ``BaseCallbackDiffusionModel`` Python 抽象基类，位于 ``pynetim.diffusion_model`` 主模块
+* 新增 ``BaseMultiprocessDiffusionModel`` 抽象基类，支持真正的多进程并行
+* 用户只需实现 ``run_single_trial(seeds, rng_seed)`` 方法
+
+**中文输出支持**:
+
+* 所有算法的 verbose 输出信息已本地化为中文
+* 所有错误提示信息已本地化为中文
+* 包括 IMM、TIM、TIM+、OPIM、OPIM-C 等算法
+
+**类型提示改进**:
+
+* ``help()`` 现在显示清晰的类型提示
+* 所有 C++ 绑定模块的 docstring 都包含清晰的签名和参数说明
+
+修复
+~~~~
+
+**SIR/SI 模型参数验证**:
+
+* 移除 ``beta`` 和 ``gamma`` 参数的默认值，用户必须显式提供
+* 避免 ``gamma=0.0`` 与 C++ 层 ``(0,1]`` 范围要求的冲突
+
+**编译输出路径修复**:
+
+* 修复 C++ 模块编译输出路径，确保 ``.so`` 文件生成到正确的 ``algorithms/ris/`` 目录
+
+**图 API 改进**:
+
+* 新增 ``has_edge(u, v)`` 方法，检查边是否存在
+* ``get_edge_weight(u, v)`` 边不存在时抛出 ``RuntimeError``
+
+使用示例
+~~~~~~~~
+
+.. code-block:: python
+
+    from pynetim import IMGraph, IMMAlgorithm, OPIMCAlgorithm
+
+    # 创建图
+    graph = IMGraph(edges, weights=0.1, directed=True)
+
+    # IMM 算法
+    imm = IMMAlgorithm(graph, model='IC', epsilon=0.5, random_seed=42, verbose=True)
+    seeds = imm.run(k=5)
+    print(f"种子集: {seeds}")
+
+    # OPIM-C 算法
+    opimc = OPIMCAlgorithm(graph, model='IC', random_seed=42, verbose=True)
+    seeds = opimc.run(k=5, epsilon=0.3)
+    print(f"种子集: {seeds}")
+
+[0.4.5] - 2026-04-04
+------------------------
+
+新增
+~~~~
+
+**SI 和 SIR 扩散模型 (C++ 后端)**:
+
+* 新增 ``SusceptibleInfectedModel`` - SI 传播模型
+* 新增 ``SusceptibleInfectedRecoveredModel`` - SIR 传播模型
+* 支持参数设置：``beta``（感染概率）、``gamma``（恢复概率）、``max_steps``（最大步数）
+* 支持单次模拟和 Monte Carlo 多轮模拟
+* 支持多线程并行模拟
+* 支持激活节点记录和激活频率记录
+
+**Graph 构造函数支持统一权重**:
+
+* ``IMGraphCpp(num_nodes, edges, weights=1.0)`` - 默认所有边权重为 1.0
+* ``IMGraphCpp(num_nodes, edges, 0.3)`` - 所有边使用统一权重 0.3
+* ``IMGraphCpp(num_nodes, edges, [0.1, 0.2, ...])`` - 每条边使用各自的权重
+
+API 更新
+~~~~~~~~
+
+**SusceptibleInfectedModel**:
+
+* 构造函数：``SusceptibleInfectedModel(graph, seeds, beta=0.1, max_steps=100, record_activated=False, record_activation_frequency=False)``
+* ``set_beta(beta: float)`` - 设置感染概率
+* ``set_max_steps(max_steps: int)`` - 设置最大传播步数
+* ``run_single_simulation(seed=None) -> int`` - 单次模拟
+* ``run_monte_carlo_diffusion(rounds, seed=None, use_multithread=False, num_threads=0) -> float`` - Monte Carlo 模拟
+* ``get_activated_nodes() -> Set[int]`` - 获取激活节点集合
+* ``get_activation_frequency() -> List[int]`` - 获取激活频率
+
+**SusceptibleInfectedRecoveredModel**:
+
+* 构造函数：``SusceptibleInfectedRecoveredModel(graph, seeds, beta=0.1, gamma=0.1, record_activated=False, record_activation_frequency=False)``
+* ``set_beta(beta: float)`` - 设置感染概率
+* ``set_gamma(gamma: float)`` - 设置恢复概率
+* ``run_single_simulation(seed=None) -> int`` - 单次模拟
+* ``run_monte_carlo_diffusion(rounds, seed=None, use_multithread=False, num_threads=0) -> float`` - Monte Carlo 模拟
+* ``get_activated_nodes() -> Set[int]`` - 获取激活节点集合
+* ``get_activation_frequency() -> List[int]`` - 获取激活频率
+
+**IMGraphCpp**:
+
+* ``weights`` 参数现在支持 ``float`` 类型，表示所有边使用统一权重
+
+代码重构
+~~~~~~~~
+
+**扩散模型文件分离**:
+
+* 将扩散模型从单一文件分离到独立文件
+* ``independent_cascade.h`` - IC 模型
+* ``linear_threshold.h`` - LT 模型
+* ``susceptible_infected.h`` - SI 模型
+* ``susceptible_infected_recovered.h`` - SIR 模型
+* ``common.h`` - 共享代码（ObjectPool、RNG 工具函数）
+
+测试
+~~~~
+
+**新增完整测试覆盖**:
+
+* ``test_ic_model.py`` - IC 模型完整测试
+* ``test_lt_model.py`` - LT 模型完整测试
+* ``test_si_model.py`` - SI 模型完整测试
+* ``test_sir_model.py`` - SIR 模型完整测试
+* 单线程和多线程结果一致性验证通过
+* 参数验证测试通过（beta、gamma 范围检查）
+
+技术细节
+~~~~~~~~
+
+**修改文件**:
+
+* ``src/pynetim/cpp/include/common.h`` - 共享工具代码
+* ``src/pynetim/cpp/include/independent_cascade.h`` - IC 模型
+* ``src/pynetim/cpp/include/linear_threshold.h`` - LT 模型
+* ``src/pynetim/cpp/include/susceptible_infected.h`` - SI 模型
+* ``src/pynetim/cpp/include/susceptible_infected_recovered.h`` - SIR 模型
+* ``src/pynetim/cpp/include/diffusion_model.h`` - 主头文件
+* ``src/pynetim/cpp/bindings/si_bind.cpp`` - SI 模型绑定
+* ``src/pynetim/cpp/bindings/sir_bind.cpp`` - SIR 模型绑定
+* ``src/pynetim/cpp/include/Graph.h`` - Graph 类统一权重支持
+* ``src/pynetim/cpp/bindings/graph_bind.cpp`` - Graph 绑定更新
+
+**实现细节**:
+
+* SI 模型：每个时间步，感染节点以概率 beta 尝试感染邻居
+* SIR 模型：在 SI 基础上，感染节点每步以概率 gamma 恢复
+* 参数验证：beta、gamma ∈ (0, 1]，max_steps > 0
+* 多线程种子预生成策略确保单线程和多线程结果完全一致
+
+使用示例
+~~~~~~~~
+
+.. code-block:: python
+
+    import pynetim.cpp.graph as im_graph
+    import pynetim.cpp.diffusion_model as diffusion_model
+
+    # 创建图（统一权重）
+    graph = im_graph.IMGraphCpp(100, [(i, i+1) for i in range(99)], 0.3)
+    seeds = {0}
+
+    # SI 模型
+    si = diffusion_model.SusceptibleInfectedModel(graph, seeds, beta=0.3)
+    avg = si.run_monte_carlo_diffusion(1000, seed=42)
+    print(f"SI 平均感染节点数: {avg:.2f}")
+
+    # SIR 模型
+    sir = diffusion_model.SusceptibleInfectedRecoveredModel(graph, seeds, beta=0.3, gamma=0.1)
+    avg = sir.run_monte_carlo_diffusion(1000, seed=42)
+    print(f"SIR 平均感染节点数: {avg:.2f}")
+
+    # 多线程模拟
+    avg = sir.run_monte_carlo_diffusion(10000, seed=42, use_multithread=True)
+    print(f"多线程 SIR 平均感染节点数: {avg:.2f}")
+
+    # 记录激活节点
+    sir = diffusion_model.SusceptibleInfectedRecoveredModel(
+        graph, seeds, beta=0.3, gamma=0.1, record_activated=True
+    )
+    count = sir.run_single_simulation(seed=42)
+    activated = sir.get_activated_nodes()
+    print(f"激活节点: {activated}")
+
+[0.4.4] - 2026-03-30
+------------------------
+
+新增
+~~~~
+
+**分离模拟执行和结果获取**:
+
+* ``run_single_simulation()`` 现在只返回激活节点数量（``int``），不再返回节点集合
+* 新增 ``get_activated_nodes()`` 方法，专门用于获取记录的激活节点集合
+* 只有在 ``record_activated=True`` 时，``get_activated_nodes()`` 才返回有效数据
+* 当 ``record_activated=False`` 时，``get_activated_nodes()`` 返回空集合
+
+**多轮模拟记录激活节点并集**:
+
+* ``run_monte_carlo_diffusion()`` 现在支持记录所有试验的激活节点并集
+* 当 ``record_activated=True`` 时，``get_activated_nodes()`` 返回所有试验中被激活过的节点（并集）
+* 对于单次模拟：返回该次模拟的激活节点集合
+* 对于 Monte Carlo 模拟：返回所有试验的激活节点并集
+
+**激活频率记录功能**:
+
+* 新增 ``record_activation_frequency`` 参数（默认为 ``false``），用于控制是否记录每个节点的激活频率
+* 新增 ``set_record_activation_frequency(record)`` 方法，可在运行时动态开启/关闭记录功能
+* 新增 ``get_activation_frequency()`` 方法，返回每个节点被激活的次数
+* 只有在 ``record_activation_frequency=True`` 时，``get_activation_frequency()`` 才返回有效数据
+* 当 ``record_activation_frequency=False`` 时，``get_activation_frequency()`` 返回全 0 的列表
+* 可以同时开启 ``record_activated`` 和 ``record_activation_frequency``，记录两种数据
+
+API 更新
+~~~~~~~~
+
+**IndependentCascadeModel**:
+
+* ``run_single_simulation()`` 的返回值从 ``Set[int]`` 改为 ``int``（激活节点数量）
+* 新增 ``get_activated_nodes() -> Set[int]`` 方法，用于获取记录的激活节点集合
+* 新增 ``get_activation_frequency() -> List[int]`` 方法，用于获取每个节点的激活频率
+* 新增 ``set_record_activation_frequency(record: bool)`` 方法，用于动态开启/关闭激活频率记录
+* ``run_single_simulation()`` 的 ``seed`` 参数类型从 ``int`` 改为 ``int | None``，默认值从 ``0`` 改为 ``None``
+* ``run_monte_carlo_diffusion()`` 的 ``seed`` 参数类型从 ``int`` 改为 ``int | None``，默认值从 ``0`` 改为 ``None``
+* 构造函数新增 ``record_activation_frequency`` 参数（默认为 ``false``）
+
+**LinearThresholdModel**:
+
+* ``run_single_simulation()`` 的返回值从 ``Set[int]`` 改为 ``int``（激活节点数量）
+* 新增 ``get_activated_nodes() -> Set[int]`` 方法，用于获取记录的激活节点集合
+* 新增 ``get_activation_frequency() -> List[int]`` 方法，用于获取每个节点的激活频率
+* 新增 ``set_record_activation_frequency(record: bool)`` 方法，用于动态开启/关闭激活频率记录
+* ``run_single_simulation()`` 的 ``seed`` 参数类型从 ``int`` 改为 ``int | None``，默认值从 ``0`` 改为 ``None``
+* ``run_monte_carlo_diffusion()`` 的 ``seed`` 参数类型从 ``int`` 改为 ``int | None``，默认值从 ``0`` 改为 ``None``
+* 构造函数新增 ``record_activation_frequency`` 参数（默认为 ``false``）
+
+优化
+~~~~
+
+**改进随机种子生成机制**:
+
+* ``run_single_simulation()`` 和 ``run_monte_carlo_diffusion()`` 方法现在都支持 ``seed=None`` 参数
+* 当 ``seed=None`` 时，使用多个 ``std::random_device`` 值的组合来增强随机性
+* 当 ``seed=固定值`` 时，使用固定种子，确保模拟结果可重现
+* 改进后的随机种子生成方式解决了在某些平台（虚拟环境、容器）上 ``std::random_device`` 返回相同值的问题
+* 使用 ``std::seed_seq`` 和多个随机值组合，确保每次调用都能得到不同的结果
+
+**多线程随机种子一致性**:
+
+* ``run_monte_carlo_diffusion()`` 采用种子预生成策略
+* 在开始任何模拟之前，使用主随机数生成器预生成所有试验的种子
+* 每个试验使用独立的种子，确保单线程和多线程结果完全一致
+* 多线程只是改变了试验的执行顺序和并行度，但没有改变每个试验使用的随机数序列
+
+修复
+~~~~
+
+**修复 ``set_record_activated()`` 的清空逻辑**:
+
+* 当 ``set_record_activated(False)`` 被调用时，现在会清空 ``last_activated_nodes``
+* 避免了返回过期的激活节点数据
+* 确保当 ``record_activated=False`` 时，``get_activated_nodes()`` 总是返回空集合
+
+**修复 ``set_record_activation_frequency()`` 的清空逻辑**:
+
+* 当 ``set_record_activation_frequency(False)`` 被调用时，现在会清空 ``activation_frequency``
+* 避免了返回过期的激活频率数据
+* 确保当 ``record_activation_frequency=False`` 时，``get_activation_frequency()`` 总是返回全 0 的列表
+
+测试
+~~~~
+
+**新增功能验证测试**:
+
+* IC 模型单次模拟测试（简单链式图、星形图、低权重图）
+* LT 模型单次模拟测试
+* 多个种子节点测试
+* ``record_activated=False`` 测试
+* ``set_record_activated()`` 动态切换测试
+* 多次调用 ``get_activated_nodes()`` 测试
+* 无向图测试
+* 随机种子功能测试
+* 多轮模拟测试（单线程和多线程）
+* 大规模模拟测试（10000 轮）
+* ``record_activated`` 对多轮模拟性能影响测试
+* 多轮模拟 vs 单次模拟对比测试
+* 编译和运行测试全部通过
+
+**测试结果**:
+
+* 简单链式图 (权重=1.0): 激活节点数量=5, 激活节点集合={0, 1, 2, 3, 4} ✅
+* 星形图 (权重=1.0): 激活节点数量=5, 激活节点集合={0, 1, 2, 3, 4} ✅
+* 低权重图 (权重=0.01): 激活节点数量=1, 激活节点集合={0} ✅
+* 多个种子节点: 激活节点数量=6, 激活节点集合={0, 1, 2, 3, 4, 5} ✅
+* record_activated=False: 返回激活节点数量，不记录节点集合 ✅
+* record_activated=True: 返回激活节点数量，记录节点集合 ✅
+* 动态切换 record_activated: 正确清空和记录节点集合 ✅
+* 多次调用 get_activated_nodes(): 返回相同的集合 ✅
+* 无向图: 正确处理无向图的传播 ✅
+* 随机种子 (seed=None): 每次模拟结果可能不同 ✅
+* 固定种子 (seed=42): 多次模拟结果完全相同 ✅
+* 单线程和多线程: 多轮模拟结果完全一致（差异 < 1e-10）✅
+* 固定种子可重现性: 3次运行结果完全相同 ✅
+* record_activated 影响: 不影响多轮模拟结果（差异 = 0.0000）✅
+* 大规模模拟: 10000 轮模拟稳定运行 ✅
+
+技术细节
+~~~~~~~~
+
+**修改文件**:
+
+* ``src/pynetim/cpp/include/diffusion_model.h`` - 添加核心功能实现、改进随机种子生成、修复清空逻辑
+* ``src/pynetim/cpp/bindings/ic_bind.cpp`` - IC 模型 Python 绑定，更新 API 文档
+* ``src/pynetim/cpp/bindings/lt_bind.cpp`` - LT 模型 Python 绑定，更新 API 文档
+* ``src/pynetim/cpp/diffusion_model/independent_cascade_model.pyi`` - 类型提示
+* ``src/pynetim/cpp/diffusion_model/linear_threshold_model.pyi`` - 类型提示
+
+**实现细节**:
+
+* ``run_single_trial`` 方法新增 ``activated_nodes`` 参数，用于记录激活节点
+* 添加 ``last_activated_nodes`` 成员变量（``mutable std::set<int>``），存储最后一次模拟的激活节点
+* 当 ``record_activated`` 为 ``true`` 时，遍历所有节点收集激活的节点到 ``last_activated_nodes``
+* 当 ``record_activated`` 为 ``false`` 时，不收集激活节点，``last_activated_nodes`` 保持为空
+* ``run_single_simulation()`` 返回激活节点数量（``int``），不再返回节点集合
+* 新增 ``get_activated_nodes()`` 方法，返回 ``last_activated_nodes`` 的副本
+* ``set_record_activated()`` 方法在设置为 ``false`` 时清空 ``last_activated_nodes``
+* 使用独立的随机数生成器确保每次模拟的独立性
+* 保持向后兼容性，``record_activated`` 默认为 ``false``
+* 随机种子生成改进：
+  使用多个 ``std::random_device`` 值和 ``std::seed_seq`` 组合
+* 多线程种子预生成策略：
+  在开始任何模拟之前，使用主随机数生成器预生成所有试验的种子
+* Python 绑定层检测 ``seed`` 参数是否为 ``None``，自动转换为 ``use_random_seed`` 标志
+* ``record_activated`` 参数不影响 ``run_monte_carlo_diffusion()`` 的性能和结果
+* 多线程模式下，每个线程使用独立的随机数生成器，确保线程安全和结果一致性
+
+使用示例
+~~~~~~~~
+
+.. code-block:: python
+
+    # IC 模型
+    from pynetim.cpp.diffusion_model import IndependentCascadeModel
+
+    # 不记录激活节点（默认）
+    ic_model = IndependentCascadeModel(graph, seeds)
+    count = ic_model.run_single_simulation()  # 随机种子
+    print(f"激活节点数量: {count}")
+
+    # 记录激活节点
+    ic_model = IndependentCascadeModel(graph, seeds, record_activated=True)
+    count = ic_model.run_single_simulation(seed=42)  # 固定种子
+    activated_nodes = ic_model.get_activated_nodes()
+    print(f"激活节点数量: {count}")
+    print(f"激活的节点: {activated_nodes}")
+
+    # 动态切换记录
+    ic_model.set_record_activated(True)
+    count = ic_model.run_single_simulation()
+    activated_nodes = ic_model.get_activated_nodes()
+
+    ic_model.set_record_activated(False)
+    count = ic_model.run_single_simulation()
+    activated_nodes = ic_model.get_activated_nodes()  # 空集合
+
+    # LT 模型
+    from pynetim.cpp.diffusion_model import LinearThresholdModel
+
+    lt_model = LinearThresholdModel(graph, seeds, theta_l=0.0, theta_h=1.0, record_activated=True)
+    count = lt_model.run_single_simulation()  # 随机种子
+    activated_nodes = lt_model.get_activated_nodes()
+    print(f"激活节点数量: {count}")
+    print(f"激活的节点: {activated_nodes}")
+
+    # 多轮模拟
+    avg_count = ic_model.run_monte_carlo_diffusion(1000)  # 随机种子
+    print(f"平均激活节点数: {avg_count:.2f}")
+
+    avg_count = ic_model.run_monte_carlo_diffusion(1000, seed=42)  # 固定种子
+    print(f"平均激活节点数: {avg_count:.2f}")
+
+    # 多线程多轮模拟
+    avg_count = ic_model.run_monte_carlo_diffusion(1000, seed=42, use_multithread=True, num_threads=4)
+    print(f"平均激活节点数: {avg_count:.2f}")
+
+    # 激活频率记录
+    ic_model = IndependentCascadeModel(graph, seeds, record_activation_frequency=True)
+    avg_count = ic_model.run_monte_carlo_diffusion(1000, seed=42)
+    freq = ic_model.get_activation_frequency()
+    print(f"节点激活频率: {freq}")
+
+    # 同时记录激活节点和频率
+    ic_model = IndependentCascadeModel(graph, seeds, record_activated=True, record_activation_frequency=True)
+    avg_count = ic_model.run_monte_carlo_diffusion(1000, seed=42)
+    activated_nodes = ic_model.get_activated_nodes()  # 所有试验的激活节点并集
+    freq = ic_model.get_activation_frequency()  # 每个节点的激活次数
+    print(f"所有试验中被激活过的节点: {activated_nodes}")
+    print(f"节点激活频率: {freq}")
+
+[0.4.3] - 2026-03-30
+------------------------
+
+新增
+~~~~
+
+**IC 和 LT 模型新增激活节点记录功能**:
+
+* 添加 ``record_activated`` 参数（默认为 ``false``），用于控制是否记录种子集激活的节点
+* 添加 ``set_record_activated(record)`` 方法，可在运行时动态开启/关闭记录功能
+* 添加 ``run_single_simulation(seed=0)`` 方法，用于单次独立传播模拟
+* 每次调用 ``run_single_simulation`` 都会进行一次独立的传播模拟，从种子集出发，返回该次模拟中被激活的所有节点
+* 支持通过不同的 ``seed`` 参数进行多次独立的模拟实验
+
+API 更新
+~~~~~~~~
+
+**IndependentCascadeModel**:
+
+* 构造函数新增 ``record_activated`` 参数
+* 新增 ``set_record_activated(record: bool)`` 方法
+* 新增 ``run_single_simulation(seed: int = 0) -> Set[int]`` 方法
+
+**LinearThresholdModel**:
+
+* 构造函数新增 ``record_activated`` 参数
+* 新增 ``set_record_activated(record: bool)`` 方法
+* 新增 ``run_single_simulation(seed: int = 0) -> Set[int]`` 方法
+
+测试
+~~~~
+
+**新增功能验证测试**:
+
+* IC 模型单次模拟测试
+* LT 模型单次模拟测试
+* 多次独立模拟测试（使用不同 seed）
+* ``set_record_activated`` 动态切换测试
+* 编译和运行测试全部通过
+
+技术细节
+~~~~~~~~
+
+**修改文件**:
+
+* ``src/pynetim/cpp/include/diffusion_model.h`` - 添加核心功能实现
+* ``src/pynetim/cpp/bindings/ic_bind.cpp`` - IC 模型 Python 绑定
+* ``src/pynetim/cpp/bindings/lt_bind.cpp`` - LT 模型 Python 绑定
+* ``src/pynetim/cpp/diffusion_model/independent_cascade_model.pyi`` - 类型提示
+* ``src/pynetim/cpp/diffusion_model/linear_threshold_model.pyi`` - 类型提示
+
+**实现细节**:
+
+* ``run_single_trial`` 方法新增 ``activated_nodes`` 参数，用于记录激活节点
+* 当 ``record_activated`` 为 ``true`` 时，遍历所有节点收集激活的节点
+* 使用独立的随机数生成器确保每次模拟的独立性
+* 保持向后兼容性，``record_activated`` 默认为 ``false``
+
+使用示例
+~~~~~~~~
+
+.. code-block:: python
+
+    # IC 模型
+    from pynetim.cpp.diffusion_model import IndependentCascadeModel
+
+    ic_model = IndependentCascadeModel(graph, seeds, record_activated=True)
+    activated_nodes = ic_model.run_single_simulation(seed=42)
+    print(f"激活的节点: {activated_nodes}")
+
+    # LT 模型
+    from pynetim.cpp.diffusion_model import LinearThresholdModel
+
+    lt_model = LinearThresholdModel(graph, seeds, theta_l=0.0, theta_h=1.0, record_activated=True)
+    activated_nodes = lt_model.run_single_simulation(seed=42)
+    print(f"激活的节点: {activated_nodes}")
+
+    # 动态开启/关闭记录
+    ic_model.set_record_activated(True)
+
+[0.4.2] - 2026-03-24
+------------------------
+
+修复
+~~~~
+
+**C++ 扩展线程安全修复**:
+
+* 修复 ``IndependentCascadeModel`` 和 ``LinearThresholdModel`` 在多线程模式下的线程安全问题
+* 通过参数传递替代直接访问成员变量 ``seeds``，消除跨线程共享 ``std::set`` 的状态
+* 解决了与 PyTorch 等多线程库结合使用时的 segmentation fault 问题
+* 经过严格测试：5000 次迭代、8 线程并发、10 图并发均稳定运行
+* 单线程和多线程结果完全一致，确保正确性
+
+测试
+~~~~
+
+**新增严格验证测试**:
+
+* 单线程/多线程一致性测试
+* 长时间多线程压力测试 (2000 次迭代)
+* 多线程并发访问测试 (8 线程)
+* 多图并发处理测试 (10 个图)
+* 极限压力测试 (5000 次迭代)
+
+[0.4.0] - 2026-03-23
+------------------------
+
+新增
+~~~~
+
+* **C++ 图支持**: 为所有工具函数添加了对 ``IMGraphCpp``（C++ 图）的完整支持
+
+  - ``set_edge_weight()`` - 支持 C++ 图的边权重设置
+  - ``infection_threshold()`` - 支持 C++ 图的感染阈值计算
+  - ``graph_statistics()`` - 支持 C++ 图的统计信息计算
+  - ``graph_density()`` - 支持 C++ 图的密度计算
+  - ``connectivity_analysis()`` - 支持 C++ 图的连通性分析
+
+优化
+~~~~
+
+**性能优化**:
+
+* ``infection_threshold()`` - 避免重复计算度字典
+* ``graph_statistics()`` - 使用 ``Counter`` 替代手动循环统计度分布
+* ``connectivity_analysis()`` - 合并有向图和无向图的分支逻辑，消除重复代码
+* ``graph_density()`` - 修复整数除法问题，确保返回浮点数
+
+**代码质量**:
+
+* 删除无用的 ``TYPE_CHECKING`` 代码块
+* 统一函数签名，支持多种图类型
+* 优化导入语句，添加缺失的 ``networkx`` 模块
+
+修复
+~~~~
+
+**Bug 修复**:
+
+* 修复 ``utils.py`` 中缺失的 ``import networkx as nx`` 导入
+* 修复 ``graph_density()`` 函数中的整数除法 ``// 2`` 导致的精度丢失
+* 修复 ``infection_threshold()`` 函数中重复调用 ``dict(graph.degree())`` 的性能问题
+
+文档
+~~~~
+
+**学术参考文献**: 为所有主要模型和算法添加了学术参考文献
+
+**传播模型**:
+
+* Linear Threshold Model - Granovetter (1978)
+* Independent Cascade Model - Kempe et al. (2003)
+* SIR Model - Kermack & McKendrick (1927)
+* SI Model - Kermack & McKendrick (1927)
+
+**影响力最大化算法**:
+
+* Degree Discount Algorithm - Chen et al. (2009)
+* Reverse Influence Sampling (RIS) - Borgs et al. (2014)
+* IMM Algorithm - Tang et al. (2015)
+
+**工具函数**:
+
+* ``infection_threshold()`` - Pastor-Satorras & Vespignani (2001, 2015)
+
+**新增文档**:
+
+* ``UTILS_OPTIMIZATION_SUMMARY.md`` - utils.py 优化总结
+* ``OPTIMIZATION_SUMMARY.md`` - C++ 模块优化总结
+* ``REFERENCES_DOCUMENTATION.md`` - 参考文献添加文档
+* ``CHANGELOG.md`` - 本更新日志
+
+兼容性
+~~~~~~
+
+**向后兼容**: 所有修改都保持了向后兼容性
+
+* NetworkX 图的使用方式完全不变
+* 新增的 C++ 图支持是可选的
+* 函数签名使用 ``Union`` 类型，支持两种图类型
+
+技术细节
+~~~~~~~~
+
+* **图类型检测**: 使用 ``hasattr(graph, 'num_nodes') and hasattr(graph, 'directed')`` 检测 C++ 图
+* **类型注解**: 使用 ``TYPE_CHECKING`` 避免循环导入 ``IMGraphCpp``
+* **统一接口**: NetworkX 图和 C++ 图使用相同的函数接口
+
+[0.3.0] - 2025-XX-XX
+------------------------
+
+新增
+~~~~
+
+* 初始版本发布
+* 实现了多种影响力最大化算法
+* 实现了多种传播模型
+* 提供了 Python 和 C++ 双实现
+
+版本说明
+========
+
+PyNetIM 遵循 `语义化版本控制 <https://semver.org/>`_ (Semantic Versioning)：
+
+* **主版本号 (MAJOR)**: 不兼容的 API 修改
+* **次版本号 (MINOR)**: 向下兼容的功能性新增
+* **修订号 (PATCH)**: 向下兼容的问题修正
+
+版本类型
+--------
+
+* **主版本更新**: 重大架构变更、API 不兼容
+* **次版本更新**: 新增功能、性能优化
+* **修订版本更新**: Bug 修复、文档更新
+
+更新分类
+--------
+
+功能新增
+~~~~~~~~
+
+* 新的算法实现
+* 新的传播模型
+* 新的图操作功能
+
+性能优化
+~~~~~~~~
+
+* 算法效率提升
+* 内存使用优化
+* 计算速度提升
+
+Bug 修复
+~~~~~~~~
+
+* 代码错误修复
+* 边界情况处理
+* 兼容性问题修复
+
+文档改进
+~~~~~~~~
+
+* API 文档更新
+* 示例代码更新
+* 学术参考文献添加
+
+内部改进
+~~~~~~~~
+
+* 代码重构
+* 测试覆盖提升
+* 构建流程优化
+
+贡献指南
+========
+
+如果您想为 PyNetIM 做出贡献，请：
+
+1. Fork 本仓库
+2. 创建特性分支 (``git checkout -b feature/AmazingFeature``)
+3. 提交更改 (``git commit -m 'Add some AmazingFeature'``)
+4. 推送到分支 (``git push origin feature/AmazingFeature``)
+5. 开启 Pull Request
+
+许可证
+=======
+
+本项目采用 MIT 许可证 - 详见 `LICENSE <../LICENSE>`_ 文件。
+
+联系方式
+========
+
+* **作者**: Zhang Kaijing
+* **项目主页**: https://zzzkhj.github.io/PyNetIM/
+* **问题反馈**: `GitHub Issues <https://github.com/zzzkhj/PyNetIM/issues>`_
+
+**最后更新**: 2026-04-04
