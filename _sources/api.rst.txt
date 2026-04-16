@@ -11,6 +11,7 @@ API 参考
    :members:
    :undoc-members:
    :show-inheritance:
+   :special-members: __init__
 
 扩散模型模块
 ~~~~~~~~~~~~
@@ -19,6 +20,7 @@ API 参考
    :members:
    :undoc-members:
    :show-inheritance:
+   :special-members: __init__
 
 算法模块
 ~~~~~~~~
@@ -30,6 +32,7 @@ API 参考
    :members:
    :undoc-members:
    :show-inheritance:
+   :special-members: __init__
 
 启发式算法
 ^^^^^^^^^^
@@ -38,6 +41,7 @@ API 参考
    :members:
    :undoc-members:
    :show-inheritance:
+   :special-members: __init__
 
 模拟类算法
 ^^^^^^^^^^
@@ -46,6 +50,7 @@ API 参考
    :members:
    :undoc-members:
    :show-inheritance:
+   :special-members: __init__
 
 RIS 类算法
 ^^^^^^^^^^
@@ -54,6 +59,16 @@ RIS 类算法
    :members:
    :undoc-members:
    :show-inheritance:
+   :special-members: __init__
+
+深度学习算法
+^^^^^^^^^^^^
+
+.. automodule:: pynetim.algorithms.deep_learning
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :special-members: __init__
 
 工具函数模块
 ~~~~~~~~~~~~
@@ -78,6 +93,7 @@ Python 模块 (维护模式)
    :members:
    :undoc-members:
    :show-inheritance:
+   :special-members: __init__
 
 算法模块
 ~~~~~~~~
@@ -86,6 +102,7 @@ Python 模块 (维护模式)
    :members:
    :undoc-members:
    :show-inheritance:
+   :special-members: __init__
 
 扩散模型模块
 ~~~~~~~~~~~~
@@ -94,3 +111,4 @@ Python 模块 (维护模式)
    :members:
    :undoc-members:
    :show-inheritance:
+   :special-members: __init__

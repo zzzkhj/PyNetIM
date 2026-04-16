@@ -158,6 +158,8 @@
 <span class="sd">        &gt;&gt;&gt; avg = model.run_monte_carlo_diffusion(mc_rounds=1000, num_processes=4, random_seed=42)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     
+<div class="viewcode-block" id="BaseMultiprocessDiffusionModel.__init__">
+<a class="viewcode-back" href="../../../api.html#pynetim.diffusion_model.BaseMultiprocessDiffusionModel.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">graph</span><span class="p">:</span> <span class="s1">&#39;IMGraph&#39;</span><span class="p">,</span> <span class="n">seeds</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="nb">int</span><span class="p">]):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;初始化传播模型。</span>
 
@@ -167,7 +169,8 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">graph</span> <span class="o">=</span> <span class="n">graph</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">seeds</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">seeds</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">num_nodes</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="n">num_nodes</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">num_nodes</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="n">num_nodes</span></div>
+
     
 <div class="viewcode-block" id="BaseMultiprocessDiffusionModel.set_seeds">
 <a class="viewcode-back" href="../../../api.html#pynetim.diffusion_model.BaseMultiprocessDiffusionModel.set_seeds">[docs]</a>

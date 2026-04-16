@@ -107,8 +107,11 @@
 <span class="sd">        &gt;&gt;&gt; seeds = algo.run(k=10)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
+<div class="viewcode-block" id="DegreeCentralityAlgorithm.__init__">
+<a class="viewcode-back" href="../../../../api.html#pynetim.algorithms.heuristic.DegreeCentralityAlgorithm.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">graph</span><span class="p">:</span> <span class="s1">&#39;IMGraph&#39;</span><span class="p">,</span> <span class="n">diffusion_model</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">diffusion_model</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">diffusion_model</span><span class="p">)</span></div>
+
 
 <div class="viewcode-block" id="DegreeCentralityAlgorithm.run">
 <a class="viewcode-back" href="../../../../api.html#pynetim.algorithms.heuristic.DegreeCentralityAlgorithm.run">[docs]</a>
@@ -149,6 +152,8 @@
 <span class="sd">        &gt;&gt;&gt; seeds = algo.run(k=10)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
+<div class="viewcode-block" id="PageRankAlgorithm.__init__">
+<a class="viewcode-back" href="../../../../api.html#pynetim.algorithms.heuristic.PageRankAlgorithm.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">graph</span><span class="p">:</span> <span class="s1">&#39;IMGraph&#39;</span><span class="p">,</span> <span class="n">diffusion_model</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> 
                  <span class="n">damping</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.85</span><span class="p">,</span> <span class="n">max_iter</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">tol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-6</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;初始化 PageRank 算法。</span>
@@ -163,7 +168,8 @@
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">diffusion_model</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">damping</span> <span class="o">=</span> <span class="n">damping</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">max_iter</span> <span class="o">=</span> <span class="n">max_iter</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">tol</span> <span class="o">=</span> <span class="n">tol</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tol</span> <span class="o">=</span> <span class="n">tol</span></div>
+
 
 <div class="viewcode-block" id="PageRankAlgorithm.run">
 <a class="viewcode-back" href="../../../../api.html#pynetim.algorithms.heuristic.PageRankAlgorithm.run">[docs]</a>
@@ -235,8 +241,11 @@
 <span class="sd">        &gt;&gt;&gt; seeds = algo.run(k=10)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
+<div class="viewcode-block" id="VoteRankAlgorithm.__init__">
+<a class="viewcode-back" href="../../../../api.html#pynetim.algorithms.heuristic.VoteRankAlgorithm.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">graph</span><span class="p">:</span> <span class="s1">&#39;IMGraph&#39;</span><span class="p">,</span> <span class="n">diffusion_model</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">diffusion_model</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">diffusion_model</span><span class="p">)</span></div>
+
 
 <div class="viewcode-block" id="VoteRankAlgorithm.run">
 <a class="viewcode-back" href="../../../../api.html#pynetim.algorithms.heuristic.VoteRankAlgorithm.run">[docs]</a>
@@ -302,8 +311,11 @@
 <span class="sd">        &gt;&gt;&gt; seeds = algo.run(k=10)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
+<div class="viewcode-block" id="KShellDecompositionAlgorithm.__init__">
+<a class="viewcode-back" href="../../../../api.html#pynetim.algorithms.heuristic.KShellDecompositionAlgorithm.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">graph</span><span class="p">:</span> <span class="s1">&#39;IMGraph&#39;</span><span class="p">,</span> <span class="n">diffusion_model</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">diffusion_model</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">diffusion_model</span><span class="p">)</span></div>
+
 
 <div class="viewcode-block" id="KShellDecompositionAlgorithm.run">
 <a class="viewcode-back" href="../../../../api.html#pynetim.algorithms.heuristic.KShellDecompositionAlgorithm.run">[docs]</a>
@@ -372,6 +384,8 @@
 <span class="sd">        &gt;&gt;&gt; seeds = algo.run(k=10)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
+<div class="viewcode-block" id="BetweennessCentralityAlgorithm.__init__">
+<a class="viewcode-back" href="../../../../api.html#pynetim.algorithms.heuristic.BetweennessCentralityAlgorithm.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">graph</span><span class="p">:</span> <span class="s1">&#39;IMGraph&#39;</span><span class="p">,</span> <span class="n">diffusion_model</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> 
                  <span class="n">normalized</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">sample_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;初始化介数中心性算法。</span>
@@ -384,7 +398,8 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">diffusion_model</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">normalized</span> <span class="o">=</span> <span class="n">normalized</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">sample_size</span> <span class="o">=</span> <span class="n">sample_size</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sample_size</span> <span class="o">=</span> <span class="n">sample_size</span></div>
+
 
 <div class="viewcode-block" id="BetweennessCentralityAlgorithm.run">
 <a class="viewcode-back" href="../../../../api.html#pynetim.algorithms.heuristic.BetweennessCentralityAlgorithm.run">[docs]</a>
@@ -475,8 +490,11 @@
 <span class="sd">        &gt;&gt;&gt; seeds = algo.run(k=10)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
+<div class="viewcode-block" id="ClosenessCentralityAlgorithm.__init__">
+<a class="viewcode-back" href="../../../../api.html#pynetim.algorithms.heuristic.ClosenessCentralityAlgorithm.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">graph</span><span class="p">:</span> <span class="s1">&#39;IMGraph&#39;</span><span class="p">,</span> <span class="n">diffusion_model</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">diffusion_model</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">diffusion_model</span><span class="p">)</span></div>
+
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_bfs_distances</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">source</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
         <span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">deque</span>
@@ -551,6 +569,8 @@
 <span class="sd">        &gt;&gt;&gt; seeds = algo.run(k=10)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
+<div class="viewcode-block" id="EigenvectorCentralityAlgorithm.__init__">
+<a class="viewcode-back" href="../../../../api.html#pynetim.algorithms.heuristic.EigenvectorCentralityAlgorithm.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">graph</span><span class="p">:</span> <span class="s1">&#39;IMGraph&#39;</span><span class="p">,</span> <span class="n">diffusion_model</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
                  <span class="n">max_iter</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">tol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-6</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;初始化特征向量中心性算法。</span>
@@ -563,7 +583,8 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">diffusion_model</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">max_iter</span> <span class="o">=</span> <span class="n">max_iter</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">tol</span> <span class="o">=</span> <span class="n">tol</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tol</span> <span class="o">=</span> <span class="n">tol</span></div>
+
 
 <div class="viewcode-block" id="EigenvectorCentralityAlgorithm.run">
 <a class="viewcode-back" href="../../../../api.html#pynetim.algorithms.heuristic.EigenvectorCentralityAlgorithm.run">[docs]</a>
@@ -627,8 +648,11 @@
 <span class="sd">        &gt;&gt;&gt; seeds = algo.run(k=10)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
+<div class="viewcode-block" id="SingleDiscountAlgorithm.__init__">
+<a class="viewcode-back" href="../../../../api.html#pynetim.algorithms.heuristic.SingleDiscountAlgorithm.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">graph</span><span class="p">:</span> <span class="s1">&#39;IMGraph&#39;</span><span class="p">,</span> <span class="n">diffusion_model</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">diffusion_model</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">diffusion_model</span><span class="p">)</span></div>
+
     
 <div class="viewcode-block" id="SingleDiscountAlgorithm.run">
 <a class="viewcode-back" href="../../../../api.html#pynetim.algorithms.heuristic.SingleDiscountAlgorithm.run">[docs]</a>
@@ -686,8 +710,11 @@
 <span class="sd">        &gt;&gt;&gt; seeds = algo.run(k=10)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
+<div class="viewcode-block" id="DegreeDiscountAlgorithm.__init__">
+<a class="viewcode-back" href="../../../../api.html#pynetim.algorithms.heuristic.DegreeDiscountAlgorithm.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">graph</span><span class="p">:</span> <span class="s1">&#39;IMGraph&#39;</span><span class="p">,</span> <span class="n">diffusion_model</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;IC&#39;</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">diffusion_model</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">diffusion_model</span><span class="p">)</span></div>
+
 
 <div class="viewcode-block" id="DegreeDiscountAlgorithm.run">
 <a class="viewcode-back" href="../../../../api.html#pynetim.algorithms.heuristic.DegreeDiscountAlgorithm.run">[docs]</a>

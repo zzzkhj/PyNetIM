@@ -114,6 +114,8 @@
 <span class="sd">        &gt;&gt;&gt; seeds = algo.run(k=10, mc_rounds=1000, use_multithread=True, num_threads=4)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
+<div class="viewcode-block" id="GreedyAlgorithm.__init__">
+<a class="viewcode-back" href="../../../../api.html#pynetim.algorithms.simulation.GreedyAlgorithm.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">graph</span><span class="p">:</span> <span class="s1">&#39;IMGraph&#39;</span><span class="p">,</span> <span class="n">diffusion_model</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;IC&#39;</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;初始化贪婪算法。</span>
 
@@ -121,7 +123,8 @@
 <span class="sd">            graph: 输入图对象。</span>
 <span class="sd">            diffusion_model: 扩散模型名称，支持 &#39;IC&#39; 或 &#39;LT&#39;，默认为 &#39;IC&#39;。</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">diffusion_model</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">diffusion_model</span><span class="p">)</span></div>
+
 
 <div class="viewcode-block" id="GreedyAlgorithm.run">
 <a class="viewcode-back" href="../../../../api.html#pynetim.algorithms.simulation.GreedyAlgorithm.run">[docs]</a>
@@ -221,6 +224,8 @@
 <span class="sd">        &gt;&gt;&gt; seeds = algo.run(k=10, mc_rounds=1000, use_multithread=True, num_threads=4)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
+<div class="viewcode-block" id="CELFPlusAlgorithm.__init__">
+<a class="viewcode-back" href="../../../../api.html#pynetim.algorithms.simulation.CELFPlusAlgorithm.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">graph</span><span class="p">:</span> <span class="s1">&#39;IMGraph&#39;</span><span class="p">,</span> <span class="n">diffusion_model</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;IC&#39;</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;初始化 CELF++ 算法。</span>
 
@@ -228,7 +233,8 @@
 <span class="sd">            graph: 输入图对象。</span>
 <span class="sd">            diffusion_model: 扩散模型名称，支持 &#39;IC&#39; 或 &#39;LT&#39;，默认为 &#39;IC&#39;。</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">diffusion_model</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">diffusion_model</span><span class="p">)</span></div>
+
 
 <div class="viewcode-block" id="CELFPlusAlgorithm.run">
 <a class="viewcode-back" href="../../../../api.html#pynetim.algorithms.simulation.CELFPlusAlgorithm.run">[docs]</a>
@@ -375,6 +381,8 @@
 <span class="sd">        &gt;&gt;&gt; seeds = algo.run(k=10, mc_rounds=1000, use_multithread=True, num_threads=4)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
+<div class="viewcode-block" id="CELFAlgorithm.__init__">
+<a class="viewcode-back" href="../../../../api.html#pynetim.algorithms.simulation.CELFAlgorithm.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">graph</span><span class="p">:</span> <span class="s1">&#39;IMGraph&#39;</span><span class="p">,</span> <span class="n">diffusion_model</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;IC&#39;</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;初始化 CELF 算法。</span>
 
@@ -382,7 +390,8 @@
 <span class="sd">            graph: 输入图对象。</span>
 <span class="sd">            diffusion_model: 扩散模型名称，支持 &#39;IC&#39; 或 &#39;LT&#39;，默认为 &#39;IC&#39;。</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">diffusion_model</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">diffusion_model</span><span class="p">)</span></div>
+
 
 <div class="viewcode-block" id="CELFAlgorithm.run">
 <a class="viewcode-back" href="../../../../api.html#pynetim.algorithms.simulation.CELFAlgorithm.run">[docs]</a>

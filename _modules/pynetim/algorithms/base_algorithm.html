@@ -109,6 +109,8 @@
 <span class="sd">        &gt;&gt;&gt; seeds = algo.run(k=10)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
+<div class="viewcode-block" id="BaseAlgorithm.__init__">
+<a class="viewcode-back" href="../../../api.html#pynetim.algorithms.base_algorithm.BaseAlgorithm.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">graph</span><span class="p">:</span> <span class="s1">&#39;IMGraph&#39;</span><span class="p">,</span> <span class="n">diffusion_model</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;初始化算法基类。</span>
 
@@ -132,7 +134,8 @@
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;不支持的模型：请选择 &#39;IC&#39; 或 &#39;LT&#39;&quot;</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">diffusion_model</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">diffusion_model</span> <span class="o">=</span> <span class="kc">None</span></div>
+
 
 <div class="viewcode-block" id="BaseAlgorithm.run">
 <a class="viewcode-back" href="../../../api.html#pynetim.algorithms.base_algorithm.BaseAlgorithm.run">[docs]</a>

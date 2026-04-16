@@ -105,6 +105,8 @@
 <span class="sd">        states (list): 当record_states为True时存储传播过程的状态历史（继承自BaseDiffusionModel）</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
+<div class="viewcode-block" id="LinearThresholdModel.__init__">
+<a class="viewcode-back" href="../../../../api.html#pynetim.py.diffusion_model.LinearThresholdModel.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">graph</span><span class="p">:</span> <span class="n">IMGraphPy</span><span class="p">,</span> <span class="n">init_seeds</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">record_states</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        初始化线性阈值模型。</span>
@@ -115,7 +117,8 @@
 <span class="sd">            record_states (bool): 控制是否记录每一步的状态，默认为False</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">LinearThresholdModel</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">init_seeds</span><span class="p">,</span> <span class="n">record_states</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">activated_nodes</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">init_seeds</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">activated_nodes</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">init_seeds</span><span class="p">)</span></div>
+
 
 <div class="viewcode-block" id="LinearThresholdModel.update">
 <a class="viewcode-back" href="../../../../api.html#pynetim.py.diffusion_model.LinearThresholdModel.update">[docs]</a>
