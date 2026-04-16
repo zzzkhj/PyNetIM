@@ -39,16 +39,8 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">目录:</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../../changelog.html">更新日志</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../../changelog.html#id57">版本说明</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../../changelog.html#id65">贡献指南</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../../changelog.html#id66">许可证</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../../changelog.html#id67">联系方式</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../../api.html">API 参考</a></li>
-</ul>
-
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
         </div>
       </div>
     </nav>
@@ -76,14 +68,14 @@
   <h1>Source code for pynetim.algorithms.deep_learning.touplegdd.impl</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">random</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Set</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">TYPE_CHECKING</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">TYPE_CHECKING</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">torch_geometric.data</span><span class="w"> </span><span class="kn">import</span> <span class="n">Data</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">torch_geometric.loader</span><span class="w"> </span><span class="kn">import</span> <span class="n">DataLoader</span>
 
-<span class="kn">from</span><span class="w"> </span><span class="nn">..base_dl</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseDLAlgorithm</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..base_drl</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseDRLAlgorithm</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">.</span><span class="w"> </span><span class="kn">import</span> <span class="n">models</span>
 
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
@@ -96,7 +88,7 @@
 
 <div class="viewcode-block" id="ToupleGDDAlgorithm">
 <a class="viewcode-back" href="../../../../../api.html#pynetim.algorithms.deep_learning.ToupleGDDAlgorithm">[docs]</a>
-<span class="k">class</span><span class="w"> </span><span class="nc">ToupleGDDAlgorithm</span><span class="p">(</span><span class="n">BaseDLAlgorithm</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">ToupleGDDAlgorithm</span><span class="p">(</span><span class="n">BaseDRLAlgorithm</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;ToupleGDD 深度学习影响力最大化算法。</span>
 
 <span class="sd">    使用三重门控图神经网络 (Tripling GNN) 结合强化学习选择种子节点。</span>
@@ -175,53 +167,64 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">_node_embed</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">get_init_node_embed</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="p">,</span> <span class="n">num_epochs</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_node_embed</span>
 
-<div class="viewcode-block" id="ToupleGDDAlgorithm.run">
-<a class="viewcode-back" href="../../../../../api.html#pynetim.algorithms.deep_learning.ToupleGDDAlgorithm.run">[docs]</a>
-    <span class="nd">@torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">()</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">use_topk</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Set</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;执行算法选择种子节点。</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_prepare_inference</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;准备推理环境。&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
 
-<span class="sd">        Args:</span>
-<span class="sd">            k: 需要选择的种子节点数量。</span>
-<span class="sd">            use_topk: 是否使用 topk 一次性选择，默认为 True。</span>
-<span class="sd">                True: 一次性计算所有节点的 Q 值，选择 top-k。</span>
-<span class="sd">                False: 迭代选择，每次选择一个节点后更新状态。</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_init_state</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;初始化状态。</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            Set[int]: 选中的种子节点集合。</span>
+<span class="sd">            torch.Tensor: 初始状态向量（全 0）。</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">state</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">num_nodes</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">long</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">num_nodes</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">long</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="n">use_topk</span><span class="p">:</span>
-            <span class="n">graph_input</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_setup_graph_input</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
-            <span class="n">loader</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="p">([</span><span class="n">graph_input</span><span class="p">],</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-            <span class="k">for</span> <span class="n">batch</span> <span class="ow">in</span> <span class="n">loader</span><span class="p">:</span>
-                <span class="n">batch</span> <span class="o">=</span> <span class="n">batch</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
-                <span class="n">q_values</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">(</span><span class="n">batch</span><span class="p">)</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()</span>
-            <span class="n">_</span><span class="p">,</span> <span class="n">indices</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">topk</span><span class="p">(</span><span class="n">q_values</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
-            <span class="k">return</span> <span class="nb">set</span><span class="p">(</span><span class="n">indices</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_compute_q_values</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;计算 Q 值。</span>
 
-        <span class="n">selected</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">k</span><span class="p">):</span>
-            <span class="n">graph_input</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_setup_graph_input</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
-            <span class="n">loader</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="p">([</span><span class="n">graph_input</span><span class="p">],</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-            <span class="k">for</span> <span class="n">batch</span> <span class="ow">in</span> <span class="n">loader</span><span class="p">:</span>
-                <span class="n">batch</span> <span class="o">=</span> <span class="n">batch</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
-                <span class="n">q_values</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">(</span><span class="n">batch</span><span class="p">)</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()</span>
+<span class="sd">        Args:</span>
+<span class="sd">            state: 当前状态向量。</span>
 
-            <span class="n">q_values</span><span class="p">[</span><span class="n">state</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1e10</span>
-            <span class="n">action</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">q_values</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
-            <span class="n">selected</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">action</span><span class="p">)</span>
-            <span class="n">state</span><span class="p">[</span><span class="n">action</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            torch.Tensor: 各节点的 Q 值。</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">graph_input</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_setup_graph_input</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+        <span class="n">loader</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="p">([</span><span class="n">graph_input</span><span class="p">],</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">batch</span> <span class="ow">in</span> <span class="n">loader</span><span class="p">:</span>
+            <span class="n">batch</span> <span class="o">=</span> <span class="n">batch</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">(</span><span class="n">batch</span><span class="p">)</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()</span>
 
-        <span class="k">return</span> <span class="nb">set</span><span class="p">(</span><span class="n">selected</span><span class="p">)</span></div>
-</div>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_update_state</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;更新状态。</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            state: 当前状态向量。</span>
+<span class="sd">            node: 新选择的节点。</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            torch.Tensor: 更新后的状态向量。</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">state</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="n">state</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_mask_selected</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">q_values</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">state</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;屏蔽已选节点的 Q 值。</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            q_values: Q 值张量。</span>
+<span class="sd">            state: 当前状态向量。</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            torch.Tensor: 屏蔽后的 Q 值。</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">q_values</span><span class="p">[</span><span class="n">state</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1e10</span>
+        <span class="k">return</span> <span class="n">q_values</span></div>
 
 
 
 <div class="viewcode-block" id="S2VDQNAlgorithm">
 <a class="viewcode-back" href="../../../../../api.html#pynetim.algorithms.deep_learning.S2VDQNAlgorithm">[docs]</a>
-<span class="k">class</span><span class="w"> </span><span class="nc">S2VDQNAlgorithm</span><span class="p">(</span><span class="n">BaseDLAlgorithm</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">S2VDQNAlgorithm</span><span class="p">(</span><span class="n">BaseDRLAlgorithm</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;S2V-DQN 深度学习影响力最大化算法。</span>
 
 <span class="sd">    使用 Structure2Vec 图神经网络结合 DQN 强化学习选择种子节点。</span>
@@ -303,47 +306,58 @@
 
         <span class="k">return</span> <span class="n">Data</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">edge_index</span><span class="o">=</span><span class="n">edge_index</span><span class="p">,</span> <span class="n">edge_attr</span><span class="o">=</span><span class="n">edge_attr</span><span class="p">)</span>
 
-<div class="viewcode-block" id="S2VDQNAlgorithm.run">
-<a class="viewcode-back" href="../../../../../api.html#pynetim.algorithms.deep_learning.S2VDQNAlgorithm.run">[docs]</a>
-    <span class="nd">@torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">()</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">use_topk</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Set</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;执行算法选择种子节点。</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_prepare_inference</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;准备推理环境。&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
 
-<span class="sd">        Args:</span>
-<span class="sd">            k: 需要选择的种子节点数量。</span>
-<span class="sd">            use_topk: 是否使用 topk 一次性选择，默认为 False。</span>
-<span class="sd">                True: 一次性计算所有节点的 Q 值，选择 top-k。</span>
-<span class="sd">                False: 迭代选择，每次选择一个节点后更新状态。</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_init_state</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;初始化状态。</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            Set[int]: 选中的种子节点集合。</span>
+<span class="sd">            torch.Tensor: 初始状态向量（全 0）。</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">state</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">num_nodes</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">long</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">num_nodes</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">long</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="n">use_topk</span><span class="p">:</span>
-            <span class="n">graph_input</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_setup_graph_input</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
-            <span class="n">loader</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="p">([</span><span class="n">graph_input</span><span class="p">],</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-            <span class="k">for</span> <span class="n">batch</span> <span class="ow">in</span> <span class="n">loader</span><span class="p">:</span>
-                <span class="n">batch</span> <span class="o">=</span> <span class="n">batch</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
-                <span class="n">q_values</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">(</span><span class="n">batch</span><span class="p">)</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()</span>
-            <span class="n">_</span><span class="p">,</span> <span class="n">indices</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">topk</span><span class="p">(</span><span class="n">q_values</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
-            <span class="k">return</span> <span class="nb">set</span><span class="p">(</span><span class="n">indices</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_compute_q_values</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;计算 Q 值。</span>
 
-        <span class="n">selected</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">k</span><span class="p">):</span>
-            <span class="n">graph_input</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_setup_graph_input</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
-            <span class="n">loader</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="p">([</span><span class="n">graph_input</span><span class="p">],</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-            <span class="k">for</span> <span class="n">batch</span> <span class="ow">in</span> <span class="n">loader</span><span class="p">:</span>
-                <span class="n">batch</span> <span class="o">=</span> <span class="n">batch</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
-                <span class="n">q_values</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">(</span><span class="n">batch</span><span class="p">)</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()</span>
+<span class="sd">        Args:</span>
+<span class="sd">            state: 当前状态向量。</span>
 
-            <span class="n">q_values</span><span class="p">[</span><span class="n">state</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1e10</span>
-            <span class="n">action</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">q_values</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
-            <span class="n">selected</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">action</span><span class="p">)</span>
-            <span class="n">state</span><span class="p">[</span><span class="n">action</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            torch.Tensor: 各节点的 Q 值。</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">graph_input</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_setup_graph_input</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+        <span class="n">loader</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="p">([</span><span class="n">graph_input</span><span class="p">],</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">batch</span> <span class="ow">in</span> <span class="n">loader</span><span class="p">:</span>
+            <span class="n">batch</span> <span class="o">=</span> <span class="n">batch</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">(</span><span class="n">batch</span><span class="p">)</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()</span>
 
-        <span class="k">return</span> <span class="nb">set</span><span class="p">(</span><span class="n">selected</span><span class="p">)</span></div>
-</div>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_update_state</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;更新状态。</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            state: 当前状态向量。</span>
+<span class="sd">            node: 新选择的节点。</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            torch.Tensor: 更新后的状态向量。</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">state</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="n">state</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_mask_selected</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">q_values</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">state</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;屏蔽已选节点的 Q 值。</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            q_values: Q 值张量。</span>
+<span class="sd">            state: 当前状态向量。</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            torch.Tensor: 屏蔽后的 Q 值。</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">q_values</span><span class="p">[</span><span class="n">state</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1e10</span>
+        <span class="k">return</span> <span class="n">q_values</span></div>
 
 </pre></div>
 

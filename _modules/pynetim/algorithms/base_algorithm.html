@@ -39,16 +39,8 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">目录:</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">更新日志</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html#id57">版本说明</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html#id65">贡献指南</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html#id66">许可证</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html#id67">联系方式</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../api.html">API 参考</a></li>
-</ul>
-
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
         </div>
       </div>
     </nav>
@@ -154,6 +146,17 @@
 <span class="sd">            NotImplementedError: 子类未实现此方法时抛出。</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+
+<div class="viewcode-block" id="BaseAlgorithm.get_seeds">
+<a class="viewcode-back" href="../../../api.html#pynetim.algorithms.base_algorithm.BaseAlgorithm.get_seeds">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_seeds</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Set</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;获取最后一次运行选出的种子集合。</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Set[int]: 种子节点集合。</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">seeds</span></div>
 </div>
 
 </pre></div>

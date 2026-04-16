@@ -39,16 +39,8 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">目录:</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../../changelog.html">更新日志</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../../changelog.html#id57">版本说明</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../../changelog.html#id65">贡献指南</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../../changelog.html#id66">许可证</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../../changelog.html#id67">联系方式</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../../api.html">API 参考</a></li>
-</ul>
-
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
         </div>
       </div>
     </nav>
@@ -142,7 +134,7 @@
 <span class="sd">        model: 神经网络模型。</span>
 <span class="sd">        device: 计算设备。</span>
 <span class="sd">        gamma: 折扣因子。</span>
-<span class="sd">        n_step: n-step Q-learning 的步数。</span>
+<span class="sd">        n_steps: n-step Q-learning 的步数。</span>
 <span class="sd">        memory: 经验回放缓冲区。</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -151,14 +143,23 @@
         <span class="n">model_type</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
         <span class="n">device</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;auto&#39;</span><span class="p">,</span>
         <span class="n">gamma</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.99</span><span class="p">,</span>
-        <span class="n">n_step</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="n">n_steps</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
         <span class="n">memory_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10000</span><span class="p">,</span>
         <span class="n">batch_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">64</span><span class="p">,</span>
         <span class="n">lr</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-4</span><span class="p">,</span>
         <span class="n">double_dqn</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
         <span class="n">embed_dim</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">50</span><span class="p">,</span>
         <span class="n">reg_hidden</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">32</span><span class="p">,</span>
-        <span class="n">T</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">3</span>
+        <span class="n">T</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span>
+        <span class="n">eps_start</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>
+        <span class="n">eps_end</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.05</span><span class="p">,</span>
+        <span class="n">eps_decay_steps</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10000</span><span class="p">,</span>
+        <span class="n">pretrain_episodes</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">,</span>
+        <span class="n">episodes_per_epoch</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>
+        <span class="n">eval_interval</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>
+        <span class="n">save_interval</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>
+        <span class="n">target_update_interval</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span>
+        <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
     <span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;初始化训练器。</span>
 
@@ -166,7 +167,7 @@
 <span class="sd">            model_type: 模型类型，支持 &#39;Tripling&#39; 或 &#39;S2V_DQN&#39;。</span>
 <span class="sd">            device: 计算设备，支持 &#39;auto&#39;、&#39;cpu&#39;、&#39;cuda&#39;。</span>
 <span class="sd">            gamma: 折扣因子，默认为 0.99。</span>
-<span class="sd">            n_step: n-step Q-learning 的步数，默认为 1。</span>
+<span class="sd">            n_steps: n-step Q-learning 的步数，默认为 1。</span>
 <span class="sd">            memory_size: 经验回放缓冲区大小，默认为 10000。</span>
 <span class="sd">            batch_size: 批量大小，默认为 64。</span>
 <span class="sd">            lr: 学习率，默认为 1e-4。</span>
@@ -174,16 +175,34 @@
 <span class="sd">            embed_dim: 嵌入维度，默认为 50。</span>
 <span class="sd">            reg_hidden: 回归隐藏层维度，默认为 32。</span>
 <span class="sd">            T: GNN 层数，默认为 3。</span>
+<span class="sd">            eps_start: 初始探索率，默认为 1.0。</span>
+<span class="sd">            eps_end: 最终探索率，默认为 0.05。</span>
+<span class="sd">            eps_decay_steps: 探索率衰减步数，默认为 10000。</span>
+<span class="sd">            pretrain_episodes: 预训练回合数，默认为 1000。</span>
+<span class="sd">            episodes_per_epoch: 每轮训练回合数，默认为 10。</span>
+<span class="sd">            eval_interval: 评估间隔，默认为 10。</span>
+<span class="sd">            save_interval: 保存间隔，默认为 10。</span>
+<span class="sd">            target_update_interval: 目标网络更新间隔，默认为 100。</span>
+<span class="sd">            verbose: 是否显示进度，默认为 True。</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">device</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s1">&#39;cuda&#39;</span> <span class="k">if</span> <span class="n">device</span> <span class="o">==</span> <span class="s1">&#39;auto&#39;</span> <span class="ow">and</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span> <span class="k">else</span> <span class="n">device</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">model_type</span> <span class="o">=</span> <span class="n">model_type</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">gamma</span> <span class="o">=</span> <span class="n">gamma</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">n_step</span> <span class="o">=</span> <span class="n">n_step</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n_steps</span> <span class="o">=</span> <span class="n">n_steps</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">batch_size</span> <span class="o">=</span> <span class="n">batch_size</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">double_dqn</span> <span class="o">=</span> <span class="n">double_dqn</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">embed_dim</span> <span class="o">=</span> <span class="n">embed_dim</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">reg_hidden</span> <span class="o">=</span> <span class="n">reg_hidden</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">T</span> <span class="o">=</span> <span class="n">T</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">eps_start</span> <span class="o">=</span> <span class="n">eps_start</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">eps_end</span> <span class="o">=</span> <span class="n">eps_end</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">eps_decay_steps</span> <span class="o">=</span> <span class="n">eps_decay_steps</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pretrain_episodes</span> <span class="o">=</span> <span class="n">pretrain_episodes</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">episodes_per_epoch</span> <span class="o">=</span> <span class="n">episodes_per_epoch</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">eval_interval</span> <span class="o">=</span> <span class="n">eval_interval</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">save_interval</span> <span class="o">=</span> <span class="n">save_interval</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">target_update_interval</span> <span class="o">=</span> <span class="n">target_update_interval</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span> <span class="o">=</span> <span class="n">verbose</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">memory</span> <span class="o">=</span> <span class="n">ReplayMemory</span><span class="p">(</span><span class="n">memory_size</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_node_embed_cache</span> <span class="o">=</span> <span class="p">{}</span>
@@ -324,8 +343,8 @@
             <span class="k">return</span> <span class="n">batch</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
 
     <span class="nd">@torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">()</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">select_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">graph</span><span class="p">:</span> <span class="s1">&#39;IMGraph&#39;</span><span class="p">,</span> <span class="n">state</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">epsilon</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;选择动作。</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_select_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">graph</span><span class="p">:</span> <span class="s1">&#39;IMGraph&#39;</span><span class="p">,</span> <span class="n">state</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">epsilon</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;选择动作（内部方法）。</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            graph: 图对象。</span>
@@ -348,8 +367,8 @@
         <span class="n">q_values</span><span class="p">[</span><span class="n">state</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1e10</span>
         <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">q_values</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">memorize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">env</span><span class="p">:</span> <span class="n">IMEnvironment</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;将轨迹存入经验回放缓冲区。</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_memorize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">env</span><span class="p">:</span> <span class="n">IMEnvironment</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;将轨迹存入经验回放缓冲区（内部方法）。</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            env: 环境对象。</span>
@@ -361,16 +380,16 @@
         <span class="n">sum_rewards</span> <span class="o">=</span> <span class="n">sum_rewards</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
 
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">env</span><span class="o">.</span><span class="n">states</span><span class="p">)):</span>
-            <span class="k">if</span> <span class="n">i</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_step</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">env</span><span class="o">.</span><span class="n">states</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_steps</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">env</span><span class="o">.</span><span class="n">states</span><span class="p">):</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">push</span><span class="p">(</span>
                     <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">env</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">long</span><span class="p">),</span>
                     <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="n">env</span><span class="o">.</span><span class="n">actions</span><span class="p">[</span><span class="n">i</span><span class="p">]],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">long</span><span class="p">),</span>
-                    <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">env</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_step</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">long</span><span class="p">),</span>
-                    <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="n">sum_rewards</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">gamma</span> <span class="o">**</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_step</span><span class="p">)</span> <span class="o">*</span> <span class="n">sum_rewards</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_step</span><span class="p">]],</span>
+                    <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">env</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_steps</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">long</span><span class="p">),</span>
+                    <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="n">sum_rewards</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">gamma</span> <span class="o">**</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_steps</span><span class="p">)</span> <span class="o">*</span> <span class="n">sum_rewards</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_steps</span><span class="p">]],</span>
                                  <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float</span><span class="p">),</span>
                     <span class="n">env</span><span class="o">.</span><span class="n">graph</span>
                 <span class="p">)</span>
-            <span class="k">elif</span> <span class="n">i</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_step</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">env</span><span class="o">.</span><span class="n">states</span><span class="p">):</span>
+            <span class="k">elif</span> <span class="n">i</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_steps</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">env</span><span class="o">.</span><span class="n">states</span><span class="p">):</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">push</span><span class="p">(</span>
                     <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">env</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">long</span><span class="p">),</span>
                     <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="n">env</span><span class="o">.</span><span class="n">actions</span><span class="p">[</span><span class="n">i</span><span class="p">]],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">long</span><span class="p">),</span>
@@ -379,8 +398,8 @@
                     <span class="n">env</span><span class="o">.</span><span class="n">graph</span>
                 <span class="p">)</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;执行一步训练。&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_fit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;执行一步训练（内部方法）。&quot;&quot;&quot;</span>
         <span class="n">sample_size</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">batch_size</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">memory</span><span class="p">))</span>
         <span class="n">transitions</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">sample_size</span><span class="p">)</span>
         <span class="n">batch</span> <span class="o">=</span> <span class="n">Transition</span><span class="p">(</span><span class="o">*</span><span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">transitions</span><span class="p">))</span>
@@ -414,15 +433,15 @@
                 <span class="n">batch_non_final</span><span class="o">.</span><span class="n">batch</span>
             <span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">clamp_</span><span class="p">(</span><span class="nb">min</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span>
 
-        <span class="n">expected_state_action_values</span> <span class="o">=</span> <span class="n">next_state_values</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">gamma</span> <span class="o">**</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_step</span> <span class="o">+</span> <span class="n">reward_batch</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+        <span class="n">expected_state_action_values</span> <span class="o">=</span> <span class="n">next_state_values</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">gamma</span> <span class="o">**</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_steps</span> <span class="o">+</span> <span class="n">reward_batch</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
 
         <span class="n">loss</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">criterion</span><span class="p">(</span><span class="n">state_action_values</span><span class="p">,</span> <span class="n">expected_state_action_values</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
         <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">update_target</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;更新目标网络。&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_update_target</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;更新目标网络（内部方法）。&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">double_dqn</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">target_model</span><span class="o">.</span><span class="n">load_state_dict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">state_dict</span><span class="p">())</span>
 
@@ -450,16 +469,7 @@
         <span class="n">budget</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
         <span class="n">num_epochs</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
         <span class="n">save_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-        <span class="n">eval_graphs</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="s1">&#39;IMGraph&#39;</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">eval_interval</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>
-        <span class="n">save_interval</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>
-        <span class="n">target_update_interval</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span>
-        <span class="n">eps_start</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>
-        <span class="n">eps_end</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.05</span><span class="p">,</span>
-        <span class="n">eps_decay_steps</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10000</span><span class="p">,</span>
-        <span class="n">pretrain_episodes</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">,</span>
-        <span class="n">episodes_per_epoch</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>
-        <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">eval_graphs</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="s1">&#39;IMGraph&#39;</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;训练模型。</span>
 
@@ -469,62 +479,53 @@
 <span class="sd">            num_epochs: 训练轮数。</span>
 <span class="sd">            save_path: 模型保存路径。</span>
 <span class="sd">            eval_graphs: 评估图列表（可选）。</span>
-<span class="sd">            eval_interval: 评估间隔，默认为 10。</span>
-<span class="sd">            save_interval: 保存间隔，默认为 10。</span>
-<span class="sd">            target_update_interval: 目标网络更新间隔，默认为 100。</span>
-<span class="sd">            eps_start: 初始探索率，默认为 1.0。</span>
-<span class="sd">            eps_end: 最终探索率，默认为 0.05。</span>
-<span class="sd">            eps_decay_steps: 探索率衰减步数，默认为 10000。</span>
-<span class="sd">            pretrain_episodes: 预训练回合数，默认为 1000。</span>
-<span class="sd">            episodes_per_epoch: 每轮训练回合数，默认为 10。</span>
-<span class="sd">            verbose: 是否显示进度，默认为 True。</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">save_path</span><span class="p">)</span> <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">save_path</span><span class="p">)</span> <span class="k">else</span> <span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">:</span>
             <span class="n">tqdm</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;预训练阶段...&#39;</span><span class="p">)</span>
 
-        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">pretrain_episodes</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pretrain_episodes</span><span class="p">):</span>
             <span class="n">graph</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">graphs</span><span class="p">)</span>
             <span class="n">env</span> <span class="o">=</span> <span class="n">IMEnvironment</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">budget</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;RR&#39;</span><span class="p">,</span> <span class="n">num_trials</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
             <span class="n">env</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
             <span class="n">state</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">env</span><span class="o">.</span><span class="n">state</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">long</span><span class="p">)</span>
 
             <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">budget</span><span class="p">):</span>
-                <span class="n">action</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">select_action</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">epsilon</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+                <span class="n">action</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_select_action</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">epsilon</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
                 <span class="n">_</span><span class="p">,</span> <span class="n">done</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">action</span><span class="p">)</span>
                 <span class="n">state</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">env</span><span class="o">.</span><span class="n">state</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">long</span><span class="p">)</span>
                 <span class="k">if</span> <span class="n">done</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">memorize</span><span class="p">(</span><span class="n">env</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_memorize</span><span class="p">(</span><span class="n">env</span><span class="p">)</span>
                     <span class="k">break</span>
 
-        <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">:</span>
             <span class="n">tqdm</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;开始训练...&#39;</span><span class="p">)</span>
 
-        <span class="n">progress</span> <span class="o">=</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">total</span><span class="o">=</span><span class="n">num_epochs</span><span class="p">,</span> <span class="n">disable</span><span class="o">=</span><span class="ow">not</span> <span class="n">verbose</span><span class="p">)</span>
+        <span class="n">progress</span> <span class="o">=</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">total</span><span class="o">=</span><span class="n">num_epochs</span><span class="p">,</span> <span class="n">disable</span><span class="o">=</span><span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">)</span>
         <span class="n">total_steps</span> <span class="o">=</span> <span class="mi">0</span>
 
         <span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_epochs</span><span class="p">):</span>
-            <span class="n">eps</span> <span class="o">=</span> <span class="n">eps_end</span> <span class="o">+</span> <span class="nb">max</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="p">(</span><span class="n">eps_start</span> <span class="o">-</span> <span class="n">eps_end</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">eps_decay_steps</span> <span class="o">-</span> <span class="n">total_steps</span><span class="p">)</span> <span class="o">/</span> <span class="n">eps_decay_steps</span><span class="p">)</span>
+            <span class="n">eps</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">eps_end</span> <span class="o">+</span> <span class="nb">max</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">eps_start</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">eps_end</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">eps_decay_steps</span> <span class="o">-</span> <span class="n">total_steps</span><span class="p">)</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">eps_decay_steps</span><span class="p">)</span>
 
-            <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">episodes_per_epoch</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">episodes_per_epoch</span><span class="p">):</span>
                 <span class="n">graph</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">graphs</span><span class="p">)</span>
                 <span class="n">env</span> <span class="o">=</span> <span class="n">IMEnvironment</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">budget</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;RR&#39;</span><span class="p">,</span> <span class="n">num_trials</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
                 <span class="n">env</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
                 <span class="n">state</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">env</span><span class="o">.</span><span class="n">state</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">long</span><span class="p">)</span>
 
                 <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">budget</span><span class="p">):</span>
-                    <span class="n">action</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">select_action</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">epsilon</span><span class="o">=</span><span class="n">eps</span><span class="p">)</span>
+                    <span class="n">action</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_select_action</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">epsilon</span><span class="o">=</span><span class="n">eps</span><span class="p">)</span>
                     <span class="n">_</span><span class="p">,</span> <span class="n">done</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">action</span><span class="p">)</span>
                     <span class="n">state</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">env</span><span class="o">.</span><span class="n">state</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">long</span><span class="p">)</span>
                     <span class="n">total_steps</span> <span class="o">+=</span> <span class="mi">1</span>
                     <span class="k">if</span> <span class="n">done</span><span class="p">:</span>
-                        <span class="bp">self</span><span class="o">.</span><span class="n">memorize</span><span class="p">(</span><span class="n">env</span><span class="p">)</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_memorize</span><span class="p">(</span><span class="n">env</span><span class="p">)</span>
                         <span class="k">break</span>
 
-            <span class="bp">self</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_fit</span><span class="p">()</span>
 
-            <span class="k">if</span> <span class="p">(</span><span class="n">epoch</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="n">eval_interval</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">eval_graphs</span><span class="p">:</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">epoch</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">eval_interval</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">eval_graphs</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
                 <span class="n">total_reward</span> <span class="o">=</span> <span class="mi">0</span>
                 <span class="k">for</span> <span class="n">eval_graph</span> <span class="ow">in</span> <span class="n">eval_graphs</span><span class="p">:</span>
@@ -533,7 +534,7 @@
                     <span class="n">state</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">env</span><span class="o">.</span><span class="n">state</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">long</span><span class="p">)</span>
 
                     <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">budget</span><span class="p">):</span>
-                        <span class="n">action</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">select_action</span><span class="p">(</span><span class="n">eval_graph</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">epsilon</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span>
+                        <span class="n">action</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_select_action</span><span class="p">(</span><span class="n">eval_graph</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">epsilon</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span>
                         <span class="n">_</span><span class="p">,</span> <span class="n">done</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">action</span><span class="p">)</span>
                         <span class="n">state</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">env</span><span class="o">.</span><span class="n">state</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">long</span><span class="p">)</span>
                         <span class="k">if</span> <span class="n">done</span><span class="p">:</span>
@@ -542,21 +543,21 @@
                     <span class="n">total_reward</span> <span class="o">+=</span> <span class="n">env</span><span class="o">.</span><span class="n">prev_inf</span>
 
                 <span class="n">avg_reward</span> <span class="o">=</span> <span class="n">total_reward</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">eval_graphs</span><span class="p">)</span>
-                <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">:</span>
                     <span class="n">tqdm</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Epoch </span><span class="si">{</span><span class="n">epoch</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="n">num_epochs</span><span class="si">}</span><span class="s1">: Avg Reward = </span><span class="si">{</span><span class="n">avg_reward</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
 
-            <span class="k">if</span> <span class="p">(</span><span class="n">epoch</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="n">save_interval</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">epoch</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">save_interval</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">save_path</span><span class="si">}</span><span class="s1">.epoch</span><span class="si">{</span><span class="n">epoch</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 
-            <span class="k">if</span> <span class="p">(</span><span class="n">epoch</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="n">target_update_interval</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">update_target</span><span class="p">()</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">epoch</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">target_update_interval</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_update_target</span><span class="p">()</span>
 
             <span class="n">progress</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 
         <span class="n">progress</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">save_path</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">:</span>
             <span class="n">tqdm</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;训练完成，模型已保存至 </span><span class="si">{</span><span class="n">save_path</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 
 
@@ -574,7 +575,7 @@
 <span class="sd">        model: 神经网络模型。</span>
 <span class="sd">        device: 计算设备。</span>
 <span class="sd">        gamma: 折扣因子。</span>
-<span class="sd">        n_step: n-step Q-learning 的步数。</span>
+<span class="sd">        n_steps: n-step Q-learning 的步数。</span>
 <span class="sd">        memory: 经验回放缓冲区。</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -584,38 +585,65 @@
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">device</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;auto&#39;</span><span class="p">,</span>
         <span class="n">gamma</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.99</span><span class="p">,</span>
-        <span class="n">n_step</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="n">n_steps</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
         <span class="n">memory_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10000</span><span class="p">,</span>
         <span class="n">batch_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">64</span><span class="p">,</span>
         <span class="n">lr</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-4</span><span class="p">,</span>
         <span class="n">double_dqn</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
         <span class="n">embed_dim</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">50</span><span class="p">,</span>
-        <span class="n">T</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">3</span>
+        <span class="n">T</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span>
+        <span class="n">eps_start</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>
+        <span class="n">eps_end</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.05</span><span class="p">,</span>
+        <span class="n">eps_decay_steps</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10000</span><span class="p">,</span>
+        <span class="n">pretrain_episodes</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">,</span>
+        <span class="n">episodes_per_epoch</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>
+        <span class="n">eval_interval</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>
+        <span class="n">save_interval</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>
+        <span class="n">target_update_interval</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span>
+        <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
     <span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;初始化 ToupleGDD 训练器。</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            device: 计算设备，支持 &#39;auto&#39;、&#39;cpu&#39;、&#39;cuda&#39;。</span>
 <span class="sd">            gamma: 折扣因子，默认为 0.99。</span>
-<span class="sd">            n_step: n-step Q-learning 的步数，默认为 1。</span>
+<span class="sd">            n_steps: n-step Q-learning 的步数，默认为 1。</span>
 <span class="sd">            memory_size: 经验回放缓冲区大小，默认为 10000。</span>
 <span class="sd">            batch_size: 批量大小，默认为 64。</span>
 <span class="sd">            lr: 学习率，默认为 1e-4。</span>
 <span class="sd">            double_dqn: 是否使用 Double DQN，默认为 True。</span>
 <span class="sd">            embed_dim: 嵌入维度，默认为 50。</span>
 <span class="sd">            T: GNN 层数，默认为 3。</span>
+<span class="sd">            eps_start: 初始探索率，默认为 1.0。</span>
+<span class="sd">            eps_end: 最终探索率，默认为 0.05。</span>
+<span class="sd">            eps_decay_steps: 探索率衰减步数，默认为 10000。</span>
+<span class="sd">            pretrain_episodes: 预训练回合数，默认为 1000。</span>
+<span class="sd">            episodes_per_epoch: 每轮训练回合数，默认为 10。</span>
+<span class="sd">            eval_interval: 评估间隔，默认为 10。</span>
+<span class="sd">            save_interval: 保存间隔，默认为 10。</span>
+<span class="sd">            target_update_interval: 目标网络更新间隔，默认为 100。</span>
+<span class="sd">            verbose: 是否显示进度，默认为 True。</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
             <span class="n">model_type</span><span class="o">=</span><span class="s1">&#39;Tripling&#39;</span><span class="p">,</span>
             <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">,</span>
             <span class="n">gamma</span><span class="o">=</span><span class="n">gamma</span><span class="p">,</span>
-            <span class="n">n_step</span><span class="o">=</span><span class="n">n_step</span><span class="p">,</span>
+            <span class="n">n_steps</span><span class="o">=</span><span class="n">n_steps</span><span class="p">,</span>
             <span class="n">memory_size</span><span class="o">=</span><span class="n">memory_size</span><span class="p">,</span>
             <span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size</span><span class="p">,</span>
             <span class="n">lr</span><span class="o">=</span><span class="n">lr</span><span class="p">,</span>
             <span class="n">double_dqn</span><span class="o">=</span><span class="n">double_dqn</span><span class="p">,</span>
             <span class="n">embed_dim</span><span class="o">=</span><span class="n">embed_dim</span><span class="p">,</span>
-            <span class="n">T</span><span class="o">=</span><span class="n">T</span>
+            <span class="n">T</span><span class="o">=</span><span class="n">T</span><span class="p">,</span>
+            <span class="n">eps_start</span><span class="o">=</span><span class="n">eps_start</span><span class="p">,</span>
+            <span class="n">eps_end</span><span class="o">=</span><span class="n">eps_end</span><span class="p">,</span>
+            <span class="n">eps_decay_steps</span><span class="o">=</span><span class="n">eps_decay_steps</span><span class="p">,</span>
+            <span class="n">pretrain_episodes</span><span class="o">=</span><span class="n">pretrain_episodes</span><span class="p">,</span>
+            <span class="n">episodes_per_epoch</span><span class="o">=</span><span class="n">episodes_per_epoch</span><span class="p">,</span>
+            <span class="n">eval_interval</span><span class="o">=</span><span class="n">eval_interval</span><span class="p">,</span>
+            <span class="n">save_interval</span><span class="o">=</span><span class="n">save_interval</span><span class="p">,</span>
+            <span class="n">target_update_interval</span><span class="o">=</span><span class="n">target_update_interval</span><span class="p">,</span>
+            <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span>
         <span class="p">)</span></div>
 </div>
 
@@ -635,7 +663,7 @@
 <span class="sd">        model: 神经网络模型。</span>
 <span class="sd">        device: 计算设备。</span>
 <span class="sd">        gamma: 折扣因子。</span>
-<span class="sd">        n_step: n-step Q-learning 的步数。</span>
+<span class="sd">        n_steps: n-step Q-learning 的步数。</span>
 <span class="sd">        memory: 经验回放缓冲区。</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -645,38 +673,65 @@
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">device</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;auto&#39;</span><span class="p">,</span>
         <span class="n">gamma</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.99</span><span class="p">,</span>
-        <span class="n">n_step</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="n">n_steps</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
         <span class="n">memory_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10000</span><span class="p">,</span>
         <span class="n">batch_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">64</span><span class="p">,</span>
         <span class="n">lr</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-4</span><span class="p">,</span>
         <span class="n">double_dqn</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
         <span class="n">reg_hidden</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">32</span><span class="p">,</span>
-        <span class="n">T</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">3</span>
+        <span class="n">T</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span>
+        <span class="n">eps_start</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>
+        <span class="n">eps_end</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.05</span><span class="p">,</span>
+        <span class="n">eps_decay_steps</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10000</span><span class="p">,</span>
+        <span class="n">pretrain_episodes</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">,</span>
+        <span class="n">episodes_per_epoch</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>
+        <span class="n">eval_interval</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>
+        <span class="n">save_interval</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>
+        <span class="n">target_update_interval</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span>
+        <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
     <span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;初始化 S2V-DQN 训练器。</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            device: 计算设备，支持 &#39;auto&#39;、&#39;cpu&#39;、&#39;cuda&#39;。</span>
 <span class="sd">            gamma: 折扣因子，默认为 0.99。</span>
-<span class="sd">            n_step: n-step Q-learning 的步数，默认为 1。</span>
+<span class="sd">            n_steps: n-step Q-learning 的步数，默认为 1。</span>
 <span class="sd">            memory_size: 经验回放缓冲区大小，默认为 10000。</span>
 <span class="sd">            batch_size: 批量大小，默认为 64。</span>
 <span class="sd">            lr: 学习率，默认为 1e-4。</span>
 <span class="sd">            double_dqn: 是否使用 Double DQN，默认为 True。</span>
 <span class="sd">            reg_hidden: 回归隐藏层维度，默认为 32。</span>
 <span class="sd">            T: GNN 层数，默认为 3。</span>
+<span class="sd">            eps_start: 初始探索率，默认为 1.0。</span>
+<span class="sd">            eps_end: 最终探索率，默认为 0.05。</span>
+<span class="sd">            eps_decay_steps: 探索率衰减步数，默认为 10000。</span>
+<span class="sd">            pretrain_episodes: 预训练回合数，默认为 1000。</span>
+<span class="sd">            episodes_per_epoch: 每轮训练回合数，默认为 10。</span>
+<span class="sd">            eval_interval: 评估间隔，默认为 10。</span>
+<span class="sd">            save_interval: 保存间隔，默认为 10。</span>
+<span class="sd">            target_update_interval: 目标网络更新间隔，默认为 100。</span>
+<span class="sd">            verbose: 是否显示进度，默认为 True。</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
             <span class="n">model_type</span><span class="o">=</span><span class="s1">&#39;S2V_DQN&#39;</span><span class="p">,</span>
             <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">,</span>
             <span class="n">gamma</span><span class="o">=</span><span class="n">gamma</span><span class="p">,</span>
-            <span class="n">n_step</span><span class="o">=</span><span class="n">n_step</span><span class="p">,</span>
+            <span class="n">n_steps</span><span class="o">=</span><span class="n">n_steps</span><span class="p">,</span>
             <span class="n">memory_size</span><span class="o">=</span><span class="n">memory_size</span><span class="p">,</span>
             <span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size</span><span class="p">,</span>
             <span class="n">lr</span><span class="o">=</span><span class="n">lr</span><span class="p">,</span>
             <span class="n">double_dqn</span><span class="o">=</span><span class="n">double_dqn</span><span class="p">,</span>
             <span class="n">reg_hidden</span><span class="o">=</span><span class="n">reg_hidden</span><span class="p">,</span>
-            <span class="n">T</span><span class="o">=</span><span class="n">T</span>
+            <span class="n">T</span><span class="o">=</span><span class="n">T</span><span class="p">,</span>
+            <span class="n">eps_start</span><span class="o">=</span><span class="n">eps_start</span><span class="p">,</span>
+            <span class="n">eps_end</span><span class="o">=</span><span class="n">eps_end</span><span class="p">,</span>
+            <span class="n">eps_decay_steps</span><span class="o">=</span><span class="n">eps_decay_steps</span><span class="p">,</span>
+            <span class="n">pretrain_episodes</span><span class="o">=</span><span class="n">pretrain_episodes</span><span class="p">,</span>
+            <span class="n">episodes_per_epoch</span><span class="o">=</span><span class="n">episodes_per_epoch</span><span class="p">,</span>
+            <span class="n">eval_interval</span><span class="o">=</span><span class="n">eval_interval</span><span class="p">,</span>
+            <span class="n">save_interval</span><span class="o">=</span><span class="n">save_interval</span><span class="p">,</span>
+            <span class="n">target_update_interval</span><span class="o">=</span><span class="n">target_update_interval</span><span class="p">,</span>
+            <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span>
         <span class="p">)</span></div>
 </div>
 

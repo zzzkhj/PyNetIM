@@ -39,16 +39,8 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">目录:</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="changelog.html">更新日志</a></li>
-<li class="toctree-l1"><a class="reference internal" href="changelog.html#id57">版本说明</a></li>
-<li class="toctree-l1"><a class="reference internal" href="changelog.html#id65">贡献指南</a></li>
-<li class="toctree-l1"><a class="reference internal" href="changelog.html#id66">许可证</a></li>
-<li class="toctree-l1"><a class="reference internal" href="changelog.html#id67">联系方式</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api.html">API 参考</a></li>
-</ul>
-
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
         </div>
       </div>
     </nav>
@@ -82,7 +74,6 @@
  | <a href="#C"><strong>C</strong></a>
  | <a href="#D"><strong>D</strong></a>
  | <a href="#E"><strong>E</strong></a>
- | <a href="#F"><strong>F</strong></a>
  | <a href="#G"><strong>G</strong></a>
  | <a href="#H"><strong>H</strong></a>
  | <a href="#I"><strong>I</strong></a>
@@ -97,6 +88,7 @@
  | <a href="#T"><strong>T</strong></a>
  | <a href="#U"><strong>U</strong></a>
  | <a href="#V"><strong>V</strong></a>
+ | <a href="#W"><strong>W</strong></a>
  
 </div>
 <h2 id="_">_</h2>
@@ -106,6 +98,8 @@
 
       <ul>
         <li><a href="api.html#pynetim.algorithms.deep_learning.BaseDLAlgorithm.__init__">(pynetim.algorithms.deep_learning.BaseDLAlgorithm method)</a>
+</li>
+        <li><a href="api.html#pynetim.algorithms.deep_learning.BaseDRLAlgorithm.__init__">(pynetim.algorithms.deep_learning.BaseDRLAlgorithm method)</a>
 </li>
         <li><a href="api.html#pynetim.algorithms.deep_learning.BiGDNAlgorithm.__init__">(pynetim.algorithms.deep_learning.BiGDNAlgorithm method)</a>
 </li>
@@ -208,13 +202,19 @@
         <li><a href="api.html#pynetim.py.diffusion_model.LinearThresholdModel.activated_nodes">(pynetim.py.diffusion_model.LinearThresholdModel attribute)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api.html#pynetim.graph.IMGraph.add_edge">add_edge() (pynetim.graph.IMGraph method)</a>
 </li>
       <li><a href="api.html#pynetim.graph.IMGraph.add_edges">add_edges() (pynetim.graph.IMGraph method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api.html#pynetim.timing.AlgorithmTimer">AlgorithmTimer (class in pynetim.timing)</a>
+</li>
       <li><a href="api.html#pynetim.utils.all_pairs_shortest_path_length">all_pairs_shortest_path_length() (in module pynetim.utils)</a>
+</li>
+      <li><a href="api.html#pynetim.timing.AlgorithmTimer.all_runtimes">all_runtimes (pynetim.timing.AlgorithmTimer property)</a>
+</li>
+      <li><a href="api.html#pynetim.evaluation.average_shortest_distance">average_shortest_distance() (in module pynetim.evaluation)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -227,6 +227,8 @@
       <li><a href="api.html#pynetim.diffusion_model.BaseCallbackDiffusionModel">BaseCallbackDiffusionModel (class in pynetim.diffusion_model)</a>
 </li>
       <li><a href="api.html#pynetim.algorithms.deep_learning.BaseDLAlgorithm">BaseDLAlgorithm (class in pynetim.algorithms.deep_learning)</a>
+</li>
+      <li><a href="api.html#pynetim.algorithms.deep_learning.BaseDRLAlgorithm">BaseDRLAlgorithm (class in pynetim.algorithms.deep_learning)</a>
 </li>
       <li><a href="api.html#pynetim.diffusion_model.BaseMultiprocessDiffusionModel">BaseMultiprocessDiffusionModel (class in pynetim.diffusion_model)</a>
 </li>
@@ -290,11 +292,17 @@
         <li><a href="api.html#pynetim.py.algorithms.CELFAlgorithm">(class in pynetim.py.algorithms)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api.html#pynetim.algorithms.simulation.CELFPlusAlgorithm">CELFPlusAlgorithm (class in pynetim.algorithms.simulation)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api.html#pynetim.timing.AlgorithmTimer.clear">clear() (pynetim.timing.AlgorithmTimer method)</a>
+</li>
       <li><a href="api.html#pynetim.algorithms.heuristic.ClosenessCentralityAlgorithm">ClosenessCentralityAlgorithm (class in pynetim.algorithms.heuristic)</a>
+</li>
+      <li><a href="api.html#pynetim.evaluation.clustering_coefficient">clustering_coefficient() (in module pynetim.evaluation)</a>
+</li>
+      <li><a href="api.html#pynetim.timing.compare_algorithms_runtime">compare_algorithms_runtime() (in module pynetim.timing)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -308,6 +316,10 @@
         <li><a href="api.html#pynetim.py.graph.IMGraphPy.degree">(pynetim.py.graph.IMGraphPy method)</a>
 </li>
       </ul></li>
+      <li><a href="api.html#pynetim.evaluation.degree_distribution">degree_distribution() (in module pynetim.evaluation)</a>
+</li>
+      <li><a href="api.html#pynetim.evaluation.degree_statistics">degree_statistics() (in module pynetim.evaluation)</a>
+</li>
       <li><a href="api.html#pynetim.algorithms.heuristic.DegreeCentralityAlgorithm">DegreeCentralityAlgorithm (class in pynetim.algorithms.heuristic)</a>
 </li>
       <li><a href="api.html#pynetim.algorithms.heuristic.DegreeDiscountAlgorithm">DegreeDiscountAlgorithm (class in pynetim.algorithms.heuristic)</a>
@@ -358,6 +370,8 @@
 </li>
       <li><a href="api.html#pynetim.py.graph.IMGraphPy.direction">direction (pynetim.py.graph.IMGraphPy attribute)</a>
 </li>
+      <li><a href="api.html#pynetim.evaluation.distribution_entropy">distribution_entropy() (in module pynetim.evaluation)</a>
+</li>
   </ul></td>
 </tr></table>
 
@@ -379,14 +393,6 @@
       <li><a href="api.html#pynetim.algorithms.deep_learning.BiGDNNodeEncoderTrainer.encoder">encoder (pynetim.algorithms.deep_learning.BiGDNNodeEncoderTrainer attribute)</a>
 </li>
       <li><a href="api.html#pynetim.py.algorithms.IMMAlgorithm.eps">eps (pynetim.py.algorithms.IMMAlgorithm attribute)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="F">F</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api.html#pynetim.algorithms.deep_learning.BiGDNTrainer.fit">fit() (pynetim.algorithms.deep_learning.BiGDNTrainer method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -443,7 +449,11 @@
       <li><a href="api.html#pynetim.graph.IMGraph.get_all_out_degrees">get_all_out_degrees() (pynetim.graph.IMGraph method)</a>
 </li>
       <li><a href="api.html#pynetim.algorithms.ris.OPIMAlgorithm.get_approximation">get_approximation() (pynetim.algorithms.ris.OPIMAlgorithm method)</a>
+
+      <ul>
+        <li><a href="api.html#pynetim.algorithms.ris.OPIMCAlgorithm.get_approximation">(pynetim.algorithms.ris.OPIMCAlgorithm method)</a>
 </li>
+      </ul></li>
       <li><a href="api.html#pynetim.graph.IMGraph.get_edge_weight">get_edge_weight() (pynetim.graph.IMGraph method)</a>
 
       <ul>
@@ -451,13 +461,63 @@
 </li>
       </ul></li>
       <li><a href="api.html#pynetim.algorithms.ris.OPIMAlgorithm.get_influence">get_influence() (pynetim.algorithms.ris.OPIMAlgorithm method)</a>
-</li>
-      <li><a href="api.html#pynetim.diffusion_model.PyDiffusionModelBase.get_py_override">get_py_override() (pynetim.diffusion_model.PyDiffusionModelBase method)</a>
-</li>
-      <li><a href="api.html#pynetim.algorithms.ris.BaseRISAlgorithm.get_seeds">get_seeds() (pynetim.algorithms.ris.BaseRISAlgorithm method)</a>
 
       <ul>
+        <li><a href="api.html#pynetim.algorithms.ris.OPIMCAlgorithm.get_influence">(pynetim.algorithms.ris.OPIMCAlgorithm method)</a>
+</li>
+      </ul></li>
+      <li><a href="api.html#pynetim.diffusion_model.PyDiffusionModelBase.get_py_override">get_py_override() (pynetim.diffusion_model.PyDiffusionModelBase method)</a>
+</li>
+      <li><a href="api.html#pynetim.algorithms.base_algorithm.BaseAlgorithm.get_seeds">get_seeds() (pynetim.algorithms.base_algorithm.BaseAlgorithm method)</a>
+
+      <ul>
+        <li><a href="api.html#pynetim.algorithms.deep_learning.BaseDLAlgorithm.get_seeds">(pynetim.algorithms.deep_learning.BaseDLAlgorithm method)</a>
+</li>
+        <li><a href="api.html#pynetim.algorithms.deep_learning.BaseDRLAlgorithm.get_seeds">(pynetim.algorithms.deep_learning.BaseDRLAlgorithm method)</a>
+</li>
+        <li><a href="api.html#pynetim.algorithms.deep_learning.BiGDNAlgorithm.get_seeds">(pynetim.algorithms.deep_learning.BiGDNAlgorithm method)</a>
+</li>
+        <li><a href="api.html#pynetim.algorithms.deep_learning.BiGDNSAlgorithm.get_seeds">(pynetim.algorithms.deep_learning.BiGDNSAlgorithm method)</a>
+</li>
+        <li><a href="api.html#pynetim.algorithms.deep_learning.S2VDQNAlgorithm.get_seeds">(pynetim.algorithms.deep_learning.S2VDQNAlgorithm method)</a>
+</li>
+        <li><a href="api.html#pynetim.algorithms.deep_learning.ToupleGDDAlgorithm.get_seeds">(pynetim.algorithms.deep_learning.ToupleGDDAlgorithm method)</a>
+</li>
+        <li><a href="api.html#pynetim.algorithms.heuristic.BetweennessCentralityAlgorithm.get_seeds">(pynetim.algorithms.heuristic.BetweennessCentralityAlgorithm method)</a>
+</li>
+        <li><a href="api.html#pynetim.algorithms.heuristic.ClosenessCentralityAlgorithm.get_seeds">(pynetim.algorithms.heuristic.ClosenessCentralityAlgorithm method)</a>
+</li>
+        <li><a href="api.html#pynetim.algorithms.heuristic.DegreeCentralityAlgorithm.get_seeds">(pynetim.algorithms.heuristic.DegreeCentralityAlgorithm method)</a>
+</li>
+        <li><a href="api.html#pynetim.algorithms.heuristic.DegreeDiscountAlgorithm.get_seeds">(pynetim.algorithms.heuristic.DegreeDiscountAlgorithm method)</a>
+</li>
+        <li><a href="api.html#pynetim.algorithms.heuristic.EigenvectorCentralityAlgorithm.get_seeds">(pynetim.algorithms.heuristic.EigenvectorCentralityAlgorithm method)</a>
+</li>
+        <li><a href="api.html#pynetim.algorithms.heuristic.KShellDecompositionAlgorithm.get_seeds">(pynetim.algorithms.heuristic.KShellDecompositionAlgorithm method)</a>
+</li>
+        <li><a href="api.html#pynetim.algorithms.heuristic.PageRankAlgorithm.get_seeds">(pynetim.algorithms.heuristic.PageRankAlgorithm method)</a>
+</li>
+        <li><a href="api.html#pynetim.algorithms.heuristic.SingleDiscountAlgorithm.get_seeds">(pynetim.algorithms.heuristic.SingleDiscountAlgorithm method)</a>
+</li>
+        <li><a href="api.html#pynetim.algorithms.heuristic.VoteRankAlgorithm.get_seeds">(pynetim.algorithms.heuristic.VoteRankAlgorithm method)</a>
+</li>
+        <li><a href="api.html#pynetim.algorithms.ris.BaseRISAlgorithm.get_seeds">(pynetim.algorithms.ris.BaseRISAlgorithm method)</a>
+</li>
+        <li><a href="api.html#pynetim.algorithms.ris.IMMAlgorithm.get_seeds">(pynetim.algorithms.ris.IMMAlgorithm method)</a>
+</li>
         <li><a href="api.html#pynetim.algorithms.ris.OPIMAlgorithm.get_seeds">(pynetim.algorithms.ris.OPIMAlgorithm method)</a>
+</li>
+        <li><a href="api.html#pynetim.algorithms.ris.OPIMCAlgorithm.get_seeds">(pynetim.algorithms.ris.OPIMCAlgorithm method)</a>
+</li>
+        <li><a href="api.html#pynetim.algorithms.ris.TIMAlgorithm.get_seeds">(pynetim.algorithms.ris.TIMAlgorithm method)</a>
+</li>
+        <li><a href="api.html#pynetim.algorithms.ris.TIMPlusAlgorithm.get_seeds">(pynetim.algorithms.ris.TIMPlusAlgorithm method)</a>
+</li>
+        <li><a href="api.html#pynetim.algorithms.simulation.CELFAlgorithm.get_seeds">(pynetim.algorithms.simulation.CELFAlgorithm method)</a>
+</li>
+        <li><a href="api.html#pynetim.algorithms.simulation.CELFPlusAlgorithm.get_seeds">(pynetim.algorithms.simulation.CELFPlusAlgorithm method)</a>
+</li>
+        <li><a href="api.html#pynetim.algorithms.simulation.GreedyAlgorithm.get_seeds">(pynetim.algorithms.simulation.GreedyAlgorithm method)</a>
 </li>
       </ul></li>
   </ul></td>
@@ -588,6 +648,10 @@
 <h2 id="K">K</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api.html#pynetim.evaluation.kendall_tau">kendall_tau() (in module pynetim.evaluation)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api.html#pynetim.algorithms.heuristic.KShellDecompositionAlgorithm">KShellDecompositionAlgorithm (class in pynetim.algorithms.heuristic)</a>
 </li>
   </ul></td>
@@ -598,21 +662,29 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api.html#pynetim.py.algorithms.IMMAlgorithm.l">l (pynetim.py.algorithms.IMMAlgorithm attribute)</a>
 </li>
+      <li><a href="api.html#pynetim.timing.AlgorithmTimer.last_runtime">last_runtime (pynetim.timing.AlgorithmTimer property)</a>
+</li>
       <li><a href="api.html#pynetim.diffusion_model.LinearThresholdModel">LinearThresholdModel (class in pynetim.diffusion_model)</a>
 
       <ul>
         <li><a href="api.html#pynetim.py.diffusion_model.LinearThresholdModel">(class in pynetim.py.diffusion_model)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api.html#pynetim.algorithms.deep_learning.BiGDNNodeEncoderTrainer.load">load() (pynetim.algorithms.deep_learning.BiGDNNodeEncoderTrainer method)</a>
 
       <ul>
         <li><a href="api.html#pynetim.algorithms.deep_learning.BiGDNTrainer.load">(pynetim.algorithms.deep_learning.BiGDNTrainer method)</a>
 </li>
+        <li><a href="api.html#pynetim.algorithms.deep_learning.S2VDQNTrainer.load">(pynetim.algorithms.deep_learning.S2VDQNTrainer method)</a>
+</li>
+        <li><a href="api.html#pynetim.algorithms.deep_learning.ToupleGDDTrainer.load">(pynetim.algorithms.deep_learning.ToupleGDDTrainer method)</a>
+</li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api.html#pynetim.utils.load_edgelist">load_edgelist() (in module pynetim.utils)</a>
+</li>
+      <li><a href="api.html#pynetim.evaluation.local_clustering">local_clustering() (in module pynetim.evaluation)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -620,7 +692,13 @@
 <h2 id="M">M</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api.html#pynetim.algorithms.deep_learning.BiGDNTrainer.memorize">memorize() (pynetim.algorithms.deep_learning.BiGDNTrainer method)</a>
+      <li><a href="api.html#pynetim.evaluation.mean_centrality">mean_centrality() (in module pynetim.evaluation)</a>
+</li>
+      <li><a href="api.html#pynetim.timing.measure_runtime">measure_runtime() (in module pynetim.timing)</a>
+</li>
+      <li><a href="api.html#pynetim.timing.measure_runtime_multiple_runs">measure_runtime_multiple_runs() (in module pynetim.timing)</a>
+</li>
+      <li><a href="api.html#pynetim.timing.measure_time">measure_time() (in module pynetim.timing)</a>
 </li>
       <li><a href="api.html#pynetim.algorithms.deep_learning.S2VDQNTrainer.memory">memory (pynetim.algorithms.deep_learning.S2VDQNTrainer attribute)</a>
 
@@ -654,6 +732,8 @@
 </li>
         <li><a href="api.html#module-pynetim.diffusion_model">pynetim.diffusion_model</a>
 </li>
+        <li><a href="api.html#module-pynetim.evaluation">pynetim.evaluation</a>
+</li>
         <li><a href="api.html#module-pynetim.graph">pynetim.graph</a>
 </li>
         <li><a href="api.html#module-pynetim.py.algorithms">pynetim.py.algorithms</a>
@@ -662,11 +742,15 @@
 </li>
         <li><a href="api.html#module-pynetim.py.graph">pynetim.py.graph</a>
 </li>
+        <li><a href="api.html#module-pynetim.timing">pynetim.timing</a>
+</li>
         <li><a href="api.html#module-pynetim.utils">pynetim.utils</a>
 </li>
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api.html#pynetim.evaluation.monotonicity_score">monotonicity_score() (in module pynetim.evaluation)</a>
+</li>
       <li><a href="api.html#pynetim.py.algorithms.BaseRISAlgorithm.multi_process">multi_process (pynetim.py.algorithms.BaseRISAlgorithm attribute)</a>
 </li>
   </ul></td>
@@ -675,12 +759,14 @@
 <h2 id="N">N</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api.html#pynetim.algorithms.deep_learning.S2VDQNTrainer.n_step">n_step (pynetim.algorithms.deep_learning.S2VDQNTrainer attribute)</a>
+      <li><a href="api.html#pynetim.algorithms.deep_learning.S2VDQNTrainer.n_steps">n_steps (pynetim.algorithms.deep_learning.S2VDQNTrainer attribute)</a>
 
       <ul>
-        <li><a href="api.html#pynetim.algorithms.deep_learning.ToupleGDDTrainer.n_step">(pynetim.algorithms.deep_learning.ToupleGDDTrainer attribute)</a>
+        <li><a href="api.html#pynetim.algorithms.deep_learning.ToupleGDDTrainer.n_steps">(pynetim.algorithms.deep_learning.ToupleGDDTrainer attribute)</a>
 </li>
       </ul></li>
+      <li><a href="api.html#pynetim.evaluation.neighbor_coverage">neighbor_coverage() (in module pynetim.evaluation)</a>
+</li>
       <li><a href="api.html#pynetim.py.graph.IMGraphPy.neighbors">neighbors() (pynetim.py.graph.IMGraphPy method)</a>
 </li>
       <li><a href="api.html#pynetim.py.algorithms.BaseRISAlgorithm.nodes">nodes (pynetim.py.algorithms.BaseRISAlgorithm attribute)</a>
@@ -689,10 +775,10 @@
         <li><a href="api.html#pynetim.py.graph.IMGraphPy.nodes">(pynetim.py.graph.IMGraphPy property)</a>
 </li>
       </ul></li>
-      <li><a href="api.html#pynetim.graph.IMGraph.num_edges">num_edges (pynetim.graph.IMGraph property)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api.html#pynetim.graph.IMGraph.num_edges">num_edges (pynetim.graph.IMGraph property)</a>
+</li>
       <li><a href="api.html#pynetim.algorithms.deep_learning.BiGDNNodeEncoderTrainer.num_features">num_features (pynetim.algorithms.deep_learning.BiGDNNodeEncoderTrainer attribute)</a>
 </li>
       <li><a href="api.html#pynetim.diffusion_model.BaseCallbackDiffusionModel.num_nodes">num_nodes (pynetim.diffusion_model.BaseCallbackDiffusionModel attribute)</a>
@@ -784,13 +870,20 @@
         <li><a href="api.html#module-pynetim.algorithms.simulation">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     pynetim.diffusion_model
 
       <ul>
         <li><a href="api.html#module-pynetim.diffusion_model">module</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    pynetim.evaluation
+
+      <ul>
+        <li><a href="api.html#module-pynetim.evaluation">module</a>
 </li>
       </ul></li>
       <li>
@@ -822,6 +915,13 @@
 </li>
       </ul></li>
       <li>
+    pynetim.timing
+
+      <ul>
+        <li><a href="api.html#module-pynetim.timing">module</a>
+</li>
+      </ul></li>
+      <li>
     pynetim.utils
 
       <ul>
@@ -834,6 +934,12 @@
 <h2 id="R">R</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api.html#pynetim.evaluation.ranking_distance">ranking_distance() (in module pynetim.evaluation)</a>
+</li>
+      <li><a href="api.html#pynetim.evaluation.ranking_stability">ranking_stability() (in module pynetim.evaluation)</a>
+</li>
+      <li><a href="api.html#pynetim.evaluation.reachability">reachability() (in module pynetim.evaluation)</a>
+</li>
       <li><a href="api.html#pynetim.py.diffusion_model.IndependentCascadeModel.record_states">record_states (pynetim.py.diffusion_model.IndependentCascadeModel attribute)</a>
 
       <ul>
@@ -867,6 +973,10 @@
       <li><a href="api.html#pynetim.algorithms.base_algorithm.BaseAlgorithm.run">run() (pynetim.algorithms.base_algorithm.BaseAlgorithm method)</a>
 
       <ul>
+        <li><a href="api.html#pynetim.algorithms.deep_learning.BaseDLAlgorithm.run">(pynetim.algorithms.deep_learning.BaseDLAlgorithm method)</a>
+</li>
+        <li><a href="api.html#pynetim.algorithms.deep_learning.BaseDRLAlgorithm.run">(pynetim.algorithms.deep_learning.BaseDRLAlgorithm method)</a>
+</li>
         <li><a href="api.html#pynetim.algorithms.deep_learning.BiGDNAlgorithm.run">(pynetim.algorithms.deep_learning.BiGDNAlgorithm method)</a>
 </li>
         <li><a href="api.html#pynetim.algorithms.deep_learning.BiGDNSAlgorithm.run">(pynetim.algorithms.deep_learning.BiGDNSAlgorithm method)</a>
@@ -923,6 +1033,8 @@
 </li>
         <li><a href="api.html#pynetim.py.algorithms.SingleDiscountAlgorithm.run">(pynetim.py.algorithms.SingleDiscountAlgorithm method)</a>
 </li>
+        <li><a href="api.html#pynetim.timing.AlgorithmTimer.run">(pynetim.timing.AlgorithmTimer method)</a>
+</li>
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
@@ -951,6 +1063,8 @@
 </li>
       </ul></li>
       <li><a href="api.html#pynetim.diffusion_model.BaseMultiprocessDiffusionModel.run_monte_carlo_with_frequency">run_monte_carlo_with_frequency() (pynetim.diffusion_model.BaseMultiprocessDiffusionModel method)</a>
+</li>
+      <li><a href="api.html#pynetim.timing.AlgorithmTimer.run_multiple">run_multiple() (pynetim.timing.AlgorithmTimer method)</a>
 </li>
       <li><a href="api.html#pynetim.diffusion_model.IndependentCascadeModel.run_single_simulation">run_single_simulation() (pynetim.diffusion_model.IndependentCascadeModel method)</a>
 
@@ -989,16 +1103,18 @@
       <ul>
         <li><a href="api.html#pynetim.algorithms.deep_learning.BiGDNTrainer.save">(pynetim.algorithms.deep_learning.BiGDNTrainer method)</a>
 </li>
+        <li><a href="api.html#pynetim.algorithms.deep_learning.S2VDQNTrainer.save">(pynetim.algorithms.deep_learning.S2VDQNTrainer method)</a>
+</li>
+        <li><a href="api.html#pynetim.algorithms.deep_learning.ToupleGDDTrainer.save">(pynetim.algorithms.deep_learning.ToupleGDDTrainer method)</a>
+</li>
       </ul></li>
       <li><a href="api.html#pynetim.utils.save_edgelist">save_edgelist() (in module pynetim.utils)</a>
 </li>
-      <li><a href="api.html#pynetim.algorithms.deep_learning.BiGDNAlgorithm.save_weights">save_weights() (pynetim.algorithms.deep_learning.BiGDNAlgorithm method)</a>
-
-      <ul>
-        <li><a href="api.html#pynetim.algorithms.deep_learning.BiGDNSAlgorithm.save_weights">(pynetim.algorithms.deep_learning.BiGDNSAlgorithm method)</a>
-</li>
-      </ul></li>
       <li><a href="api.html#pynetim.py.algorithms.BaseRISAlgorithm.seed">seed (pynetim.py.algorithms.BaseRISAlgorithm attribute)</a>
+</li>
+      <li><a href="api.html#pynetim.evaluation.seed_diversity">seed_diversity() (in module pynetim.evaluation)</a>
+</li>
+      <li><a href="api.html#pynetim.evaluation.seed_overlap">seed_overlap() (in module pynetim.evaluation)</a>
 </li>
       <li><a href="api.html#pynetim.algorithms.base_algorithm.BaseAlgorithm.seeds">seeds (pynetim.algorithms.base_algorithm.BaseAlgorithm attribute)</a>
 
@@ -1032,8 +1148,6 @@
         <li><a href="api.html#pynetim.diffusion_model.BaseMultiprocessDiffusionModel.seeds">(pynetim.diffusion_model.BaseMultiprocessDiffusionModel attribute)</a>
 </li>
       </ul></li>
-      <li><a href="api.html#pynetim.algorithms.deep_learning.BiGDNTrainer.select_action">select_action() (pynetim.algorithms.deep_learning.BiGDNTrainer method)</a>
-</li>
       <li><a href="api.html#pynetim.diffusion_model.SusceptibleInfectedModel.set_beta">set_beta() (pynetim.diffusion_model.SusceptibleInfectedModel method)</a>
 
       <ul>
@@ -1094,6 +1208,8 @@
         <li><a href="api.html#pynetim.py.algorithms.SingleDiscountAlgorithm">(class in pynetim.py.algorithms)</a>
 </li>
       </ul></li>
+      <li><a href="api.html#pynetim.evaluation.spearman_correlation">spearman_correlation() (in module pynetim.evaluation)</a>
+</li>
       <li><a href="api.html#pynetim.py.diffusion_model.IndependentCascadeModel.states">states (pynetim.py.diffusion_model.IndependentCascadeModel attribute)</a>
 
       <ul>
@@ -1134,20 +1250,24 @@
 </li>
       <li><a href="api.html#pynetim.utils.to_scipy_sparse">to_scipy_sparse() (in module pynetim.utils)</a>
 </li>
+      <li><a href="api.html#pynetim.evaluation.top_k_accuracy">top_k_accuracy() (in module pynetim.evaluation)</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api.html#pynetim.evaluation.top_k_overlap">top_k_overlap() (in module pynetim.evaluation)</a>
+</li>
       <li><a href="api.html#pynetim.algorithms.deep_learning.ToupleGDDAlgorithm">ToupleGDDAlgorithm (class in pynetim.algorithms.deep_learning)</a>
 </li>
       <li><a href="api.html#pynetim.algorithms.deep_learning.ToupleGDDTrainer">ToupleGDDTrainer (class in pynetim.algorithms.deep_learning)</a>
 </li>
-      <li><a href="api.html#pynetim.algorithms.deep_learning.BiGDNAlgorithm.train">train() (pynetim.algorithms.deep_learning.BiGDNAlgorithm method)</a>
+      <li><a href="api.html#pynetim.algorithms.deep_learning.BiGDNNodeEncoderTrainer.train">train() (pynetim.algorithms.deep_learning.BiGDNNodeEncoderTrainer method)</a>
 
       <ul>
-        <li><a href="api.html#pynetim.algorithms.deep_learning.BiGDNNodeEncoderTrainer.train">(pynetim.algorithms.deep_learning.BiGDNNodeEncoderTrainer method)</a>
-</li>
-        <li><a href="api.html#pynetim.algorithms.deep_learning.BiGDNSAlgorithm.train">(pynetim.algorithms.deep_learning.BiGDNSAlgorithm method)</a>
-</li>
         <li><a href="api.html#pynetim.algorithms.deep_learning.BiGDNTrainer.train">(pynetim.algorithms.deep_learning.BiGDNTrainer method)</a>
+</li>
+        <li><a href="api.html#pynetim.algorithms.deep_learning.S2VDQNTrainer.train">(pynetim.algorithms.deep_learning.S2VDQNTrainer method)</a>
+</li>
+        <li><a href="api.html#pynetim.algorithms.deep_learning.ToupleGDDTrainer.train">(pynetim.algorithms.deep_learning.ToupleGDDTrainer method)</a>
 </li>
       </ul></li>
   </ul></td>
@@ -1170,8 +1290,6 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api.html#pynetim.graph.IMGraph.update_edge_weight">update_edge_weight() (pynetim.graph.IMGraph method)</a>
 </li>
-      <li><a href="api.html#pynetim.algorithms.deep_learning.BiGDNTrainer.update_target">update_target() (pynetim.algorithms.deep_learning.BiGDNTrainer method)</a>
-</li>
   </ul></td>
 </tr></table>
 
@@ -1179,6 +1297,14 @@
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api.html#pynetim.algorithms.heuristic.VoteRankAlgorithm">VoteRankAlgorithm (class in pynetim.algorithms.heuristic)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="W">W</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api.html#pynetim.evaluation.weight_statistics">weight_statistics() (in module pynetim.evaluation)</a>
 </li>
   </ul></td>
 </tr></table>
