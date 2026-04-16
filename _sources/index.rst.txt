@@ -1,7 +1,10 @@
 PyNetIM
 =======
 
-|PyPI| |Python| |License|
+|GitHubStars| |PyPI| |Python| |License|
+
+.. |GitHubStars| image:: https://img.shields.io/github/stars/zzzkhj/PyNetIM?style=social
+   :target: https://github.com/zzzkhj/PyNetIM
 
 .. |PyPI| image:: https://badge.fury.io/py/pynetim.svg
    :target: https://pypi.org/project/pynetim/
