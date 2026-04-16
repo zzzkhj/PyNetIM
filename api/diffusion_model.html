@@ -1,0 +1,1461 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>扩散模型 &mdash; PyNetIM  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="算法模块" href="algorithms.html" />
+    <link rel="prev" title="图模块" href="graph.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            PyNetIM
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">指南</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">安装指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">快速开始</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API 参考</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="graph.html">图模块</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">扩散模型</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#pynetim.diffusion_model.BaseCallbackDiffusionModel"><code class="docutils literal notranslate"><span class="pre">BaseCallbackDiffusionModel</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#pynetim.diffusion_model.BaseCallbackDiffusionModel.graph"><code class="docutils literal notranslate"><span class="pre">BaseCallbackDiffusionModel.graph</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pynetim.diffusion_model.BaseCallbackDiffusionModel.seeds"><code class="docutils literal notranslate"><span class="pre">BaseCallbackDiffusionModel.seeds</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pynetim.diffusion_model.BaseCallbackDiffusionModel.num_nodes"><code class="docutils literal notranslate"><span class="pre">BaseCallbackDiffusionModel.num_nodes</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pynetim.diffusion_model.BaseCallbackDiffusionModel.run_single_trial"><code class="docutils literal notranslate"><span class="pre">BaseCallbackDiffusionModel.run_single_trial()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#pynetim.diffusion_model.BaseMultiprocessDiffusionModel"><code class="docutils literal notranslate"><span class="pre">BaseMultiprocessDiffusionModel</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#pynetim.diffusion_model.BaseMultiprocessDiffusionModel.graph"><code class="docutils literal notranslate"><span class="pre">BaseMultiprocessDiffusionModel.graph</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pynetim.diffusion_model.BaseMultiprocessDiffusionModel.seeds"><code class="docutils literal notranslate"><span class="pre">BaseMultiprocessDiffusionModel.seeds</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pynetim.diffusion_model.BaseMultiprocessDiffusionModel.num_nodes"><code class="docutils literal notranslate"><span class="pre">BaseMultiprocessDiffusionModel.num_nodes</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pynetim.diffusion_model.BaseMultiprocessDiffusionModel.__init__"><code class="docutils literal notranslate"><span class="pre">BaseMultiprocessDiffusionModel.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pynetim.diffusion_model.BaseMultiprocessDiffusionModel.run_monte_carlo_diffusion"><code class="docutils literal notranslate"><span class="pre">BaseMultiprocessDiffusionModel.run_monte_carlo_diffusion()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pynetim.diffusion_model.BaseMultiprocessDiffusionModel.run_monte_carlo_with_frequency"><code class="docutils literal notranslate"><span class="pre">BaseMultiprocessDiffusionModel.run_monte_carlo_with_frequency()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pynetim.diffusion_model.BaseMultiprocessDiffusionModel.run_single_trial"><code class="docutils literal notranslate"><span class="pre">BaseMultiprocessDiffusionModel.run_single_trial()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pynetim.diffusion_model.BaseMultiprocessDiffusionModel.set_seeds"><code class="docutils literal notranslate"><span class="pre">BaseMultiprocessDiffusionModel.set_seeds()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#pynetim.diffusion_model.IndependentCascadeModel"><code class="docutils literal notranslate"><span class="pre">IndependentCascadeModel</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#pynetim.diffusion_model.IndependentCascadeModel.__init__"><code class="docutils literal notranslate"><span class="pre">IndependentCascadeModel.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pynetim.diffusion_model.IndependentCascadeModel.get_activated_nodes"><code class="docutils literal notranslate"><span class="pre">IndependentCascadeModel.get_activated_nodes()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pynetim.diffusion_model.IndependentCascadeModel.get_activation_frequency"><code class="docutils literal notranslate"><span class="pre">IndependentCascadeModel.get_activation_frequency()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pynetim.diffusion_model.IndependentCascadeModel.run_monte_carlo_diffusion"><code class="docutils literal notranslate"><span class="pre">IndependentCascadeModel.run_monte_carlo_diffusion()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pynetim.diffusion_model.IndependentCascadeModel.run_single_simulation"><code class="docutils literal notranslate"><span class="pre">IndependentCascadeModel.run_single_simulation()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pynetim.diffusion_model.IndependentCascadeModel.set_record_activated"><code class="docutils literal notranslate"><span class="pre">IndependentCascadeModel.set_record_activated()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pynetim.diffusion_model.IndependentCascadeModel.set_record_activation_frequency"><code class="docutils literal notranslate"><span class="pre">IndependentCascadeModel.set_record_activation_frequency()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pynetim.diffusion_model.IndependentCascadeModel.set_seeds"><code class="docutils literal notranslate"><span class="pre">IndependentCascadeModel.set_seeds()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#pynetim.diffusion_model.LinearThresholdModel"><code class="docutils literal notranslate"><span class="pre">LinearThresholdModel</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#pynetim.diffusion_model.LinearThresholdModel.__init__"><code class="docutils literal notranslate"><span class="pre">LinearThresholdModel.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pynetim.diffusion_model.LinearThresholdModel.get_activated_nodes"><code class="docutils literal notranslate"><span class="pre">LinearThresholdModel.get_activated_nodes()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pynetim.diffusion_model.LinearThresholdModel.get_activation_frequency"><code class="docutils literal notranslate"><span class="pre">LinearThresholdModel.get_activation_frequency()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pynetim.diffusion_model.LinearThresholdModel.run_monte_carlo_diffusion"><code class="docutils literal notranslate"><span class="pre">LinearThresholdModel.run_monte_carlo_diffusion()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pynetim.diffusion_model.LinearThresholdModel.run_single_simulation"><code class="docutils literal notranslate"><span class="pre">LinearThresholdModel.run_single_simulation()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pynetim.diffusion_model.LinearThresholdModel.set_record_activated"><code class="docutils literal notranslate"><span class="pre">LinearThresholdModel.set_record_activated()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pynetim.diffusion_model.LinearThresholdModel.set_record_activation_frequency"><code class="docutils literal notranslate"><span class="pre">LinearThresholdModel.set_record_activation_frequency()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pynetim.diffusion_model.LinearThresholdModel.set_seeds"><code class="docutils literal notranslate"><span class="pre">LinearThresholdModel.set_seeds()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#pynetim.diffusion_model.PyDiffusionModelBase"><code class="docutils literal notranslate"><span class="pre">PyDiffusionModelBase</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#pynetim.diffusion_model.PyDiffusionModelBase.__init__"><code class="docutils literal notranslate"><span class="pre">PyDiffusionModelBase.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pynetim.diffusion_model.PyDiffusionModelBase.get_activated_nodes"><code class="docutils literal notranslate"><span class="pre">PyDiffusionModelBase.get_activated_nodes()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pynetim.diffusion_model.PyDiffusionModelBase.get_activation_frequency"><code class="docutils literal notranslate"><span class="pre">PyDiffusionModelBase.get_activation_frequency()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pynetim.diffusion_model.PyDiffusionModelBase.get_py_override"><code class="docutils literal notranslate"><span class="pre">PyDiffusionModelBase.get_py_override()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pynetim.diffusion_model.PyDiffusionModelBase.graph"><code class="docutils literal notranslate"><span class="pre">PyDiffusionModelBase.graph</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pynetim.diffusion_model.PyDiffusionModelBase.run_monte_carlo_diffusion"><code class="docutils literal notranslate"><span class="pre">PyDiffusionModelBase.run_monte_carlo_diffusion()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pynetim.diffusion_model.PyDiffusionModelBase.run_single_simulation"><code class="docutils literal notranslate"><span class="pre">PyDiffusionModelBase.run_single_simulation()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pynetim.diffusion_model.PyDiffusionModelBase.set_py_override"><code class="docutils literal notranslate"><span class="pre">PyDiffusionModelBase.set_py_override()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pynetim.diffusion_model.PyDiffusionModelBase.set_record_activated"><code class="docutils literal notranslate"><span class="pre">PyDiffusionModelBase.set_record_activated()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pynetim.diffusion_model.PyDiffusionModelBase.set_record_activation_frequency"><code class="docutils literal notranslate"><span class="pre">PyDiffusionModelBase.set_record_activation_frequency()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pynetim.diffusion_model.PyDiffusionModelBase.set_seeds"><code class="docutils literal notranslate"><span class="pre">PyDiffusionModelBase.set_seeds()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#pynetim.diffusion_model.SusceptibleInfectedModel"><code class="docutils literal notranslate"><span class="pre">SusceptibleInfectedModel</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#pynetim.diffusion_model.SusceptibleInfectedModel.__init__"><code class="docutils literal notranslate"><span class="pre">SusceptibleInfectedModel.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pynetim.diffusion_model.SusceptibleInfectedModel.get_activated_nodes"><code class="docutils literal notranslate"><span class="pre">SusceptibleInfectedModel.get_activated_nodes()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pynetim.diffusion_model.SusceptibleInfectedModel.get_activation_frequency"><code class="docutils literal notranslate"><span class="pre">SusceptibleInfectedModel.get_activation_frequency()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pynetim.diffusion_model.SusceptibleInfectedModel.run_monte_carlo_diffusion"><code class="docutils literal notranslate"><span class="pre">SusceptibleInfectedModel.run_monte_carlo_diffusion()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pynetim.diffusion_model.SusceptibleInfectedModel.run_single_simulation"><code class="docutils literal notranslate"><span class="pre">SusceptibleInfectedModel.run_single_simulation()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pynetim.diffusion_model.SusceptibleInfectedModel.set_beta"><code class="docutils literal notranslate"><span class="pre">SusceptibleInfectedModel.set_beta()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pynetim.diffusion_model.SusceptibleInfectedModel.set_max_steps"><code class="docutils literal notranslate"><span class="pre">SusceptibleInfectedModel.set_max_steps()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pynetim.diffusion_model.SusceptibleInfectedModel.set_record_activated"><code class="docutils literal notranslate"><span class="pre">SusceptibleInfectedModel.set_record_activated()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pynetim.diffusion_model.SusceptibleInfectedModel.set_record_activation_frequency"><code class="docutils literal notranslate"><span class="pre">SusceptibleInfectedModel.set_record_activation_frequency()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pynetim.diffusion_model.SusceptibleInfectedModel.set_seeds"><code class="docutils literal notranslate"><span class="pre">SusceptibleInfectedModel.set_seeds()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#pynetim.diffusion_model.SusceptibleInfectedRecoveredModel"><code class="docutils literal notranslate"><span class="pre">SusceptibleInfectedRecoveredModel</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#pynetim.diffusion_model.SusceptibleInfectedRecoveredModel.__init__"><code class="docutils literal notranslate"><span class="pre">SusceptibleInfectedRecoveredModel.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pynetim.diffusion_model.SusceptibleInfectedRecoveredModel.get_activated_nodes"><code class="docutils literal notranslate"><span class="pre">SusceptibleInfectedRecoveredModel.get_activated_nodes()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pynetim.diffusion_model.SusceptibleInfectedRecoveredModel.get_activation_frequency"><code class="docutils literal notranslate"><span class="pre">SusceptibleInfectedRecoveredModel.get_activation_frequency()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pynetim.diffusion_model.SusceptibleInfectedRecoveredModel.run_monte_carlo_diffusion"><code class="docutils literal notranslate"><span class="pre">SusceptibleInfectedRecoveredModel.run_monte_carlo_diffusion()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pynetim.diffusion_model.SusceptibleInfectedRecoveredModel.run_single_simulation"><code class="docutils literal notranslate"><span class="pre">SusceptibleInfectedRecoveredModel.run_single_simulation()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pynetim.diffusion_model.SusceptibleInfectedRecoveredModel.set_beta"><code class="docutils literal notranslate"><span class="pre">SusceptibleInfectedRecoveredModel.set_beta()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pynetim.diffusion_model.SusceptibleInfectedRecoveredModel.set_gamma"><code class="docutils literal notranslate"><span class="pre">SusceptibleInfectedRecoveredModel.set_gamma()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pynetim.diffusion_model.SusceptibleInfectedRecoveredModel.set_record_activated"><code class="docutils literal notranslate"><span class="pre">SusceptibleInfectedRecoveredModel.set_record_activated()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pynetim.diffusion_model.SusceptibleInfectedRecoveredModel.set_record_activation_frequency"><code class="docutils literal notranslate"><span class="pre">SusceptibleInfectedRecoveredModel.set_record_activation_frequency()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pynetim.diffusion_model.SusceptibleInfectedRecoveredModel.set_seeds"><code class="docutils literal notranslate"><span class="pre">SusceptibleInfectedRecoveredModel.set_seeds()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pynetim.diffusion_model.base_callback_diffusion_model">自定义扩散模型</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#pynetim.diffusion_model.base_callback_diffusion_model.BaseCallbackDiffusionModel"><code class="docutils literal notranslate"><span class="pre">BaseCallbackDiffusionModel</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pynetim.diffusion_model.base_callback_diffusion_model.BaseCallbackDiffusionModel.graph"><code class="docutils literal notranslate"><span class="pre">BaseCallbackDiffusionModel.graph</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pynetim.diffusion_model.base_callback_diffusion_model.BaseCallbackDiffusionModel.seeds"><code class="docutils literal notranslate"><span class="pre">BaseCallbackDiffusionModel.seeds</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pynetim.diffusion_model.base_callback_diffusion_model.BaseCallbackDiffusionModel.num_nodes"><code class="docutils literal notranslate"><span class="pre">BaseCallbackDiffusionModel.num_nodes</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pynetim.diffusion_model.base_callback_diffusion_model.BaseCallbackDiffusionModel.run_single_trial"><code class="docutils literal notranslate"><span class="pre">BaseCallbackDiffusionModel.run_single_trial()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#pynetim.diffusion_model.base_multiprocess_diffusion_model.BaseMultiprocessDiffusionModel"><code class="docutils literal notranslate"><span class="pre">BaseMultiprocessDiffusionModel</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pynetim.diffusion_model.base_multiprocess_diffusion_model.BaseMultiprocessDiffusionModel.graph"><code class="docutils literal notranslate"><span class="pre">BaseMultiprocessDiffusionModel.graph</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pynetim.diffusion_model.base_multiprocess_diffusion_model.BaseMultiprocessDiffusionModel.seeds"><code class="docutils literal notranslate"><span class="pre">BaseMultiprocessDiffusionModel.seeds</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pynetim.diffusion_model.base_multiprocess_diffusion_model.BaseMultiprocessDiffusionModel.num_nodes"><code class="docutils literal notranslate"><span class="pre">BaseMultiprocessDiffusionModel.num_nodes</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pynetim.diffusion_model.base_multiprocess_diffusion_model.BaseMultiprocessDiffusionModel.__init__"><code class="docutils literal notranslate"><span class="pre">BaseMultiprocessDiffusionModel.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pynetim.diffusion_model.base_multiprocess_diffusion_model.BaseMultiprocessDiffusionModel.run_monte_carlo_diffusion"><code class="docutils literal notranslate"><span class="pre">BaseMultiprocessDiffusionModel.run_monte_carlo_diffusion()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pynetim.diffusion_model.base_multiprocess_diffusion_model.BaseMultiprocessDiffusionModel.run_monte_carlo_with_frequency"><code class="docutils literal notranslate"><span class="pre">BaseMultiprocessDiffusionModel.run_monte_carlo_with_frequency()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pynetim.diffusion_model.base_multiprocess_diffusion_model.BaseMultiprocessDiffusionModel.run_single_trial"><code class="docutils literal notranslate"><span class="pre">BaseMultiprocessDiffusionModel.run_single_trial()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pynetim.diffusion_model.base_multiprocess_diffusion_model.BaseMultiprocessDiffusionModel.set_seeds"><code class="docutils literal notranslate"><span class="pre">BaseMultiprocessDiffusionModel.set_seeds()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="algorithms.html">算法模块</a></li>
+<li class="toctree-l1"><a class="reference internal" href="evaluation.html">评估指标</a></li>
+<li class="toctree-l1"><a class="reference internal" href="timing.html">时间测量</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utils.html">工具函数</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">其他</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">更新日志</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html#id57">版本说明</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html#id65">贡献指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html#id66">许可证</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html#id67">联系方式</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">PyNetIM</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">扩散模型</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/api/diffusion_model.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-pynetim.diffusion_model">
+<span id="id1"></span><h1>扩散模型<a class="headerlink" href="#module-pynetim.diffusion_model" title="Link to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="pynetim.diffusion_model.BaseCallbackDiffusionModel">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pynetim.diffusion_model.</span></span><span class="sig-name descname"><span class="pre">BaseCallbackDiffusionModel</span></span><a class="reference internal" href="../_modules/pynetim/diffusion_model/base_callback_diffusion_model.html#BaseCallbackDiffusionModel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.diffusion_model.BaseCallbackDiffusionModel" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pynetim.diffusion_model.PyDiffusionModelBase" title="pynetim.diffusion_model.py_diffusion_model_base.PyDiffusionModelBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">PyDiffusionModelBase</span></code></a></p>
+<p>C++回调版自定义传播模型基类。</p>
+<p>继承 C++ 的 PyDiffusionModelBase，通过回调机制实现自定义传播逻辑。
+单线程模式下可用，比纯 Python 实现快。
+多线程模式受 Python GIL 限制，无法真正并行。</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pynetim.diffusion_model.BaseCallbackDiffusionModel.graph">
+<span class="sig-name descname"><span class="pre">graph</span></span><a class="headerlink" href="#pynetim.diffusion_model.BaseCallbackDiffusionModel.graph" title="Link to this definition"></a></dt>
+<dd><p>图对象。</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pynetim.diffusion_model.BaseCallbackDiffusionModel.seeds">
+<span class="sig-name descname"><span class="pre">seeds</span></span><a class="headerlink" href="#pynetim.diffusion_model.BaseCallbackDiffusionModel.seeds" title="Link to this definition"></a></dt>
+<dd><p>种子节点集合。</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pynetim.diffusion_model.BaseCallbackDiffusionModel.num_nodes">
+<span class="sig-name descname"><span class="pre">num_nodes</span></span><a class="headerlink" href="#pynetim.diffusion_model.BaseCallbackDiffusionModel.num_nodes" title="Link to this definition"></a></dt>
+<dd><p>节点数量。</p>
+</dd></dl>
+
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">pynetim.diffusion_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseCallbackDiffusionModel</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span><span class="w"> </span><span class="nc">MyICModel</span><span class="p">(</span><span class="n">BaseCallbackDiffusionModel</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">def</span><span class="w"> </span><span class="nf">run_single_trial</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">seeds</span><span class="p">,</span> <span class="n">random_seed</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="kn">import</span><span class="w"> </span><span class="nn">random</span>
+<span class="gp">... </span>        <span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">random_seed</span><span class="p">)</span>
+<span class="gp">... </span>        <span class="n">activated</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">seeds</span><span class="p">)</span>
+<span class="gp">... </span>        <span class="n">current</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">seeds</span><span class="p">)</span>
+<span class="gp">... </span>        <span class="n">count</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">seeds</span><span class="p">)</span>
+<span class="gp">... </span>        <span class="n">frequency</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">num_nodes</span>
+<span class="gp">...</span>
+<span class="gp">... </span>        <span class="k">while</span> <span class="n">current</span><span class="p">:</span>
+<span class="gp">... </span>            <span class="n">new_active</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="gp">... </span>            <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">current</span><span class="p">:</span>
+<span class="gp">... </span>                <span class="k">for</span> <span class="n">neighbor</span><span class="p">,</span> <span class="n">weight</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">out_neighbors</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
+<span class="gp">... </span>                    <span class="k">if</span> <span class="n">neighbor</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">activated</span> <span class="ow">and</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">weight</span><span class="p">:</span>
+<span class="gp">... </span>                        <span class="n">activated</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">neighbor</span><span class="p">)</span>
+<span class="gp">... </span>                        <span class="n">new_active</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">neighbor</span><span class="p">)</span>
+<span class="gp">... </span>                        <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="gp">... </span>                        <span class="n">frequency</span><span class="p">[</span><span class="n">neighbor</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="gp">... </span>            <span class="n">current</span> <span class="o">=</span> <span class="n">new_active</span>
+<span class="gp">...</span>
+<span class="gp">... </span>        <span class="k">return</span> <span class="n">count</span><span class="p">,</span> <span class="n">activated</span><span class="p">,</span> <span class="n">frequency</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span> <span class="o">=</span> <span class="n">MyICModel</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">avg</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">run_monte_carlo_diffusion</span><span class="p">(</span><span class="n">mc_rounds</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">random_seed</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.diffusion_model.BaseCallbackDiffusionModel.run_single_trial">
+<span class="sig-name descname"><span class="pre">run_single_trial</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">seeds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Set</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/pynetim/diffusion_model/base_callback_diffusion_model.html#BaseCallbackDiffusionModel.run_single_trial"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.diffusion_model.BaseCallbackDiffusionModel.run_single_trial" title="Link to this definition"></a></dt>
+<dd><p>执行单次传播试验。</p>
+<p>子类必须重写此方法实现自定义传播逻辑。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>seeds</strong> – 初始种子节点列表。</p></li>
+<li><p><strong>random_seed</strong> – 随机数种子，用于确保结果可重现。</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>包含三个元素的元组：</dt><dd><ul class="simple">
+<li><p>激活节点总数</p></li>
+<li><p>激活的节点集合</p></li>
+<li><p>每个节点的激活频数列表</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Tuple[int, Set[int], List[int]]</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>NotImplementedError</strong> – 子类未实现此方法时抛出。</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>此方法会被 C++ 层回调，因此需要保持签名一致。</p>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pynetim.diffusion_model.BaseMultiprocessDiffusionModel">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pynetim.diffusion_model.</span></span><span class="sig-name descname"><span class="pre">BaseMultiprocessDiffusionModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="graph.html#pynetim.graph.IMGraph" title="pynetim.graph.IMGraph"><span class="pre">IMGraph</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">seeds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Set</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pynetim/diffusion_model/base_multiprocess_diffusion_model.html#BaseMultiprocessDiffusionModel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.diffusion_model.BaseMultiprocessDiffusionModel" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
+<p>多进程版自定义传播模型基类。</p>
+<p>纯 Python 实现，使用 multiprocessing 实现真正的并行计算。
+不受 Python GIL 限制，多进程可真正并行加速。
+适合大规模模拟和需要并行加速的自定义模型。</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pynetim.diffusion_model.BaseMultiprocessDiffusionModel.graph">
+<span class="sig-name descname"><span class="pre">graph</span></span><a class="headerlink" href="#pynetim.diffusion_model.BaseMultiprocessDiffusionModel.graph" title="Link to this definition"></a></dt>
+<dd><p>图对象。</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pynetim.diffusion_model.BaseMultiprocessDiffusionModel.seeds">
+<span class="sig-name descname"><span class="pre">seeds</span></span><a class="headerlink" href="#pynetim.diffusion_model.BaseMultiprocessDiffusionModel.seeds" title="Link to this definition"></a></dt>
+<dd><p>种子节点集合。</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pynetim.diffusion_model.BaseMultiprocessDiffusionModel.num_nodes">
+<span class="sig-name descname"><span class="pre">num_nodes</span></span><a class="headerlink" href="#pynetim.diffusion_model.BaseMultiprocessDiffusionModel.num_nodes" title="Link to this definition"></a></dt>
+<dd><p>节点数量。</p>
+</dd></dl>
+
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">pynetim.diffusion_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseMultiprocessDiffusionModel</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span><span class="w"> </span><span class="nc">MyICModel</span><span class="p">(</span><span class="n">BaseMultiprocessDiffusionModel</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">def</span><span class="w"> </span><span class="nf">run_single_trial</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">seeds</span><span class="p">,</span> <span class="n">random_seed</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="kn">import</span><span class="w"> </span><span class="nn">random</span>
+<span class="gp">... </span>        <span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">random_seed</span><span class="p">)</span>
+<span class="gp">... </span>        <span class="n">activated</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">seeds</span><span class="p">)</span>
+<span class="gp">... </span>        <span class="n">current</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">seeds</span><span class="p">)</span>
+<span class="gp">... </span>        <span class="n">count</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">seeds</span><span class="p">)</span>
+<span class="gp">... </span>        <span class="n">frequency</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">num_nodes</span>
+<span class="gp">...</span>
+<span class="gp">... </span>        <span class="k">while</span> <span class="n">current</span><span class="p">:</span>
+<span class="gp">... </span>            <span class="n">new_active</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="gp">... </span>            <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">current</span><span class="p">:</span>
+<span class="gp">... </span>                <span class="k">for</span> <span class="n">neighbor</span><span class="p">,</span> <span class="n">weight</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">out_neighbors_with_weights</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
+<span class="gp">... </span>                    <span class="k">if</span> <span class="n">neighbor</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">activated</span> <span class="ow">and</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">weight</span><span class="p">:</span>
+<span class="gp">... </span>                        <span class="n">activated</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">neighbor</span><span class="p">)</span>
+<span class="gp">... </span>                        <span class="n">new_active</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">neighbor</span><span class="p">)</span>
+<span class="gp">... </span>                        <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="gp">... </span>                        <span class="n">frequency</span><span class="p">[</span><span class="n">neighbor</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="gp">... </span>            <span class="n">current</span> <span class="o">=</span> <span class="n">new_active</span>
+<span class="gp">...</span>
+<span class="gp">... </span>        <span class="k">return</span> <span class="n">count</span><span class="p">,</span> <span class="n">activated</span><span class="p">,</span> <span class="n">frequency</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span> <span class="o">=</span> <span class="n">MyICModel</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">avg</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">run_monte_carlo_diffusion</span><span class="p">(</span><span class="n">mc_rounds</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">num_processes</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">random_seed</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.diffusion_model.BaseMultiprocessDiffusionModel.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="graph.html#pynetim.graph.IMGraph" title="pynetim.graph.IMGraph"><span class="pre">IMGraph</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">seeds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Set</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pynetim/diffusion_model/base_multiprocess_diffusion_model.html#BaseMultiprocessDiffusionModel.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.diffusion_model.BaseMultiprocessDiffusionModel.__init__" title="Link to this definition"></a></dt>
+<dd><p>初始化传播模型。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>graph</strong> – 图对象。</p></li>
+<li><p><strong>seeds</strong> – 种子节点集合。</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.diffusion_model.BaseMultiprocessDiffusionModel.run_monte_carlo_diffusion">
+<span class="sig-name descname"><span class="pre">run_monte_carlo_diffusion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mc_rounds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_processes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_progress</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/pynetim/diffusion_model/base_multiprocess_diffusion_model.html#BaseMultiprocessDiffusionModel.run_monte_carlo_diffusion"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.diffusion_model.BaseMultiprocessDiffusionModel.run_monte_carlo_diffusion" title="Link to this definition"></a></dt>
+<dd><p>运行蒙特卡洛模拟，计算平均影响力。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mc_rounds</strong> – 蒙特卡洛模拟次数，建议 1000-10000 次。</p></li>
+<li><p><strong>num_processes</strong> – 进程数，默认使用 CPU 核心数。</p></li>
+<li><p><strong>show_progress</strong> – 是否显示进度条（暂未实现）。</p></li>
+<li><p><strong>random_seed</strong> – 随机数种子，默认为 None（每次结果不同）。</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>平均激活节点数。</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>当模拟次数较多时（&gt;= 进程数 * 10），自动启用多进程并行。</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.diffusion_model.BaseMultiprocessDiffusionModel.run_monte_carlo_with_frequency">
+<span class="sig-name descname"><span class="pre">run_monte_carlo_with_frequency</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mc_rounds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_processes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/pynetim/diffusion_model/base_multiprocess_diffusion_model.html#BaseMultiprocessDiffusionModel.run_monte_carlo_with_frequency"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.diffusion_model.BaseMultiprocessDiffusionModel.run_monte_carlo_with_frequency" title="Link to this definition"></a></dt>
+<dd><p>运行蒙特卡洛模拟，返回平均影响力和激活频数。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mc_rounds</strong> – 蒙特卡洛模拟次数，建议 1000-10000 次。</p></li>
+<li><p><strong>num_processes</strong> – 进程数，默认使用 CPU 核心数。</p></li>
+<li><p><strong>random_seed</strong> – 随机数种子，默认为 None（每次结果不同）。</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>包含两个元素：</dt><dd><ul class="simple">
+<li><p>平均激活节点数</p></li>
+<li><p>每个节点的激活频数列表</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Tuple[float, List[int]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.diffusion_model.BaseMultiprocessDiffusionModel.run_single_trial">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">run_single_trial</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">seeds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Set</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/pynetim/diffusion_model/base_multiprocess_diffusion_model.html#BaseMultiprocessDiffusionModel.run_single_trial"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.diffusion_model.BaseMultiprocessDiffusionModel.run_single_trial" title="Link to this definition"></a></dt>
+<dd><p>执行单次传播试验。</p>
+<p>子类必须重写此方法实现自定义传播逻辑。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>seeds</strong> – 初始种子节点列表。</p></li>
+<li><p><strong>random_seed</strong> – 随机数种子，用于确保结果可重现。</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>包含三个元素的元组：</dt><dd><ul class="simple">
+<li><p>激活节点总数</p></li>
+<li><p>激活的节点集合</p></li>
+<li><p>每个节点的激活频数列表</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Tuple[int, Set[int], List[int]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.diffusion_model.BaseMultiprocessDiffusionModel.set_seeds">
+<span class="sig-name descname"><span class="pre">set_seeds</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">seeds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Set</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pynetim/diffusion_model/base_multiprocess_diffusion_model.html#BaseMultiprocessDiffusionModel.set_seeds"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.diffusion_model.BaseMultiprocessDiffusionModel.set_seeds" title="Link to this definition"></a></dt>
+<dd><p>设置种子节点集合。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>seeds</strong> – 新的种子节点集合。</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pynetim.diffusion_model.IndependentCascadeModel">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pynetim.diffusion_model.</span></span><span class="sig-name descname"><span class="pre">IndependentCascadeModel</span></span><a class="headerlink" href="#pynetim.diffusion_model.IndependentCascadeModel" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.diffusion_model.IndependentCascadeModel.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="graph.html#pynetim.graph.IMGraph" title="pynetim.graph.IMGraph"><span class="pre">IMGraph</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">seeds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">set</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">record_activated</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">record_activation_frequency</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pynetim.diffusion_model.IndependentCascadeModel.__init__" title="Link to this definition"></a></dt>
+<dd><p>构造独立级联模型。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>graph</strong> – 图对象。</p></li>
+<li><p><strong>seeds</strong> – 初始种子节点集合。</p></li>
+<li><p><strong>record_activated</strong> – 是否记录激活节点，默认为 False。</p></li>
+<li><p><strong>record_activation_frequency</strong> – 是否记录激活频数，默认为 False。</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.diffusion_model.IndependentCascadeModel.get_activated_nodes">
+<span class="sig-name descname"><span class="pre">get_activated_nodes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">set</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pynetim.diffusion_model.IndependentCascadeModel.get_activated_nodes" title="Link to this definition"></a></dt>
+<dd><p>获取上次模拟的激活节点集合。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>激活节点集合。仅在 record_activated 为 True 时有效。</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Set[int]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.diffusion_model.IndependentCascadeModel.get_activation_frequency">
+<span class="sig-name descname"><span class="pre">get_activation_frequency</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pynetim.diffusion_model.IndependentCascadeModel.get_activation_frequency" title="Link to this definition"></a></dt>
+<dd><p>获取各节点的激活频数。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>激活频数列表，索引 i 表示节点 i 被激活的次数。</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>List[int]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.diffusion_model.IndependentCascadeModel.run_monte_carlo_diffusion">
+<span class="sig-name descname"><span class="pre">run_monte_carlo_diffusion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mc_rounds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_multithread</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_threads</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="headerlink" href="#pynetim.diffusion_model.IndependentCascadeModel.run_monte_carlo_diffusion" title="Link to this definition"></a></dt>
+<dd><p>运行蒙特卡洛模拟，计算平均影响力。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mc_rounds</strong> – 蒙特卡洛模拟次数，建议 1000-10000 次。</p></li>
+<li><p><strong>random_seed</strong> – 随机种子，用于结果可重现。若为 None 则使用真随机种子。</p></li>
+<li><p><strong>use_multithread</strong> – 是否启用多线程，默认为 False。</p></li>
+<li><p><strong>num_threads</strong> – 线程数，当 use_multithread=True 时必须大于 0。</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>平均激活节点数。</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – 当 use_multithread=True 但 num_threads &lt;= 0 时抛出。</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.diffusion_model.IndependentCascadeModel.run_single_simulation">
+<span class="sig-name descname"><span class="pre">run_single_simulation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">random_seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#pynetim.diffusion_model.IndependentCascadeModel.run_single_simulation" title="Link to this definition"></a></dt>
+<dd><p>执行单次传播模拟。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>random_seed</strong> – 随机种子，用于结果可重现。若为 None 则使用真随机种子。</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>本次模拟激活的节点数。</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.diffusion_model.IndependentCascadeModel.set_record_activated">
+<span class="sig-name descname"><span class="pre">set_record_activated</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">record</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pynetim.diffusion_model.IndependentCascadeModel.set_record_activated" title="Link to this definition"></a></dt>
+<dd><p>启用或禁用激活节点记录。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>record</strong> – 是否记录激活节点。</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.diffusion_model.IndependentCascadeModel.set_record_activation_frequency">
+<span class="sig-name descname"><span class="pre">set_record_activation_frequency</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">record</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pynetim.diffusion_model.IndependentCascadeModel.set_record_activation_frequency" title="Link to this definition"></a></dt>
+<dd><p>启用或禁用激活频数记录。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>record</strong> – 是否记录激活频数。</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.diffusion_model.IndependentCascadeModel.set_seeds">
+<span class="sig-name descname"><span class="pre">set_seeds</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">new_seeds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">set</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pynetim.diffusion_model.IndependentCascadeModel.set_seeds" title="Link to this definition"></a></dt>
+<dd><p>更新种子节点集合。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>new_seeds</strong> – 新的种子节点集合。</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pynetim.diffusion_model.LinearThresholdModel">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pynetim.diffusion_model.</span></span><span class="sig-name descname"><span class="pre">LinearThresholdModel</span></span><a class="headerlink" href="#pynetim.diffusion_model.LinearThresholdModel" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.diffusion_model.LinearThresholdModel.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="graph.html#pynetim.graph.IMGraph" title="pynetim.graph.IMGraph"><span class="pre">IMGraph</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">seeds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">set</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">theta_l</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">theta_h</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">record_activated</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">record_activation_frequency</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pynetim.diffusion_model.LinearThresholdModel.__init__" title="Link to this definition"></a></dt>
+<dd><p>构造线性阈值模型。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>graph</strong> – 图对象。</p></li>
+<li><p><strong>seeds</strong> – 初始种子节点集合。</p></li>
+<li><p><strong>theta_l</strong> – 阈值下界，默认为 0.0。</p></li>
+<li><p><strong>theta_h</strong> – 阈值上界，默认为 1.0。</p></li>
+<li><p><strong>record_activated</strong> – 是否记录激活节点，默认为 False。</p></li>
+<li><p><strong>record_activation_frequency</strong> – 是否记录激活频数，默认为 False。</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.diffusion_model.LinearThresholdModel.get_activated_nodes">
+<span class="sig-name descname"><span class="pre">get_activated_nodes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">set</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pynetim.diffusion_model.LinearThresholdModel.get_activated_nodes" title="Link to this definition"></a></dt>
+<dd><p>获取上次模拟的激活节点集合。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>激活节点集合。仅在 record_activated 为 True 时有效。</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Set[int]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.diffusion_model.LinearThresholdModel.get_activation_frequency">
+<span class="sig-name descname"><span class="pre">get_activation_frequency</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pynetim.diffusion_model.LinearThresholdModel.get_activation_frequency" title="Link to this definition"></a></dt>
+<dd><p>获取各节点的激活频数。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>激活频数列表，索引 i 表示节点 i 被激活的次数。</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>List[int]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.diffusion_model.LinearThresholdModel.run_monte_carlo_diffusion">
+<span class="sig-name descname"><span class="pre">run_monte_carlo_diffusion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mc_rounds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_multithread</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_threads</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="headerlink" href="#pynetim.diffusion_model.LinearThresholdModel.run_monte_carlo_diffusion" title="Link to this definition"></a></dt>
+<dd><p>运行蒙特卡洛模拟，计算平均影响力。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mc_rounds</strong> – 蒙特卡洛模拟次数，建议 1000-10000 次。</p></li>
+<li><p><strong>random_seed</strong> – 随机种子，用于结果可重现。若为 None 则使用真随机种子。</p></li>
+<li><p><strong>use_multithread</strong> – 是否启用多线程，默认为 False。</p></li>
+<li><p><strong>num_threads</strong> – 线程数，当 use_multithread=True 时必须大于 0。</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>平均激活节点数。</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – 当 use_multithread=True 但 num_threads &lt;= 0 时抛出。</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.diffusion_model.LinearThresholdModel.run_single_simulation">
+<span class="sig-name descname"><span class="pre">run_single_simulation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">random_seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#pynetim.diffusion_model.LinearThresholdModel.run_single_simulation" title="Link to this definition"></a></dt>
+<dd><p>执行单次传播模拟。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>random_seed</strong> – 随机种子，用于结果可重现。若为 None 则使用真随机种子。</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>本次模拟激活的节点数。</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.diffusion_model.LinearThresholdModel.set_record_activated">
+<span class="sig-name descname"><span class="pre">set_record_activated</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">record</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pynetim.diffusion_model.LinearThresholdModel.set_record_activated" title="Link to this definition"></a></dt>
+<dd><p>启用或禁用激活节点记录。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>record</strong> – 是否记录激活节点。</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.diffusion_model.LinearThresholdModel.set_record_activation_frequency">
+<span class="sig-name descname"><span class="pre">set_record_activation_frequency</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">record</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pynetim.diffusion_model.LinearThresholdModel.set_record_activation_frequency" title="Link to this definition"></a></dt>
+<dd><p>启用或禁用激活频数记录。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>record</strong> – 是否记录激活频数。</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.diffusion_model.LinearThresholdModel.set_seeds">
+<span class="sig-name descname"><span class="pre">set_seeds</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">new_seeds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">set</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pynetim.diffusion_model.LinearThresholdModel.set_seeds" title="Link to this definition"></a></dt>
+<dd><p>更新种子节点集合。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>new_seeds</strong> – 新的种子节点集合。</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pynetim.diffusion_model.PyDiffusionModelBase">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pynetim.diffusion_model.</span></span><span class="sig-name descname"><span class="pre">PyDiffusionModelBase</span></span><a class="headerlink" href="#pynetim.diffusion_model.PyDiffusionModelBase" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.diffusion_model.PyDiffusionModelBase.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="graph.html#pynetim.graph.IMGraph" title="pynetim.graph.IMGraph"><span class="pre">IMGraph</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">seeds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">set</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">py_override</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">object</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">record_activated</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">record_activation_frequency</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pynetim.diffusion_model.PyDiffusionModelBase.__init__" title="Link to this definition"></a></dt>
+<dd><p>构造 Python 兼容的传播模型基类。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>graph</strong> – 图对象。</p></li>
+<li><p><strong>seeds</strong> – 初始种子节点集合。</p></li>
+<li><p><strong>py_override</strong> – Python 重写对象，默认为 None。</p></li>
+<li><p><strong>record_activated</strong> – 是否记录激活节点，默认为 False。</p></li>
+<li><p><strong>record_activation_frequency</strong> – 是否记录激活频数，默认为 False。</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.diffusion_model.PyDiffusionModelBase.get_activated_nodes">
+<span class="sig-name descname"><span class="pre">get_activated_nodes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">set</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pynetim.diffusion_model.PyDiffusionModelBase.get_activated_nodes" title="Link to this definition"></a></dt>
+<dd><p>获取上次模拟的激活节点集合。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>激活节点集合。</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Set[int]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.diffusion_model.PyDiffusionModelBase.get_activation_frequency">
+<span class="sig-name descname"><span class="pre">get_activation_frequency</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pynetim.diffusion_model.PyDiffusionModelBase.get_activation_frequency" title="Link to this definition"></a></dt>
+<dd><p>获取各节点的激活频数。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>激活频数列表。</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>List[int]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.diffusion_model.PyDiffusionModelBase.get_py_override">
+<span class="sig-name descname"><span class="pre">get_py_override</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">object</span></span></span><a class="headerlink" href="#pynetim.diffusion_model.PyDiffusionModelBase.get_py_override" title="Link to this definition"></a></dt>
+<dd><p>获取 Python 重写对象。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Python 重写对象。</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>object</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pynetim.diffusion_model.PyDiffusionModelBase.graph">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">graph</span></span><a class="headerlink" href="#pynetim.diffusion_model.PyDiffusionModelBase.graph" title="Link to this definition"></a></dt>
+<dd><p>获取图对象。</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.diffusion_model.PyDiffusionModelBase.run_monte_carlo_diffusion">
+<span class="sig-name descname"><span class="pre">run_monte_carlo_diffusion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mc_rounds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_multithread</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_threads</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="headerlink" href="#pynetim.diffusion_model.PyDiffusionModelBase.run_monte_carlo_diffusion" title="Link to this definition"></a></dt>
+<dd><p>运行蒙特卡洛模拟，计算平均影响力。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mc_rounds</strong> – 蒙特卡洛模拟次数，建议 1000-10000 次。</p></li>
+<li><p><strong>random_seed</strong> – 随机种子，用于结果可重现。若为 None 则使用真随机种子。</p></li>
+<li><p><strong>use_multithread</strong> – 是否启用多线程，默认为 False。</p></li>
+<li><p><strong>num_threads</strong> – 线程数，当 use_multithread=True 时必须大于 0。</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>平均激活节点数。</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – 当 use_multithread=True 但 num_threads &lt;= 0 时抛出。</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>多线程模式下受 Python GIL 限制，无法真正并行。
+建议使用 BaseMultiprocessDiffusionModel 实现真正的并行计算。</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.diffusion_model.PyDiffusionModelBase.run_single_simulation">
+<span class="sig-name descname"><span class="pre">run_single_simulation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">random_seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#pynetim.diffusion_model.PyDiffusionModelBase.run_single_simulation" title="Link to this definition"></a></dt>
+<dd><p>执行单次传播模拟。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>random_seed</strong> – 随机种子，用于结果可重现。若为 None 则使用真随机种子。</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>本次模拟激活的节点数。</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.diffusion_model.PyDiffusionModelBase.set_py_override">
+<span class="sig-name descname"><span class="pre">set_py_override</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">object</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pynetim.diffusion_model.PyDiffusionModelBase.set_py_override" title="Link to this definition"></a></dt>
+<dd><p>设置 Python 重写对象。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>obj</strong> – Python 重写对象，用于自定义传播逻辑。</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.diffusion_model.PyDiffusionModelBase.set_record_activated">
+<span class="sig-name descname"><span class="pre">set_record_activated</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">record</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pynetim.diffusion_model.PyDiffusionModelBase.set_record_activated" title="Link to this definition"></a></dt>
+<dd><p>启用或禁用激活节点记录。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>record</strong> – 是否记录激活节点。</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.diffusion_model.PyDiffusionModelBase.set_record_activation_frequency">
+<span class="sig-name descname"><span class="pre">set_record_activation_frequency</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">record</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pynetim.diffusion_model.PyDiffusionModelBase.set_record_activation_frequency" title="Link to this definition"></a></dt>
+<dd><p>启用或禁用激活频数记录。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>record</strong> – 是否记录激活频数。</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.diffusion_model.PyDiffusionModelBase.set_seeds">
+<span class="sig-name descname"><span class="pre">set_seeds</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">new_seeds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">set</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pynetim.diffusion_model.PyDiffusionModelBase.set_seeds" title="Link to this definition"></a></dt>
+<dd><p>更新种子节点集合。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>new_seeds</strong> – 新的种子节点集合。</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pynetim.diffusion_model.SusceptibleInfectedModel">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pynetim.diffusion_model.</span></span><span class="sig-name descname"><span class="pre">SusceptibleInfectedModel</span></span><a class="headerlink" href="#pynetim.diffusion_model.SusceptibleInfectedModel" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.diffusion_model.SusceptibleInfectedModel.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="graph.html#pynetim.graph.IMGraph" title="pynetim.graph.IMGraph"><span class="pre">IMGraph</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">seeds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">set</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_steps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">record_activated</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">record_activation_frequency</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pynetim.diffusion_model.SusceptibleInfectedModel.__init__" title="Link to this definition"></a></dt>
+<dd><p>构造 SI 模型。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>graph</strong> – 图对象。</p></li>
+<li><p><strong>seeds</strong> – 初始感染节点集合。</p></li>
+<li><p><strong>beta</strong> – 感染概率，必须在 (0, 1] 范围内。</p></li>
+<li><p><strong>max_steps</strong> – 最大传播步数。</p></li>
+<li><p><strong>record_activated</strong> – 是否记录感染节点，默认为 False。</p></li>
+<li><p><strong>record_activation_frequency</strong> – 是否记录感染频数，默认为 False。</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.diffusion_model.SusceptibleInfectedModel.get_activated_nodes">
+<span class="sig-name descname"><span class="pre">get_activated_nodes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">set</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pynetim.diffusion_model.SusceptibleInfectedModel.get_activated_nodes" title="Link to this definition"></a></dt>
+<dd><p>获取上次模拟的感染节点集合。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>感染节点集合。仅在 record_activated 为 True 时有效。</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Set[int]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.diffusion_model.SusceptibleInfectedModel.get_activation_frequency">
+<span class="sig-name descname"><span class="pre">get_activation_frequency</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pynetim.diffusion_model.SusceptibleInfectedModel.get_activation_frequency" title="Link to this definition"></a></dt>
+<dd><p>获取各节点的感染频数。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>感染频数列表，索引 i 表示节点 i 被感染的次数。</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>List[int]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.diffusion_model.SusceptibleInfectedModel.run_monte_carlo_diffusion">
+<span class="sig-name descname"><span class="pre">run_monte_carlo_diffusion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mc_rounds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_multithread</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_threads</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="headerlink" href="#pynetim.diffusion_model.SusceptibleInfectedModel.run_monte_carlo_diffusion" title="Link to this definition"></a></dt>
+<dd><p>运行蒙特卡洛模拟，计算平均影响力。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mc_rounds</strong> – 蒙特卡洛模拟次数，建议 1000-10000 次。</p></li>
+<li><p><strong>random_seed</strong> – 随机种子，用于结果可重现。若为 None 则使用真随机种子。</p></li>
+<li><p><strong>use_multithread</strong> – 是否启用多线程，默认为 False。</p></li>
+<li><p><strong>num_threads</strong> – 线程数，当 use_multithread=True 时必须大于 0。</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>平均感染节点数。</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – 当 use_multithread=True 但 num_threads &lt;= 0 时抛出。</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.diffusion_model.SusceptibleInfectedModel.run_single_simulation">
+<span class="sig-name descname"><span class="pre">run_single_simulation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">random_seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#pynetim.diffusion_model.SusceptibleInfectedModel.run_single_simulation" title="Link to this definition"></a></dt>
+<dd><p>执行单次传播模拟。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>random_seed</strong> – 随机种子，用于结果可重现。若为 None 则使用真随机种子。</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>本次模拟感染的节点数。</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.diffusion_model.SusceptibleInfectedModel.set_beta">
+<span class="sig-name descname"><span class="pre">set_beta</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">beta</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pynetim.diffusion_model.SusceptibleInfectedModel.set_beta" title="Link to this definition"></a></dt>
+<dd><p>设置感染概率。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>beta</strong> – 感染概率，必须在 (0, 1] 范围内。</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.diffusion_model.SusceptibleInfectedModel.set_max_steps">
+<span class="sig-name descname"><span class="pre">set_max_steps</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">max_steps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pynetim.diffusion_model.SusceptibleInfectedModel.set_max_steps" title="Link to this definition"></a></dt>
+<dd><p>设置最大传播步数。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>max_steps</strong> – 最大传播步数。</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.diffusion_model.SusceptibleInfectedModel.set_record_activated">
+<span class="sig-name descname"><span class="pre">set_record_activated</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">record</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pynetim.diffusion_model.SusceptibleInfectedModel.set_record_activated" title="Link to this definition"></a></dt>
+<dd><p>启用或禁用感染节点记录。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>record</strong> – 是否记录感染节点。</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.diffusion_model.SusceptibleInfectedModel.set_record_activation_frequency">
+<span class="sig-name descname"><span class="pre">set_record_activation_frequency</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">record</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pynetim.diffusion_model.SusceptibleInfectedModel.set_record_activation_frequency" title="Link to this definition"></a></dt>
+<dd><p>启用或禁用感染频数记录。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>record</strong> – 是否记录感染频数。</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.diffusion_model.SusceptibleInfectedModel.set_seeds">
+<span class="sig-name descname"><span class="pre">set_seeds</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">new_seeds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">set</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pynetim.diffusion_model.SusceptibleInfectedModel.set_seeds" title="Link to this definition"></a></dt>
+<dd><p>更新种子节点集合。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>new_seeds</strong> – 新的种子节点集合。</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pynetim.diffusion_model.SusceptibleInfectedRecoveredModel">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pynetim.diffusion_model.</span></span><span class="sig-name descname"><span class="pre">SusceptibleInfectedRecoveredModel</span></span><a class="headerlink" href="#pynetim.diffusion_model.SusceptibleInfectedRecoveredModel" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.diffusion_model.SusceptibleInfectedRecoveredModel.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="graph.html#pynetim.graph.IMGraph" title="pynetim.graph.IMGraph"><span class="pre">IMGraph</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">seeds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">set</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gamma</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">record_activated</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">record_activation_frequency</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pynetim.diffusion_model.SusceptibleInfectedRecoveredModel.__init__" title="Link to this definition"></a></dt>
+<dd><p>构造 SIR 模型。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>graph</strong> – 图对象。</p></li>
+<li><p><strong>seeds</strong> – 初始感染节点集合。</p></li>
+<li><p><strong>beta</strong> – 感染概率，必须在 (0, 1] 范围内。</p></li>
+<li><p><strong>gamma</strong> – 恢复概率，必须在 (0, 1] 范围内。</p></li>
+<li><p><strong>record_activated</strong> – 是否记录感染/恢复节点，默认为 False。</p></li>
+<li><p><strong>record_activation_frequency</strong> – 是否记录感染/恢复频数，默认为 False。</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.diffusion_model.SusceptibleInfectedRecoveredModel.get_activated_nodes">
+<span class="sig-name descname"><span class="pre">get_activated_nodes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">set</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pynetim.diffusion_model.SusceptibleInfectedRecoveredModel.get_activated_nodes" title="Link to this definition"></a></dt>
+<dd><p>获取上次模拟的感染节点集合。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>感染节点集合。仅在 record_activated 为 True 时有效。</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Set[int]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.diffusion_model.SusceptibleInfectedRecoveredModel.get_activation_frequency">
+<span class="sig-name descname"><span class="pre">get_activation_frequency</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pynetim.diffusion_model.SusceptibleInfectedRecoveredModel.get_activation_frequency" title="Link to this definition"></a></dt>
+<dd><p>获取各节点的感染频数。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>感染频数列表，索引 i 表示节点 i 被感染的次数。</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>List[int]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.diffusion_model.SusceptibleInfectedRecoveredModel.run_monte_carlo_diffusion">
+<span class="sig-name descname"><span class="pre">run_monte_carlo_diffusion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mc_rounds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_multithread</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_threads</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="headerlink" href="#pynetim.diffusion_model.SusceptibleInfectedRecoveredModel.run_monte_carlo_diffusion" title="Link to this definition"></a></dt>
+<dd><p>运行蒙特卡洛模拟，计算平均影响力。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mc_rounds</strong> – 蒙特卡洛模拟次数，建议 1000-10000 次。</p></li>
+<li><p><strong>random_seed</strong> – 随机种子，用于结果可重现。若为 None 则使用真随机种子。</p></li>
+<li><p><strong>use_multithread</strong> – 是否启用多线程，默认为 False。</p></li>
+<li><p><strong>num_threads</strong> – 线程数，当 use_multithread=True 时必须大于 0。</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>平均感染节点数。</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – 当 use_multithread=True 但 num_threads &lt;= 0 时抛出。</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.diffusion_model.SusceptibleInfectedRecoveredModel.run_single_simulation">
+<span class="sig-name descname"><span class="pre">run_single_simulation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">random_seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#pynetim.diffusion_model.SusceptibleInfectedRecoveredModel.run_single_simulation" title="Link to this definition"></a></dt>
+<dd><p>执行单次传播模拟。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>random_seed</strong> – 随机种子，用于结果可重现。若为 None 则使用真随机种子。</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>本次模拟感染的节点数。</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.diffusion_model.SusceptibleInfectedRecoveredModel.set_beta">
+<span class="sig-name descname"><span class="pre">set_beta</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">beta</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pynetim.diffusion_model.SusceptibleInfectedRecoveredModel.set_beta" title="Link to this definition"></a></dt>
+<dd><p>设置感染概率。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>beta</strong> – 感染概率，必须在 (0, 1] 范围内。</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.diffusion_model.SusceptibleInfectedRecoveredModel.set_gamma">
+<span class="sig-name descname"><span class="pre">set_gamma</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gamma</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pynetim.diffusion_model.SusceptibleInfectedRecoveredModel.set_gamma" title="Link to this definition"></a></dt>
+<dd><p>设置恢复概率。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>gamma</strong> – 恢复概率，必须在 (0, 1] 范围内。</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.diffusion_model.SusceptibleInfectedRecoveredModel.set_record_activated">
+<span class="sig-name descname"><span class="pre">set_record_activated</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">record</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pynetim.diffusion_model.SusceptibleInfectedRecoveredModel.set_record_activated" title="Link to this definition"></a></dt>
+<dd><p>启用或禁用感染/恢复节点记录。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>record</strong> – 是否记录感染/恢复节点。</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.diffusion_model.SusceptibleInfectedRecoveredModel.set_record_activation_frequency">
+<span class="sig-name descname"><span class="pre">set_record_activation_frequency</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">record</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pynetim.diffusion_model.SusceptibleInfectedRecoveredModel.set_record_activation_frequency" title="Link to this definition"></a></dt>
+<dd><p>启用或禁用感染/恢复频数记录。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>record</strong> – 是否记录感染/恢复频数。</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.diffusion_model.SusceptibleInfectedRecoveredModel.set_seeds">
+<span class="sig-name descname"><span class="pre">set_seeds</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">new_seeds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">set</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pynetim.diffusion_model.SusceptibleInfectedRecoveredModel.set_seeds" title="Link to this definition"></a></dt>
+<dd><p>更新种子节点集合。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>new_seeds</strong> – 新的种子节点集合。</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<section id="module-pynetim.diffusion_model.base_callback_diffusion_model">
+<span id="id2"></span><h2>自定义扩散模型<a class="headerlink" href="#module-pynetim.diffusion_model.base_callback_diffusion_model" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pynetim.diffusion_model.base_callback_diffusion_model.BaseCallbackDiffusionModel">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pynetim.diffusion_model.base_callback_diffusion_model.</span></span><span class="sig-name descname"><span class="pre">BaseCallbackDiffusionModel</span></span><a class="reference internal" href="../_modules/pynetim/diffusion_model/base_callback_diffusion_model.html#BaseCallbackDiffusionModel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.diffusion_model.base_callback_diffusion_model.BaseCallbackDiffusionModel" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pynetim.diffusion_model.PyDiffusionModelBase" title="pynetim.diffusion_model.py_diffusion_model_base.PyDiffusionModelBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">PyDiffusionModelBase</span></code></a></p>
+<p>C++回调版自定义传播模型基类。</p>
+<p>继承 C++ 的 PyDiffusionModelBase，通过回调机制实现自定义传播逻辑。
+单线程模式下可用，比纯 Python 实现快。
+多线程模式受 Python GIL 限制，无法真正并行。</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pynetim.diffusion_model.base_callback_diffusion_model.BaseCallbackDiffusionModel.graph">
+<span class="sig-name descname"><span class="pre">graph</span></span><a class="headerlink" href="#pynetim.diffusion_model.base_callback_diffusion_model.BaseCallbackDiffusionModel.graph" title="Link to this definition"></a></dt>
+<dd><p>图对象。</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pynetim.diffusion_model.base_callback_diffusion_model.BaseCallbackDiffusionModel.seeds">
+<span class="sig-name descname"><span class="pre">seeds</span></span><a class="headerlink" href="#pynetim.diffusion_model.base_callback_diffusion_model.BaseCallbackDiffusionModel.seeds" title="Link to this definition"></a></dt>
+<dd><p>种子节点集合。</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pynetim.diffusion_model.base_callback_diffusion_model.BaseCallbackDiffusionModel.num_nodes">
+<span class="sig-name descname"><span class="pre">num_nodes</span></span><a class="headerlink" href="#pynetim.diffusion_model.base_callback_diffusion_model.BaseCallbackDiffusionModel.num_nodes" title="Link to this definition"></a></dt>
+<dd><p>节点数量。</p>
+</dd></dl>
+
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">pynetim.diffusion_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseCallbackDiffusionModel</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span><span class="w"> </span><span class="nc">MyICModel</span><span class="p">(</span><span class="n">BaseCallbackDiffusionModel</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">def</span><span class="w"> </span><span class="nf">run_single_trial</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">seeds</span><span class="p">,</span> <span class="n">random_seed</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="kn">import</span><span class="w"> </span><span class="nn">random</span>
+<span class="gp">... </span>        <span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">random_seed</span><span class="p">)</span>
+<span class="gp">... </span>        <span class="n">activated</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">seeds</span><span class="p">)</span>
+<span class="gp">... </span>        <span class="n">current</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">seeds</span><span class="p">)</span>
+<span class="gp">... </span>        <span class="n">count</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">seeds</span><span class="p">)</span>
+<span class="gp">... </span>        <span class="n">frequency</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">num_nodes</span>
+<span class="gp">...</span>
+<span class="gp">... </span>        <span class="k">while</span> <span class="n">current</span><span class="p">:</span>
+<span class="gp">... </span>            <span class="n">new_active</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="gp">... </span>            <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">current</span><span class="p">:</span>
+<span class="gp">... </span>                <span class="k">for</span> <span class="n">neighbor</span><span class="p">,</span> <span class="n">weight</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">out_neighbors</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
+<span class="gp">... </span>                    <span class="k">if</span> <span class="n">neighbor</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">activated</span> <span class="ow">and</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">weight</span><span class="p">:</span>
+<span class="gp">... </span>                        <span class="n">activated</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">neighbor</span><span class="p">)</span>
+<span class="gp">... </span>                        <span class="n">new_active</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">neighbor</span><span class="p">)</span>
+<span class="gp">... </span>                        <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="gp">... </span>                        <span class="n">frequency</span><span class="p">[</span><span class="n">neighbor</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="gp">... </span>            <span class="n">current</span> <span class="o">=</span> <span class="n">new_active</span>
+<span class="gp">...</span>
+<span class="gp">... </span>        <span class="k">return</span> <span class="n">count</span><span class="p">,</span> <span class="n">activated</span><span class="p">,</span> <span class="n">frequency</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span> <span class="o">=</span> <span class="n">MyICModel</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">avg</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">run_monte_carlo_diffusion</span><span class="p">(</span><span class="n">mc_rounds</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">random_seed</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.diffusion_model.base_callback_diffusion_model.BaseCallbackDiffusionModel.run_single_trial">
+<span class="sig-name descname"><span class="pre">run_single_trial</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">seeds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Set</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/pynetim/diffusion_model/base_callback_diffusion_model.html#BaseCallbackDiffusionModel.run_single_trial"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.diffusion_model.base_callback_diffusion_model.BaseCallbackDiffusionModel.run_single_trial" title="Link to this definition"></a></dt>
+<dd><p>执行单次传播试验。</p>
+<p>子类必须重写此方法实现自定义传播逻辑。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>seeds</strong> – 初始种子节点列表。</p></li>
+<li><p><strong>random_seed</strong> – 随机数种子，用于确保结果可重现。</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>包含三个元素的元组：</dt><dd><ul class="simple">
+<li><p>激活节点总数</p></li>
+<li><p>激活的节点集合</p></li>
+<li><p>每个节点的激活频数列表</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Tuple[int, Set[int], List[int]]</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>NotImplementedError</strong> – 子类未实现此方法时抛出。</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>此方法会被 C++ 层回调，因此需要保持签名一致。</p>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class" id="module-pynetim.diffusion_model.base_multiprocess_diffusion_model">
+<dt class="sig sig-object py" id="pynetim.diffusion_model.base_multiprocess_diffusion_model.BaseMultiprocessDiffusionModel">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pynetim.diffusion_model.base_multiprocess_diffusion_model.</span></span><span class="sig-name descname"><span class="pre">BaseMultiprocessDiffusionModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="graph.html#pynetim.graph.IMGraph" title="pynetim.graph.IMGraph"><span class="pre">IMGraph</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">seeds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Set</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pynetim/diffusion_model/base_multiprocess_diffusion_model.html#BaseMultiprocessDiffusionModel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.diffusion_model.base_multiprocess_diffusion_model.BaseMultiprocessDiffusionModel" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
+<p>多进程版自定义传播模型基类。</p>
+<p>纯 Python 实现，使用 multiprocessing 实现真正的并行计算。
+不受 Python GIL 限制，多进程可真正并行加速。
+适合大规模模拟和需要并行加速的自定义模型。</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pynetim.diffusion_model.base_multiprocess_diffusion_model.BaseMultiprocessDiffusionModel.graph">
+<span class="sig-name descname"><span class="pre">graph</span></span><a class="headerlink" href="#pynetim.diffusion_model.base_multiprocess_diffusion_model.BaseMultiprocessDiffusionModel.graph" title="Link to this definition"></a></dt>
+<dd><p>图对象。</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pynetim.diffusion_model.base_multiprocess_diffusion_model.BaseMultiprocessDiffusionModel.seeds">
+<span class="sig-name descname"><span class="pre">seeds</span></span><a class="headerlink" href="#pynetim.diffusion_model.base_multiprocess_diffusion_model.BaseMultiprocessDiffusionModel.seeds" title="Link to this definition"></a></dt>
+<dd><p>种子节点集合。</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pynetim.diffusion_model.base_multiprocess_diffusion_model.BaseMultiprocessDiffusionModel.num_nodes">
+<span class="sig-name descname"><span class="pre">num_nodes</span></span><a class="headerlink" href="#pynetim.diffusion_model.base_multiprocess_diffusion_model.BaseMultiprocessDiffusionModel.num_nodes" title="Link to this definition"></a></dt>
+<dd><p>节点数量。</p>
+</dd></dl>
+
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">pynetim.diffusion_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseMultiprocessDiffusionModel</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span><span class="w"> </span><span class="nc">MyICModel</span><span class="p">(</span><span class="n">BaseMultiprocessDiffusionModel</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">def</span><span class="w"> </span><span class="nf">run_single_trial</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">seeds</span><span class="p">,</span> <span class="n">random_seed</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="kn">import</span><span class="w"> </span><span class="nn">random</span>
+<span class="gp">... </span>        <span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">random_seed</span><span class="p">)</span>
+<span class="gp">... </span>        <span class="n">activated</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">seeds</span><span class="p">)</span>
+<span class="gp">... </span>        <span class="n">current</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">seeds</span><span class="p">)</span>
+<span class="gp">... </span>        <span class="n">count</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">seeds</span><span class="p">)</span>
+<span class="gp">... </span>        <span class="n">frequency</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">num_nodes</span>
+<span class="gp">...</span>
+<span class="gp">... </span>        <span class="k">while</span> <span class="n">current</span><span class="p">:</span>
+<span class="gp">... </span>            <span class="n">new_active</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="gp">... </span>            <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">current</span><span class="p">:</span>
+<span class="gp">... </span>                <span class="k">for</span> <span class="n">neighbor</span><span class="p">,</span> <span class="n">weight</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">out_neighbors_with_weights</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
+<span class="gp">... </span>                    <span class="k">if</span> <span class="n">neighbor</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">activated</span> <span class="ow">and</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">weight</span><span class="p">:</span>
+<span class="gp">... </span>                        <span class="n">activated</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">neighbor</span><span class="p">)</span>
+<span class="gp">... </span>                        <span class="n">new_active</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">neighbor</span><span class="p">)</span>
+<span class="gp">... </span>                        <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="gp">... </span>                        <span class="n">frequency</span><span class="p">[</span><span class="n">neighbor</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="gp">... </span>            <span class="n">current</span> <span class="o">=</span> <span class="n">new_active</span>
+<span class="gp">...</span>
+<span class="gp">... </span>        <span class="k">return</span> <span class="n">count</span><span class="p">,</span> <span class="n">activated</span><span class="p">,</span> <span class="n">frequency</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span> <span class="o">=</span> <span class="n">MyICModel</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">avg</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">run_monte_carlo_diffusion</span><span class="p">(</span><span class="n">mc_rounds</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">num_processes</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">random_seed</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.diffusion_model.base_multiprocess_diffusion_model.BaseMultiprocessDiffusionModel.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="graph.html#pynetim.graph.IMGraph" title="pynetim.graph.IMGraph"><span class="pre">IMGraph</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">seeds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Set</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pynetim/diffusion_model/base_multiprocess_diffusion_model.html#BaseMultiprocessDiffusionModel.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.diffusion_model.base_multiprocess_diffusion_model.BaseMultiprocessDiffusionModel.__init__" title="Link to this definition"></a></dt>
+<dd><p>初始化传播模型。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>graph</strong> – 图对象。</p></li>
+<li><p><strong>seeds</strong> – 种子节点集合。</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.diffusion_model.base_multiprocess_diffusion_model.BaseMultiprocessDiffusionModel.run_monte_carlo_diffusion">
+<span class="sig-name descname"><span class="pre">run_monte_carlo_diffusion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mc_rounds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_processes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_progress</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/pynetim/diffusion_model/base_multiprocess_diffusion_model.html#BaseMultiprocessDiffusionModel.run_monte_carlo_diffusion"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.diffusion_model.base_multiprocess_diffusion_model.BaseMultiprocessDiffusionModel.run_monte_carlo_diffusion" title="Link to this definition"></a></dt>
+<dd><p>运行蒙特卡洛模拟，计算平均影响力。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mc_rounds</strong> – 蒙特卡洛模拟次数，建议 1000-10000 次。</p></li>
+<li><p><strong>num_processes</strong> – 进程数，默认使用 CPU 核心数。</p></li>
+<li><p><strong>show_progress</strong> – 是否显示进度条（暂未实现）。</p></li>
+<li><p><strong>random_seed</strong> – 随机数种子，默认为 None（每次结果不同）。</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>平均激活节点数。</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>当模拟次数较多时（&gt;= 进程数 * 10），自动启用多进程并行。</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.diffusion_model.base_multiprocess_diffusion_model.BaseMultiprocessDiffusionModel.run_monte_carlo_with_frequency">
+<span class="sig-name descname"><span class="pre">run_monte_carlo_with_frequency</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mc_rounds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_processes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/pynetim/diffusion_model/base_multiprocess_diffusion_model.html#BaseMultiprocessDiffusionModel.run_monte_carlo_with_frequency"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.diffusion_model.base_multiprocess_diffusion_model.BaseMultiprocessDiffusionModel.run_monte_carlo_with_frequency" title="Link to this definition"></a></dt>
+<dd><p>运行蒙特卡洛模拟，返回平均影响力和激活频数。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mc_rounds</strong> – 蒙特卡洛模拟次数，建议 1000-10000 次。</p></li>
+<li><p><strong>num_processes</strong> – 进程数，默认使用 CPU 核心数。</p></li>
+<li><p><strong>random_seed</strong> – 随机数种子，默认为 None（每次结果不同）。</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>包含两个元素：</dt><dd><ul class="simple">
+<li><p>平均激活节点数</p></li>
+<li><p>每个节点的激活频数列表</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Tuple[float, List[int]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.diffusion_model.base_multiprocess_diffusion_model.BaseMultiprocessDiffusionModel.run_single_trial">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">run_single_trial</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">seeds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Set</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/pynetim/diffusion_model/base_multiprocess_diffusion_model.html#BaseMultiprocessDiffusionModel.run_single_trial"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.diffusion_model.base_multiprocess_diffusion_model.BaseMultiprocessDiffusionModel.run_single_trial" title="Link to this definition"></a></dt>
+<dd><p>执行单次传播试验。</p>
+<p>子类必须重写此方法实现自定义传播逻辑。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>seeds</strong> – 初始种子节点列表。</p></li>
+<li><p><strong>random_seed</strong> – 随机数种子，用于确保结果可重现。</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>包含三个元素的元组：</dt><dd><ul class="simple">
+<li><p>激活节点总数</p></li>
+<li><p>激活的节点集合</p></li>
+<li><p>每个节点的激活频数列表</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Tuple[int, Set[int], List[int]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.diffusion_model.base_multiprocess_diffusion_model.BaseMultiprocessDiffusionModel.set_seeds">
+<span class="sig-name descname"><span class="pre">set_seeds</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">seeds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Set</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pynetim/diffusion_model/base_multiprocess_diffusion_model.html#BaseMultiprocessDiffusionModel.set_seeds"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.diffusion_model.base_multiprocess_diffusion_model.BaseMultiprocessDiffusionModel.set_seeds" title="Link to this definition"></a></dt>
+<dd><p>设置种子节点集合。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>seeds</strong> – 新的种子节点集合。</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="graph.html" class="btn btn-neutral float-left" title="图模块" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="algorithms.html" class="btn btn-neutral float-right" title="算法模块" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Kaijing Zhang.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

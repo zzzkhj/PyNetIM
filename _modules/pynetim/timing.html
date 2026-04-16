@@ -39,8 +39,29 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <!-- Local TOC -->
-              <div class="local-toc"></div>
+              <p class="caption" role="heading"><span class="caption-text">指南</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">安装指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quickstart.html">快速开始</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API 参考</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../api/graph.html">图模块</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/diffusion_model.html">扩散模型</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/algorithms.html">算法模块</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/evaluation.html">评估指标</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/timing.html">时间测量</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/utils.html">工具函数</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">其他</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">更新日志</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html#id57">版本说明</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html#id65">贡献指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html#id66">许可证</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html#id67">联系方式</a></li>
+</ul>
+
         </div>
       </div>
     </nav>
@@ -82,7 +103,7 @@
 
 
 <div class="viewcode-block" id="measure_time">
-<a class="viewcode-back" href="../../api.html#pynetim.timing.measure_time">[docs]</a>
+<a class="viewcode-back" href="../../api/timing.html#pynetim.timing.measure_time">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">measure_time</span><span class="p">(</span><span class="n">func</span><span class="p">:</span> <span class="n">Callable</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;装饰器：测量函数或方法的运行时间。</span>
 <span class="sd">    </span>
@@ -130,7 +151,7 @@
 
 
 <div class="viewcode-block" id="measure_runtime">
-<a class="viewcode-back" href="../../api.html#pynetim.timing.measure_runtime">[docs]</a>
+<a class="viewcode-back" href="../../api/timing.html#pynetim.timing.measure_runtime">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">measure_runtime</span><span class="p">(</span>
     <span class="n">func</span><span class="p">:</span> <span class="n">Callable</span><span class="p">,</span>
     <span class="o">*</span><span class="n">args</span><span class="p">,</span>
@@ -160,7 +181,7 @@
 
 
 <div class="viewcode-block" id="measure_runtime_multiple_runs">
-<a class="viewcode-back" href="../../api.html#pynetim.timing.measure_runtime_multiple_runs">[docs]</a>
+<a class="viewcode-back" href="../../api/timing.html#pynetim.timing.measure_runtime_multiple_runs">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">measure_runtime_multiple_runs</span><span class="p">(</span>
     <span class="n">func</span><span class="p">:</span> <span class="n">Callable</span><span class="p">,</span>
     <span class="n">num_runs</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>
@@ -207,7 +228,7 @@
 
 
 <div class="viewcode-block" id="AlgorithmTimer">
-<a class="viewcode-back" href="../../api.html#pynetim.timing.AlgorithmTimer">[docs]</a>
+<a class="viewcode-back" href="../../api/timing.html#pynetim.timing.AlgorithmTimer">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">AlgorithmTimer</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;算法运行时间测量器。</span>
 <span class="sd">    </span>
@@ -249,7 +270,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_runtimes</span> <span class="o">=</span> <span class="p">[]</span>
     
 <div class="viewcode-block" id="AlgorithmTimer.run">
-<a class="viewcode-back" href="../../api.html#pynetim.timing.AlgorithmTimer.run">[docs]</a>
+<a class="viewcode-back" href="../../api/timing.html#pynetim.timing.AlgorithmTimer.run">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;运行算法并测量时间。</span>
 <span class="sd">        </span>
@@ -288,7 +309,7 @@
 
     
 <div class="viewcode-block" id="AlgorithmTimer.run_multiple">
-<a class="viewcode-back" href="../../api.html#pynetim.timing.AlgorithmTimer.run_multiple">[docs]</a>
+<a class="viewcode-back" href="../../api/timing.html#pynetim.timing.AlgorithmTimer.run_multiple">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">run_multiple</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num_runs</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;多次运行算法并统计运行时间。</span>
 <span class="sd">        </span>
@@ -345,7 +366,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_runtimes</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
     
 <div class="viewcode-block" id="AlgorithmTimer.clear">
-<a class="viewcode-back" href="../../api.html#pynetim.timing.AlgorithmTimer.clear">[docs]</a>
+<a class="viewcode-back" href="../../api/timing.html#pynetim.timing.AlgorithmTimer.clear">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;清空运行时间记录。&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_runtimes</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></div>
@@ -354,7 +375,7 @@
 
 
 <div class="viewcode-block" id="compare_algorithms_runtime">
-<a class="viewcode-back" href="../../api.html#pynetim.timing.compare_algorithms_runtime">[docs]</a>
+<a class="viewcode-back" href="../../api/timing.html#pynetim.timing.compare_algorithms_runtime">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">compare_algorithms_runtime</span><span class="p">(</span>
     <span class="n">algorithms</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
     <span class="o">**</span><span class="n">kwargs</span>

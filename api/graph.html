@@ -1,0 +1,670 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>图模块 &mdash; PyNetIM  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="扩散模型" href="diffusion_model.html" />
+    <link rel="prev" title="快速开始" href="../quickstart.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            PyNetIM
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">指南</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">安装指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">快速开始</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API 参考</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">图模块</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#pynetim.graph.IMGraph"><code class="docutils literal notranslate"><span class="pre">IMGraph</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#pynetim.graph.IMGraph.__init__"><code class="docutils literal notranslate"><span class="pre">IMGraph.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pynetim.graph.IMGraph.add_edge"><code class="docutils literal notranslate"><span class="pre">IMGraph.add_edge()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pynetim.graph.IMGraph.add_edges"><code class="docutils literal notranslate"><span class="pre">IMGraph.add_edges()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pynetim.graph.IMGraph.batch_degree"><code class="docutils literal notranslate"><span class="pre">IMGraph.batch_degree()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pynetim.graph.IMGraph.batch_get_edge_weight"><code class="docutils literal notranslate"><span class="pre">IMGraph.batch_get_edge_weight()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pynetim.graph.IMGraph.batch_in_degree"><code class="docutils literal notranslate"><span class="pre">IMGraph.batch_in_degree()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pynetim.graph.IMGraph.batch_out_degree"><code class="docutils literal notranslate"><span class="pre">IMGraph.batch_out_degree()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pynetim.graph.IMGraph.batch_out_neighbors"><code class="docutils literal notranslate"><span class="pre">IMGraph.batch_out_neighbors()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pynetim.graph.IMGraph.batch_out_neighbors_with_weights"><code class="docutils literal notranslate"><span class="pre">IMGraph.batch_out_neighbors_with_weights()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pynetim.graph.IMGraph.degree"><code class="docutils literal notranslate"><span class="pre">IMGraph.degree()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pynetim.graph.IMGraph.directed"><code class="docutils literal notranslate"><span class="pre">IMGraph.directed</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pynetim.graph.IMGraph.edges"><code class="docutils literal notranslate"><span class="pre">IMGraph.edges</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pynetim.graph.IMGraph.get_adj_list"><code class="docutils literal notranslate"><span class="pre">IMGraph.get_adj_list()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pynetim.graph.IMGraph.get_adj_list_py"><code class="docutils literal notranslate"><span class="pre">IMGraph.get_adj_list_py()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pynetim.graph.IMGraph.get_adj_matrix"><code class="docutils literal notranslate"><span class="pre">IMGraph.get_adj_matrix()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pynetim.graph.IMGraph.get_adj_matrix_sparse"><code class="docutils literal notranslate"><span class="pre">IMGraph.get_adj_matrix_sparse()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pynetim.graph.IMGraph.get_all_degrees"><code class="docutils literal notranslate"><span class="pre">IMGraph.get_all_degrees()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pynetim.graph.IMGraph.get_all_in_degrees"><code class="docutils literal notranslate"><span class="pre">IMGraph.get_all_in_degrees()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pynetim.graph.IMGraph.get_all_out_degrees"><code class="docutils literal notranslate"><span class="pre">IMGraph.get_all_out_degrees()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pynetim.graph.IMGraph.get_edge_weight"><code class="docutils literal notranslate"><span class="pre">IMGraph.get_edge_weight()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pynetim.graph.IMGraph.has_edge"><code class="docutils literal notranslate"><span class="pre">IMGraph.has_edge()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pynetim.graph.IMGraph.in_degree"><code class="docutils literal notranslate"><span class="pre">IMGraph.in_degree()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pynetim.graph.IMGraph.in_neighbors"><code class="docutils literal notranslate"><span class="pre">IMGraph.in_neighbors()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pynetim.graph.IMGraph.internal_to_original"><code class="docutils literal notranslate"><span class="pre">IMGraph.internal_to_original</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pynetim.graph.IMGraph.num_edges"><code class="docutils literal notranslate"><span class="pre">IMGraph.num_edges</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pynetim.graph.IMGraph.num_nodes"><code class="docutils literal notranslate"><span class="pre">IMGraph.num_nodes</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pynetim.graph.IMGraph.original_to_internal"><code class="docutils literal notranslate"><span class="pre">IMGraph.original_to_internal</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pynetim.graph.IMGraph.out_degree"><code class="docutils literal notranslate"><span class="pre">IMGraph.out_degree()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pynetim.graph.IMGraph.out_neighbors"><code class="docutils literal notranslate"><span class="pre">IMGraph.out_neighbors()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pynetim.graph.IMGraph.out_neighbors_arrays"><code class="docutils literal notranslate"><span class="pre">IMGraph.out_neighbors_arrays()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pynetim.graph.IMGraph.out_neighbors_with_weights"><code class="docutils literal notranslate"><span class="pre">IMGraph.out_neighbors_with_weights()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pynetim.graph.IMGraph.remove_edge"><code class="docutils literal notranslate"><span class="pre">IMGraph.remove_edge()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pynetim.graph.IMGraph.remove_edges"><code class="docutils literal notranslate"><span class="pre">IMGraph.remove_edges()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pynetim.graph.IMGraph.update_edge_weight"><code class="docutils literal notranslate"><span class="pre">IMGraph.update_edge_weight()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="diffusion_model.html">扩散模型</a></li>
+<li class="toctree-l1"><a class="reference internal" href="algorithms.html">算法模块</a></li>
+<li class="toctree-l1"><a class="reference internal" href="evaluation.html">评估指标</a></li>
+<li class="toctree-l1"><a class="reference internal" href="timing.html">时间测量</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utils.html">工具函数</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">其他</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">更新日志</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html#id57">版本说明</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html#id65">贡献指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html#id66">许可证</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html#id67">联系方式</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">PyNetIM</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">图模块</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/api/graph.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-pynetim.graph">
+<span id="id1"></span><h1>图模块<a class="headerlink" href="#module-pynetim.graph" title="Link to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="pynetim.graph.IMGraph">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pynetim.graph.</span></span><span class="sig-name descname"><span class="pre">IMGraph</span></span><a class="headerlink" href="#pynetim.graph.IMGraph" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.graph.IMGraph.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">edges</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">directed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">renumber</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pynetim.graph.IMGraph.__init__" title="Link to this definition"></a></dt>
+<dd><p>从边列表构建图。</p>
+<p>传入的边列表必须是从 0 开始连续编号节点，若不是请设置 renumber=True。
+或者在构建图之前使用 renumber_edges 函数重新编号节点。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>edges</strong> – 边列表，每个元素为 (u, v) 元组。</p></li>
+<li><p><strong>weights</strong> – 边权重。若为列表则指定每条边的权重；若为浮点数则统一权重。默认为 1.0。</p></li>
+<li><p><strong>directed</strong> – 是否为有向图，默认为 True。</p></li>
+<li><p><strong>renumber</strong> – 是否重新编号节点。若为 True，将节点重新编号为从 0 开始的连续整数。默认为 True。</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>图对象。</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#pynetim.graph.IMGraph" title="pynetim.graph.IMGraph">IMGraph</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.graph.IMGraph.add_edge">
+<span class="sig-name descname"><span class="pre">add_edge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">w</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1.0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pynetim.graph.IMGraph.add_edge" title="Link to this definition"></a></dt>
+<dd><p>添加带权边。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>u</strong> – 源节点。</p></li>
+<li><p><strong>v</strong> – 目标节点。</p></li>
+<li><p><strong>w</strong> – 边权重，默认为 1.0。</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.graph.IMGraph.add_edges">
+<span class="sig-name descname"><span class="pre">add_edges</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">edges</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pynetim.graph.IMGraph.add_edges" title="Link to this definition"></a></dt>
+<dd><p>批量添加边。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>edges</strong> – 边列表，每个元素为 (u, v) 元组。</p></li>
+<li><p><strong>weights</strong> – 边权重列表。</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.graph.IMGraph.batch_degree">
+<span class="sig-name descname"><span class="pre">batch_degree</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nodes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pynetim.graph.IMGraph.batch_degree" title="Link to this definition"></a></dt>
+<dd><p>批量返回指定节点的度数。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>nodes</strong> – 节点 ID 列表。</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>度数列表。</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List[int]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.graph.IMGraph.batch_get_edge_weight">
+<span class="sig-name descname"><span class="pre">batch_get_edge_weight</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">edges</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default_value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">raise_on_missing</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pynetim.graph.IMGraph.batch_get_edge_weight" title="Link to this definition"></a></dt>
+<dd><p>批量返回指定边的权重。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>edges</strong> – 边列表，每个元素为 (u, v) 元组。</p></li>
+<li><p><strong>default_value</strong> – 边不存在时的默认返回值，默认为 0.0。当 raise_on_missing=True 时忽略。</p></li>
+<li><p><strong>raise_on_missing</strong> – 边不存在时是否抛出异常，默认为 False。</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>权重列表。</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List[float]</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>RuntimeError</strong> – 当 raise_on_missing=True 且边不存在时。</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.graph.IMGraph.batch_in_degree">
+<span class="sig-name descname"><span class="pre">batch_in_degree</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nodes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pynetim.graph.IMGraph.batch_in_degree" title="Link to this definition"></a></dt>
+<dd><p>批量返回指定节点的入度。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>nodes</strong> – 节点 ID 列表。</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>入度列表。</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List[int]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.graph.IMGraph.batch_out_degree">
+<span class="sig-name descname"><span class="pre">batch_out_degree</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nodes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pynetim.graph.IMGraph.batch_out_degree" title="Link to this definition"></a></dt>
+<dd><p>批量返回指定节点的出度。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>nodes</strong> – 节点 ID 列表。</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>出度列表。</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List[int]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.graph.IMGraph.batch_out_neighbors">
+<span class="sig-name descname"><span class="pre">batch_out_neighbors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nodes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pynetim.graph.IMGraph.batch_out_neighbors" title="Link to this definition"></a></dt>
+<dd><p>批量返回指定节点的出边邻居。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>nodes</strong> – 节点 ID 列表。</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>每个节点的出边邻居节点 ID 列表。</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List[List[int]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.graph.IMGraph.batch_out_neighbors_with_weights">
+<span class="sig-name descname"><span class="pre">batch_out_neighbors_with_weights</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nodes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pynetim.graph.IMGraph.batch_out_neighbors_with_weights" title="Link to this definition"></a></dt>
+<dd><p>批量返回指定节点的出边邻居及权重。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>nodes</strong> – 节点 ID 列表。</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>每个节点的 (邻居, 权重) 元组列表。</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List[List[Tuple[int, float]]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.graph.IMGraph.degree">
+<span class="sig-name descname"><span class="pre">degree</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#pynetim.graph.IMGraph.degree" title="Link to this definition"></a></dt>
+<dd><p>返回节点的度数。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>u</strong> – 节点 ID。</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>度数。</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pynetim.graph.IMGraph.directed">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">directed</span></span><a class="headerlink" href="#pynetim.graph.IMGraph.directed" title="Link to this definition"></a></dt>
+<dd><p>是否为有向图。</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pynetim.graph.IMGraph.edges">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">edges</span></span><a class="headerlink" href="#pynetim.graph.IMGraph.edges" title="Link to this definition"></a></dt>
+<dd><p>边列表及权重。</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.graph.IMGraph.get_adj_list">
+<span class="sig-name descname"><span class="pre">get_adj_list</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">Edge</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pynetim.graph.IMGraph.get_adj_list" title="Link to this definition"></a></dt>
+<dd><p>返回完整邻接表。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Edge 对象列表的列表。</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>List[List[Edge]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.graph.IMGraph.get_adj_list_py">
+<span class="sig-name descname"><span class="pre">get_adj_list_py</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pynetim.graph.IMGraph.get_adj_list_py" title="Link to this definition"></a></dt>
+<dd><p>返回 Python 友好格式的邻接表。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>(邻居, 权重) 元组列表的列表。</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>List[List[Tuple[int, float]]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.graph.IMGraph.get_adj_matrix">
+<span class="sig-name descname"><span class="pre">get_adj_matrix</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pynetim.graph.IMGraph.get_adj_matrix" title="Link to this definition"></a></dt>
+<dd><p>返回稠密邻接矩阵。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>邻接矩阵。</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>List[List[float]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.graph.IMGraph.get_adj_matrix_sparse">
+<span class="sig-name descname"><span class="pre">get_adj_matrix_sparse</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pynetim.graph.IMGraph.get_adj_matrix_sparse" title="Link to this definition"></a></dt>
+<dd><p>返回稀疏邻接矩阵。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>(u, v, 权重) 元组列表。</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>List[Tuple[int, int, float]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.graph.IMGraph.get_all_degrees">
+<span class="sig-name descname"><span class="pre">get_all_degrees</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pynetim.graph.IMGraph.get_all_degrees" title="Link to this definition"></a></dt>
+<dd><p>返回所有节点的度数列表。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>度数列表。</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>List[int]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.graph.IMGraph.get_all_in_degrees">
+<span class="sig-name descname"><span class="pre">get_all_in_degrees</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pynetim.graph.IMGraph.get_all_in_degrees" title="Link to this definition"></a></dt>
+<dd><p>返回所有节点的入度列表。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>入度列表。</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>List[int]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.graph.IMGraph.get_all_out_degrees">
+<span class="sig-name descname"><span class="pre">get_all_out_degrees</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pynetim.graph.IMGraph.get_all_out_degrees" title="Link to this definition"></a></dt>
+<dd><p>返回所有节点的出度列表。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>出度列表。</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>List[int]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.graph.IMGraph.get_edge_weight">
+<span class="sig-name descname"><span class="pre">get_edge_weight</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="headerlink" href="#pynetim.graph.IMGraph.get_edge_weight" title="Link to this definition"></a></dt>
+<dd><p>获取边的权重。若边不存在则抛出异常。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>u</strong> – 源节点。</p></li>
+<li><p><strong>v</strong> – 目标节点。</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>边权重。</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>RuntimeError</strong> – 边不存在。</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.graph.IMGraph.has_edge">
+<span class="sig-name descname"><span class="pre">has_edge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#pynetim.graph.IMGraph.has_edge" title="Link to this definition"></a></dt>
+<dd><p>检查边是否存在。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>u</strong> – 源节点。</p></li>
+<li><p><strong>v</strong> – 目标节点。</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>边存在返回 True，否则返回 False。</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.graph.IMGraph.in_degree">
+<span class="sig-name descname"><span class="pre">in_degree</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#pynetim.graph.IMGraph.in_degree" title="Link to this definition"></a></dt>
+<dd><p>返回节点的入度。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>u</strong> – 节点 ID。</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>入度。</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.graph.IMGraph.in_neighbors">
+<span class="sig-name descname"><span class="pre">in_neighbors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pynetim.graph.IMGraph.in_neighbors" title="Link to this definition"></a></dt>
+<dd><p>返回节点的入边邻居。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>u</strong> – 节点 ID。</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>入边邻居节点 ID 列表。</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List[int]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pynetim.graph.IMGraph.internal_to_original">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">internal_to_original</span></span><a class="headerlink" href="#pynetim.graph.IMGraph.internal_to_original" title="Link to this definition"></a></dt>
+<dd><p>内部节点 ID 到原始 ID 的映射。</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pynetim.graph.IMGraph.num_edges">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">num_edges</span></span><a class="headerlink" href="#pynetim.graph.IMGraph.num_edges" title="Link to this definition"></a></dt>
+<dd><p>边数量。</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pynetim.graph.IMGraph.num_nodes">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">num_nodes</span></span><a class="headerlink" href="#pynetim.graph.IMGraph.num_nodes" title="Link to this definition"></a></dt>
+<dd><p>节点数量。</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pynetim.graph.IMGraph.original_to_internal">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">original_to_internal</span></span><a class="headerlink" href="#pynetim.graph.IMGraph.original_to_internal" title="Link to this definition"></a></dt>
+<dd><p>原始节点 ID 到内部 ID 的映射。</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.graph.IMGraph.out_degree">
+<span class="sig-name descname"><span class="pre">out_degree</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#pynetim.graph.IMGraph.out_degree" title="Link to this definition"></a></dt>
+<dd><p>返回节点的出度。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>u</strong> – 节点 ID。</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>出度。</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.graph.IMGraph.out_neighbors">
+<span class="sig-name descname"><span class="pre">out_neighbors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pynetim.graph.IMGraph.out_neighbors" title="Link to this definition"></a></dt>
+<dd><p>返回节点的出边邻居。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>u</strong> – 节点 ID。</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>出边邻居节点 ID 列表。</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List[int]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.graph.IMGraph.out_neighbors_arrays">
+<span class="sig-name descname"><span class="pre">out_neighbors_arrays</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pynetim.graph.IMGraph.out_neighbors_arrays" title="Link to this definition"></a></dt>
+<dd><p>返回节点的出边邻居（数组格式）。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>u</strong> – 节点 ID。</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>两个并行数组 (targets, weights)，O(1) 访问每个元素。</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Tuple[List[int], List[float]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.graph.IMGraph.out_neighbors_with_weights">
+<span class="sig-name descname"><span class="pre">out_neighbors_with_weights</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pynetim.graph.IMGraph.out_neighbors_with_weights" title="Link to this definition"></a></dt>
+<dd><p>返回节点的出边邻居及权重。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>u</strong> – 节点 ID。</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>(邻居, 权重) 元组列表。</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List[Tuple[int, float]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.graph.IMGraph.remove_edge">
+<span class="sig-name descname"><span class="pre">remove_edge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pynetim.graph.IMGraph.remove_edge" title="Link to this definition"></a></dt>
+<dd><p>删除边。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>u</strong> – 源节点。</p></li>
+<li><p><strong>v</strong> – 目标节点。</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.graph.IMGraph.remove_edges">
+<span class="sig-name descname"><span class="pre">remove_edges</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">edges</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pynetim.graph.IMGraph.remove_edges" title="Link to this definition"></a></dt>
+<dd><p>批量删除边。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>edges</strong> – 边列表，每个元素为 (u, v) 元组。</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.graph.IMGraph.update_edge_weight">
+<span class="sig-name descname"><span class="pre">update_edge_weight</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">w</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pynetim.graph.IMGraph.update_edge_weight" title="Link to this definition"></a></dt>
+<dd><p>更新已有边的权重。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>u</strong> – 源节点。</p></li>
+<li><p><strong>v</strong> – 目标节点。</p></li>
+<li><p><strong>w</strong> – 新的边权重。</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../quickstart.html" class="btn btn-neutral float-left" title="快速开始" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="diffusion_model.html" class="btn btn-neutral float-right" title="扩散模型" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Kaijing Zhang.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

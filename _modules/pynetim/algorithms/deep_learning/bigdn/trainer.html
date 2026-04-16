@@ -39,8 +39,29 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <!-- Local TOC -->
-              <div class="local-toc"></div>
+              <p class="caption" role="heading"><span class="caption-text">指南</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../installation.html">安装指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../quickstart.html">快速开始</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API 参考</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../api/graph.html">图模块</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../api/diffusion_model.html">扩散模型</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../api/algorithms.html">算法模块</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../api/evaluation.html">评估指标</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../api/timing.html">时间测量</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../api/utils.html">工具函数</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">其他</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../changelog.html">更新日志</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../changelog.html#id57">版本说明</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../changelog.html#id65">贡献指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../changelog.html#id66">许可证</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../changelog.html#id67">联系方式</a></li>
+</ul>
+
         </div>
       </div>
     </nav>
@@ -82,7 +103,7 @@
 
 
 <div class="viewcode-block" id="BiGDNTrainer">
-<a class="viewcode-back" href="../../../../../api.html#pynetim.algorithms.deep_learning.BiGDNTrainer">[docs]</a>
+<a class="viewcode-back" href="../../../../../api/algorithms.html#pynetim.algorithms.deep_learning.BiGDNTrainer">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">BiGDNTrainer</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;BiGDN 训练器。</span>
 
@@ -96,7 +117,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="BiGDNTrainer.__init__">
-<a class="viewcode-back" href="../../../../../api.html#pynetim.algorithms.deep_learning.BiGDNTrainer.__init__">[docs]</a>
+<a class="viewcode-back" href="../../../../../api/algorithms.html#pynetim.algorithms.deep_learning.BiGDNTrainer.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">num_features</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">64</span><span class="p">,</span>
@@ -278,7 +299,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">agent</span><span class="o">.</span><span class="n">target_q_net</span><span class="o">.</span><span class="n">load_state_dict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">agent</span><span class="o">.</span><span class="n">q_net</span><span class="o">.</span><span class="n">state_dict</span><span class="p">())</span>
 
 <div class="viewcode-block" id="BiGDNTrainer.save">
-<a class="viewcode-back" href="../../../../../api.html#pynetim.algorithms.deep_learning.BiGDNTrainer.save">[docs]</a>
+<a class="viewcode-back" href="../../../../../api/algorithms.html#pynetim.algorithms.deep_learning.BiGDNTrainer.save">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;保存模型。</span>
 
@@ -289,7 +310,7 @@
 
 
 <div class="viewcode-block" id="BiGDNTrainer.load">
-<a class="viewcode-back" href="../../../../../api.html#pynetim.algorithms.deep_learning.BiGDNTrainer.load">[docs]</a>
+<a class="viewcode-back" href="../../../../../api/algorithms.html#pynetim.algorithms.deep_learning.BiGDNTrainer.load">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">load</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;加载模型。</span>
 
@@ -301,7 +322,7 @@
 
 
 <div class="viewcode-block" id="BiGDNTrainer.train">
-<a class="viewcode-back" href="../../../../../api.html#pynetim.algorithms.deep_learning.BiGDNTrainer.train">[docs]</a>
+<a class="viewcode-back" href="../../../../../api/algorithms.html#pynetim.algorithms.deep_learning.BiGDNTrainer.train">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">train</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">graphs</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="s1">&#39;IMGraph&#39;</span><span class="p">],</span>
@@ -405,7 +426,7 @@
 
 
 <div class="viewcode-block" id="BiGDNNodeEncoderTrainer">
-<a class="viewcode-back" href="../../../../../api.html#pynetim.algorithms.deep_learning.BiGDNNodeEncoderTrainer">[docs]</a>
+<a class="viewcode-back" href="../../../../../api/algorithms.html#pynetim.algorithms.deep_learning.BiGDNNodeEncoderTrainer">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">BiGDNNodeEncoderTrainer</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;BiGDN NodeEncoder 预训练器。</span>
 
@@ -419,7 +440,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="BiGDNNodeEncoderTrainer.__init__">
-<a class="viewcode-back" href="../../../../../api.html#pynetim.algorithms.deep_learning.BiGDNNodeEncoderTrainer.__init__">[docs]</a>
+<a class="viewcode-back" href="../../../../../api/algorithms.html#pynetim.algorithms.deep_learning.BiGDNNodeEncoderTrainer.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">num_features</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">64</span><span class="p">,</span>
@@ -445,7 +466,7 @@
 
 
 <div class="viewcode-block" id="BiGDNNodeEncoderTrainer.prepare_data">
-<a class="viewcode-back" href="../../../../../api.html#pynetim.algorithms.deep_learning.BiGDNNodeEncoderTrainer.prepare_data">[docs]</a>
+<a class="viewcode-back" href="../../../../../api/algorithms.html#pynetim.algorithms.deep_learning.BiGDNNodeEncoderTrainer.prepare_data">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">prepare_data</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">graphs</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="s1">&#39;IMGraph&#39;</span><span class="p">],</span>
@@ -494,7 +515,7 @@
 
 
 <div class="viewcode-block" id="BiGDNNodeEncoderTrainer.train">
-<a class="viewcode-back" href="../../../../../api.html#pynetim.algorithms.deep_learning.BiGDNNodeEncoderTrainer.train">[docs]</a>
+<a class="viewcode-back" href="../../../../../api/algorithms.html#pynetim.algorithms.deep_learning.BiGDNNodeEncoderTrainer.train">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">train</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">graphs</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="s1">&#39;IMGraph&#39;</span><span class="p">],</span>
@@ -547,7 +568,7 @@
 
 
 <div class="viewcode-block" id="BiGDNNodeEncoderTrainer.save">
-<a class="viewcode-back" href="../../../../../api.html#pynetim.algorithms.deep_learning.BiGDNNodeEncoderTrainer.save">[docs]</a>
+<a class="viewcode-back" href="../../../../../api/algorithms.html#pynetim.algorithms.deep_learning.BiGDNNodeEncoderTrainer.save">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;保存模型。</span>
 
@@ -559,7 +580,7 @@
 
 
 <div class="viewcode-block" id="BiGDNNodeEncoderTrainer.load">
-<a class="viewcode-back" href="../../../../../api.html#pynetim.algorithms.deep_learning.BiGDNNodeEncoderTrainer.load">[docs]</a>
+<a class="viewcode-back" href="../../../../../api/algorithms.html#pynetim.algorithms.deep_learning.BiGDNNodeEncoderTrainer.load">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">load</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;加载模型。</span>
 

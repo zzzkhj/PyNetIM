@@ -1,0 +1,808 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>评估指标 &mdash; PyNetIM  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="时间测量" href="timing.html" />
+    <link rel="prev" title="算法模块" href="algorithms.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            PyNetIM
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">指南</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">安装指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">快速开始</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API 参考</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="graph.html">图模块</a></li>
+<li class="toctree-l1"><a class="reference internal" href="diffusion_model.html">扩散模型</a></li>
+<li class="toctree-l1"><a class="reference internal" href="algorithms.html">算法模块</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">评估指标</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#pynetim.evaluation.average_shortest_distance"><code class="docutils literal notranslate"><span class="pre">average_shortest_distance()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pynetim.evaluation.clustering_coefficient"><code class="docutils literal notranslate"><span class="pre">clustering_coefficient()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pynetim.evaluation.degree_distribution"><code class="docutils literal notranslate"><span class="pre">degree_distribution()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pynetim.evaluation.degree_statistics"><code class="docutils literal notranslate"><span class="pre">degree_statistics()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pynetim.evaluation.distribution_entropy"><code class="docutils literal notranslate"><span class="pre">distribution_entropy()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pynetim.evaluation.kendall_tau"><code class="docutils literal notranslate"><span class="pre">kendall_tau()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pynetim.evaluation.local_clustering"><code class="docutils literal notranslate"><span class="pre">local_clustering()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pynetim.evaluation.mean_centrality"><code class="docutils literal notranslate"><span class="pre">mean_centrality()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pynetim.evaluation.monotonicity_score"><code class="docutils literal notranslate"><span class="pre">monotonicity_score()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pynetim.evaluation.neighbor_coverage"><code class="docutils literal notranslate"><span class="pre">neighbor_coverage()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pynetim.evaluation.ranking_distance"><code class="docutils literal notranslate"><span class="pre">ranking_distance()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pynetim.evaluation.ranking_stability"><code class="docutils literal notranslate"><span class="pre">ranking_stability()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pynetim.evaluation.reachability"><code class="docutils literal notranslate"><span class="pre">reachability()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pynetim.evaluation.seed_diversity"><code class="docutils literal notranslate"><span class="pre">seed_diversity()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pynetim.evaluation.seed_overlap"><code class="docutils literal notranslate"><span class="pre">seed_overlap()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pynetim.evaluation.spearman_correlation"><code class="docutils literal notranslate"><span class="pre">spearman_correlation()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pynetim.evaluation.top_k_accuracy"><code class="docutils literal notranslate"><span class="pre">top_k_accuracy()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pynetim.evaluation.top_k_overlap"><code class="docutils literal notranslate"><span class="pre">top_k_overlap()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pynetim.evaluation.weight_statistics"><code class="docutils literal notranslate"><span class="pre">weight_statistics()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="timing.html">时间测量</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utils.html">工具函数</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">其他</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">更新日志</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html#id57">版本说明</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html#id65">贡献指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html#id66">许可证</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html#id67">联系方式</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">PyNetIM</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">评估指标</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/api/evaluation.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-pynetim.evaluation">
+<span id="id1"></span><h1>评估指标<a class="headerlink" href="#module-pynetim.evaluation" title="Link to this heading"></a></h1>
+<p>评估指标模块。</p>
+<p>提供影响力最大化算法的多种评估指标函数。</p>
+<p>模块包含:
+- ranking_metrics: 排名稳定性评估指标
+- influence_metrics: 影响力传播评估指标
+- seed_quality_metrics: 种子节点质量评估指标
+- network_metrics: 网络结构评估指标</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="pynetim.evaluation.average_shortest_distance">
+<span class="sig-prename descclassname"><span class="pre">pynetim.evaluation.</span></span><span class="sig-name descname"><span class="pre">average_shortest_distance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="graph.html#pynetim.graph.IMGraph" title="pynetim.graph.IMGraph"><span class="pre">IMGraph</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">seeds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Set</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_weight</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/pynetim/evaluation/influence_metrics.html#average_shortest_distance"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.evaluation.average_shortest_distance" title="Link to this definition"></a></dt>
+<dd><p>计算种子节点之间的平均最短距离。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>graph</strong> – 图对象。</p></li>
+<li><p><strong>seeds</strong> – 种子节点集合。</p></li>
+<li><p><strong>use_weight</strong> – 是否使用边权重计算距离，默认 False（使用跳数）。</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>平均最短距离。如果种子节点之间不可达，返回 -1。</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">pynetim.evaluation</span><span class="w"> </span><span class="kn">import</span> <span class="n">average_shortest_distance</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># 基于跳数</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">avg_dist</span> <span class="o">=</span> <span class="n">average_shortest_distance</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">seeds</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># 基于权重</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">avg_dist</span> <span class="o">=</span> <span class="n">average_shortest_distance</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">seeds</span><span class="p">,</span> <span class="n">use_weight</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pynetim.evaluation.clustering_coefficient">
+<span class="sig-prename descclassname"><span class="pre">pynetim.evaluation.</span></span><span class="sig-name descname"><span class="pre">clustering_coefficient</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="graph.html#pynetim.graph.IMGraph" title="pynetim.graph.IMGraph"><span class="pre">IMGraph</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">seeds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Set</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/pynetim/evaluation/seed_quality_metrics.html#clustering_coefficient"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.evaluation.clustering_coefficient" title="Link to this definition"></a></dt>
+<dd><p>计算种子节点的平均聚类系数。</p>
+<p>聚类系数衡量节点邻居之间的连接密度。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>graph</strong> – 图对象。</p></li>
+<li><p><strong>seeds</strong> – 种子节点集合。</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>平均聚类系数，范围 [0, 1]。</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">pynetim.evaluation</span><span class="w"> </span><span class="kn">import</span> <span class="n">clustering_coefficient</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cc</span> <span class="o">=</span> <span class="n">clustering_coefficient</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">seeds</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Clustering coefficient: </span><span class="si">{</span><span class="n">cc</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pynetim.evaluation.degree_distribution">
+<span class="sig-prename descclassname"><span class="pre">pynetim.evaluation.</span></span><span class="sig-name descname"><span class="pre">degree_distribution</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="graph.html#pynetim.graph.IMGraph" title="pynetim.graph.IMGraph"><span class="pre">IMGraph</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">seeds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Set</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/pynetim/evaluation/seed_quality_metrics.html#degree_distribution"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.evaluation.degree_distribution" title="Link to this definition"></a></dt>
+<dd><p>计算种子节点的度分布。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>graph</strong> – 图对象。</p></li>
+<li><p><strong>seeds</strong> – 种子节点集合。</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>度值到节点数量的映射。</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dict[int, int]</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">pynetim.evaluation</span><span class="w"> </span><span class="kn">import</span> <span class="n">degree_distribution</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dist</span> <span class="o">=</span> <span class="n">degree_distribution</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">seeds</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Degree 5: </span><span class="si">{</span><span class="n">dist</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="si">}</span><span class="s2"> nodes&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pynetim.evaluation.degree_statistics">
+<span class="sig-prename descclassname"><span class="pre">pynetim.evaluation.</span></span><span class="sig-name descname"><span class="pre">degree_statistics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="graph.html#pynetim.graph.IMGraph" title="pynetim.graph.IMGraph"><span class="pre">IMGraph</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">seeds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Set</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/pynetim/evaluation/seed_quality_metrics.html#degree_statistics"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.evaluation.degree_statistics" title="Link to this definition"></a></dt>
+<dd><p>计算种子节点的度统计信息。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>graph</strong> – 图对象。</p></li>
+<li><p><strong>seeds</strong> – 种子节点集合。</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>包含以下统计量：</dt><dd><ul class="simple">
+<li><p>mean_degree: 平均度</p></li>
+<li><p>max_degree: 最大度</p></li>
+<li><p>min_degree: 最小度</p></li>
+<li><p>std_degree: 度标准差</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dict[str, float]</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">pynetim.evaluation</span><span class="w"> </span><span class="kn">import</span> <span class="n">degree_statistics</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">stats</span> <span class="o">=</span> <span class="n">degree_statistics</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">seeds</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Mean degree: </span><span class="si">{</span><span class="n">stats</span><span class="p">[</span><span class="s1">&#39;mean_degree&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pynetim.evaluation.distribution_entropy">
+<span class="sig-prename descclassname"><span class="pre">pynetim.evaluation.</span></span><span class="sig-name descname"><span class="pre">distribution_entropy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="graph.html#pynetim.graph.IMGraph" title="pynetim.graph.IMGraph"><span class="pre">IMGraph</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">seeds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Set</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/pynetim/evaluation/network_metrics.html#distribution_entropy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.evaluation.distribution_entropy" title="Link to this definition"></a></dt>
+<dd><p>计算种子节点在度分布上的熵。</p>
+<p>熵值越高表示种子节点分布越均匀。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>graph</strong> – 图对象。</p></li>
+<li><p><strong>seeds</strong> – 种子节点集合。</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>分布熵，范围 [0, 1]。</dt><dd><ul class="simple">
+<li><p>1.0 表示分布完全均匀</p></li>
+<li><p>0.0 表示分布完全集中</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">pynetim.evaluation</span><span class="w"> </span><span class="kn">import</span> <span class="n">distribution_entropy</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">entropy</span> <span class="o">=</span> <span class="n">distribution_entropy</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">seeds</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Distribution entropy: </span><span class="si">{</span><span class="n">entropy</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pynetim.evaluation.kendall_tau">
+<span class="sig-prename descclassname"><span class="pre">pynetim.evaluation.</span></span><span class="sig-name descname"><span class="pre">kendall_tau</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ranking1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ranking2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">variant</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'b'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/pynetim/evaluation/ranking_metrics.html#kendall_tau"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.evaluation.kendall_tau" title="Link to this definition"></a></dt>
+<dd><p>计算两个排名之间的肯德尔系数。</p>
+<p>Kendall’s Tau 用于衡量两个排名序列的相关性，
+适用于评估不同算法得到的种子节点排名的一致性。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ranking1</strong> – 第一个排名序列（节点ID列表）。</p></li>
+<li><p><strong>ranking2</strong> – 第二个排名序列（节点ID列表）。</p></li>
+<li><p><strong>variant</strong> – Kendall’s Tau 变体，可选 ‘b’ 或 ‘c’。
+默认 ‘b’，可处理并列排名。</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>(tau系数, p值)</dt><dd><ul class="simple">
+<li><p>tau系数范围 [-1, 1]，1表示完全一致，-1表示完全相反</p></li>
+<li><p>p值表示统计显著性</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Tuple[float, float]</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>ImportError</strong> – 如果 scipy 未安装。</p></li>
+<li><p><strong>ValueError</strong> – 如果输入长度不一致。</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">pynetim.evaluation</span><span class="w"> </span><span class="kn">import</span> <span class="n">kendall_tau</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">seeds_algo1</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">seeds_algo2</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tau</span><span class="p">,</span> <span class="n">p</span> <span class="o">=</span> <span class="n">kendall_tau</span><span class="p">(</span><span class="n">seeds_algo1</span><span class="p">,</span> <span class="n">seeds_algo2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Kendall&#39;s Tau: </span><span class="si">{</span><span class="n">tau</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">, p-value: </span><span class="si">{</span><span class="n">p</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="rubric">References</p>
+<p>Kendall, M. G. (1938). A new measure of rank correlation.
+Biometrika, 30(1/2), 81-93.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pynetim.evaluation.local_clustering">
+<span class="sig-prename descclassname"><span class="pre">pynetim.evaluation.</span></span><span class="sig-name descname"><span class="pre">local_clustering</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="graph.html#pynetim.graph.IMGraph" title="pynetim.graph.IMGraph"><span class="pre">IMGraph</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">seeds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Set</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/pynetim/evaluation/network_metrics.html#local_clustering"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.evaluation.local_clustering" title="Link to this definition"></a></dt>
+<dd><p>计算种子节点的局部聚类系数。</p>
+<p>评估种子节点周围网络的紧密程度。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>graph</strong> – 图对象。</p></li>
+<li><p><strong>seeds</strong> – 种子节点集合。</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>平均局部聚类系数，范围 [0, 1]。</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">pynetim.evaluation</span><span class="w"> </span><span class="kn">import</span> <span class="n">local_clustering</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">clustering</span> <span class="o">=</span> <span class="n">local_clustering</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">seeds</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Local clustering: </span><span class="si">{</span><span class="n">clustering</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pynetim.evaluation.mean_centrality">
+<span class="sig-prename descclassname"><span class="pre">pynetim.evaluation.</span></span><span class="sig-name descname"><span class="pre">mean_centrality</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="graph.html#pynetim.graph.IMGraph" title="pynetim.graph.IMGraph"><span class="pre">IMGraph</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">seeds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Set</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">centrality_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'degree'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/pynetim/evaluation/seed_quality_metrics.html#mean_centrality"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.evaluation.mean_centrality" title="Link to this definition"></a></dt>
+<dd><p>计算种子节点的平均中心性。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>graph</strong> – 图对象。</p></li>
+<li><p><strong>seeds</strong> – 种子节点集合。</p></li>
+<li><p><strong>centrality_type</strong> – 中心性类型，可选：
+- ‘degree’: 度中心性
+- ‘in_degree’: 入度中心性
+- ‘out_degree’: 出度中心性</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>平均中心性值。</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">pynetim.evaluation</span><span class="w"> </span><span class="kn">import</span> <span class="n">mean_centrality</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">centrality</span> <span class="o">=</span> <span class="n">mean_centrality</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">seeds</span><span class="p">,</span> <span class="n">centrality_type</span><span class="o">=</span><span class="s1">&#39;degree&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pynetim.evaluation.monotonicity_score">
+<span class="sig-prename descclassname"><span class="pre">pynetim.evaluation.</span></span><span class="sig-name descname"><span class="pre">monotonicity_score</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">values</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/pynetim/evaluation/ranking_metrics.html#monotonicity_score"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.evaluation.monotonicity_score" title="Link to this definition"></a></dt>
+<dd><p>计算节点重要性排序的单调性得分。</p>
+<p>单调性指标衡量排序算法能否有效区分不同节点的重要性。
+如果算法能给每个节点赋予唯一的重要性值，单调性接近1；
+如果很多节点有相同的重要性值，单调性会降低。</p>
+<dl class="simple">
+<dt>计算公式：</dt><dd><p>M = (N_unique - 1) / (N_total - 1)</p>
+</dd>
+<dt>其中：</dt><dd><ul class="simple">
+<li><p>N_unique: 不同重要性值的数量</p></li>
+<li><p>N_total: 总节点数</p></li>
+<li><p>M 的取值范围为 [0, 1]</p></li>
+<li><p>M → 1 表示排序算法具有良好的区分度</p></li>
+<li><p>M → 0 表示所有节点的重要性值都相同</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>values</strong> – 节点重要性得分序列。</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>单调性得分，范围 [0, 1]。</dt><dd><ul class="simple">
+<li><p>1.0 表示所有节点的重要性值都唯一（完美区分）</p></li>
+<li><p>0.0 表示所有节点的重要性值都相同（无区分度）</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">pynetim.evaluation</span><span class="w"> </span><span class="kn">import</span> <span class="n">monotonicity_score</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># 所有值都不同，单调性高</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">values1</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">score1</span> <span class="o">=</span> <span class="n">monotonicity_score</span><span class="p">(</span><span class="n">values1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Monotonicity: </span><span class="si">{</span><span class="n">score1</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># 1.0</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># 有重复值，单调性降低</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">values2</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">score2</span> <span class="o">=</span> <span class="n">monotonicity_score</span><span class="p">(</span><span class="n">values2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Monotonicity: </span><span class="si">{</span><span class="n">score2</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># 0.75</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># 所有值相同，单调性为0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">values3</span> <span class="o">=</span> <span class="p">[</span><span class="mf">3.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">score3</span> <span class="o">=</span> <span class="n">monotonicity_score</span><span class="p">(</span><span class="n">values3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Monotonicity: </span><span class="si">{</span><span class="n">score3</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># 0.0</span>
+</pre></div>
+</div>
+<p class="rubric">References</p>
+<ul class="simple">
+<li><p>A novel voting measure for identifying influential nodes in complex
+networks based on local structure. Scientific Reports, 2025.</p></li>
+<li><p>复杂网络节点重要性排序算法的单调性评估。</p></li>
+</ul>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pynetim.evaluation.neighbor_coverage">
+<span class="sig-prename descclassname"><span class="pre">pynetim.evaluation.</span></span><span class="sig-name descname"><span class="pre">neighbor_coverage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="graph.html#pynetim.graph.IMGraph" title="pynetim.graph.IMGraph"><span class="pre">IMGraph</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">seeds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Set</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/pynetim/evaluation/seed_quality_metrics.html#neighbor_coverage"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.evaluation.neighbor_coverage" title="Link to this definition"></a></dt>
+<dd><p>计算种子节点的邻居覆盖率。</p>
+<p>邻居覆盖率 = 种子节点的唯一邻居数 / 网络总节点数</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>graph</strong> – 图对象。</p></li>
+<li><p><strong>seeds</strong> – 种子节点集合。</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>邻居覆盖率，范围 [0, 1]。</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">pynetim.evaluation</span><span class="w"> </span><span class="kn">import</span> <span class="n">neighbor_coverage</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">coverage</span> <span class="o">=</span> <span class="n">neighbor_coverage</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">seeds</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Neighbor coverage: </span><span class="si">{</span><span class="n">coverage</span><span class="si">:</span><span class="s2">.2%</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pynetim.evaluation.ranking_distance">
+<span class="sig-prename descclassname"><span class="pre">pynetim.evaluation.</span></span><span class="sig-name descname"><span class="pre">ranking_distance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ranking1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ranking2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'kendall'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/pynetim/evaluation/ranking_metrics.html#ranking_distance"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.evaluation.ranking_distance" title="Link to this definition"></a></dt>
+<dd><p>计算两个排名之间的距离。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ranking1</strong> – 第一个排名序列。</p></li>
+<li><p><strong>ranking2</strong> – 第二个排名序列。</p></li>
+<li><p><strong>metric</strong> – 距离度量方法，可选：
+- ‘kendall’: Kendall距离（交换次数）
+- ‘spearman’: Spearman距离（排名差的平方和）
+- ‘hamming’: Hamming距离（不同位置的个数）</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>排名距离，越小表示排名越相似。</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – 如果 metric 不支持。</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">pynetim.evaluation</span><span class="w"> </span><span class="kn">import</span> <span class="n">ranking_distance</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ranking1</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ranking2</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">distance</span> <span class="o">=</span> <span class="n">ranking_distance</span><span class="p">(</span><span class="n">ranking1</span><span class="p">,</span> <span class="n">ranking2</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s1">&#39;kendall&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pynetim.evaluation.ranking_stability">
+<span class="sig-prename descclassname"><span class="pre">pynetim.evaluation.</span></span><span class="sig-name descname"><span class="pre">ranking_stability</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rankings</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">ndarray</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'kendall'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/pynetim/evaluation/ranking_metrics.html#ranking_stability"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.evaluation.ranking_stability" title="Link to this definition"></a></dt>
+<dd><p>计算多个排名之间的平均稳定性。</p>
+<p>评估算法多次运行得到的排名的一致性。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>rankings</strong> – 多个排名序列的列表。</p></li>
+<li><p><strong>method</strong> – 稳定性计算方法，可选：
+- ‘kendall’: 使用肯德尔系数
+- ‘spearman’: 使用斯皮尔曼系数
+- ‘overlap’: 使用 Top-K 重叠率</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>平均稳定性得分，范围 [0, 1]。</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">pynetim.evaluation</span><span class="w"> </span><span class="kn">import</span> <span class="n">ranking_stability</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rankings</span> <span class="o">=</span> <span class="p">[</span>
+<span class="gp">... </span>    <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span>
+<span class="gp">... </span>    <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span>
+<span class="gp">... </span>    <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+<span class="gp">... </span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">stability</span> <span class="o">=</span> <span class="n">ranking_stability</span><span class="p">(</span><span class="n">rankings</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pynetim.evaluation.reachability">
+<span class="sig-prename descclassname"><span class="pre">pynetim.evaluation.</span></span><span class="sig-name descname"><span class="pre">reachability</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="graph.html#pynetim.graph.IMGraph" title="pynetim.graph.IMGraph"><span class="pre">IMGraph</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">seeds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Set</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/pynetim/evaluation/network_metrics.html#reachability"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.evaluation.reachability" title="Link to this definition"></a></dt>
+<dd><p>计算种子节点的可达性。</p>
+<p>可达性 = 从种子节点可达的节点数 / 网络总节点数</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>graph</strong> – 图对象。</p></li>
+<li><p><strong>seeds</strong> – 种子节点集合。</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>可达性，范围 [0, 1]。</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">pynetim.evaluation</span><span class="w"> </span><span class="kn">import</span> <span class="n">reachability</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">reach</span> <span class="o">=</span> <span class="n">reachability</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">seeds</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Reachability: </span><span class="si">{</span><span class="n">reach</span><span class="si">:</span><span class="s2">.2%</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pynetim.evaluation.seed_diversity">
+<span class="sig-prename descclassname"><span class="pre">pynetim.evaluation.</span></span><span class="sig-name descname"><span class="pre">seed_diversity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="graph.html#pynetim.graph.IMGraph" title="pynetim.graph.IMGraph"><span class="pre">IMGraph</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">seeds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Set</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/pynetim/evaluation/seed_quality_metrics.html#seed_diversity"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.evaluation.seed_diversity" title="Link to this definition"></a></dt>
+<dd><p>计算种子节点的多样性。</p>
+<p>基于种子节点之间的平均距离评估多样性。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>graph</strong> – 图对象。</p></li>
+<li><p><strong>seeds</strong> – 种子节点集合。</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>多样性得分，范围 [0, 1]。</dt><dd><ul class="simple">
+<li><p>1.0 表示种子节点分布非常分散</p></li>
+<li><p>0.0 表示种子节点非常集中</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">pynetim.evaluation</span><span class="w"> </span><span class="kn">import</span> <span class="n">seed_diversity</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">diversity</span> <span class="o">=</span> <span class="n">seed_diversity</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">seeds</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pynetim.evaluation.seed_overlap">
+<span class="sig-prename descclassname"><span class="pre">pynetim.evaluation.</span></span><span class="sig-name descname"><span class="pre">seed_overlap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">seeds1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Set</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seeds2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Set</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/pynetim/evaluation/seed_quality_metrics.html#seed_overlap"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.evaluation.seed_overlap" title="Link to this definition"></a></dt>
+<dd><p>计算两组种子节点的重叠率。</p>
+<p>Jaccard相似度 = <a href="#id2"><span class="problematic" id="id3">|S1 ∩ S2|</span></a> / <a href="#id4"><span class="problematic" id="id5">|S1 ∪ S2|</span></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>seeds1</strong> – 第一组种子节点。</p></li>
+<li><p><strong>seeds2</strong> – 第二组种子节点。</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>重叠率，范围 [0, 1]。</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">pynetim.evaluation</span><span class="w"> </span><span class="kn">import</span> <span class="n">seed_overlap</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">overlap</span> <span class="o">=</span> <span class="n">seed_overlap</span><span class="p">(</span><span class="n">seeds1</span><span class="p">,</span> <span class="n">seeds2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Overlap: </span><span class="si">{</span><span class="n">overlap</span><span class="si">:</span><span class="s2">.2%</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pynetim.evaluation.spearman_correlation">
+<span class="sig-prename descclassname"><span class="pre">pynetim.evaluation.</span></span><span class="sig-name descname"><span class="pre">spearman_correlation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ranking1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ranking2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/pynetim/evaluation/ranking_metrics.html#spearman_correlation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.evaluation.spearman_correlation" title="Link to this definition"></a></dt>
+<dd><p>计算两个排名之间的斯皮尔曼相关系数。</p>
+<p>Spearman相关系数评估两个排名的单调关系，
+适用于评估种子节点排名的相关性。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ranking1</strong> – 第一个排名序列。</p></li>
+<li><p><strong>ranking2</strong> – 第二个排名序列。</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>(相关系数, p值)</dt><dd><ul class="simple">
+<li><p>相关系数范围 [-1, 1]</p></li>
+<li><p>p值表示统计显著性</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Tuple[float, float]</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>ImportError</strong> – 如果 scipy 未安装。</p></li>
+<li><p><strong>ValueError</strong> – 如果输入长度不一致。</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">pynetim.evaluation</span><span class="w"> </span><span class="kn">import</span> <span class="n">spearman_correlation</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ranking1</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ranking2</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rho</span><span class="p">,</span> <span class="n">p</span> <span class="o">=</span> <span class="n">spearman_correlation</span><span class="p">(</span><span class="n">ranking1</span><span class="p">,</span> <span class="n">ranking2</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pynetim.evaluation.top_k_accuracy">
+<span class="sig-prename descclassname"><span class="pre">pynetim.evaluation.</span></span><span class="sig-name descname"><span class="pre">top_k_accuracy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">predicted_seeds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Set</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ground_truth_seeds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Set</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/pynetim/evaluation/influence_metrics.html#top_k_accuracy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.evaluation.top_k_accuracy" title="Link to this definition"></a></dt>
+<dd><p>计算 Top-K 准确率。</p>
+<p>评估预测的种子节点与真实种子节点的重叠程度。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>predicted_seeds</strong> – 预测的种子节点（按重要性排序）。</p></li>
+<li><p><strong>ground_truth_seeds</strong> – 真实的种子节点。</p></li>
+<li><p><strong>k</strong> – Top-K 的 K 值，默认为 min(len(predicted), len(ground_truth))。</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>Top-K 准确率，范围 [0, 1]。</dt><dd><ul class="simple">
+<li><p>1.0 表示完全重叠</p></li>
+<li><p>0.0 表示完全不重叠</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">pynetim.evaluation</span><span class="w"> </span><span class="kn">import</span> <span class="n">top_k_accuracy</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">predicted</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ground_truth</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">acc</span> <span class="o">=</span> <span class="n">top_k_accuracy</span><span class="p">(</span><span class="n">predicted</span><span class="p">,</span> <span class="n">ground_truth</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Top-3 accuracy: </span><span class="si">{</span><span class="n">acc</span><span class="si">:</span><span class="s2">.2%</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pynetim.evaluation.top_k_overlap">
+<span class="sig-prename descclassname"><span class="pre">pynetim.evaluation.</span></span><span class="sig-name descname"><span class="pre">top_k_overlap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ranking1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Set</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ranking2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Set</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/pynetim/evaluation/influence_metrics.html#top_k_overlap"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.evaluation.top_k_overlap" title="Link to this definition"></a></dt>
+<dd><p>计算两个排名在 Top-K 位置的重叠率。</p>
+<p>评估不同算法选择的种子节点集合的重叠程度。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ranking1</strong> – 第一个排名序列（节点ID列表）。</p></li>
+<li><p><strong>ranking2</strong> – 第二个排名序列（节点ID列表）。</p></li>
+<li><p><strong>k</strong> – Top-K 的 K 值。</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>重叠率，范围 [0, 1]。</dt><dd><ul class="simple">
+<li><p>1.0 表示完全重叠</p></li>
+<li><p>0.0 表示完全不重叠</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">pynetim.evaluation</span><span class="w"> </span><span class="kn">import</span> <span class="n">top_k_overlap</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ranking1</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ranking2</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">overlap</span> <span class="o">=</span> <span class="n">top_k_overlap</span><span class="p">(</span><span class="n">ranking1</span><span class="p">,</span> <span class="n">ranking2</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Top-3 overlap: </span><span class="si">{</span><span class="n">overlap</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pynetim.evaluation.weight_statistics">
+<span class="sig-prename descclassname"><span class="pre">pynetim.evaluation.</span></span><span class="sig-name descname"><span class="pre">weight_statistics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="graph.html#pynetim.graph.IMGraph" title="pynetim.graph.IMGraph"><span class="pre">IMGraph</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">seeds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Set</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/pynetim/evaluation/seed_quality_metrics.html#weight_statistics"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.evaluation.weight_statistics" title="Link to this definition"></a></dt>
+<dd><p>计算种子节点相关边的权重统计信息。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>graph</strong> – 图对象。</p></li>
+<li><p><strong>seeds</strong> – 种子节点集合。</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>包含以下统计量：</dt><dd><ul class="simple">
+<li><p>mean_weight: 平均权重</p></li>
+<li><p>max_weight: 最大权重</p></li>
+<li><p>min_weight: 最小权重</p></li>
+<li><p>total_weight: 总权重</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dict[str, float]</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">pynetim.evaluation</span><span class="w"> </span><span class="kn">import</span> <span class="n">weight_statistics</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">stats</span> <span class="o">=</span> <span class="n">weight_statistics</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">seeds</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Mean weight: </span><span class="si">{</span><span class="n">stats</span><span class="p">[</span><span class="s1">&#39;mean_weight&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="algorithms.html" class="btn btn-neutral float-left" title="算法模块" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="timing.html" class="btn btn-neutral float-right" title="时间测量" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Kaijing Zhang.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

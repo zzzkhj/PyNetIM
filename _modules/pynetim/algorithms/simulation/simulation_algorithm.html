@@ -39,8 +39,29 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <!-- Local TOC -->
-              <div class="local-toc"></div>
+              <p class="caption" role="heading"><span class="caption-text">指南</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../installation.html">安装指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../quickstart.html">快速开始</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API 参考</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/graph.html">图模块</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/diffusion_model.html">扩散模型</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/algorithms.html">算法模块</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/evaluation.html">评估指标</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/timing.html">时间测量</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/utils.html">工具函数</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">其他</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changelog.html">更新日志</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changelog.html#id57">版本说明</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changelog.html#id65">贡献指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changelog.html#id66">许可证</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changelog.html#id67">联系方式</a></li>
+</ul>
+
         </div>
       </div>
     </nav>
@@ -79,7 +100,7 @@
 
 
 <div class="viewcode-block" id="GreedyAlgorithm">
-<a class="viewcode-back" href="../../../../api.html#pynetim.algorithms.simulation.GreedyAlgorithm">[docs]</a>
+<a class="viewcode-back" href="../../../../api/algorithms.html#pynetim.algorithms.simulation.GreedyAlgorithm">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">GreedyAlgorithm</span><span class="p">(</span><span class="n">BaseAlgorithm</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;贪婪算法。</span>
 
@@ -107,7 +128,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="GreedyAlgorithm.__init__">
-<a class="viewcode-back" href="../../../../api.html#pynetim.algorithms.simulation.GreedyAlgorithm.__init__">[docs]</a>
+<a class="viewcode-back" href="../../../../api/algorithms.html#pynetim.algorithms.simulation.GreedyAlgorithm.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">graph</span><span class="p">:</span> <span class="s1">&#39;IMGraph&#39;</span><span class="p">,</span> <span class="n">diffusion_model</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;IC&#39;</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;初始化贪婪算法。</span>
 
@@ -119,7 +140,7 @@
 
 
 <div class="viewcode-block" id="GreedyAlgorithm.run">
-<a class="viewcode-back" href="../../../../api.html#pynetim.algorithms.simulation.GreedyAlgorithm.run">[docs]</a>
+<a class="viewcode-back" href="../../../../api/algorithms.html#pynetim.algorithms.simulation.GreedyAlgorithm.run">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">mc_rounds</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">,</span> <span class="n">use_multithread</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> 
             <span class="n">num_threads</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span> <span class="n">show_progress</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">random_seed</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Set</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;运行贪婪算法选择种子节点。</span>
@@ -187,7 +208,7 @@
 
 
 <div class="viewcode-block" id="CELFPlusAlgorithm">
-<a class="viewcode-back" href="../../../../api.html#pynetim.algorithms.simulation.CELFPlusAlgorithm">[docs]</a>
+<a class="viewcode-back" href="../../../../api/algorithms.html#pynetim.algorithms.simulation.CELFPlusAlgorithm">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">CELFPlusAlgorithm</span><span class="p">(</span><span class="n">BaseAlgorithm</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;CELF++ 算法。</span>
 
@@ -217,7 +238,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="CELFPlusAlgorithm.__init__">
-<a class="viewcode-back" href="../../../../api.html#pynetim.algorithms.simulation.CELFPlusAlgorithm.__init__">[docs]</a>
+<a class="viewcode-back" href="../../../../api/algorithms.html#pynetim.algorithms.simulation.CELFPlusAlgorithm.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">graph</span><span class="p">:</span> <span class="s1">&#39;IMGraph&#39;</span><span class="p">,</span> <span class="n">diffusion_model</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;IC&#39;</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;初始化 CELF++ 算法。</span>
 
@@ -229,7 +250,7 @@
 
 
 <div class="viewcode-block" id="CELFPlusAlgorithm.run">
-<a class="viewcode-back" href="../../../../api.html#pynetim.algorithms.simulation.CELFPlusAlgorithm.run">[docs]</a>
+<a class="viewcode-back" href="../../../../api/algorithms.html#pynetim.algorithms.simulation.CELFPlusAlgorithm.run">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">mc_rounds</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">,</span> <span class="n">use_multithread</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
             <span class="n">num_threads</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span> <span class="n">show_progress</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">random_seed</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Set</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;运行 CELF++ 算法选择种子节点。</span>
@@ -344,7 +365,7 @@
 
 
 <div class="viewcode-block" id="CELFAlgorithm">
-<a class="viewcode-back" href="../../../../api.html#pynetim.algorithms.simulation.CELFAlgorithm">[docs]</a>
+<a class="viewcode-back" href="../../../../api/algorithms.html#pynetim.algorithms.simulation.CELFAlgorithm">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">CELFAlgorithm</span><span class="p">(</span><span class="n">BaseAlgorithm</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;CELF 算法。</span>
 
@@ -374,7 +395,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="CELFAlgorithm.__init__">
-<a class="viewcode-back" href="../../../../api.html#pynetim.algorithms.simulation.CELFAlgorithm.__init__">[docs]</a>
+<a class="viewcode-back" href="../../../../api/algorithms.html#pynetim.algorithms.simulation.CELFAlgorithm.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">graph</span><span class="p">:</span> <span class="s1">&#39;IMGraph&#39;</span><span class="p">,</span> <span class="n">diffusion_model</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;IC&#39;</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;初始化 CELF 算法。</span>
 
@@ -386,7 +407,7 @@
 
 
 <div class="viewcode-block" id="CELFAlgorithm.run">
-<a class="viewcode-back" href="../../../../api.html#pynetim.algorithms.simulation.CELFAlgorithm.run">[docs]</a>
+<a class="viewcode-back" href="../../../../api/algorithms.html#pynetim.algorithms.simulation.CELFAlgorithm.run">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">mc_rounds</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">,</span> <span class="n">use_multithread</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
             <span class="n">num_threads</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span> <span class="n">show_progress</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">random_seed</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Set</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;运行 CELF 算法选择种子节点。</span>

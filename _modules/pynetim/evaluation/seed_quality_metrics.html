@@ -39,8 +39,29 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <!-- Local TOC -->
-              <div class="local-toc"></div>
+              <p class="caption" role="heading"><span class="caption-text">指南</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">安装指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">快速开始</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API 参考</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/graph.html">图模块</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/diffusion_model.html">扩散模型</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/algorithms.html">算法模块</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/evaluation.html">评估指标</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/timing.html">时间测量</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/utils.html">工具函数</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">其他</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">更新日志</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html#id57">版本说明</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html#id65">贡献指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html#id66">许可证</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html#id67">联系方式</a></li>
+</ul>
+
         </div>
       </div>
     </nav>
@@ -80,7 +101,7 @@
 
 
 <div class="viewcode-block" id="neighbor_coverage">
-<a class="viewcode-back" href="../../../api.html#pynetim.evaluation.neighbor_coverage">[docs]</a>
+<a class="viewcode-back" href="../../../api/evaluation.html#pynetim.evaluation.neighbor_coverage">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">neighbor_coverage</span><span class="p">(</span>
     <span class="n">graph</span><span class="p">:</span> <span class="s1">&#39;IMGraph&#39;</span><span class="p">,</span>
     <span class="n">seeds</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span>
@@ -115,7 +136,7 @@
 
 
 <div class="viewcode-block" id="degree_statistics">
-<a class="viewcode-back" href="../../../api.html#pynetim.evaluation.degree_statistics">[docs]</a>
+<a class="viewcode-back" href="../../../api/evaluation.html#pynetim.evaluation.degree_statistics">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">degree_statistics</span><span class="p">(</span>
     <span class="n">graph</span><span class="p">:</span> <span class="s1">&#39;IMGraph&#39;</span><span class="p">,</span>
     <span class="n">seeds</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span>
@@ -158,7 +179,7 @@
 
 
 <div class="viewcode-block" id="degree_distribution">
-<a class="viewcode-back" href="../../../api.html#pynetim.evaluation.degree_distribution">[docs]</a>
+<a class="viewcode-back" href="../../../api/evaluation.html#pynetim.evaluation.degree_distribution">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">degree_distribution</span><span class="p">(</span>
     <span class="n">graph</span><span class="p">:</span> <span class="s1">&#39;IMGraph&#39;</span><span class="p">,</span>
     <span class="n">seeds</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span>
@@ -187,7 +208,7 @@
 
 
 <div class="viewcode-block" id="mean_centrality">
-<a class="viewcode-back" href="../../../api.html#pynetim.evaluation.mean_centrality">[docs]</a>
+<a class="viewcode-back" href="../../../api/evaluation.html#pynetim.evaluation.mean_centrality">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">mean_centrality</span><span class="p">(</span>
     <span class="n">graph</span><span class="p">:</span> <span class="s1">&#39;IMGraph&#39;</span><span class="p">,</span>
     <span class="n">seeds</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
@@ -229,7 +250,7 @@
 
 
 <div class="viewcode-block" id="seed_overlap">
-<a class="viewcode-back" href="../../../api.html#pynetim.evaluation.seed_overlap">[docs]</a>
+<a class="viewcode-back" href="../../../api/evaluation.html#pynetim.evaluation.seed_overlap">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">seed_overlap</span><span class="p">(</span>
     <span class="n">seeds1</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
     <span class="n">seeds2</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span>
@@ -261,7 +282,7 @@
 
 
 <div class="viewcode-block" id="seed_diversity">
-<a class="viewcode-back" href="../../../api.html#pynetim.evaluation.seed_diversity">[docs]</a>
+<a class="viewcode-back" href="../../../api/evaluation.html#pynetim.evaluation.seed_diversity">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">seed_diversity</span><span class="p">(</span>
     <span class="n">graph</span><span class="p">:</span> <span class="s1">&#39;IMGraph&#39;</span><span class="p">,</span>
     <span class="n">seeds</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span>
@@ -300,7 +321,7 @@
 
 
 <div class="viewcode-block" id="weight_statistics">
-<a class="viewcode-back" href="../../../api.html#pynetim.evaluation.weight_statistics">[docs]</a>
+<a class="viewcode-back" href="../../../api/evaluation.html#pynetim.evaluation.weight_statistics">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">weight_statistics</span><span class="p">(</span>
     <span class="n">graph</span><span class="p">:</span> <span class="s1">&#39;IMGraph&#39;</span><span class="p">,</span>
     <span class="n">seeds</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span>
@@ -356,7 +377,7 @@
 
 
 <div class="viewcode-block" id="clustering_coefficient">
-<a class="viewcode-back" href="../../../api.html#pynetim.evaluation.clustering_coefficient">[docs]</a>
+<a class="viewcode-back" href="../../../api/evaluation.html#pynetim.evaluation.clustering_coefficient">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">clustering_coefficient</span><span class="p">(</span>
     <span class="n">graph</span><span class="p">:</span> <span class="s1">&#39;IMGraph&#39;</span><span class="p">,</span>
     <span class="n">seeds</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span>

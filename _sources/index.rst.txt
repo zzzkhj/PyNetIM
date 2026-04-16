@@ -1,0 +1,83 @@
+PyNetIM
+=======
+
+|PyPI| |Python| |License|
+
+.. |PyPI| image:: https://badge.fury.io/py/pynetim.svg
+   :target: https://pypi.org/project/pynetim/
+
+.. |Python| image:: https://img.shields.io/badge/python-3.8+-blue.svg
+   :target: https://www.python.org/downloads/
+
+.. |License| image:: https://img.shields.io/badge/license-MIT-green.svg
+   :target: LICENSE
+
+`PyNetIM <https://zzzkhj.github.io/PyNetIM/>`_ 是一个用于**社交网络影响力最大化（Influence Maximization, IM）问题**的 Python 库，集成了多种经典算法与扩散模型，提供 **C++ 高性能后端**，适用于算法研究、性能对比与科研实验。
+
+.. toctree::
+   :maxdepth: 2
+   :caption: 指南
+
+   installation
+   quickstart
+
+.. toctree::
+   :maxdepth: 2
+   :caption: API 参考
+
+   api/graph
+   api/diffusion_model
+   api/algorithms
+   api/evaluation
+   api/timing
+   api/utils
+
+.. toctree::
+   :maxdepth: 2
+   :caption: 其他
+
+   changelog
+
+功能特性
+--------
+
+- **多种传播模型** - IC、LT、SI、SIR
+- **多种 IM 算法** - 启发式、模拟类、RIS 类、深度学习
+- **深度学习算法** - ToupleGDD、S2V-DQN、BiGDN
+- **评估指标** - 排名指标、影响力指标、种子质量指标、网络指标
+- **时间测量** - 装饰器、AlgorithmTimer、多次运行统计
+- **高性能 C++ 后端** - 比纯 Python 快 20-30 倍
+- **自定义模型支持** - 支持用户自定义传播模型
+- **简洁 API** - 一行代码完成复杂任务
+
+快速示例
+--------
+
+.. code-block:: python
+
+    from pynetim import IMGraph, IndependentCascadeModel, IMMAlgorithm
+
+    # 创建图
+    graph = IMGraph([(0, 1), (1, 2), (2, 3)], weights=0.3)
+
+    # 选择种子节点
+    imm = IMMAlgorithm(graph, model='IC', epsilon=0.5)
+    seeds = imm.run(k=2)
+
+    # 评估影响力
+    model = IndependentCascadeModel(graph, set(seeds))
+    avg = model.run_monte_carlo_diffusion(1000, num_threads=4)
+
+相关链接
+--------
+
+- `GitHub 仓库 <https://github.com/zzzkhj/PyNetIM>`_
+- `PyPI 包 <https://pypi.org/project/pynetim/>`_
+- `问题反馈 <https://github.com/zzzkhj/PyNetIM/issues>`_
+
+索引
+----
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`

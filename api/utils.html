@@ -1,0 +1,474 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>工具函数 &mdash; PyNetIM  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="更新日志" href="../changelog.html" />
+    <link rel="prev" title="时间测量" href="timing.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            PyNetIM
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">指南</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">安装指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">快速开始</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API 参考</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="graph.html">图模块</a></li>
+<li class="toctree-l1"><a class="reference internal" href="diffusion_model.html">扩散模型</a></li>
+<li class="toctree-l1"><a class="reference internal" href="algorithms.html">算法模块</a></li>
+<li class="toctree-l1"><a class="reference internal" href="evaluation.html">评估指标</a></li>
+<li class="toctree-l1"><a class="reference internal" href="timing.html">时间测量</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">工具函数</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#pynetim.utils.all_pairs_shortest_path_length"><code class="docutils literal notranslate"><span class="pre">all_pairs_shortest_path_length()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pynetim.utils.generate_rr_sets"><code class="docutils literal notranslate"><span class="pre">generate_rr_sets()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pynetim.utils.load_edgelist"><code class="docutils literal notranslate"><span class="pre">load_edgelist()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pynetim.utils.renumber_edges"><code class="docutils literal notranslate"><span class="pre">renumber_edges()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pynetim.utils.sample_rr_set_ic"><code class="docutils literal notranslate"><span class="pre">sample_rr_set_ic()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pynetim.utils.sample_rr_set_lt"><code class="docutils literal notranslate"><span class="pre">sample_rr_set_lt()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pynetim.utils.save_edgelist"><code class="docutils literal notranslate"><span class="pre">save_edgelist()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pynetim.utils.shortest_path_length"><code class="docutils literal notranslate"><span class="pre">shortest_path_length()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pynetim.utils.to_igraph"><code class="docutils literal notranslate"><span class="pre">to_igraph()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pynetim.utils.to_networkx"><code class="docutils literal notranslate"><span class="pre">to_networkx()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pynetim.utils.to_pyg"><code class="docutils literal notranslate"><span class="pre">to_pyg()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pynetim.utils.to_scipy_sparse"><code class="docutils literal notranslate"><span class="pre">to_scipy_sparse()</span></code></a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">其他</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">更新日志</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html#id57">版本说明</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html#id65">贡献指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html#id66">许可证</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html#id67">联系方式</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">PyNetIM</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">工具函数</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/api/utils.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-pynetim.utils">
+<span id="id1"></span><h1>工具函数<a class="headerlink" href="#module-pynetim.utils" title="Link to this heading"></a></h1>
+<p>工具函数模块。</p>
+<p>提供通用的工具函数。</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="pynetim.utils.all_pairs_shortest_path_length">
+<span class="sig-prename descclassname"><span class="pre">pynetim.utils.</span></span><span class="sig-name descname"><span class="pre">all_pairs_shortest_path_length</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="graph.html#pynetim.graph.IMGraph" title="pynetim.graph.IMGraph"><span class="pre">IMGraph</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">nodes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_weight</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="../_modules/pynetim/utils.html#all_pairs_shortest_path_length"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.utils.all_pairs_shortest_path_length" title="Link to this definition"></a></dt>
+<dd><p>计算节点对之间的最短路径长度。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>graph</strong> – 图对象。</p></li>
+<li><p><strong>nodes</strong> – 要计算的节点列表，如果为 None 则计算所有节点。</p></li>
+<li><p><strong>use_weight</strong> – 是否使用边权重。</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>嵌套字典，distances[u][v] 表示 u 到 v 的最短路径长度。</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">pynetim.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">all_pairs_shortest_path_length</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">distances</span> <span class="o">=</span> <span class="n">all_pairs_shortest_path_length</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">nodes</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">distances</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pynetim.utils.generate_rr_sets">
+<span class="sig-prename descclassname"><span class="pre">pynetim.utils.</span></span><span class="sig-name descname"><span class="pre">generate_rr_sets</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="graph.html#pynetim.graph.IMGraph" title="pynetim.graph.IMGraph"><span class="pre">IMGraph</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_sets</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'IC'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pynetim.utils.generate_rr_sets" title="Link to this definition"></a></dt>
+<dd><p>生成多个 RR 集合。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>graph</strong> – IMGraph 图对象。</p></li>
+<li><p><strong>num_sets</strong> – 要生成的 RR 集合数量。</p></li>
+<li><p><strong>model</strong> – 传播模型，支持 ‘IC’ 或 ‘LT’，默认为 ‘IC’。</p></li>
+<li><p><strong>seed</strong> – 随机种子，可选。</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>RR 集合列表。</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list[list[int]]</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">pynetim.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">generate_rr_sets</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rr_sets</span> <span class="o">=</span> <span class="n">generate_rr_sets</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="s1">&#39;IC&#39;</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pynetim.utils.load_edgelist">
+<span class="sig-prename descclassname"><span class="pre">pynetim.utils.</span></span><span class="sig-name descname"><span class="pre">load_edgelist</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filepath</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">directed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">renumber</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comment</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip_lines</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="graph.html#pynetim.graph.IMGraph" title="pynetim.graph.IMGraph"><span class="pre">IMGraph</span></a></span></span><a class="reference internal" href="../_modules/pynetim/utils/graph_utils.html#load_edgelist"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.utils.load_edgelist" title="Link to this definition"></a></dt>
+<dd><p>从文件读取边列表构造 IMGraph。</p>
+<p>文件格式：每行 u v [weight]，分隔符支持空格/制表符/逗号。
+第三列可选，默认权重为 1.0。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filepath</strong> (<em>str</em><em> or </em><em>Path</em>) – 边列表文件路径</p></li>
+<li><p><strong>directed</strong> (<em>bool</em><em>, </em><em>optional</em>) – 是否有向图，默认 True</p></li>
+<li><p><strong>renumber</strong> (<em>bool</em><em>, </em><em>optional</em>) – 是否重编号节点为连续整数，默认 False</p></li>
+<li><p><strong>comment</strong> (<em>str</em><em>, </em><em>optional</em>) – 注释行前缀，如 ‘#’ 或 ‘%’，默认 None</p></li>
+<li><p><strong>skip_lines</strong> (<em>int</em><em>, </em><em>optional</em>) – 跳过文件开头的行数，默认 0</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>构造的图对象</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="graph.html#pynetim.graph.IMGraph" title="pynetim.graph.IMGraph">IMGraph</a></p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p>文件内容 (edges.txt):
+0 1 0.5
+1 2 0.8
+2 3</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">g</span> <span class="o">=</span> <span class="n">load_edgelist</span><span class="p">(</span><span class="s2">&quot;edges.txt&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">g</span><span class="o">.</span><span class="n">num_nodes</span>
+<span class="go">4</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">g</span><span class="o">.</span><span class="n">num_edges</span>
+<span class="go">3</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pynetim.utils.renumber_edges">
+<span class="sig-prename descclassname"><span class="pre">pynetim.utils.</span></span><span class="sig-name descname"><span class="pre">renumber_edges</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">edges</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/pynetim/utils.html#renumber_edges"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.utils.renumber_edges" title="Link to this definition"></a></dt>
+<dd><p>重新编号边列表中的节点为连续整数。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>edges</strong> – 边列表，每个元素为 (u, v) 元组。</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p>重编号后的边列表</p></li>
+<li><p>原始节点ID到新节点ID的映射</p></li>
+<li><p>新节点ID到原始节点ID的映射</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Tuple[List[Tuple[int, int]], dict, List[int]]</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">pynetim.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">renumber_edges</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">edges</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span> <span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">),</span> <span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">40</span><span class="p">)]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">new_edges</span><span class="p">,</span> <span class="n">mapping</span><span class="p">,</span> <span class="n">reverse_mapping</span> <span class="o">=</span> <span class="n">renumber_edges</span><span class="p">(</span><span class="n">edges</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">new_edges</span><span class="p">)</span>  <span class="c1"># [(0, 1), (1, 2), (2, 3)]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pynetim.utils.sample_rr_set_ic">
+<span class="sig-prename descclassname"><span class="pre">pynetim.utils.</span></span><span class="sig-name descname"><span class="pre">sample_rr_set_ic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="graph.html#pynetim.graph.IMGraph" title="pynetim.graph.IMGraph"><span class="pre">IMGraph</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pynetim.utils.sample_rr_set_ic" title="Link to this definition"></a></dt>
+<dd><p>采样一个 IC 模型的 RR 集合。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>graph</strong> – IMGraph 图对象。</p></li>
+<li><p><strong>seed</strong> – 随机种子，可选。</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>RR 集合中的节点列表。</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list[int]</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">pynetim.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">sample_rr_set_ic</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rr_set</span> <span class="o">=</span> <span class="n">sample_rr_set_ic</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pynetim.utils.sample_rr_set_lt">
+<span class="sig-prename descclassname"><span class="pre">pynetim.utils.</span></span><span class="sig-name descname"><span class="pre">sample_rr_set_lt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="graph.html#pynetim.graph.IMGraph" title="pynetim.graph.IMGraph"><span class="pre">IMGraph</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pynetim.utils.sample_rr_set_lt" title="Link to this definition"></a></dt>
+<dd><p>采样一个 LT 模型的 RR 集合。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>graph</strong> – IMGraph 图对象。</p></li>
+<li><p><strong>seed</strong> – 随机种子，可选。</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>RR 集合中的节点列表。</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list[int]</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">pynetim.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">sample_rr_set_lt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rr_set</span> <span class="o">=</span> <span class="n">sample_rr_set_lt</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pynetim.utils.save_edgelist">
+<span class="sig-prename descclassname"><span class="pre">pynetim.utils.</span></span><span class="sig-name descname"><span class="pre">save_edgelist</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="graph.html#pynetim.graph.IMGraph" title="pynetim.graph.IMGraph"><span class="pre">IMGraph</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">filepath</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delimiter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'\t'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_weight</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/pynetim/utils/graph_utils.html#save_edgelist"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.utils.save_edgelist" title="Link to this definition"></a></dt>
+<dd><p>将 IMGraph 保存为边列表文件。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>graph</strong> (<a class="reference internal" href="graph.html#pynetim.graph.IMGraph" title="pynetim.graph.IMGraph"><em>IMGraph</em></a>) – 图对象</p></li>
+<li><p><strong>filepath</strong> (<em>str</em><em> or </em><em>Path</em>) – 输出文件路径</p></li>
+<li><p><strong>delimiter</strong> (<em>str</em><em>, </em><em>optional</em>) – 分隔符，默认制表符</p></li>
+<li><p><strong>include_weight</strong> (<em>bool</em><em>, </em><em>optional</em>) – 是否包含权重列，默认 True</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">g</span> <span class="o">=</span> <span class="n">IMGraph</span><span class="p">(</span><span class="n">edges</span><span class="o">=</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)],</span> <span class="n">weights</span><span class="o">=</span><span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">save_edgelist</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="s2">&quot;output.txt&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pynetim.utils.shortest_path_length">
+<span class="sig-prename descclassname"><span class="pre">pynetim.utils.</span></span><span class="sig-name descname"><span class="pre">shortest_path_length</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="graph.html#pynetim.graph.IMGraph" title="pynetim.graph.IMGraph"><span class="pre">IMGraph</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_weight</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/pynetim/utils.html#shortest_path_length"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.utils.shortest_path_length" title="Link to this definition"></a></dt>
+<dd><p>计算两个节点之间的最短路径长度。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>graph</strong> – 图对象。</p></li>
+<li><p><strong>source</strong> – 源节点。</p></li>
+<li><p><strong>target</strong> – 目标节点。</p></li>
+<li><p><strong>use_weight</strong> – 是否使用边权重计算最短路径。
+- False (默认): 使用跳数（边数）作为距离
+- True: 使用边权重之和作为距离</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>最短路径长度，如果不可达则返回 None。</dt><dd><ul class="simple">
+<li><p>use_weight=False 时返回整数（跳数）</p></li>
+<li><p>use_weight=True 时返回浮点数（权重和）</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Optional[float]</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">pynetim.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">shortest_path_length</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># 基于跳数</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dist</span> <span class="o">=</span> <span class="n">shortest_path_length</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">use_weight</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># 基于权重</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dist</span> <span class="o">=</span> <span class="n">shortest_path_length</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">use_weight</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pynetim.utils.to_igraph">
+<span class="sig-prename descclassname"><span class="pre">pynetim.utils.</span></span><span class="sig-name descname"><span class="pre">to_igraph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="graph.html#pynetim.graph.IMGraph" title="pynetim.graph.IMGraph"><span class="pre">IMGraph</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pynetim/utils/graph_utils.html#to_igraph"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.utils.to_igraph" title="Link to this definition"></a></dt>
+<dd><p>将 IMGraph 转换为 igraph.Graph。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>graph</strong> (<a class="reference internal" href="graph.html#pynetim.graph.IMGraph" title="pynetim.graph.IMGraph"><em>IMGraph</em></a>) – 图对象</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>igraph 图对象，边权重存储在 ‘weight’ 属性中</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>igraph.Graph</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">g</span> <span class="o">=</span> <span class="n">IMGraph</span><span class="p">(</span><span class="n">edges</span><span class="o">=</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)],</span> <span class="n">directed</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ig_g</span> <span class="o">=</span> <span class="n">to_igraph</span><span class="p">(</span><span class="n">g</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ig_g</span><span class="o">.</span><span class="n">vcount</span><span class="p">()</span>
+<span class="go">3</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pynetim.utils.to_networkx">
+<span class="sig-prename descclassname"><span class="pre">pynetim.utils.</span></span><span class="sig-name descname"><span class="pre">to_networkx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="graph.html#pynetim.graph.IMGraph" title="pynetim.graph.IMGraph"><span class="pre">IMGraph</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pynetim/utils/graph_utils.html#to_networkx"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.utils.to_networkx" title="Link to this definition"></a></dt>
+<dd><p>将 IMGraph 转换为 networkx.DiGraph 或 networkx.Graph。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>graph</strong> (<a class="reference internal" href="graph.html#pynetim.graph.IMGraph" title="pynetim.graph.IMGraph"><em>IMGraph</em></a>) – 图对象</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>取决于原图是否有向</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>networkx.DiGraph 或 networkx.Graph</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">g</span> <span class="o">=</span> <span class="n">IMGraph</span><span class="p">(</span><span class="n">edges</span><span class="o">=</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)],</span> <span class="n">directed</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nx_g</span> <span class="o">=</span> <span class="n">to_networkx</span><span class="p">(</span><span class="n">g</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nx_g</span><span class="o">.</span><span class="n">number_of_nodes</span><span class="p">()</span>
+<span class="go">3</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pynetim.utils.to_pyg">
+<span class="sig-prename descclassname"><span class="pre">pynetim.utils.</span></span><span class="sig-name descname"><span class="pre">to_pyg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="graph.html#pynetim.graph.IMGraph" title="pynetim.graph.IMGraph"><span class="pre">IMGraph</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pynetim/utils/graph_utils.html#to_pyg"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.utils.to_pyg" title="Link to this definition"></a></dt>
+<dd><p>将 IMGraph 转换为 PyTorch Geometric Data 对象。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>graph</strong> (<a class="reference internal" href="graph.html#pynetim.graph.IMGraph" title="pynetim.graph.IMGraph"><em>IMGraph</em></a>) – 图对象</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>PyG Data 对象，包含 edge_index 和 edge_attr (权重)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>torch_geometric.data.Data</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">g</span> <span class="o">=</span> <span class="n">IMGraph</span><span class="p">(</span><span class="n">edges</span><span class="o">=</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)],</span> <span class="n">weights</span><span class="o">=</span><span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">],</span> <span class="n">directed</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pyg_g</span> <span class="o">=</span> <span class="n">to_pyg</span><span class="p">(</span><span class="n">g</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pyg_g</span><span class="o">.</span><span class="n">num_nodes</span>
+<span class="go">3</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pynetim.utils.to_scipy_sparse">
+<span class="sig-prename descclassname"><span class="pre">pynetim.utils.</span></span><span class="sig-name descname"><span class="pre">to_scipy_sparse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="graph.html#pynetim.graph.IMGraph" title="pynetim.graph.IMGraph"><span class="pre">IMGraph</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">format</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'csr'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pynetim/utils/graph_utils.html#to_scipy_sparse"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.utils.to_scipy_sparse" title="Link to this definition"></a></dt>
+<dd><p>将 IMGraph 转换为 scipy 稀疏矩阵。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>graph</strong> (<a class="reference internal" href="graph.html#pynetim.graph.IMGraph" title="pynetim.graph.IMGraph"><em>IMGraph</em></a>) – 图对象</p></li>
+<li><p><strong>format</strong> (<em>str</em><em>, </em><em>optional</em>) – 稀疏矩阵格式，可选 ‘csr’, ‘csc’, ‘coo’, ‘lil’, ‘dok’，默认 ‘csr’</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>稀疏邻接矩阵，matrix[i, j] 表示边 (i, j) 的权重</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>scipy.sparse.spmatrix</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">g</span> <span class="o">=</span> <span class="n">IMGraph</span><span class="p">(</span><span class="n">edges</span><span class="o">=</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)],</span> <span class="n">weights</span><span class="o">=</span><span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">],</span> <span class="n">directed</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mat</span> <span class="o">=</span> <span class="n">to_scipy_sparse</span><span class="p">(</span><span class="n">g</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mat</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span>
+<span class="go">array([[0. , 0.5, 0. ],</span>
+<span class="go">       [0. , 0. , 0.8],</span>
+<span class="go">       [0. , 0. , 0. ]])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="timing.html" class="btn btn-neutral float-left" title="时间测量" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../changelog.html" class="btn btn-neutral float-right" title="更新日志" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Kaijing Zhang.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

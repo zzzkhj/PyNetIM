@@ -39,8 +39,29 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <!-- Local TOC -->
-              <div class="local-toc"></div>
+              <p class="caption" role="heading"><span class="caption-text">指南</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">安装指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">快速开始</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API 参考</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/graph.html">图模块</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/diffusion_model.html">扩散模型</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/algorithms.html">算法模块</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/evaluation.html">评估指标</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/timing.html">时间测量</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/utils.html">工具函数</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">其他</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">更新日志</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html#id57">版本说明</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html#id65">贡献指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html#id66">许可证</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html#id67">联系方式</a></li>
+</ul>
+
         </div>
       </div>
     </nav>
@@ -76,7 +97,7 @@
 
 
 <div class="viewcode-block" id="BaseAlgorithm">
-<a class="viewcode-back" href="../../../api.html#pynetim.algorithms.base_algorithm.BaseAlgorithm">[docs]</a>
+<a class="viewcode-back" href="../../../api/algorithms.html#pynetim.algorithms.base_algorithm.BaseAlgorithm">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">BaseAlgorithm</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;影响力最大化算法基类。</span>
 
@@ -102,7 +123,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="BaseAlgorithm.__init__">
-<a class="viewcode-back" href="../../../api.html#pynetim.algorithms.base_algorithm.BaseAlgorithm.__init__">[docs]</a>
+<a class="viewcode-back" href="../../../api/algorithms.html#pynetim.algorithms.base_algorithm.BaseAlgorithm.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">graph</span><span class="p">:</span> <span class="s1">&#39;IMGraph&#39;</span><span class="p">,</span> <span class="n">diffusion_model</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;初始化算法基类。</span>
 
@@ -130,7 +151,7 @@
 
 
 <div class="viewcode-block" id="BaseAlgorithm.run">
-<a class="viewcode-back" href="../../../api.html#pynetim.algorithms.base_algorithm.BaseAlgorithm.run">[docs]</a>
+<a class="viewcode-back" href="../../../api/algorithms.html#pynetim.algorithms.base_algorithm.BaseAlgorithm.run">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Set</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;执行算法选择种子节点。</span>
 
@@ -149,7 +170,7 @@
 
 
 <div class="viewcode-block" id="BaseAlgorithm.get_seeds">
-<a class="viewcode-back" href="../../../api.html#pynetim.algorithms.base_algorithm.BaseAlgorithm.get_seeds">[docs]</a>
+<a class="viewcode-back" href="../../../api/algorithms.html#pynetim.algorithms.base_algorithm.BaseAlgorithm.get_seeds">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_seeds</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Set</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;获取最后一次运行选出的种子集合。</span>
 

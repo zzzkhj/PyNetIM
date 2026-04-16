@@ -39,8 +39,29 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <!-- Local TOC -->
-              <div class="local-toc"></div>
+              <p class="caption" role="heading"><span class="caption-text">指南</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../installation.html">安装指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../quickstart.html">快速开始</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API 参考</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/graph.html">图模块</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/diffusion_model.html">扩散模型</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/algorithms.html">算法模块</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/evaluation.html">评估指标</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/timing.html">时间测量</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/utils.html">工具函数</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">其他</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changelog.html">更新日志</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changelog.html#id57">版本说明</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changelog.html#id65">贡献指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changelog.html#id66">许可证</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changelog.html#id67">联系方式</a></li>
+</ul>
+
         </div>
       </div>
     </nav>
@@ -77,7 +98,7 @@
 
 
 <div class="viewcode-block" id="DegreeCentralityAlgorithm">
-<a class="viewcode-back" href="../../../../api.html#pynetim.algorithms.heuristic.DegreeCentralityAlgorithm">[docs]</a>
+<a class="viewcode-back" href="../../../../api/algorithms.html#pynetim.algorithms.heuristic.DegreeCentralityAlgorithm">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">DegreeCentralityAlgorithm</span><span class="p">(</span><span class="n">BaseAlgorithm</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;度中心性启发式算法。</span>
 
@@ -100,13 +121,13 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="DegreeCentralityAlgorithm.__init__">
-<a class="viewcode-back" href="../../../../api.html#pynetim.algorithms.heuristic.DegreeCentralityAlgorithm.__init__">[docs]</a>
+<a class="viewcode-back" href="../../../../api/algorithms.html#pynetim.algorithms.heuristic.DegreeCentralityAlgorithm.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">graph</span><span class="p">:</span> <span class="s1">&#39;IMGraph&#39;</span><span class="p">,</span> <span class="n">diffusion_model</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">diffusion_model</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="DegreeCentralityAlgorithm.run">
-<a class="viewcode-back" href="../../../../api.html#pynetim.algorithms.heuristic.DegreeCentralityAlgorithm.run">[docs]</a>
+<a class="viewcode-back" href="../../../../api/algorithms.html#pynetim.algorithms.heuristic.DegreeCentralityAlgorithm.run">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Set</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
         <span class="n">degrees</span> <span class="o">=</span> <span class="p">[(</span><span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">out_degree</span><span class="p">(</span><span class="n">v</span><span class="p">),</span> <span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">num_nodes</span><span class="p">)]</span>
         <span class="n">degrees</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -118,7 +139,7 @@
 
 
 <div class="viewcode-block" id="PageRankAlgorithm">
-<a class="viewcode-back" href="../../../../api.html#pynetim.algorithms.heuristic.PageRankAlgorithm">[docs]</a>
+<a class="viewcode-back" href="../../../../api/algorithms.html#pynetim.algorithms.heuristic.PageRankAlgorithm">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">PageRankAlgorithm</span><span class="p">(</span><span class="n">BaseAlgorithm</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;PageRank 启发式算法。</span>
 
@@ -145,7 +166,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="PageRankAlgorithm.__init__">
-<a class="viewcode-back" href="../../../../api.html#pynetim.algorithms.heuristic.PageRankAlgorithm.__init__">[docs]</a>
+<a class="viewcode-back" href="../../../../api/algorithms.html#pynetim.algorithms.heuristic.PageRankAlgorithm.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">graph</span><span class="p">:</span> <span class="s1">&#39;IMGraph&#39;</span><span class="p">,</span> <span class="n">diffusion_model</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> 
                  <span class="n">damping</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.85</span><span class="p">,</span> <span class="n">max_iter</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">tol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-6</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;初始化 PageRank 算法。</span>
@@ -164,7 +185,7 @@
 
 
 <div class="viewcode-block" id="PageRankAlgorithm.run">
-<a class="viewcode-back" href="../../../../api.html#pynetim.algorithms.heuristic.PageRankAlgorithm.run">[docs]</a>
+<a class="viewcode-back" href="../../../../api/algorithms.html#pynetim.algorithms.heuristic.PageRankAlgorithm.run">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Set</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
         <span class="n">n</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">num_nodes</span>
         <span class="n">pr</span> <span class="o">=</span> <span class="p">{</span><span class="n">v</span><span class="p">:</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="n">n</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)}</span>
@@ -204,7 +225,7 @@
 
 
 <div class="viewcode-block" id="VoteRankAlgorithm">
-<a class="viewcode-back" href="../../../../api.html#pynetim.algorithms.heuristic.VoteRankAlgorithm">[docs]</a>
+<a class="viewcode-back" href="../../../../api/algorithms.html#pynetim.algorithms.heuristic.VoteRankAlgorithm">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">VoteRankAlgorithm</span><span class="p">(</span><span class="n">BaseAlgorithm</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;VoteRank 启发式算法。</span>
 
@@ -234,13 +255,13 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="VoteRankAlgorithm.__init__">
-<a class="viewcode-back" href="../../../../api.html#pynetim.algorithms.heuristic.VoteRankAlgorithm.__init__">[docs]</a>
+<a class="viewcode-back" href="../../../../api/algorithms.html#pynetim.algorithms.heuristic.VoteRankAlgorithm.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">graph</span><span class="p">:</span> <span class="s1">&#39;IMGraph&#39;</span><span class="p">,</span> <span class="n">diffusion_model</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">diffusion_model</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="VoteRankAlgorithm.run">
-<a class="viewcode-back" href="../../../../api.html#pynetim.algorithms.heuristic.VoteRankAlgorithm.run">[docs]</a>
+<a class="viewcode-back" href="../../../../api/algorithms.html#pynetim.algorithms.heuristic.VoteRankAlgorithm.run">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Set</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
         <span class="n">n</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">num_nodes</span>
         
@@ -276,7 +297,7 @@
 
 
 <div class="viewcode-block" id="KShellDecompositionAlgorithm">
-<a class="viewcode-back" href="../../../../api.html#pynetim.algorithms.heuristic.KShellDecompositionAlgorithm">[docs]</a>
+<a class="viewcode-back" href="../../../../api/algorithms.html#pynetim.algorithms.heuristic.KShellDecompositionAlgorithm">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">KShellDecompositionAlgorithm</span><span class="p">(</span><span class="n">BaseAlgorithm</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;K-shell 分解启发式算法。</span>
 
@@ -304,13 +325,13 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="KShellDecompositionAlgorithm.__init__">
-<a class="viewcode-back" href="../../../../api.html#pynetim.algorithms.heuristic.KShellDecompositionAlgorithm.__init__">[docs]</a>
+<a class="viewcode-back" href="../../../../api/algorithms.html#pynetim.algorithms.heuristic.KShellDecompositionAlgorithm.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">graph</span><span class="p">:</span> <span class="s1">&#39;IMGraph&#39;</span><span class="p">,</span> <span class="n">diffusion_model</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">diffusion_model</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="KShellDecompositionAlgorithm.run">
-<a class="viewcode-back" href="../../../../api.html#pynetim.algorithms.heuristic.KShellDecompositionAlgorithm.run">[docs]</a>
+<a class="viewcode-back" href="../../../../api/algorithms.html#pynetim.algorithms.heuristic.KShellDecompositionAlgorithm.run">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Set</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
         <span class="n">n</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">num_nodes</span>
         
@@ -350,7 +371,7 @@
 
 
 <div class="viewcode-block" id="BetweennessCentralityAlgorithm">
-<a class="viewcode-back" href="../../../../api.html#pynetim.algorithms.heuristic.BetweennessCentralityAlgorithm">[docs]</a>
+<a class="viewcode-back" href="../../../../api/algorithms.html#pynetim.algorithms.heuristic.BetweennessCentralityAlgorithm">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">BetweennessCentralityAlgorithm</span><span class="p">(</span><span class="n">BaseAlgorithm</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;介数中心性启发式算法。</span>
 
@@ -377,7 +398,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="BetweennessCentralityAlgorithm.__init__">
-<a class="viewcode-back" href="../../../../api.html#pynetim.algorithms.heuristic.BetweennessCentralityAlgorithm.__init__">[docs]</a>
+<a class="viewcode-back" href="../../../../api/algorithms.html#pynetim.algorithms.heuristic.BetweennessCentralityAlgorithm.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">graph</span><span class="p">:</span> <span class="s1">&#39;IMGraph&#39;</span><span class="p">,</span> <span class="n">diffusion_model</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> 
                  <span class="n">normalized</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">sample_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;初始化介数中心性算法。</span>
@@ -394,7 +415,7 @@
 
 
 <div class="viewcode-block" id="BetweennessCentralityAlgorithm.run">
-<a class="viewcode-back" href="../../../../api.html#pynetim.algorithms.heuristic.BetweennessCentralityAlgorithm.run">[docs]</a>
+<a class="viewcode-back" href="../../../../api/algorithms.html#pynetim.algorithms.heuristic.BetweennessCentralityAlgorithm.run">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Set</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
         <span class="kn">import</span><span class="w"> </span><span class="nn">random</span>
         
@@ -456,7 +477,7 @@
 
 
 <div class="viewcode-block" id="ClosenessCentralityAlgorithm">
-<a class="viewcode-back" href="../../../../api.html#pynetim.algorithms.heuristic.ClosenessCentralityAlgorithm">[docs]</a>
+<a class="viewcode-back" href="../../../../api/algorithms.html#pynetim.algorithms.heuristic.ClosenessCentralityAlgorithm">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">ClosenessCentralityAlgorithm</span><span class="p">(</span><span class="n">BaseAlgorithm</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;接近中心性启发式算法。</span>
 
@@ -483,7 +504,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="ClosenessCentralityAlgorithm.__init__">
-<a class="viewcode-back" href="../../../../api.html#pynetim.algorithms.heuristic.ClosenessCentralityAlgorithm.__init__">[docs]</a>
+<a class="viewcode-back" href="../../../../api/algorithms.html#pynetim.algorithms.heuristic.ClosenessCentralityAlgorithm.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">graph</span><span class="p">:</span> <span class="s1">&#39;IMGraph&#39;</span><span class="p">,</span> <span class="n">diffusion_model</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">diffusion_model</span><span class="p">)</span></div>
 
@@ -510,7 +531,7 @@
         <span class="k">return</span> <span class="n">dist</span>
 
 <div class="viewcode-block" id="ClosenessCentralityAlgorithm.run">
-<a class="viewcode-back" href="../../../../api.html#pynetim.algorithms.heuristic.ClosenessCentralityAlgorithm.run">[docs]</a>
+<a class="viewcode-back" href="../../../../api/algorithms.html#pynetim.algorithms.heuristic.ClosenessCentralityAlgorithm.run">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Set</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
         <span class="n">n</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">num_nodes</span>
         <span class="n">closeness</span> <span class="o">=</span> <span class="p">{}</span>
@@ -534,7 +555,7 @@
 
 
 <div class="viewcode-block" id="EigenvectorCentralityAlgorithm">
-<a class="viewcode-back" href="../../../../api.html#pynetim.algorithms.heuristic.EigenvectorCentralityAlgorithm">[docs]</a>
+<a class="viewcode-back" href="../../../../api/algorithms.html#pynetim.algorithms.heuristic.EigenvectorCentralityAlgorithm">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">EigenvectorCentralityAlgorithm</span><span class="p">(</span><span class="n">BaseAlgorithm</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;特征向量中心性启发式算法。</span>
 
@@ -562,7 +583,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="EigenvectorCentralityAlgorithm.__init__">
-<a class="viewcode-back" href="../../../../api.html#pynetim.algorithms.heuristic.EigenvectorCentralityAlgorithm.__init__">[docs]</a>
+<a class="viewcode-back" href="../../../../api/algorithms.html#pynetim.algorithms.heuristic.EigenvectorCentralityAlgorithm.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">graph</span><span class="p">:</span> <span class="s1">&#39;IMGraph&#39;</span><span class="p">,</span> <span class="n">diffusion_model</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
                  <span class="n">max_iter</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">tol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-6</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;初始化特征向量中心性算法。</span>
@@ -579,7 +600,7 @@
 
 
 <div class="viewcode-block" id="EigenvectorCentralityAlgorithm.run">
-<a class="viewcode-back" href="../../../../api.html#pynetim.algorithms.heuristic.EigenvectorCentralityAlgorithm.run">[docs]</a>
+<a class="viewcode-back" href="../../../../api/algorithms.html#pynetim.algorithms.heuristic.EigenvectorCentralityAlgorithm.run">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Set</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
         <span class="n">n</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">num_nodes</span>
         
@@ -614,7 +635,7 @@
 
 
 <div class="viewcode-block" id="SingleDiscountAlgorithm">
-<a class="viewcode-back" href="../../../../api.html#pynetim.algorithms.heuristic.SingleDiscountAlgorithm">[docs]</a>
+<a class="viewcode-back" href="../../../../api/algorithms.html#pynetim.algorithms.heuristic.SingleDiscountAlgorithm">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">SingleDiscountAlgorithm</span><span class="p">(</span><span class="n">BaseAlgorithm</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;简单度折扣启发式算法。</span>
 
@@ -641,13 +662,13 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="SingleDiscountAlgorithm.__init__">
-<a class="viewcode-back" href="../../../../api.html#pynetim.algorithms.heuristic.SingleDiscountAlgorithm.__init__">[docs]</a>
+<a class="viewcode-back" href="../../../../api/algorithms.html#pynetim.algorithms.heuristic.SingleDiscountAlgorithm.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">graph</span><span class="p">:</span> <span class="s1">&#39;IMGraph&#39;</span><span class="p">,</span> <span class="n">diffusion_model</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">diffusion_model</span><span class="p">)</span></div>
 
     
 <div class="viewcode-block" id="SingleDiscountAlgorithm.run">
-<a class="viewcode-back" href="../../../../api.html#pynetim.algorithms.heuristic.SingleDiscountAlgorithm.run">[docs]</a>
+<a class="viewcode-back" href="../../../../api/algorithms.html#pynetim.algorithms.heuristic.SingleDiscountAlgorithm.run">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Set</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
         <span class="n">d</span> <span class="o">=</span> <span class="p">{</span><span class="n">v</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">out_degree</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">num_nodes</span><span class="p">)}</span>
         <span class="n">seeds</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
@@ -676,7 +697,7 @@
 
 
 <div class="viewcode-block" id="DegreeDiscountAlgorithm">
-<a class="viewcode-back" href="../../../../api.html#pynetim.algorithms.heuristic.DegreeDiscountAlgorithm">[docs]</a>
+<a class="viewcode-back" href="../../../../api/algorithms.html#pynetim.algorithms.heuristic.DegreeDiscountAlgorithm">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">DegreeDiscountAlgorithm</span><span class="p">(</span><span class="n">BaseAlgorithm</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;度折扣启发式算法。</span>
 
@@ -703,13 +724,13 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="DegreeDiscountAlgorithm.__init__">
-<a class="viewcode-back" href="../../../../api.html#pynetim.algorithms.heuristic.DegreeDiscountAlgorithm.__init__">[docs]</a>
+<a class="viewcode-back" href="../../../../api/algorithms.html#pynetim.algorithms.heuristic.DegreeDiscountAlgorithm.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">graph</span><span class="p">:</span> <span class="s1">&#39;IMGraph&#39;</span><span class="p">,</span> <span class="n">diffusion_model</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;IC&#39;</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">diffusion_model</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="DegreeDiscountAlgorithm.run">
-<a class="viewcode-back" href="../../../../api.html#pynetim.algorithms.heuristic.DegreeDiscountAlgorithm.run">[docs]</a>
+<a class="viewcode-back" href="../../../../api/algorithms.html#pynetim.algorithms.heuristic.DegreeDiscountAlgorithm.run">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Set</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
         <span class="n">d</span> <span class="o">=</span> <span class="p">{</span><span class="n">v</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">out_degree</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">num_nodes</span><span class="p">)}</span>
         <span class="n">dd</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>

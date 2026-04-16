@@ -39,8 +39,29 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <!-- Local TOC -->
-              <div class="local-toc"></div>
+              <p class="caption" role="heading"><span class="caption-text">指南</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">安装指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">快速开始</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API 参考</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/graph.html">图模块</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/diffusion_model.html">扩散模型</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/algorithms.html">算法模块</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/evaluation.html">评估指标</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/timing.html">时间测量</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/utils.html">工具函数</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">其他</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">更新日志</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html#id57">版本说明</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html#id65">贡献指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html#id66">许可证</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html#id67">联系方式</a></li>
+</ul>
+
         </div>
       </div>
     </nav>
@@ -76,7 +97,7 @@
 
 
 <div class="viewcode-block" id="load_edgelist">
-<a class="viewcode-back" href="../../../api.html#pynetim.utils.load_edgelist">[docs]</a>
+<a class="viewcode-back" href="../../../api/utils.html#pynetim.utils.load_edgelist">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">load_edgelist</span><span class="p">(</span>
     <span class="n">filepath</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Path</span><span class="p">],</span>
     <span class="n">directed</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
@@ -165,7 +186,7 @@
 
 
 <div class="viewcode-block" id="save_edgelist">
-<a class="viewcode-back" href="../../../api.html#pynetim.utils.save_edgelist">[docs]</a>
+<a class="viewcode-back" href="../../../api/utils.html#pynetim.utils.save_edgelist">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">save_edgelist</span><span class="p">(</span>
     <span class="n">graph</span><span class="p">:</span> <span class="s2">&quot;IMGraph&quot;</span><span class="p">,</span>
     <span class="n">filepath</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Path</span><span class="p">],</span>
@@ -205,7 +226,7 @@
 
 
 <div class="viewcode-block" id="to_networkx">
-<a class="viewcode-back" href="../../../api.html#pynetim.utils.to_networkx">[docs]</a>
+<a class="viewcode-back" href="../../../api/utils.html#pynetim.utils.to_networkx">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">to_networkx</span><span class="p">(</span><span class="n">graph</span><span class="p">:</span> <span class="s2">&quot;IMGraph&quot;</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    将 IMGraph 转换为 networkx.DiGraph 或 networkx.Graph。</span>
@@ -247,7 +268,7 @@
 
 
 <div class="viewcode-block" id="to_igraph">
-<a class="viewcode-back" href="../../../api.html#pynetim.utils.to_igraph">[docs]</a>
+<a class="viewcode-back" href="../../../api/utils.html#pynetim.utils.to_igraph">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">to_igraph</span><span class="p">(</span><span class="n">graph</span><span class="p">:</span> <span class="s2">&quot;IMGraph&quot;</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    将 IMGraph 转换为 igraph.Graph。</span>
@@ -289,7 +310,7 @@
 
 
 <div class="viewcode-block" id="to_scipy_sparse">
-<a class="viewcode-back" href="../../../api.html#pynetim.utils.to_scipy_sparse">[docs]</a>
+<a class="viewcode-back" href="../../../api/utils.html#pynetim.utils.to_scipy_sparse">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">to_scipy_sparse</span><span class="p">(</span><span class="n">graph</span><span class="p">:</span> <span class="s2">&quot;IMGraph&quot;</span><span class="p">,</span> <span class="nb">format</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;csr&quot;</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    将 IMGraph 转换为 scipy 稀疏矩阵。</span>
@@ -343,7 +364,7 @@
 
 
 <div class="viewcode-block" id="to_pyg">
-<a class="viewcode-back" href="../../../api.html#pynetim.utils.to_pyg">[docs]</a>
+<a class="viewcode-back" href="../../../api/utils.html#pynetim.utils.to_pyg">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">to_pyg</span><span class="p">(</span><span class="n">graph</span><span class="p">:</span> <span class="s2">&quot;IMGraph&quot;</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    将 IMGraph 转换为 PyTorch Geometric Data 对象。</span>

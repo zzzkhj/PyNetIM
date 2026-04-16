@@ -18,7 +18,8 @@
       <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" /> 
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="安装指南" href="installation.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -40,39 +41,29 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <!-- Local TOC -->
-              <div class="local-toc"><ul>
-<li><a class="reference internal" href="#">PyNetIM</a><ul>
-<li><a class="reference internal" href="#id1">简介</a></li>
-<li><a class="reference internal" href="#id2">安装</a></li>
-<li><a class="reference internal" href="#id3">快速开始</a></li>
-<li><a class="reference internal" href="#id4">核心功能</a><ul>
-<li><a class="reference internal" href="#id5">图结构</a></li>
-<li><a class="reference internal" href="#id6">传播模型</a></li>
-<li><a class="reference internal" href="#id7">影响力最大化算法</a></li>
-<li><a class="reference internal" href="#id8">深度学习算法</a><ul>
-<li><a class="reference internal" href="#id9">训练深度学习模型</a></li>
+              <p class="caption" role="heading"><span class="caption-text">指南</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">安装指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">快速开始</a></li>
 </ul>
-</li>
-<li><a class="reference internal" href="#id10">自定义传播模型</a></li>
-<li><a class="reference internal" href="#id11">评估指标</a></li>
-<li><a class="reference internal" href="#id12">时间测量</a></li>
+<p class="caption" role="heading"><span class="caption-text">API 参考</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api/graph.html">图模块</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/diffusion_model.html">扩散模型</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/algorithms.html">算法模块</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/evaluation.html">评估指标</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/timing.html">时间测量</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/utils.html">工具函数</a></li>
 </ul>
-</li>
-<li><a class="reference internal" href="#id13">性能对比</a></li>
-<li><a class="reference internal" href="#id14">项目结构</a></li>
-<li><a class="reference internal" href="#id15">开发指南</a><ul>
-<li><a class="reference internal" href="#id16">运行测试</a></li>
-<li><a class="reference internal" href="#id17">贡献代码</a></li>
+<p class="caption" role="heading"><span class="caption-text">其他</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">更新日志</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html#id57">版本说明</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html#id65">贡献指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html#id66">许可证</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html#id67">联系方式</a></li>
 </ul>
-</li>
-<li><a class="reference internal" href="#id18">更新日志</a></li>
-<li><a class="reference internal" href="#id19">许可证</a></li>
-<li><a class="reference internal" href="#id20">致谢</a></li>
-</ul>
-</li>
-</ul>
-</div>
+
         </div>
       </div>
     </nav>
@@ -89,7 +80,7 @@
       <li><a href="#" class="icon icon-home" aria-label="Home"></a></li>
       <li class="breadcrumb-item active">PyNetIM</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="_sources/index.md.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -99,14 +90,127 @@
              
   <section id="pynetim">
 <h1>PyNetIM<a class="headerlink" href="#pynetim" title="Link to this heading"></a></h1>
-<p><a class="reference external" href="https://pypi.org/project/pynetim/"><img alt="PyPI version" src="https://badge.fury.io/py/pynetim.svg" /></a>
-<a class="reference external" href="https://www.python.org/downloads/"><img alt="Python Version" src="https://img.shields.io/badge/python-3.8+-blue.svg" /></a>
-<a class="reference internal" href="#LICENSE"><span class="xref myst"><img alt="License" src="https://img.shields.io/badge/license-MIT-green.svg" /></span></a></p>
-<p><a class="reference external" href="https://zzzkhj.github.io/PyNetIM/">PyNetIM</a> 是一个用于<strong>社交网络影响力最大化（Influence Maximization, IM）问题</strong>的 Python 库，集成了多种经典算法与扩散模型，提供 <strong>C++ 高性能后端</strong>，适用于算法研究、性能对比与科研实验。</p>
-<hr class="docutils" />
-<section id="id1">
-<h2>简介<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
-<p>PyNetIM 提供完整的影响力最大化解决方案：</p>
+<p><a class="reference external" href="https://pypi.org/project/pynetim/"><img alt="PyPI" src="https://badge.fury.io/py/pynetim.svg" /></a> <a class="reference external" href="https://www.python.org/downloads/"><img alt="Python" src="https://img.shields.io/badge/python-3.8+-blue.svg" /></a> <a class="reference external" href="LICENSE"><img alt="License" src="https://img.shields.io/badge/license-MIT-green.svg" /></a></p>
+<p><a class="reference external" href="https://zzzkhj.github.io/PyNetIM/">PyNetIM</a> 是一个用于**社交网络影响力最大化（Influence Maximization, IM）问题**的 Python 库，集成了多种经典算法与扩散模型，提供 <strong>C++ 高性能后端</strong>，适用于算法研究、性能对比与科研实验。</p>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">指南</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">安装指南</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#id2">基本安装</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#id3">系统要求</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#id4">深度学习依赖</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#id5">从源码安装</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#id6">验证安装</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">快速开始</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#id2">基本使用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#id6">算法选择指南</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#id7">传播模型选择</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#id8">完整示例</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">API 参考</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api/graph.html">图模块</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/graph.html#pynetim.graph.IMGraph"><code class="docutils literal notranslate"><span class="pre">IMGraph</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api/diffusion_model.html">扩散模型</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/diffusion_model.html#pynetim.diffusion_model.BaseCallbackDiffusionModel"><code class="docutils literal notranslate"><span class="pre">BaseCallbackDiffusionModel</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/diffusion_model.html#pynetim.diffusion_model.BaseMultiprocessDiffusionModel"><code class="docutils literal notranslate"><span class="pre">BaseMultiprocessDiffusionModel</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/diffusion_model.html#pynetim.diffusion_model.IndependentCascadeModel"><code class="docutils literal notranslate"><span class="pre">IndependentCascadeModel</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/diffusion_model.html#pynetim.diffusion_model.LinearThresholdModel"><code class="docutils literal notranslate"><span class="pre">LinearThresholdModel</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/diffusion_model.html#pynetim.diffusion_model.PyDiffusionModelBase"><code class="docutils literal notranslate"><span class="pre">PyDiffusionModelBase</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/diffusion_model.html#pynetim.diffusion_model.SusceptibleInfectedModel"><code class="docutils literal notranslate"><span class="pre">SusceptibleInfectedModel</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/diffusion_model.html#pynetim.diffusion_model.SusceptibleInfectedRecoveredModel"><code class="docutils literal notranslate"><span class="pre">SusceptibleInfectedRecoveredModel</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/diffusion_model.html#module-pynetim.diffusion_model.base_callback_diffusion_model">自定义扩散模型</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api/algorithms.html">算法模块</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/algorithms.html#module-pynetim.algorithms.base_algorithm">基础类</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/algorithms.html#module-pynetim.algorithms.heuristic">启发式算法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/algorithms.html#module-pynetim.algorithms.simulation">模拟类算法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/algorithms.html#module-pynetim.algorithms.ris">RIS 类算法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/algorithms.html#module-pynetim.algorithms.deep_learning">深度学习算法</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api/evaluation.html">评估指标</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/evaluation.html#pynetim.evaluation.average_shortest_distance"><code class="docutils literal notranslate"><span class="pre">average_shortest_distance()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/evaluation.html#pynetim.evaluation.clustering_coefficient"><code class="docutils literal notranslate"><span class="pre">clustering_coefficient()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/evaluation.html#pynetim.evaluation.degree_distribution"><code class="docutils literal notranslate"><span class="pre">degree_distribution()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/evaluation.html#pynetim.evaluation.degree_statistics"><code class="docutils literal notranslate"><span class="pre">degree_statistics()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/evaluation.html#pynetim.evaluation.distribution_entropy"><code class="docutils literal notranslate"><span class="pre">distribution_entropy()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/evaluation.html#pynetim.evaluation.kendall_tau"><code class="docutils literal notranslate"><span class="pre">kendall_tau()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/evaluation.html#pynetim.evaluation.local_clustering"><code class="docutils literal notranslate"><span class="pre">local_clustering()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/evaluation.html#pynetim.evaluation.mean_centrality"><code class="docutils literal notranslate"><span class="pre">mean_centrality()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/evaluation.html#pynetim.evaluation.monotonicity_score"><code class="docutils literal notranslate"><span class="pre">monotonicity_score()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/evaluation.html#pynetim.evaluation.neighbor_coverage"><code class="docutils literal notranslate"><span class="pre">neighbor_coverage()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/evaluation.html#pynetim.evaluation.ranking_distance"><code class="docutils literal notranslate"><span class="pre">ranking_distance()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/evaluation.html#pynetim.evaluation.ranking_stability"><code class="docutils literal notranslate"><span class="pre">ranking_stability()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/evaluation.html#pynetim.evaluation.reachability"><code class="docutils literal notranslate"><span class="pre">reachability()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/evaluation.html#pynetim.evaluation.seed_diversity"><code class="docutils literal notranslate"><span class="pre">seed_diversity()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/evaluation.html#pynetim.evaluation.seed_overlap"><code class="docutils literal notranslate"><span class="pre">seed_overlap()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/evaluation.html#pynetim.evaluation.spearman_correlation"><code class="docutils literal notranslate"><span class="pre">spearman_correlation()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/evaluation.html#pynetim.evaluation.top_k_accuracy"><code class="docutils literal notranslate"><span class="pre">top_k_accuracy()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/evaluation.html#pynetim.evaluation.top_k_overlap"><code class="docutils literal notranslate"><span class="pre">top_k_overlap()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/evaluation.html#pynetim.evaluation.weight_statistics"><code class="docutils literal notranslate"><span class="pre">weight_statistics()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api/timing.html">时间测量</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/timing.html#pynetim.timing.AlgorithmTimer"><code class="docutils literal notranslate"><span class="pre">AlgorithmTimer</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/timing.html#pynetim.timing.compare_algorithms_runtime"><code class="docutils literal notranslate"><span class="pre">compare_algorithms_runtime()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/timing.html#pynetim.timing.measure_runtime"><code class="docutils literal notranslate"><span class="pre">measure_runtime()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/timing.html#pynetim.timing.measure_runtime_multiple_runs"><code class="docutils literal notranslate"><span class="pre">measure_runtime_multiple_runs()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/timing.html#pynetim.timing.measure_time"><code class="docutils literal notranslate"><span class="pre">measure_time()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api/utils.html">工具函数</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/utils.html#pynetim.utils.all_pairs_shortest_path_length"><code class="docutils literal notranslate"><span class="pre">all_pairs_shortest_path_length()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/utils.html#pynetim.utils.generate_rr_sets"><code class="docutils literal notranslate"><span class="pre">generate_rr_sets()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/utils.html#pynetim.utils.load_edgelist"><code class="docutils literal notranslate"><span class="pre">load_edgelist()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/utils.html#pynetim.utils.renumber_edges"><code class="docutils literal notranslate"><span class="pre">renumber_edges()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/utils.html#pynetim.utils.sample_rr_set_ic"><code class="docutils literal notranslate"><span class="pre">sample_rr_set_ic()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/utils.html#pynetim.utils.sample_rr_set_lt"><code class="docutils literal notranslate"><span class="pre">sample_rr_set_lt()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/utils.html#pynetim.utils.save_edgelist"><code class="docutils literal notranslate"><span class="pre">save_edgelist()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/utils.html#pynetim.utils.shortest_path_length"><code class="docutils literal notranslate"><span class="pre">shortest_path_length()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/utils.html#pynetim.utils.to_igraph"><code class="docutils literal notranslate"><span class="pre">to_igraph()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/utils.html#pynetim.utils.to_networkx"><code class="docutils literal notranslate"><span class="pre">to_networkx()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/utils.html#pynetim.utils.to_pyg"><code class="docutils literal notranslate"><span class="pre">to_pyg()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/utils.html#pynetim.utils.to_scipy_sparse"><code class="docutils literal notranslate"><span class="pre">to_scipy_sparse()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">其他</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">更新日志</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id2">[0.5.1] - 2026-04-10</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id8">[0.5.0] - 2026-04-07</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id13">[0.4.5] - 2026-04-04</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id26">[0.4.4] - 2026-03-30</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id38">[0.4.3] - 2026-03-30</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id44">[0.4.2] - 2026-03-24</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id47">[0.4.0] - 2026-03-23</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#xx-xx">[0.3.0] - 2025-XX-XX</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html#id57">版本说明</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id59">版本类型</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id60">更新分类</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html#id65">贡献指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html#id66">许可证</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html#id67">联系方式</a></li>
+</ul>
+</div>
+<section id="id2">
+<h2>功能特性<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
 <ul class="simple">
 <li><p><strong>多种传播模型</strong> - IC、LT、SI、SIR</p></li>
 <li><p><strong>多种 IM 算法</strong> - 启发式、模拟类、RIS 类、深度学习</p></li>
@@ -118,586 +222,37 @@
 <li><p><strong>简洁 API</strong> - 一行代码完成复杂任务</p></li>
 </ul>
 </section>
-<hr class="docutils" />
-<section id="id2">
-<h2>安装<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>pynetim
-</pre></div>
-</div>
-<p><strong>系统要求：</strong></p>
-<ul class="simple">
-<li><p>Python 3.8+（推荐 3.10+）</p></li>
-<li><p>C++17 编译器（GCC 8+, Clang 7+, MSVC 19.14+）</p></li>
-</ul>
-</section>
-<hr class="docutils" />
 <section id="id3">
-<h2>快速开始<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
+<h2>快速示例<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pynetim</span><span class="w"> </span><span class="kn">import</span> <span class="n">IMGraph</span><span class="p">,</span> <span class="n">IndependentCascadeModel</span><span class="p">,</span> <span class="n">IMMAlgorithm</span>
 
-<span class="c1"># 1. 创建图</span>
-<span class="n">edges</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">)]</span>
-<span class="n">graph</span> <span class="o">=</span> <span class="n">IMGraph</span><span class="p">(</span><span class="n">edges</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="c1"># 创建图</span>
+<span class="n">graph</span> <span class="o">=</span> <span class="n">IMGraph</span><span class="p">([(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)],</span> <span class="n">weights</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
 
-<span class="c1"># 2. 使用 IMM 算法选择种子节点</span>
+<span class="c1"># 选择种子节点</span>
 <span class="n">imm</span> <span class="o">=</span> <span class="n">IMMAlgorithm</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="s1">&#39;IC&#39;</span><span class="p">,</span> <span class="n">epsilon</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
 <span class="n">seeds</span> <span class="o">=</span> <span class="n">imm</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">k</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;种子节点: </span><span class="si">{</span><span class="n">seeds</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
-<span class="c1"># 3. 评估影响力</span>
+<span class="c1"># 评估影响力</span>
 <span class="n">model</span> <span class="o">=</span> <span class="n">IndependentCascadeModel</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="nb">set</span><span class="p">(</span><span class="n">seeds</span><span class="p">))</span>
-<span class="n">avg_influence</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">run_monte_carlo_diffusion</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="n">num_threads</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;平均影响力: </span><span class="si">{</span><span class="n">avg_influence</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">avg</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">run_monte_carlo_diffusion</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="n">num_threads</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
-<hr class="docutils" />
 <section id="id4">
-<h2>核心功能<a class="headerlink" href="#id4" title="Link to this heading"></a></h2>
-<section id="id5">
-<h3>图结构<a class="headerlink" href="#id5" title="Link to this heading"></a></h3>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pynetim</span><span class="w"> </span><span class="kn">import</span> <span class="n">IMGraph</span>
-
-<span class="c1"># 从边列表创建</span>
-<span class="n">graph</span> <span class="o">=</span> <span class="n">IMGraph</span><span class="p">(</span><span class="n">edges</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
-
-<span class="c1"># 统一权重</span>
-<span class="n">graph</span> <span class="o">=</span> <span class="n">IMGraph</span><span class="p">(</span><span class="n">edges</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
-
-<span class="c1"># 逐边权重</span>
-<span class="n">graph</span> <span class="o">=</span> <span class="n">IMGraph</span><span class="p">(</span><span class="n">edges</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="o">...</span><span class="p">])</span>
-
-<span class="c1"># 查询邻居（仅节点ID）</span>
-<span class="k">for</span> <span class="n">neighbor</span> <span class="ow">in</span> <span class="n">graph</span><span class="o">.</span><span class="n">out_neighbors</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;邻居: </span><span class="si">{</span><span class="n">neighbor</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-
-<span class="c1"># 查询邻居（带权重）</span>
-<span class="k">for</span> <span class="n">neighbor</span><span class="p">,</span> <span class="n">weight</span> <span class="ow">in</span> <span class="n">graph</span><span class="o">.</span><span class="n">out_neighbors_with_weights</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;邻居: </span><span class="si">{</span><span class="n">neighbor</span><span class="si">}</span><span class="s2">, 权重: </span><span class="si">{</span><span class="n">weight</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
+<h2>相关链接<a class="headerlink" href="#id4" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/zzzkhj/PyNetIM">GitHub 仓库</a></p></li>
+<li><p><a class="reference external" href="https://pypi.org/project/pynetim/">PyPI 包</a></p></li>
+<li><p><a class="reference external" href="https://github.com/zzzkhj/PyNetIM/issues">问题反馈</a></p></li>
+</ul>
 </section>
 <section id="id6">
-<h3>传播模型<a class="headerlink" href="#id6" title="Link to this heading"></a></h3>
-<table class="docutils align-default">
-<thead>
-<tr class="row-odd"><th class="head"><p>模型</p></th>
-<th class="head"><p>说明</p></th>
-<th class="head"><p>使用场景</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">IndependentCascadeModel</span></code></p></td>
-<td><p>独立级联模型</p></td>
-<td><p>社交网络传播</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">LinearThresholdModel</span></code></p></td>
-<td><p>线性阈值模型</p></td>
-<td><p>观点传播</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">SusceptibleInfectedModel</span></code></p></td>
-<td><p>SI 模型</p></td>
-<td><p>疫情传播</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">SusceptibleInfectedRecoveredModel</span></code></p></td>
-<td><p>SIR 模型</p></td>
-<td><p>疫情传播（含恢复）</p></td>
-</tr>
-</tbody>
-</table>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pynetim</span><span class="w"> </span><span class="kn">import</span> <span class="n">IndependentCascadeModel</span><span class="p">,</span> <span class="n">SusceptibleInfectedModel</span><span class="p">,</span> <span class="n">SusceptibleInfectedRecoveredModel</span>
-
-<span class="c1"># IC 模型</span>
-<span class="n">model</span> <span class="o">=</span> <span class="n">IndependentCascadeModel</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">seeds</span><span class="o">=</span><span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">})</span>
-<span class="n">count</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">run_single_simulation</span><span class="p">()</span>
-
-<span class="c1"># SI 模型（需要显式提供 beta 和 max_steps）</span>
-<span class="n">si_model</span> <span class="o">=</span> <span class="n">SusceptibleInfectedModel</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">seeds</span><span class="o">=</span><span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">},</span> <span class="n">beta</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">max_steps</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
-<span class="n">count</span> <span class="o">=</span> <span class="n">si_model</span><span class="o">.</span><span class="n">run_single_simulation</span><span class="p">()</span>
-
-<span class="c1"># SIR 模型（需要显式提供 beta 和 gamma）</span>
-<span class="n">sir_model</span> <span class="o">=</span> <span class="n">SusceptibleInfectedRecoveredModel</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">seeds</span><span class="o">=</span><span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">},</span> <span class="n">beta</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
-<span class="n">count</span> <span class="o">=</span> <span class="n">sir_model</span><span class="o">.</span><span class="n">run_single_simulation</span><span class="p">()</span>
-
-<span class="c1"># 蒙特卡洛模拟（多线程）</span>
-<span class="n">avg</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">run_monte_carlo_diffusion</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="n">num_threads</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
-
-<span class="c1"># 记录激活节点</span>
-<span class="n">model</span> <span class="o">=</span> <span class="n">IndependentCascadeModel</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">seeds</span><span class="p">,</span> <span class="n">record_activated</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">count</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">run_single_simulation</span><span class="p">()</span>
-<span class="n">activated</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">get_activated_nodes</span><span class="p">()</span>
-</pre></div>
-</div>
-</section>
-<section id="id7">
-<h3>影响力最大化算法<a class="headerlink" href="#id7" title="Link to this heading"></a></h3>
-<table class="docutils align-default">
-<thead>
-<tr class="row-odd"><th class="head"><p>算法</p></th>
-<th class="head"><p>类型</p></th>
-<th class="head"><p>特点</p></th>
-<th class="head"><p>参考文献</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">DegreeCentralityAlgorithm</span></code></p></td>
-<td><p>启发式</p></td>
-<td><p>度中心性，最快</p></td>
-<td><p>-</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">PageRankAlgorithm</span></code></p></td>
-<td><p>启发式</p></td>
-<td><p>经典 PageRank</p></td>
-<td><p>Brin &amp; Page 1998</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">VoteRankAlgorithm</span></code></p></td>
-<td><p>启发式</p></td>
-<td><p>投票机制，避免聚集</p></td>
-<td><p>Zhang et al. 2016</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">KShellDecompositionAlgorithm</span></code></p></td>
-<td><p>启发式</p></td>
-<td><p>K-shell 分解</p></td>
-<td><p>Kitsak et al. 2010</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">BetweennessCentralityAlgorithm</span></code></p></td>
-<td><p>启发式</p></td>
-<td><p>介数中心性</p></td>
-<td><p>Freeman 1977</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ClosenessCentralityAlgorithm</span></code></p></td>
-<td><p>启发式</p></td>
-<td><p>接近中心性</p></td>
-<td><p>Sabidussi 1966</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">EigenvectorCentralityAlgorithm</span></code></p></td>
-<td><p>启发式</p></td>
-<td><p>特征向量中心性</p></td>
-<td><p>Bonacich 1972</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">SingleDiscountAlgorithm</span></code></p></td>
-<td><p>启发式</p></td>
-<td><p>速度快</p></td>
-<td><p>-</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">DegreeDiscountAlgorithm</span></code></p></td>
-<td><p>启发式</p></td>
-<td><p>速度快，效果好</p></td>
-<td><p>-</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">GreedyAlgorithm</span></code></p></td>
-<td><p>模拟类</p></td>
-<td><p>精度高，速度慢</p></td>
-<td><p>Kemper et al., 2003</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">CELFAlgorithm</span></code></p></td>
-<td><p>模拟类</p></td>
-<td><p>精度高，比贪婪快</p></td>
-<td><p>Leskovec et al., 2007</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">CELFPlusAlgorithm</span></code></p></td>
-<td><p>模拟类</p></td>
-<td><p>CELF 优化版</p></td>
-<td><p>Goyal et al., WWW 2011</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">BaseRISAlgorithm</span></code></p></td>
-<td><p>RIS 类</p></td>
-<td><p>基础反向影响采样</p></td>
-<td><p>Borgs et al., 2014</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">IMMAlgorithm</span></code></p></td>
-<td><p>RIS 类</p></td>
-<td><p>大规模图首选</p></td>
-<td><p>Tang et al., SIGMOD 2015</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">TIMAlgorithm</span></code></p></td>
-<td><p>RIS 类</p></td>
-<td><p>两阶段影响力估计</p></td>
-<td><p>Tang et al., 2014</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">TIMPlusAlgorithm</span></code></p></td>
-<td><p>RIS 类</p></td>
-<td><p>TIM 优化版</p></td>
-<td><p>Tang et al., 2014</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">OPIMAlgorithm</span></code></p></td>
-<td><p>OPIM 类</p></td>
-<td><p>可证明近似保证</p></td>
-<td><p>Tang et al., SIGMOD 2018</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">OPIMCAlgorithm</span></code></p></td>
-<td><p>OPIM 类</p></td>
-<td><p>自适应采样版本</p></td>
-<td><p>Tang et al., SIGMOD 2018</p></td>
-</tr>
-</tbody>
-</table>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pynetim</span><span class="w"> </span><span class="kn">import</span> <span class="n">DegreeDiscountAlgorithm</span><span class="p">,</span> <span class="n">GreedyAlgorithm</span><span class="p">,</span> <span class="n">IMMAlgorithm</span><span class="p">,</span> <span class="n">OPIMCAlgorithm</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pynetim.algorithms</span><span class="w"> </span><span class="kn">import</span> <span class="n">PageRankAlgorithm</span><span class="p">,</span> <span class="n">VoteRankAlgorithm</span>
-
-<span class="c1"># 启发式算法（快）</span>
-<span class="n">algo</span> <span class="o">=</span> <span class="n">DegreeDiscountAlgorithm</span><span class="p">(</span><span class="n">graph</span><span class="p">)</span>
-<span class="n">seeds</span> <span class="o">=</span> <span class="n">algo</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">k</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
-
-<span class="c1"># PageRank 算法</span>
-<span class="n">algo</span> <span class="o">=</span> <span class="n">PageRankAlgorithm</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">damping</span><span class="o">=</span><span class="mf">0.85</span><span class="p">)</span>
-<span class="n">seeds</span> <span class="o">=</span> <span class="n">algo</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">k</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
-
-<span class="c1"># VoteRank 算法（避免种子聚集）</span>
-<span class="n">algo</span> <span class="o">=</span> <span class="n">VoteRankAlgorithm</span><span class="p">(</span><span class="n">graph</span><span class="p">)</span>
-<span class="n">seeds</span> <span class="o">=</span> <span class="n">algo</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">k</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
-
-<span class="c1"># 模拟类算法（精确）</span>
-<span class="n">algo</span> <span class="o">=</span> <span class="n">GreedyAlgorithm</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="s1">&#39;IC&#39;</span><span class="p">,</span> <span class="n">num_trials</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
-<span class="n">seeds</span> <span class="o">=</span> <span class="n">algo</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">k</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
-
-<span class="c1"># RIS 算法（大规模图）</span>
-<span class="n">algo</span> <span class="o">=</span> <span class="n">IMMAlgorithm</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="s1">&#39;IC&#39;</span><span class="p">,</span> <span class="n">epsilon</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
-<span class="n">seeds</span> <span class="o">=</span> <span class="n">algo</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">k</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
-
-<span class="c1"># OPIM-C 算法（自适应采样，可证明近似保证）</span>
-<span class="n">algo</span> <span class="o">=</span> <span class="n">OPIMCAlgorithm</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="s1">&#39;IC&#39;</span><span class="p">,</span> <span class="n">random_seed</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">seeds</span> <span class="o">=</span> <span class="n">algo</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">k</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">epsilon</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
-</pre></div>
-</div>
-</section>
-<section id="id8">
-<h3>深度学习算法<a class="headerlink" href="#id8" title="Link to this heading"></a></h3>
-<p>PyNetIM 集成了基于深度强化学习的影响力最大化算法：</p>
-<table class="docutils align-default">
-<thead>
-<tr class="row-odd"><th class="head"><p>算法</p></th>
-<th class="head"><p>类型</p></th>
-<th class="head"><p>特点</p></th>
-<th class="head"><p>参考文献</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ToupleGDDAlgorithm</span></code></p></td>
-<td><p>深度学习</p></td>
-<td><p>三重门控图神经网络 + DQN</p></td>
-<td><p>IEEE TCSS 2024</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">S2VDQNAlgorithm</span></code></p></td>
-<td><p>深度学习</p></td>
-<td><p>Structure2Vec + DQN</p></td>
-<td><p>NeurIPS 2017</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">BiGDNAlgorithm</span></code></p></td>
-<td><p>深度学习</p></td>
-<td><p>端到端图神经网络 + DQN（教师模型）</p></td>
-<td><p>Expert Syst. Appl. 2025</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">BiGDNSAlgorithm</span></code></p></td>
-<td><p>深度学习</p></td>
-<td><p>BiGDN 学生模型，支持知识蒸馏</p></td>
-<td><p>-</p></td>
-</tr>
-</tbody>
-</table>
-<p><strong>预训练权重</strong>：库内置了论文作者公开的预训练权重，设置 <code class="docutils literal notranslate"><span class="pre">pretrained=True</span></code> 即可自动加载。用户也可通过 <code class="docutils literal notranslate"><span class="pre">weights_path</span></code> 参数指定自己的权重文件。</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pynetim</span><span class="w"> </span><span class="kn">import</span> <span class="n">IMGraph</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pynetim.algorithms</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
-    <span class="n">ToupleGDDAlgorithm</span><span class="p">,</span> <span class="n">S2VDQNAlgorithm</span><span class="p">,</span>
-    <span class="n">BiGDNAlgorithm</span><span class="p">,</span> <span class="n">BiGDNSAlgorithm</span>
-<span class="p">)</span>
-
-<span class="c1"># 创建图</span>
-<span class="n">graph</span> <span class="o">=</span> <span class="n">IMGraph</span><span class="p">(</span><span class="n">edges</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
-
-<span class="c1"># ToupleGDD（默认 use_topk=True，一次性选择）</span>
-<span class="n">algo</span> <span class="o">=</span> <span class="n">ToupleGDDAlgorithm</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">pretrained</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">seeds</span> <span class="o">=</span> <span class="n">algo</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">k</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
-
-<span class="c1"># S2V-DQN（默认 use_topk=False，迭代选择）</span>
-<span class="n">algo</span> <span class="o">=</span> <span class="n">S2VDQNAlgorithm</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">pretrained</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">seeds</span> <span class="o">=</span> <span class="n">algo</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">k</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
-
-<span class="c1"># BiGDN</span>
-<span class="n">algo</span> <span class="o">=</span> <span class="n">BiGDNAlgorithm</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">pretrained</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">seeds</span> <span class="o">=</span> <span class="n">algo</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">k</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
-
-<span class="c1"># BiGDNS（学生模型）</span>
-<span class="n">algo</span> <span class="o">=</span> <span class="n">BiGDNSAlgorithm</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">pretrained</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">seeds</span> <span class="o">=</span> <span class="n">algo</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">k</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
-</pre></div>
-</div>
-<section id="id9">
-<h4>训练深度学习模型<a class="headerlink" href="#id9" title="Link to this heading"></a></h4>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pynetim.algorithms</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
-    <span class="n">ToupleGDDTrainer</span><span class="p">,</span> <span class="n">S2VDQNTrainer</span><span class="p">,</span>
-    <span class="n">BiGDNTrainer</span><span class="p">,</span> <span class="n">BiGDNNodeEncoderTrainer</span>
-<span class="p">)</span>
-
-<span class="c1"># ToupleGDD 训练</span>
-<span class="n">trainer</span> <span class="o">=</span> <span class="n">ToupleGDDTrainer</span><span class="p">(</span><span class="n">device</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">)</span>
-<span class="n">trainer</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">graphs</span><span class="o">=</span><span class="p">[</span><span class="n">graph</span><span class="p">],</span> <span class="n">budget</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">num_epochs</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">save_path</span><span class="o">=</span><span class="s1">&#39;model.ckpt&#39;</span><span class="p">)</span>
-
-<span class="c1"># S2V-DQN 训练</span>
-<span class="n">trainer</span> <span class="o">=</span> <span class="n">S2VDQNTrainer</span><span class="p">(</span><span class="n">device</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">)</span>
-<span class="n">trainer</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">graphs</span><span class="o">=</span><span class="p">[</span><span class="n">graph</span><span class="p">],</span> <span class="n">budget</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">num_epochs</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">save_path</span><span class="o">=</span><span class="s1">&#39;model.ckpt&#39;</span><span class="p">)</span>
-
-<span class="c1"># BiGDN 训练（需要先预训练 NodeEncoder）</span>
-<span class="n">ne_trainer</span> <span class="o">=</span> <span class="n">BiGDNNodeEncoderTrainer</span><span class="p">(</span><span class="n">num_features</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">)</span>
-<span class="n">ne_trainer</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">graphs</span><span class="o">=</span><span class="n">train_graphs</span><span class="p">,</span> <span class="n">num_epochs</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">save_path</span><span class="o">=</span><span class="s1">&#39;encoder.pth&#39;</span><span class="p">)</span>
-
-<span class="n">trainer</span> <span class="o">=</span> <span class="n">BiGDNTrainer</span><span class="p">(</span><span class="n">num_features</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span> <span class="n">encoder_path</span><span class="o">=</span><span class="s1">&#39;encoder.pth&#39;</span><span class="p">)</span>
-<span class="n">trainer</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">graphs</span><span class="o">=</span><span class="p">[</span><span class="n">graph</span><span class="p">],</span> <span class="n">budget</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">num_epochs</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">save_path</span><span class="o">=</span><span class="s1">&#39;model.pth&#39;</span><span class="p">)</span>
-
-<span class="c1"># BiGDNS 训练（需要教师模型权重进行知识蒸馏）</span>
-<span class="n">trainer</span> <span class="o">=</span> <span class="n">BiGDNTrainer</span><span class="p">(</span><span class="n">num_features</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span>
-                       <span class="n">teacher_path</span><span class="o">=</span><span class="s1">&#39;bigdn_weights.pth&#39;</span><span class="p">,</span> <span class="n">is_student</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">trainer</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">graphs</span><span class="o">=</span><span class="p">[</span><span class="n">graph</span><span class="p">],</span> <span class="n">budget</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">num_epochs</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">save_path</span><span class="o">=</span><span class="s1">&#39;bigdns_weights.pth&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-<p><strong>注意</strong>：深度学习算法需要安装额外依赖：</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>pynetim<span class="o">[</span>deep-learning<span class="o">]</span>
-</pre></div>
-</div>
-</section>
-</section>
-<section id="id10">
-<h3>自定义传播模型<a class="headerlink" href="#id10" title="Link to this heading"></a></h3>
-<p>PyNetIM 提供两种自定义模型基类：</p>
-<table class="docutils align-default">
-<thead>
-<tr class="row-odd"><th class="head"><p>基类</p></th>
-<th class="head"><p>特点</p></th>
-<th class="head"><p>适用场景</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">BaseCallbackDiffusionModel</span></code></p></td>
-<td><p>C++ 回调，单线程</p></td>
-<td><p>简单模型</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">BaseMultiprocessDiffusionModel</span></code></p></td>
-<td><p>多进程并行</p></td>
-<td><p>需要加速的复杂模型</p></td>
-</tr>
-</tbody>
-</table>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pynetim.diffusion_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseMultiprocessDiffusionModel</span>
-
-<span class="k">class</span><span class="w"> </span><span class="nc">MyICModel</span><span class="p">(</span><span class="n">BaseMultiprocessDiffusionModel</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;自定义 IC 模型。&quot;&quot;&quot;</span>
-    
-    <span class="k">def</span><span class="w"> </span><span class="nf">run_single_trial</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">seeds</span><span class="p">,</span> <span class="n">rng_seed</span><span class="p">):</span>
-        <span class="kn">import</span><span class="w"> </span><span class="nn">random</span>
-        <span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">rng_seed</span><span class="p">)</span>
-        
-        <span class="n">activated</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">seeds</span><span class="p">)</span>
-        <span class="n">current</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">seeds</span><span class="p">)</span>
-        
-        <span class="k">while</span> <span class="n">current</span><span class="p">:</span>
-            <span class="n">new_active</span> <span class="o">=</span> <span class="p">[]</span>
-            <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">current</span><span class="p">:</span>
-                <span class="k">for</span> <span class="n">neighbor</span><span class="p">,</span> <span class="n">weight</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">out_neighbors_with_weights</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
-                    <span class="k">if</span> <span class="n">neighbor</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">activated</span> <span class="ow">and</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">weight</span><span class="p">:</span>
-                        <span class="n">activated</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">neighbor</span><span class="p">)</span>
-                        <span class="n">new_active</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">neighbor</span><span class="p">)</span>
-            <span class="n">current</span> <span class="o">=</span> <span class="n">new_active</span>
-        
-        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">activated</span><span class="p">),</span> <span class="n">activated</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">num_nodes</span>
-
-<span class="c1"># 使用自定义模型</span>
-<span class="n">model</span> <span class="o">=</span> <span class="n">MyICModel</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">})</span>
-<span class="n">avg</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">run_monte_carlo_diffusion</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="n">num_processes</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
-</pre></div>
-</div>
-</section>
-<section id="id11">
-<h3>评估指标<a class="headerlink" href="#id11" title="Link to this heading"></a></h3>
-<p>PyNetIM 提供完整的评估指标模块，用于评估影响力最大化算法的性能：</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pynetim.evaluation</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
-    <span class="n">kendall_tau</span><span class="p">,</span>
-    <span class="n">monotonicity_score</span><span class="p">,</span>
-    <span class="n">top_k_accuracy</span><span class="p">,</span>
-    <span class="n">average_shortest_distance</span><span class="p">,</span>
-    <span class="n">degree_statistics</span><span class="p">,</span>
-<span class="p">)</span>
-
-<span class="c1"># 排名相关性评估</span>
-<span class="n">tau</span><span class="p">,</span> <span class="n">p</span> <span class="o">=</span> <span class="n">kendall_tau</span><span class="p">(</span><span class="n">ranking1</span><span class="p">,</span> <span class="n">ranking2</span><span class="p">)</span>
-
-<span class="c1"># 单调性评估（区分节点重要性的能力）</span>
-<span class="n">mono</span> <span class="o">=</span> <span class="n">monotonicity_score</span><span class="p">(</span><span class="n">importance_scores</span><span class="p">)</span>
-
-<span class="c1"># Top-K 准确率</span>
-<span class="n">acc</span> <span class="o">=</span> <span class="n">top_k_accuracy</span><span class="p">(</span><span class="n">predicted_seeds</span><span class="p">,</span> <span class="n">ground_truth_seeds</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
-
-<span class="c1"># 种子节点分布评估</span>
-<span class="n">avg_dist</span> <span class="o">=</span> <span class="n">average_shortest_distance</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">seeds</span><span class="p">)</span>
-<span class="n">stats</span> <span class="o">=</span> <span class="n">degree_statistics</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">seeds</span><span class="p">)</span>
-</pre></div>
-</div>
-</section>
-<section id="id12">
-<h3>时间测量<a class="headerlink" href="#id12" title="Link to this heading"></a></h3>
-<p>支持多种时间测量方式：</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pynetim.timing</span><span class="w"> </span><span class="kn">import</span> <span class="n">measure_time</span><span class="p">,</span> <span class="n">AlgorithmTimer</span>
-
-<span class="c1"># 装饰器方式</span>
-<span class="nd">@measure_time</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">my_algorithm</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">seeds</span>
-
-<span class="n">seeds</span><span class="p">,</span> <span class="n">runtime</span> <span class="o">=</span> <span class="n">my_algorithm</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
-
-<span class="c1"># AlgorithmTimer 类</span>
-<span class="n">timer</span> <span class="o">=</span> <span class="n">AlgorithmTimer</span><span class="p">(</span><span class="n">algorithm</span><span class="p">)</span>
-<span class="n">seeds</span><span class="p">,</span> <span class="n">runtime</span> <span class="o">=</span> <span class="n">timer</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">k</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">mc_rounds</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">random_seed</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
-
-<span class="c1"># 多次运行统计</span>
-<span class="n">stats</span> <span class="o">=</span> <span class="n">timer</span><span class="o">.</span><span class="n">run_multiple</span><span class="p">(</span><span class="n">k</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">num_runs</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Mean: </span><span class="si">{</span><span class="n">stats</span><span class="p">[</span><span class="s1">&#39;mean&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">s, Std: </span><span class="si">{</span><span class="n">stats</span><span class="p">[</span><span class="s1">&#39;std&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">s&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</section>
-</section>
-<hr class="docutils" />
-<section id="id13">
-<h2>性能对比<a class="headerlink" href="#id13" title="Link to this heading"></a></h2>
-<p>测试环境：Intel Xeon Platinum 8255C &#64; 2.50GHz, 3.6GB RAM, Ubuntu 24.04 LTS, Python 3.10.20</p>
-<table class="docutils align-default">
-<thead>
-<tr class="row-odd"><th class="head"><p>模型</p></th>
-<th class="head"><p>并行度</p></th>
-<th class="head"><p>耗时</p></th>
-<th class="head"><p>说明</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>C++ IC</p></td>
-<td><p>1 线程</p></td>
-<td><p>0.30s</p></td>
-<td><p>基准（最快）</p></td>
-</tr>
-<tr class="row-odd"><td><p>C++ IC</p></td>
-<td><p>4 线程</p></td>
-<td><p>0.38s</p></td>
-<td><p>多线程加速</p></td>
-</tr>
-<tr class="row-even"><td><p>BaseCallbackDiffusionModel</p></td>
-<td><p>1 线程</p></td>
-<td><p>6.6s</p></td>
-<td><p>单线程可用</p></td>
-</tr>
-<tr class="row-odd"><td><p>BaseCallbackDiffusionModel</p></td>
-<td><p>4 线程</p></td>
-<td><p>6.9s</p></td>
-<td><p>⚠️ GIL 限制</p></td>
-</tr>
-<tr class="row-even"><td><p>BaseMultiprocessDiffusionModel</p></td>
-<td><p>1 进程</p></td>
-<td><p>6.2s</p></td>
-<td><p>单进程</p></td>
-</tr>
-<tr class="row-odd"><td><p>BaseMultiprocessDiffusionModel</p></td>
-<td><p>4 进程</p></td>
-<td><p>3.7s</p></td>
-<td><p>✅ 真正并行</p></td>
-</tr>
-</tbody>
-</table>
-</section>
-<hr class="docutils" />
-<section id="id14">
-<h2>项目结构<a class="headerlink" href="#id14" title="Link to this heading"></a></h2>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>src/pynetim/
-├── __init__.py
-├── graph/                    # 图结构
-│   └── IMGraph
-├── diffusion_model/          # 传播模型
-│   ├── IndependentCascadeModel
-│   ├── LinearThresholdModel
-│   ├── SusceptibleInfectedModel
-│   ├── SusceptibleInfectedRecoveredModel
-│   ├── BaseCallbackDiffusionModel      # C++ 回调版
-│   └── BaseMultiprocessDiffusionModel  # 多进程版
-├── algorithms/               # IM 算法
-│   ├── SingleDiscountAlgorithm
-│   ├── DegreeDiscountAlgorithm
-│   ├── GreedyAlgorithm
-│   ├── CELFAlgorithm
-│   ├── heuristic/            # 启发式算法
-│   │   ├── DegreeCentralityAlgorithm
-│   │   ├── PageRankAlgorithm
-│   │   ├── VoteRankAlgorithm
-│   │   ├── KShellDecompositionAlgorithm
-│   │   ├── BetweennessCentralityAlgorithm
-│   │   ├── ClosenessCentralityAlgorithm
-│   │   └── EigenvectorCentralityAlgorithm
-│   ├── ris/                  # RIS 类算法
-│   │   ├── BaseRISAlgorithm
-│   │   ├── IMMAlgorithm
-│   │   ├── TIMAlgorithm
-│   │   ├── TIMPlusAlgorithm
-│   │   ├── OPIMAlgorithm
-│   │   └── OPIMCAlgorithm
-│   └── deep_learning/        # 深度学习算法
-│       ├── ToupleGDDAlgorithm
-│       ├── S2VDQNAlgorithm
-│       ├── BiGDNAlgorithm
-│       ├── BiGDNSAlgorithm
-│       ├── ToupleGDDTrainer
-│       ├── S2VDQNTrainer
-│       ├── BiGDNTrainer
-│       └── BiGDNNodeEncoderTrainer
-├── evaluation/               # 评估指标
-│   ├── ranking_metrics       # 排名指标
-│   ├── influence_metrics     # 影响力指标
-│   ├── seed_quality_metrics  # 种子质量指标
-│   └── network_metrics       # 网络指标
-├── timing/                   # 时间测量
-│   ├── measure_time          # 装饰器
-│   └── AlgorithmTimer        # 计时器类
-├── utils/                    # 工具函数
-└── py/                       # Python 实现（维护模式）
-</pre></div>
-</div>
-</section>
-<hr class="docutils" />
-<section id="id15">
-<h2>开发指南<a class="headerlink" href="#id15" title="Link to this heading"></a></h2>
-<section id="id16">
-<h3>运行测试<a class="headerlink" href="#id16" title="Link to this heading"></a></h3>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># 运行所有测试</span>
-python<span class="w"> </span>-m<span class="w"> </span>pytest<span class="w"> </span>tests/
-
-<span class="c1"># 运行特定测试</span>
-python<span class="w"> </span>tests/test_diffusion_comparison.py
-</pre></div>
-</div>
-</section>
-<section id="id17">
-<h3>贡献代码<a class="headerlink" href="#id17" title="Link to this heading"></a></h3>
-<ol class="arabic simple">
-<li><p>Fork 本仓库</p></li>
-<li><p>创建特性分支 (<code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">checkout</span> <span class="pre">-b</span> <span class="pre">feature/AmazingFeature</span></code>)</p></li>
-<li><p>提交更改 (<code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">commit</span> <span class="pre">-m</span> <span class="pre">'Add</span> <span class="pre">some</span> <span class="pre">AmazingFeature'</span></code>)</p></li>
-<li><p>推送到分支 (<code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">push</span> <span class="pre">origin</span> <span class="pre">feature/AmazingFeature</span></code>)</p></li>
-<li><p>开启 Pull Request</p></li>
-</ol>
-</section>
-</section>
-<hr class="docutils" />
-<section id="id18">
-<h2>更新日志<a class="headerlink" href="#id18" title="Link to this heading"></a></h2>
-<p>查看 <a class="reference internal" href="#CHANGELOG.md"><span class="xref myst">CHANGELOG.md</span></a> 了解版本历史。</p>
-</section>
-<hr class="docutils" />
-<section id="id19">
-<h2>许可证<a class="headerlink" href="#id19" title="Link to this heading"></a></h2>
-<p>本项目采用 MIT 许可证 - 详见 <a class="reference internal" href="#LICENSE"><span class="xref myst">LICENSE</span></a> 文件。</p>
-</section>
-<hr class="docutils" />
-<section id="id20">
-<h2>致谢<a class="headerlink" href="#id20" title="Link to this heading"></a></h2>
-<p>感谢以下对本项目提供帮助的个人和工具：</p>
+<h2>索引<a class="headerlink" href="#id6" title="Link to this heading"></a></h2>
 <ul class="simple">
-<li><p><strong>TraeAI</strong> - 提供了强大的 AI 辅助开发环境，显著提升了代码开发效率和问题解决能力</p></li>
-<li><p><strong>GLM-5</strong> - 智谱 AI 大语言模型，在代码开发、调试优化和文档编写过程中提供了重要帮助</p></li>
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
 </ul>
 </section>
 </section>
@@ -705,7 +260,9 @@ python<span class="w"> </span>tests/test_diffusion_comparison.py
 
            </div>
           </div>
-          <footer>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="installation.html" class="btn btn-neutral float-right" title="安装指南" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
 
   <hr/>
 

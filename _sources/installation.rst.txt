@@ -1,0 +1,57 @@
+安装指南
+========
+
+基本安装
+--------
+
+使用 pip 安装：
+
+.. code-block:: bash
+
+    pip install pynetim
+
+系统要求
+--------
+
+- **Python**: 3.8+（推荐 3.10+）
+- **C++ 编译器**: C++17 支持
+  - GCC 8+
+  - Clang 7+
+  - MSVC 19.14+ (Visual Studio 2017 15.7+)
+
+深度学习依赖
+------------
+
+深度学习算法需要额外依赖：
+
+.. code-block:: bash
+
+    pip install pynetim[deep-learning]
+
+或手动安装：
+
+.. code-block:: bash
+
+    pip install torch torch-geometric torch-scatter
+
+从源码安装
+----------
+
+.. code-block:: bash
+
+    git clone https://github.com/zzzkhj/PyNetIM.git
+    cd PyNetIM
+    pip install -e .
+
+验证安装
+--------
+
+.. code-block:: python
+
+    import pynetim
+    from pynetim import IMGraph
+    
+    # 创建简单图测试
+    edges = [(0, 1), (1, 2), (2, 3)]
+    graph = IMGraph(edges, weights=0.3)
+    print(f"节点数: {graph.num_nodes}, 边数: {graph.num_edges}")

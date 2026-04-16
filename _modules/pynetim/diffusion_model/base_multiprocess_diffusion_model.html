@@ -39,8 +39,29 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <!-- Local TOC -->
-              <div class="local-toc"></div>
+              <p class="caption" role="heading"><span class="caption-text">指南</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">安装指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">快速开始</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API 参考</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/graph.html">图模块</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/diffusion_model.html">扩散模型</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/algorithms.html">算法模块</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/evaluation.html">评估指标</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/timing.html">时间测量</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/utils.html">工具函数</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">其他</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">更新日志</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html#id57">版本说明</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html#id65">贡献指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html#id66">许可证</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html#id67">联系方式</a></li>
+</ul>
+
         </div>
       </div>
     </nav>
@@ -106,7 +127,7 @@
 
 
 <div class="viewcode-block" id="BaseMultiprocessDiffusionModel">
-<a class="viewcode-back" href="../../../api.html#pynetim.diffusion_model.BaseMultiprocessDiffusionModel">[docs]</a>
+<a class="viewcode-back" href="../../../api/diffusion_model.html#pynetim.diffusion_model.BaseMultiprocessDiffusionModel">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">BaseMultiprocessDiffusionModel</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;多进程版自定义传播模型基类。</span>
 
@@ -149,7 +170,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     
 <div class="viewcode-block" id="BaseMultiprocessDiffusionModel.__init__">
-<a class="viewcode-back" href="../../../api.html#pynetim.diffusion_model.BaseMultiprocessDiffusionModel.__init__">[docs]</a>
+<a class="viewcode-back" href="../../../api/diffusion_model.html#pynetim.diffusion_model.BaseMultiprocessDiffusionModel.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">graph</span><span class="p">:</span> <span class="s1">&#39;IMGraph&#39;</span><span class="p">,</span> <span class="n">seeds</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="nb">int</span><span class="p">]):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;初始化传播模型。</span>
 
@@ -163,7 +184,7 @@
 
     
 <div class="viewcode-block" id="BaseMultiprocessDiffusionModel.set_seeds">
-<a class="viewcode-back" href="../../../api.html#pynetim.diffusion_model.BaseMultiprocessDiffusionModel.set_seeds">[docs]</a>
+<a class="viewcode-back" href="../../../api/diffusion_model.html#pynetim.diffusion_model.BaseMultiprocessDiffusionModel.set_seeds">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">set_seeds</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">seeds</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="nb">int</span><span class="p">]):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;设置种子节点集合。</span>
 
@@ -174,7 +195,7 @@
 
     
 <div class="viewcode-block" id="BaseMultiprocessDiffusionModel.run_single_trial">
-<a class="viewcode-back" href="../../../api.html#pynetim.diffusion_model.BaseMultiprocessDiffusionModel.run_single_trial">[docs]</a>
+<a class="viewcode-back" href="../../../api/diffusion_model.html#pynetim.diffusion_model.BaseMultiprocessDiffusionModel.run_single_trial">[docs]</a>
     <span class="nd">@abstractmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">run_single_trial</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">seeds</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">random_seed</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Set</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;执行单次传播试验。</span>
@@ -210,7 +231,7 @@
         <span class="p">}</span>
     
 <div class="viewcode-block" id="BaseMultiprocessDiffusionModel.run_monte_carlo_diffusion">
-<a class="viewcode-back" href="../../../api.html#pynetim.diffusion_model.BaseMultiprocessDiffusionModel.run_monte_carlo_diffusion">[docs]</a>
+<a class="viewcode-back" href="../../../api/diffusion_model.html#pynetim.diffusion_model.BaseMultiprocessDiffusionModel.run_monte_carlo_diffusion">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">run_monte_carlo_diffusion</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> 
         <span class="n">mc_rounds</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> 
@@ -264,7 +285,7 @@
 
     
 <div class="viewcode-block" id="BaseMultiprocessDiffusionModel.run_monte_carlo_with_frequency">
-<a class="viewcode-back" href="../../../api.html#pynetim.diffusion_model.BaseMultiprocessDiffusionModel.run_monte_carlo_with_frequency">[docs]</a>
+<a class="viewcode-back" href="../../../api/diffusion_model.html#pynetim.diffusion_model.BaseMultiprocessDiffusionModel.run_monte_carlo_with_frequency">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">run_monte_carlo_with_frequency</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> 
         <span class="n">mc_rounds</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> 

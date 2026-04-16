@@ -1,0 +1,7 @@
+时间测量
+========
+
+.. automodule:: pynetim.timing
+   :members:
+   :undoc-members:
+   :show-inheritance:

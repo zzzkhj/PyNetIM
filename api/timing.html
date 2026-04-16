@@ -1,0 +1,433 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>时间测量 &mdash; PyNetIM  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="工具函数" href="utils.html" />
+    <link rel="prev" title="评估指标" href="evaluation.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            PyNetIM
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">指南</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">安装指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">快速开始</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API 参考</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="graph.html">图模块</a></li>
+<li class="toctree-l1"><a class="reference internal" href="diffusion_model.html">扩散模型</a></li>
+<li class="toctree-l1"><a class="reference internal" href="algorithms.html">算法模块</a></li>
+<li class="toctree-l1"><a class="reference internal" href="evaluation.html">评估指标</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">时间测量</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#pynetim.timing.AlgorithmTimer"><code class="docutils literal notranslate"><span class="pre">AlgorithmTimer</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#pynetim.timing.AlgorithmTimer.all_runtimes"><code class="docutils literal notranslate"><span class="pre">AlgorithmTimer.all_runtimes</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pynetim.timing.AlgorithmTimer.clear"><code class="docutils literal notranslate"><span class="pre">AlgorithmTimer.clear()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pynetim.timing.AlgorithmTimer.last_runtime"><code class="docutils literal notranslate"><span class="pre">AlgorithmTimer.last_runtime</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pynetim.timing.AlgorithmTimer.run"><code class="docutils literal notranslate"><span class="pre">AlgorithmTimer.run()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pynetim.timing.AlgorithmTimer.run_multiple"><code class="docutils literal notranslate"><span class="pre">AlgorithmTimer.run_multiple()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#pynetim.timing.compare_algorithms_runtime"><code class="docutils literal notranslate"><span class="pre">compare_algorithms_runtime()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pynetim.timing.measure_runtime"><code class="docutils literal notranslate"><span class="pre">measure_runtime()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pynetim.timing.measure_runtime_multiple_runs"><code class="docutils literal notranslate"><span class="pre">measure_runtime_multiple_runs()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pynetim.timing.measure_time"><code class="docutils literal notranslate"><span class="pre">measure_time()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="utils.html">工具函数</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">其他</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">更新日志</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html#id57">版本说明</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html#id65">贡献指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html#id66">许可证</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html#id67">联系方式</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">PyNetIM</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">时间测量</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/api/timing.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-pynetim.timing">
+<span id="id1"></span><h1>时间测量<a class="headerlink" href="#module-pynetim.timing" title="Link to this heading"></a></h1>
+<p>时间测量工具模块。</p>
+<p>提供算法运行时间测量的多种方式。</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="pynetim.timing.AlgorithmTimer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pynetim.timing.</span></span><span class="sig-name descname"><span class="pre">AlgorithmTimer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">algorithm_instance</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pynetim/timing.html#AlgorithmTimer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.timing.AlgorithmTimer" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>算法运行时间测量器。</p>
+<p>用于测量算法类实例的运行时间，支持多次运行统计。</p>
+<dl class="simple">
+<dt>支持的算法类型：</dt><dd><ul class="simple">
+<li><p>启发式算法（DegreeDiscount, SingleDiscount等）：只需 k 参数</p></li>
+<li><p>贪婪算法（Greedy, CELF）：需要 k, mc_rounds 等参数</p></li>
+<li><p>RIS算法（IMM, TIM, OPIM）：需要 k 参数，部分需要 num_rr_sets</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">pynetim.timing</span><span class="w"> </span><span class="kn">import</span> <span class="n">AlgorithmTimer</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">pynetim</span><span class="w"> </span><span class="kn">import</span> <span class="n">DegreeDiscountAlgorithm</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># 创建算法实例</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">algorithm</span> <span class="o">=</span> <span class="n">DegreeDiscountAlgorithm</span><span class="p">(</span><span class="n">graph</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># 创建计时器</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">timer</span> <span class="o">=</span> <span class="n">AlgorithmTimer</span><span class="p">(</span><span class="n">algorithm</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># 单次运行（启发式算法）</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">seeds</span><span class="p">,</span> <span class="n">runtime</span> <span class="o">=</span> <span class="n">timer</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">k</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># 单次运行（贪婪算法）</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">seeds</span><span class="p">,</span> <span class="n">runtime</span> <span class="o">=</span> <span class="n">timer</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">k</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">mc_rounds</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">random_seed</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># 多次运行统计</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">stats</span> <span class="o">=</span> <span class="n">timer</span><span class="o">.</span><span class="n">run_multiple</span><span class="p">(</span><span class="n">k</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">num_runs</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Mean runtime: </span><span class="si">{</span><span class="n">stats</span><span class="p">[</span><span class="s1">&#39;mean&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">s&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="py property">
+<dt class="sig sig-object py" id="pynetim.timing.AlgorithmTimer.all_runtimes">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">all_runtimes</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#pynetim.timing.AlgorithmTimer.all_runtimes" title="Link to this definition"></a></dt>
+<dd><p>获取所有运行时间记录。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>运行时间列表。</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>List[float]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.timing.AlgorithmTimer.clear">
+<span class="sig-name descname"><span class="pre">clear</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pynetim/timing.html#AlgorithmTimer.clear"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.timing.AlgorithmTimer.clear" title="Link to this definition"></a></dt>
+<dd><p>清空运行时间记录。</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pynetim.timing.AlgorithmTimer.last_runtime">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">last_runtime</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#pynetim.timing.AlgorithmTimer.last_runtime" title="Link to this definition"></a></dt>
+<dd><p>获取最后一次运行的运行时间。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>运行时间（秒），如果没有运行过则返回 None。</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Optional[float]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.timing.AlgorithmTimer.run">
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span></span></span><a class="reference internal" href="../_modules/pynetim/timing.html#AlgorithmTimer.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.timing.AlgorithmTimer.run" title="Link to this definition"></a></dt>
+<dd><p>运行算法并测量时间。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>**kwargs</strong> – <p>传递给算法 run() 方法的参数。
+必须包含 k 参数（种子节点数量）。</p>
+<p>常用参数：
+- k: 种子节点数量（必填）
+- mc_rounds: 蒙特卡洛模拟次数（贪婪算法）
+- random_seed: 随机数种子
+- use_multithread: 是否启用多线程
+- num_rr_sets: RR集合数量（RIS算法）</p>
+</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>(种子节点集合, 运行时间)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># 启发式算法</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">seeds</span><span class="p">,</span> <span class="n">runtime</span> <span class="o">=</span> <span class="n">timer</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">k</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># 贪婪算法</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">seeds</span><span class="p">,</span> <span class="n">runtime</span> <span class="o">=</span> <span class="n">timer</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">k</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">mc_rounds</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">random_seed</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># OPIM 算法</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">seeds</span><span class="p">,</span> <span class="n">runtime</span> <span class="o">=</span> <span class="n">timer</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">k</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">num_rr_sets</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.timing.AlgorithmTimer.run_multiple">
+<span class="sig-name descname"><span class="pre">run_multiple</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_runs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/pynetim/timing.html#AlgorithmTimer.run_multiple"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.timing.AlgorithmTimer.run_multiple" title="Link to this definition"></a></dt>
+<dd><p>多次运行算法并统计运行时间。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>num_runs</strong> – 运行次数，默认 10。</p></li>
+<li><p><strong>**kwargs</strong> – 传递给算法 run() 方法的参数。
+必须包含 k 参数（种子节点数量）。</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>包含以下统计量：</dt><dd><ul class="simple">
+<li><p>mean: 平均运行时间</p></li>
+<li><p>std: 标准差</p></li>
+<li><p>min: 最小运行时间</p></li>
+<li><p>max: 最大运行时间</p></li>
+<li><p>median: 中位数</p></li>
+<li><p>total: 总运行时间</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dict[str, float]</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">stats</span> <span class="o">=</span> <span class="n">timer</span><span class="o">.</span><span class="n">run_multiple</span><span class="p">(</span><span class="n">k</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">num_runs</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Mean: </span><span class="si">{</span><span class="n">stats</span><span class="p">[</span><span class="s1">&#39;mean&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">s, Std: </span><span class="si">{</span><span class="n">stats</span><span class="p">[</span><span class="s1">&#39;std&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">s&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pynetim.timing.compare_algorithms_runtime">
+<span class="sig-prename descclassname"><span class="pre">pynetim.timing.</span></span><span class="sig-name descname"><span class="pre">compare_algorithms_runtime</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">algorithms</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/pynetim/timing.html#compare_algorithms_runtime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.timing.compare_algorithms_runtime" title="Link to this definition"></a></dt>
+<dd><p>比较多个算法的运行时间。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>algorithms</strong> – 算法名称到算法实例的映射。</p></li>
+<li><p><strong>**kwargs</strong> – 传递给算法 run() 方法的参数。
+必须包含 k 参数（种子节点数量）。</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>每个算法的运行结果和时间。</dt><dd><p>格式：{算法名: {‘seeds’: 种子集合, ‘runtime’: 运行时间}}</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dict[str, Dict[str, Any]]</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">pynetim.timing</span><span class="w"> </span><span class="kn">import</span> <span class="n">compare_algorithms_runtime</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">pynetim</span><span class="w"> </span><span class="kn">import</span> <span class="n">DegreeDiscountAlgorithm</span><span class="p">,</span> <span class="n">CELFAlgorithm</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">algorithms</span> <span class="o">=</span> <span class="p">{</span>
+<span class="gp">... </span>    <span class="s1">&#39;degree_discount&#39;</span><span class="p">:</span> <span class="n">DegreeDiscountAlgorithm</span><span class="p">(</span><span class="n">graph</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="s1">&#39;celf&#39;</span><span class="p">:</span> <span class="n">CELFAlgorithm</span><span class="p">(</span><span class="n">graph</span><span class="p">)</span>
+<span class="gp">... </span><span class="p">}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">results</span> <span class="o">=</span> <span class="n">compare_algorithms_runtime</span><span class="p">(</span><span class="n">algorithms</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">results</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;runtime&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">s, </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;seeds&#39;</span><span class="p">])</span><span class="si">}</span><span class="s2"> seeds&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pynetim.timing.measure_runtime">
+<span class="sig-prename descclassname"><span class="pre">pynetim.timing.</span></span><span class="sig-name descname"><span class="pre">measure_runtime</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span></span></span><a class="reference internal" href="../_modules/pynetim/timing.html#measure_runtime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.timing.measure_runtime" title="Link to this definition"></a></dt>
+<dd><p>测量函数运行时间。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>func</strong> – 要测量的函数。</p></li>
+<li><p><strong>*args</strong> – 函数位置参数。</p></li>
+<li><p><strong>**kwargs</strong> – 函数关键字参数。</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>(函数返回值, 运行时间秒数)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">pynetim.timing</span><span class="w"> </span><span class="kn">import</span> <span class="n">measure_runtime</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">result</span><span class="p">,</span> <span class="n">runtime</span> <span class="o">=</span> <span class="n">measure_runtime</span><span class="p">(</span><span class="n">algorithm</span><span class="o">.</span><span class="n">run</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Runtime: </span><span class="si">{</span><span class="n">runtime</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">s&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pynetim.timing.measure_runtime_multiple_runs">
+<span class="sig-prename descclassname"><span class="pre">pynetim.timing.</span></span><span class="sig-name descname"><span class="pre">measure_runtime_multiple_runs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_runs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/pynetim/timing.html#measure_runtime_multiple_runs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.timing.measure_runtime_multiple_runs" title="Link to this definition"></a></dt>
+<dd><p>多次运行函数并统计运行时间。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>func</strong> – 要测量的函数。</p></li>
+<li><p><strong>num_runs</strong> – 运行次数，默认 10。</p></li>
+<li><p><strong>*args</strong> – 函数位置参数。</p></li>
+<li><p><strong>**kwargs</strong> – 函数关键字参数。</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>包含以下统计量：</dt><dd><ul class="simple">
+<li><p>mean: 平均运行时间</p></li>
+<li><p>std: 标准差</p></li>
+<li><p>min: 最小运行时间</p></li>
+<li><p>max: 最大运行时间</p></li>
+<li><p>median: 中位数</p></li>
+<li><p>total: 总运行时间</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dict[str, float]</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">pynetim.timing</span><span class="w"> </span><span class="kn">import</span> <span class="n">measure_runtime_multiple_runs</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">stats</span> <span class="o">=</span> <span class="n">measure_runtime_multiple_runs</span><span class="p">(</span><span class="n">algorithm</span><span class="o">.</span><span class="n">run</span><span class="p">,</span> <span class="n">num_runs</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Mean runtime: </span><span class="si">{</span><span class="n">stats</span><span class="p">[</span><span class="s1">&#39;mean&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">s&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pynetim.timing.measure_time">
+<span class="sig-prename descclassname"><span class="pre">pynetim.timing.</span></span><span class="sig-name descname"><span class="pre">measure_time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Callable</span></span></span><a class="reference internal" href="../_modules/pynetim/timing.html#measure_time"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.timing.measure_time" title="Link to this definition"></a></dt>
+<dd><p>装饰器：测量函数或方法的运行时间。</p>
+<p>可以用于类方法或普通函数，支持C++绑定方法。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>func</strong> – 要测量的函数或方法。</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>包装后的函数。</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Callable</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">pynetim.timing</span><span class="w"> </span><span class="kn">import</span> <span class="n">measure_time</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nd">@measure_time</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span><span class="w"> </span><span class="nf">my_algorithm</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="c1"># 算法实现</span>
+<span class="gp">... </span>    <span class="k">return</span> <span class="n">seeds</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">seeds</span><span class="p">,</span> <span class="n">runtime</span> <span class="o">=</span> <span class="n">my_algorithm</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Runtime: </span><span class="si">{</span><span class="n">runtime</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">s&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>或者用于类方法：
+&gt;&gt;&gt; class MyAlgorithm:
+…     &#64;measure_time
+…     def run(self, k):
+…         return self._find_seeds(k)</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>装饰器会修改函数的返回值，将原始返回值和运行时间打包成元组返回。
+对于类方法，装饰器会自动处理 self 参数。</p>
+</div>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="evaluation.html" class="btn btn-neutral float-left" title="评估指标" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="utils.html" class="btn btn-neutral float-right" title="工具函数" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Kaijing Zhang.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
