@@ -27,6 +27,7 @@
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
 
+
           
           
           <a href="../../../index.html" class="icon icon-home">
@@ -40,6 +41,28 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
+<div class="version-selector" style="padding: 12px 15px; margin-top: -10px;">
+    <label style="font-weight: 600; font-size: 12px; color: #404040; display: block; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px;">Version</label>
+    <select id="version-select" onchange="window.location.href=this.value" style="width: 100%; padding: 6px 10px; border: 1px solid #d1d5da; border-radius: 6px; background: #f6f8fa; font-size: 13px; cursor: pointer; color: #24292e; font-weight: 500;">
+        <option value="../v0.5.3/">v0.5.3 (latest)</option>
+    </select>
+</div>
+<script>
+(function() {
+    var currentPath = window.location.pathname;
+    var versionMatch = currentPath.match(/\/v([\d.]+)\//);
+    if (versionMatch) {
+        var select = document.getElementById('version-select');
+        var options = select.options;
+        for (var i = 0; i < options.length; i++) {
+            if (options[i].value.includes('/v' + versionMatch[1] + '/')) {
+                options[i].selected = true;
+            }
+        }
+    }
+})();
+</script>
+
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">指南</span></p>
 <ul>
