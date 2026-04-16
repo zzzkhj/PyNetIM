@@ -1,19 +1,47 @@
 PyNetIM
 =======
 
-|GitHubStars| |PyPI| |Python| |License|
+|GitHubStars| |PyPIVersion| |Python| |License| |DownloadsTotal| |DownloadsDaily| |DownloadsWeekly| |DownloadsMonthly|
 
 .. |GitHubStars| image:: https://img.shields.io/github/stars/zzzkhj/PyNetIM?style=social
    :target: https://github.com/zzzkhj/PyNetIM
 
-.. |PyPI| image:: https://badge.fury.io/py/pynetim.svg
+.. |PyPIVersion| image:: https://img.shields.io/pypi/v/pynetim.svg
    :target: https://pypi.org/project/pynetim/
+   :alt: PyPI Version
 
 .. |Python| image:: https://img.shields.io/badge/python-3.8+-blue.svg
    :target: https://www.python.org/downloads/
 
 .. |License| image:: https://img.shields.io/badge/license-MIT-green.svg
    :target: LICENSE
+
+.. |DownloadsTotal| image:: https://static.pepy.tech/personalized-badge/pynetim?period=total&units=international_system&left_color=grey&right_color=blue&left_text=downloads
+   :target: https://pepy.tech/project/pynetim
+   :alt: Total Downloads
+
+.. .. |DownloadsDaily| image:: https://static.pepy.tech/personalized-badge/pynetim?period=day&units=international_system&left_color=grey&right_color=blue&left_text=downloads/day
+..    :target: https://pepy.tech/project/pynetim
+..    :alt: Daily Downloads
+.. |DownloadsDaily| image:: https://img.shields.io/pypi/dm/pynetim
+   :target: https://pypistats.org/packages/pynetim
+   :alt: PyPI Downloads
+
+.. |DownloadsWeekly| image:: https://img.shields.io/pypi/dw/pynetim
+   :target: https://pypistats.org/packages/pynetim
+   :alt: PyPI Downloads
+
+.. |DownloadsMonthly| image:: https://img.shields.io/pypi/dd/pynetim
+   :target: https://pypistats.org/packages/pynetim
+   :alt: PyPI Downloads
+
+.. .. |DownloadsWeekly| image:: https://static.pepy.tech/personalized-badge/pynetim?period=week&units=international_system&left_color=grey&right_color=blue&left_text=downloads/week
+..    :target: https://pepy.tech/project/pynetim
+..    :alt: Weekly Downloads
+
+.. .. |DownloadsMonthly| image:: https://static.pepy.tech/personalized-badge/pynetim?period=month&units=international_system&left_color=grey&right_color=blue&left_text=downloads/month
+..    :target: https://pepy.tech/project/pynetim
+..    :alt: Monthly Downloads
 
 `PyNetIM <https://zzzkhj.github.io/PyNetIM/>`_ 是一个用于**社交网络影响力最大化（Influence Maximization, IM）问题**的 Python 库，集成了多种经典算法与扩散模型，提供 **C++ 高性能后端**，适用于算法研究、性能对比与科研实验。
 
