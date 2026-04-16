@@ -4,7 +4,8 @@
 #include <unordered_set>
 #include <unordered_map>
 #include <stdexcept>
-#include <format>
+#include <string>
+#include <sstream>
 #include <memory>
 #include <algorithm>
 #include "../utils.h"
@@ -221,8 +222,9 @@ public:
     void update_edge_weight(int u, int v, double w) {
         auto it = edges.find({ u, v });
         if (it == edges.end()) {
-            throw std::runtime_error(
-                std::format("Edge ({}, {}) does not exist", u, v));
+            std::ostringstream oss;
+            oss << "Edge (" << u << ", " << v << ") does not exist";
+            throw std::runtime_error(oss.str());
         }
         edges[{u, v}] = w;
         for (auto& edge : adj[u]) {
@@ -236,8 +238,9 @@ public:
     void remove_edge(int u, int v) {
         auto it = edges.find({ u, v });
         if (it == edges.end()) {
-            throw std::runtime_error(
-                std::format("Edge ({}, {}) does not exist", u, v));
+            std::ostringstream oss;
+            oss << "Edge (" << u << ", " << v << ") does not exist";
+            throw std::runtime_error(oss.str());
         }
 
         auto& neighbors = adj[u];
@@ -412,8 +415,9 @@ public:
             auto it = edges.find({ u, v });
             if (it == edges.end()) {
                 if (raise_on_missing) {
-                    throw std::runtime_error(
-                        std::format("Edge ({}, {}) does not exist", u, v));
+                    std::ostringstream oss;
+                    oss << "Edge (" << u << ", " << v << ") does not exist";
+                    throw std::runtime_error(oss.str());
                 }
                 weights.push_back(default_value);
             } else {
@@ -468,8 +472,9 @@ public:
     double get_edge_weight(int u, int v) const {
         auto it = edges.find({ u, v });
         if (it == edges.end()) {
-            throw std::runtime_error(
-                std::format("Edge ({}, {}) does not exist", u, v));
+            std::ostringstream oss;
+            oss << "Edge (" << u << ", " << v << ") does not exist";
+            throw std::runtime_error(oss.str());
         }
         return it->second;
     }
@@ -479,9 +484,10 @@ public:
     }
 
     std::string __repr__() const {
-        return std::format("{} graph with {} nodes and {} edges",
-            directed ? "Directed" : "Undirected",
-            num_nodes, num_edges);
+        std::ostringstream oss;
+        oss << (directed ? "Directed" : "Undirected") 
+            << " graph with " << num_nodes << " nodes and " << num_edges << " edges";
+        return oss.str();
     }
 };
 
