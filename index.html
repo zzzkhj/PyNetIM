@@ -1,295 +1,52 @@
-
-
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" data-content_root="./">
+<html>
 <head>
-  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PyNetIM &mdash; PyNetIM  documentation</title>
-      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
-      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
-
-  
-    <link rel="shortcut icon" href="_static/favicon_32.png"/>
-      <script src="_static/jquery.js?v=5d32c60e"></script>
-      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="_static/documentation_options.js?v=5929fcd5"></script>
-      <script src="_static/doctools.js?v=9bcbadda"></script>
-      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="_static/js/theme.js"></script>
-    <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="安装指南" href="installation.html" /> 
+    <meta charset="utf-8">
+    <meta http-equiv="refresh" content="0; url=v0.5.3/">
+    <title>PyNetIM Documentation</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        .container {
+            text-align: center;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+        }
+        h1 { margin: 0 0 20px 0; font-size: 2.5em; }
+        p { margin: 10px 0; font-size: 1.1em; }
+        a { color: #ffd700; text-decoration: none; font-weight: bold; }
+        a:hover { text-decoration: underline; }
+        .spinner {
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top: 4px solid white;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
 </head>
-
-<body class="wy-body-for-nav"> 
-  <div class="wy-grid-for-nav">
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
-
-          
-          
-          <a href="#" class="icon icon-home">
-            PyNetIM
-              <img src="_static/icon.svg" class="logo" alt="Logo"/>
-          </a>
-<div role="search">
-  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
-</div>
-        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">指南</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="installation.html">安装指南</a></li>
-<li class="toctree-l1"><a class="reference internal" href="quickstart.html">快速开始</a></li>
-</ul>
-<p class="caption" role="heading"><span class="caption-text">API 参考</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="api/graph.html">图模块</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api/diffusion_model.html">扩散模型</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api/algorithms.html">算法模块</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api/evaluation.html">评估指标</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api/timing.html">时间测量</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api/utils.html">工具函数</a></li>
-</ul>
-<p class="caption" role="heading"><span class="caption-text">其他</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="changelog.html">更新日志</a></li>
-<li class="toctree-l1"><a class="reference internal" href="changelog.html#id66">版本说明</a></li>
-<li class="toctree-l1"><a class="reference internal" href="changelog.html#id75">贡献指南</a></li>
-<li class="toctree-l1"><a class="reference internal" href="changelog.html#id76">许可证</a></li>
-<li class="toctree-l1"><a class="reference internal" href="changelog.html#id77">联系方式</a></li>
-</ul>
-
-        </div>
-      </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="#">PyNetIM</a>
-      </nav>
-
-      <div class="wy-nav-content">
-        <div class="rst-content">
-          <div role="navigation" aria-label="Page navigation">
-  <ul class="wy-breadcrumbs">
-      <li><a href="#" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">PyNetIM</li>
-      <li class="wy-breadcrumbs-aside">
-            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
-      </li>
-  </ul>
-  <hr/>
-</div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
-             
-  <section id="pynetim">
-<h1>PyNetIM<a class="headerlink" href="#pynetim" title="Link to this heading"></a></h1>
-<p><a class="reference external" href="https://github.com/zzzkhj/PyNetIM"><img alt="GitHubStars" src="https://img.shields.io/static/v1?label=stars&amp;message=4&amp;color=blue&amp;style=flat&amp;logo=github" /></a> <a class="reference external" href="https://pypi.org/project/pynetim/"><img alt="PyPI Version" src="https://badge.fury.io/py/pynetim.svg" /></a> <a class="reference external" href="https://www.python.org/downloads/"><img alt="Python" src="https://img.shields.io/badge/python-3.8+-blue.svg" /></a> <a class="reference external" href="LICENSE"><img alt="License" src="https://img.shields.io/badge/license-MIT-green.svg" /></a> <a class="reference external" href="https://pepy.tech/project/pynetim"><img alt="Total Downloads" src="https://static.pepy.tech/personalized-badge/pynetim?period=total&amp;units=international_system&amp;left_color=grey&amp;right_color=blue&amp;left_text=downloads" /></a> <a class="reference external" href="https://pypistats.org/packages/pynetim"><img alt="PyPI Downloads" src="https://img.shields.io/pypi/dm/pynetim" /></a> <a class="reference external" href="https://pypistats.org/packages/pynetim"><img alt="PyPI Downloads" src="https://img.shields.io/pypi/dw/pynetim" /></a> <a class="reference external" href="https://pypistats.org/packages/pynetim"><img alt="PyPI Downloads" src="https://img.shields.io/pypi/dd/pynetim" /></a></p>
-<p><a class="reference external" href="https://zzzkhj.github.io/PyNetIM/">PyNetIM</a> 是一个用于**社交网络影响力最大化（Influence Maximization, IM）问题**的 Python 库，集成了多种经典算法与扩散模型，提供 <strong>C++ 高性能后端</strong>，适用于算法研究、性能对比与科研实验。</p>
-<div class="toctree-wrapper compound">
-<p class="caption" role="heading"><span class="caption-text">指南</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="installation.html">安装指南</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="installation.html#id2">基本安装</a></li>
-<li class="toctree-l2"><a class="reference internal" href="installation.html#wheel">离线安装（下载 wheel）</a></li>
-<li class="toctree-l2"><a class="reference internal" href="installation.html#id3">系统要求</a></li>
-<li class="toctree-l2"><a class="reference internal" href="installation.html#id4">深度学习依赖</a></li>
-<li class="toctree-l2"><a class="reference internal" href="installation.html#id5">从源码安装</a></li>
-<li class="toctree-l2"><a class="reference internal" href="installation.html#id6">验证安装</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="quickstart.html">快速开始</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="quickstart.html#id2">基本使用</a></li>
-<li class="toctree-l2"><a class="reference internal" href="quickstart.html#id6">算法选择指南</a></li>
-<li class="toctree-l2"><a class="reference internal" href="quickstart.html#id7">传播模型选择</a></li>
-<li class="toctree-l2"><a class="reference internal" href="quickstart.html#id8">完整示例</a></li>
-</ul>
-</li>
-</ul>
-</div>
-<div class="toctree-wrapper compound">
-<p class="caption" role="heading"><span class="caption-text">API 参考</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="api/graph.html">图模块</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="api/graph.html#pynetim.graph.IMGraph"><code class="docutils literal notranslate"><span class="pre">IMGraph</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="api/diffusion_model.html">扩散模型</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="api/diffusion_model.html#pynetim.diffusion_model.BaseCallbackDiffusionModel"><code class="docutils literal notranslate"><span class="pre">BaseCallbackDiffusionModel</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/diffusion_model.html#pynetim.diffusion_model.BaseMultiprocessDiffusionModel"><code class="docutils literal notranslate"><span class="pre">BaseMultiprocessDiffusionModel</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/diffusion_model.html#pynetim.diffusion_model.IndependentCascadeModel"><code class="docutils literal notranslate"><span class="pre">IndependentCascadeModel</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/diffusion_model.html#pynetim.diffusion_model.LinearThresholdModel"><code class="docutils literal notranslate"><span class="pre">LinearThresholdModel</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/diffusion_model.html#pynetim.diffusion_model.PyDiffusionModelBase"><code class="docutils literal notranslate"><span class="pre">PyDiffusionModelBase</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/diffusion_model.html#pynetim.diffusion_model.SusceptibleInfectedModel"><code class="docutils literal notranslate"><span class="pre">SusceptibleInfectedModel</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/diffusion_model.html#pynetim.diffusion_model.SusceptibleInfectedRecoveredModel"><code class="docutils literal notranslate"><span class="pre">SusceptibleInfectedRecoveredModel</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/diffusion_model.html#module-pynetim.diffusion_model.base_callback_diffusion_model">自定义扩散模型</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="api/algorithms.html">算法模块</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="api/algorithms.html#module-pynetim.algorithms.base_algorithm">基础类</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/algorithms.html#module-pynetim.algorithms.heuristic">启发式算法</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/algorithms.html#module-pynetim.algorithms.simulation">模拟类算法</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/algorithms.html#module-pynetim.algorithms.ris">RIS 类算法</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/algorithms.html#module-pynetim.algorithms.deep_learning">深度学习算法</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="api/evaluation.html">评估指标</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="api/evaluation.html#pynetim.evaluation.average_shortest_distance"><code class="docutils literal notranslate"><span class="pre">average_shortest_distance()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/evaluation.html#pynetim.evaluation.clustering_coefficient"><code class="docutils literal notranslate"><span class="pre">clustering_coefficient()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/evaluation.html#pynetim.evaluation.degree_distribution"><code class="docutils literal notranslate"><span class="pre">degree_distribution()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/evaluation.html#pynetim.evaluation.degree_statistics"><code class="docutils literal notranslate"><span class="pre">degree_statistics()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/evaluation.html#pynetim.evaluation.distribution_entropy"><code class="docutils literal notranslate"><span class="pre">distribution_entropy()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/evaluation.html#pynetim.evaluation.kendall_tau"><code class="docutils literal notranslate"><span class="pre">kendall_tau()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/evaluation.html#pynetim.evaluation.local_clustering"><code class="docutils literal notranslate"><span class="pre">local_clustering()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/evaluation.html#pynetim.evaluation.mean_centrality"><code class="docutils literal notranslate"><span class="pre">mean_centrality()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/evaluation.html#pynetim.evaluation.monotonicity_score"><code class="docutils literal notranslate"><span class="pre">monotonicity_score()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/evaluation.html#pynetim.evaluation.neighbor_coverage"><code class="docutils literal notranslate"><span class="pre">neighbor_coverage()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/evaluation.html#pynetim.evaluation.ranking_distance"><code class="docutils literal notranslate"><span class="pre">ranking_distance()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/evaluation.html#pynetim.evaluation.ranking_stability"><code class="docutils literal notranslate"><span class="pre">ranking_stability()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/evaluation.html#pynetim.evaluation.reachability"><code class="docutils literal notranslate"><span class="pre">reachability()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/evaluation.html#pynetim.evaluation.seed_diversity"><code class="docutils literal notranslate"><span class="pre">seed_diversity()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/evaluation.html#pynetim.evaluation.seed_overlap"><code class="docutils literal notranslate"><span class="pre">seed_overlap()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/evaluation.html#pynetim.evaluation.spearman_correlation"><code class="docutils literal notranslate"><span class="pre">spearman_correlation()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/evaluation.html#pynetim.evaluation.top_k_accuracy"><code class="docutils literal notranslate"><span class="pre">top_k_accuracy()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/evaluation.html#pynetim.evaluation.top_k_overlap"><code class="docutils literal notranslate"><span class="pre">top_k_overlap()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/evaluation.html#pynetim.evaluation.weight_statistics"><code class="docutils literal notranslate"><span class="pre">weight_statistics()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="api/timing.html">时间测量</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="api/timing.html#pynetim.timing.AlgorithmTimer"><code class="docutils literal notranslate"><span class="pre">AlgorithmTimer</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/timing.html#pynetim.timing.compare_algorithms_runtime"><code class="docutils literal notranslate"><span class="pre">compare_algorithms_runtime()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/timing.html#pynetim.timing.measure_runtime"><code class="docutils literal notranslate"><span class="pre">measure_runtime()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/timing.html#pynetim.timing.measure_runtime_multiple_runs"><code class="docutils literal notranslate"><span class="pre">measure_runtime_multiple_runs()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/timing.html#pynetim.timing.measure_time"><code class="docutils literal notranslate"><span class="pre">measure_time()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="api/utils.html">工具函数</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="api/utils.html#pynetim.utils.all_pairs_shortest_path_length"><code class="docutils literal notranslate"><span class="pre">all_pairs_shortest_path_length()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/utils.html#pynetim.utils.generate_rr_sets"><code class="docutils literal notranslate"><span class="pre">generate_rr_sets()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/utils.html#pynetim.utils.load_edgelist"><code class="docutils literal notranslate"><span class="pre">load_edgelist()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/utils.html#pynetim.utils.renumber_edges"><code class="docutils literal notranslate"><span class="pre">renumber_edges()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/utils.html#pynetim.utils.sample_rr_set_ic"><code class="docutils literal notranslate"><span class="pre">sample_rr_set_ic()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/utils.html#pynetim.utils.sample_rr_set_lt"><code class="docutils literal notranslate"><span class="pre">sample_rr_set_lt()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/utils.html#pynetim.utils.save_edgelist"><code class="docutils literal notranslate"><span class="pre">save_edgelist()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/utils.html#pynetim.utils.shortest_path_length"><code class="docutils literal notranslate"><span class="pre">shortest_path_length()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/utils.html#pynetim.utils.to_igraph"><code class="docutils literal notranslate"><span class="pre">to_igraph()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/utils.html#pynetim.utils.to_networkx"><code class="docutils literal notranslate"><span class="pre">to_networkx()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/utils.html#pynetim.utils.to_pyg"><code class="docutils literal notranslate"><span class="pre">to_pyg()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/utils.html#pynetim.utils.to_scipy_sparse"><code class="docutils literal notranslate"><span class="pre">to_scipy_sparse()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</div>
-<div class="toctree-wrapper compound">
-<p class="caption" role="heading"><span class="caption-text">其他</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="changelog.html">更新日志</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id2">[0.5.3] - 2026-04-16</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id6">[0.5.2] - 2026-04-16</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id11">[0.5.1] - 2026-04-10</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id17">[0.5.0] - 2026-04-07</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id22">[0.4.5] - 2026-04-04</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id35">[0.4.4] - 2026-03-30</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id47">[0.4.3] - 2026-03-30</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id53">[0.4.2] - 2026-03-24</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id56">[0.4.0] - 2026-03-23</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#xx-xx">[0.3.0] - 2025-XX-XX</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="changelog.html#id66">版本说明</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id68">版本类型</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id69">更新分类</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="changelog.html#id75">贡献指南</a></li>
-<li class="toctree-l1"><a class="reference internal" href="changelog.html#id76">许可证</a></li>
-<li class="toctree-l1"><a class="reference internal" href="changelog.html#id77">联系方式</a></li>
-</ul>
-</div>
-<section id="id2">
-<h2>功能特性<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
-<ul class="simple">
-<li><p><strong>多种传播模型</strong> - IC、LT、SI、SIR</p></li>
-<li><p><strong>多种 IM 算法</strong> - 启发式、模拟类、RIS 类、深度学习</p></li>
-<li><p><strong>深度学习算法</strong> - ToupleGDD、S2V-DQN、BiGDN</p></li>
-<li><p><strong>评估指标</strong> - 排名指标、影响力指标、种子质量指标、网络指标</p></li>
-<li><p><strong>时间测量</strong> - 装饰器、AlgorithmTimer、多次运行统计</p></li>
-<li><p><strong>高性能 C++ 后端</strong> - 比纯 Python 快 20-30 倍</p></li>
-<li><p><strong>自定义模型支持</strong> - 支持用户自定义传播模型</p></li>
-<li><p><strong>简洁 API</strong> - 一行代码完成复杂任务</p></li>
-</ul>
-</section>
-<section id="id3">
-<h2>快速示例<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pynetim</span><span class="w"> </span><span class="kn">import</span> <span class="n">IMGraph</span><span class="p">,</span> <span class="n">IndependentCascadeModel</span><span class="p">,</span> <span class="n">IMMAlgorithm</span>
-
-<span class="c1"># 创建图</span>
-<span class="n">graph</span> <span class="o">=</span> <span class="n">IMGraph</span><span class="p">([(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)],</span> <span class="n">weights</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
-
-<span class="c1"># 选择种子节点</span>
-<span class="n">imm</span> <span class="o">=</span> <span class="n">IMMAlgorithm</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="s1">&#39;IC&#39;</span><span class="p">,</span> <span class="n">epsilon</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
-<span class="n">seeds</span> <span class="o">=</span> <span class="n">imm</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">k</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-
-<span class="c1"># 评估影响力</span>
-<span class="n">model</span> <span class="o">=</span> <span class="n">IndependentCascadeModel</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="nb">set</span><span class="p">(</span><span class="n">seeds</span><span class="p">))</span>
-<span class="n">avg</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">run_monte_carlo_diffusion</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="n">num_threads</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
-</pre></div>
-</div>
-</section>
-<section id="id4">
-<h2>相关链接<a class="headerlink" href="#id4" title="Link to this heading"></a></h2>
-<ul class="simple">
-<li><p><a class="reference external" href="https://github.com/zzzkhj/PyNetIM">GitHub 仓库</a></p></li>
-<li><p><a class="reference external" href="https://pypi.org/project/pynetim/">PyPI 包</a></p></li>
-<li><p><a class="reference external" href="https://github.com/zzzkhj/PyNetIM/issues">问题反馈</a></p></li>
-</ul>
-</section>
-<section id="id6">
-<h2>索引<a class="headerlink" href="#id6" title="Link to this heading"></a></h2>
-<ul class="simple">
-<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
-<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
-<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
-</ul>
-</section>
-</section>
-
-
-           </div>
-          </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="installation.html" class="btn btn-neutral float-right" title="安装指南" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+<body>
+    <div class="container">
+        <h1>📚 PyNetIM Documentation</h1>
+        <div class="spinner"></div>
+        <p>Redirecting to the latest version (v0.5.3)...</p>
+        <p>If you are not redirected automatically, <a href="v0.5.3/">click here</a>.</p>
     </div>
-
-  <hr/>
-
-  <div role="contentinfo">
-    <p>&#169; Copyright 2026, Kaijing Zhang.</p>
-  </div>
-
-  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    provided by <a href="https://readthedocs.org">Read the Docs</a>.
-   
-
-</footer>
-        </div>
-      </div>
-    </section>
-  </div>
-  <script>
-      jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
-      });
-  </script> 
-
 </body>
 </html>
