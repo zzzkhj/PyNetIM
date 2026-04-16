@@ -179,6 +179,8 @@ PyNetIM 集成了基于深度强化学习的影响力最大化算法：
 | `BiGDNAlgorithm` | 深度学习 | 端到端图神经网络 + DQN（教师模型） | Expert Syst. Appl. 2025 |
 | `BiGDNSAlgorithm` | 深度学习 | BiGDN 学生模型，支持知识蒸馏 | - |
 
+**预训练权重**：库内置了论文作者公开的预训练权重，设置 `pretrained=True` 即可自动加载。用户也可通过 `weights_path` 参数指定自己的权重文件。
+
 ```python
 from pynetim import IMGraph
 from pynetim.algorithms import (
@@ -201,8 +203,8 @@ seeds = algo.run(k=10)
 algo = BiGDNAlgorithm(graph, pretrained=True)
 seeds = algo.run(k=10)
 
-# BiGDNS（学生模型，需要教师模型权重）
-algo = BiGDNSAlgorithm(graph, teacher_path='teacher.pth', pretrained=True)
+# BiGDNS（学生模型）
+algo = BiGDNSAlgorithm(graph, pretrained=True)
 seeds = algo.run(k=10)
 ```
 
@@ -228,6 +230,11 @@ ne_trainer.train(graphs=train_graphs, num_epochs=100, save_path='encoder.pth')
 
 trainer = BiGDNTrainer(num_features=64, device='auto', encoder_path='encoder.pth')
 trainer.train(graphs=[graph], budget=10, num_epochs=100, save_path='model.pth')
+
+# BiGDNS 训练（需要教师模型权重进行知识蒸馏）
+trainer = BiGDNTrainer(num_features=64, device='auto',
+                       teacher_path='bigdn_weights.pth', is_student=True)
+trainer.train(graphs=[graph], budget=10, num_epochs=100, save_path='bigdns_weights.pth')
 ```
 
 **注意**：深度学习算法需要安装额外依赖：
