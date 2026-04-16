@@ -46,6 +46,7 @@
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">安装指南</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#id2">基本安装</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#wheel">离线安装（下载 wheel）</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#id3">系统要求</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#id4">深度学习依赖</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#id5">从源码安装</a></li>
@@ -102,6 +103,24 @@
 <h2>基本安装<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
 <p>使用 pip 安装：</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>pynetim
+</pre></div>
+</div>
+</section>
+<section id="wheel">
+<h2>离线安装（下载 wheel）<a class="headerlink" href="#wheel" title="Link to this heading"></a></h2>
+<p>如果无法通过 pip 安装，可以从 GitHub Releases 下载预编译的 wheel 文件：</p>
+<p><strong>下载地址</strong>: <a class="reference external" href="https://github.com/zzzkhj/PyNetIM/releases">GitHub Releases</a></p>
+<p><strong>选择对应的 wheel 文件</strong>:</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p>macOS Apple Silicon (M1/M2/M3) 不支持 Python 3.8，请使用 3.9+</p></li>
+<li><p>文件名中的 <code class="docutils literal notranslate"><span class="pre">cp310</span></code> 表示 Python 3.10，<code class="docutils literal notranslate"><span class="pre">cp311</span></code> 表示 Python 3.11，以此类推</p></li>
+</ul>
+</div>
+<p><strong>安装下载的 wheel</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># 替换为实际下载的文件名</span>
+pip<span class="w"> </span>install<span class="w"> </span>pynetim-0.5.3-cp310-cp310-win_amd64.whl
 </pre></div>
 </div>
 </section>
