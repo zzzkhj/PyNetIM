@@ -66,7 +66,7 @@ class _BaseTrainer:
         model: 神经网络模型。
         device: 计算设备。
         gamma: 折扣因子。
-        n_step: n-step Q-learning 的步数。
+        n_steps: n-step Q-learning 的步数。
         memory: 经验回放缓冲区。
     """
 
@@ -75,14 +75,23 @@ class _BaseTrainer:
         model_type: str,
         device: str = 'auto',
         gamma: float = 0.99,
-        n_step: int = 1,
+        n_steps: int = 1,
         memory_size: int = 10000,
         batch_size: int = 64,
         lr: float = 1e-4,
         double_dqn: bool = True,
         embed_dim: int = 50,
         reg_hidden: int = 32,
-        T: int = 3
+        T: int = 3,
+        eps_start: float = 1.0,
+        eps_end: float = 0.05,
+        eps_decay_steps: int = 10000,
+        pretrain_episodes: int = 1000,
+        episodes_per_epoch: int = 10,
+        eval_interval: int = 10,
+        save_interval: int = 10,
+        target_update_interval: int = 100,
+        verbose: bool = True
     ):
         """初始化训练器。
 
@@ -90,7 +99,7 @@ class _BaseTrainer:
             model_type: 模型类型，支持 'Tripling' 或 'S2V_DQN'。
             device: 计算设备，支持 'auto'、'cpu'、'cuda'。
             gamma: 折扣因子，默认为 0.99。
-            n_step: n-step Q-learning 的步数，默认为 1。
+            n_steps: n-step Q-learning 的步数，默认为 1。
             memory_size: 经验回放缓冲区大小，默认为 10000。
             batch_size: 批量大小，默认为 64。
             lr: 学习率，默认为 1e-4。
@@ -98,16 +107,34 @@ class _BaseTrainer:
             embed_dim: 嵌入维度，默认为 50。
             reg_hidden: 回归隐藏层维度，默认为 32。
             T: GNN 层数，默认为 3。
+            eps_start: 初始探索率，默认为 1.0。
+            eps_end: 最终探索率，默认为 0.05。
+            eps_decay_steps: 探索率衰减步数，默认为 10000。
+            pretrain_episodes: 预训练回合数，默认为 1000。
+            episodes_per_epoch: 每轮训练回合数，默认为 10。
+            eval_interval: 评估间隔，默认为 10。
+            save_interval: 保存间隔，默认为 10。
+            target_update_interval: 目标网络更新间隔，默认为 100。
+            verbose: 是否显示进度，默认为 True。
         """
         self.device = torch.device('cuda' if device == 'auto' and torch.cuda.is_available() else device)
         self.model_type = model_type
         self.gamma = gamma
-        self.n_step = n_step
+        self.n_steps = n_steps
         self.batch_size = batch_size
         self.double_dqn = double_dqn
         self.embed_dim = embed_dim
         self.reg_hidden = reg_hidden
         self.T = T
+        self.eps_start = eps_start
+        self.eps_end = eps_end
+        self.eps_decay_steps = eps_decay_steps
+        self.pretrain_episodes = pretrain_episodes
+        self.episodes_per_epoch = episodes_per_epoch
+        self.eval_interval = eval_interval
+        self.save_interval = save_interval
+        self.target_update_interval = target_update_interval
+        self.verbose = verbose
 
         self.memory = ReplayMemory(memory_size)
         self._node_embed_cache = {}
@@ -248,8 +275,8 @@ class _BaseTrainer:
             return batch.to(self.device)
 
     @torch.no_grad()
-    def select_action(self, graph: 'IMGraph', state: torch.Tensor, epsilon: float) -> int:
-        """选择动作。
+    def _select_action(self, graph: 'IMGraph', state: torch.Tensor, epsilon: float) -> int:
+        """选择动作（内部方法）。
 
         Args:
             graph: 图对象。
@@ -272,8 +299,8 @@ class _BaseTrainer:
         q_values[state == 1] = -1e10
         return torch.argmax(q_values).item()
 
-    def memorize(self, env: IMEnvironment):
-        """将轨迹存入经验回放缓冲区。
+    def _memorize(self, env: IMEnvironment):
+        """将轨迹存入经验回放缓冲区（内部方法）。
 
         Args:
             env: 环境对象。
@@ -285,16 +312,16 @@ class _BaseTrainer:
         sum_rewards = sum_rewards[::-1]
 
         for i in range(len(env.states)):
-            if i + self.n_step < len(env.states):
+            if i + self.n_steps < len(env.states):
                 self.memory.push(
                     torch.tensor(env.states[i], dtype=torch.long),
                     torch.tensor([env.actions[i]], dtype=torch.long),
-                    torch.tensor(env.states[i + self.n_step], dtype=torch.long),
-                    torch.tensor([sum_rewards[i] - (self.gamma ** self.n_step) * sum_rewards[i + self.n_step]],
+                    torch.tensor(env.states[i + self.n_steps], dtype=torch.long),
+                    torch.tensor([sum_rewards[i] - (self.gamma ** self.n_steps) * sum_rewards[i + self.n_steps]],
                                  dtype=torch.float),
                     env.graph
                 )
-            elif i + self.n_step == len(env.states):
+            elif i + self.n_steps == len(env.states):
                 self.memory.push(
                     torch.tensor(env.states[i], dtype=torch.long),
                     torch.tensor([env.actions[i]], dtype=torch.long),
@@ -303,8 +330,8 @@ class _BaseTrainer:
                     env.graph
                 )
 
-    def fit(self):
-        """执行一步训练。"""
+    def _fit(self):
+        """执行一步训练（内部方法）。"""
         sample_size = min(self.batch_size, len(self.memory))
         transitions = self.memory.sample(sample_size)
         batch = Transition(*zip(*transitions))
@@ -338,15 +365,15 @@ class _BaseTrainer:
                 batch_non_final.batch
             )[0].clamp_(min=0).detach()
 
-        expected_state_action_values = next_state_values * self.gamma ** self.n_step + reward_batch.to(self.device)
+        expected_state_action_values = next_state_values * self.gamma ** self.n_steps + reward_batch.to(self.device)
 
         loss = self.criterion(state_action_values, expected_state_action_values)
         self.optimizer.zero_grad()
         loss.backward()
         self.optimizer.step()
 
-    def update_target(self):
-        """更新目标网络。"""
+    def _update_target(self):
+        """更新目标网络（内部方法）。"""
         if self.double_dqn:
             self.target_model.load_state_dict(self.model.state_dict())
 
@@ -374,16 +401,7 @@ class _BaseTrainer:
         budget: int,
         num_epochs: int,
         save_path: str,
-        eval_graphs: Optional[List['IMGraph']] = None,
-        eval_interval: int = 10,
-        save_interval: int = 10,
-        target_update_interval: int = 100,
-        eps_start: float = 1.0,
-        eps_end: float = 0.05,
-        eps_decay_steps: int = 10000,
-        pretrain_episodes: int = 1000,
-        episodes_per_epoch: int = 10,
-        verbose: bool = True
+        eval_graphs: Optional[List['IMGraph']] = None
     ):
         """训练模型。
 
@@ -393,62 +411,53 @@ class _BaseTrainer:
             num_epochs: 训练轮数。
             save_path: 模型保存路径。
             eval_graphs: 评估图列表（可选）。
-            eval_interval: 评估间隔，默认为 10。
-            save_interval: 保存间隔，默认为 10。
-            target_update_interval: 目标网络更新间隔，默认为 100。
-            eps_start: 初始探索率，默认为 1.0。
-            eps_end: 最终探索率，默认为 0.05。
-            eps_decay_steps: 探索率衰减步数，默认为 10000。
-            pretrain_episodes: 预训练回合数，默认为 1000。
-            episodes_per_epoch: 每轮训练回合数，默认为 10。
-            verbose: 是否显示进度，默认为 True。
         """
         os.makedirs(os.path.dirname(save_path) if os.path.dirname(save_path) else '.', exist_ok=True)
 
-        if verbose:
+        if self.verbose:
             tqdm.write('预训练阶段...')
 
-        for _ in range(pretrain_episodes):
+        for _ in range(self.pretrain_episodes):
             graph = random.choice(graphs)
             env = IMEnvironment(graph, budget, method='RR', num_trials=1000)
             env.reset()
             state = torch.tensor(env.state, dtype=torch.long)
 
             for _ in range(budget):
-                action = self.select_action(graph, state, epsilon=1.0)
+                action = self._select_action(graph, state, epsilon=1.0)
                 _, done = env.step(action)
                 state = torch.tensor(env.state, dtype=torch.long)
                 if done:
-                    self.memorize(env)
+                    self._memorize(env)
                     break
 
-        if verbose:
+        if self.verbose:
             tqdm.write('开始训练...')
 
-        progress = tqdm(total=num_epochs, disable=not verbose)
+        progress = tqdm(total=num_epochs, disable=not self.verbose)
         total_steps = 0
 
         for epoch in range(num_epochs):
-            eps = eps_end + max(0.0, (eps_start - eps_end) * (eps_decay_steps - total_steps) / eps_decay_steps)
+            eps = self.eps_end + max(0.0, (self.eps_start - self.eps_end) * (self.eps_decay_steps - total_steps) / self.eps_decay_steps)
 
-            for _ in range(episodes_per_epoch):
+            for _ in range(self.episodes_per_epoch):
                 graph = random.choice(graphs)
                 env = IMEnvironment(graph, budget, method='RR', num_trials=1000)
                 env.reset()
                 state = torch.tensor(env.state, dtype=torch.long)
 
                 for _ in range(budget):
-                    action = self.select_action(graph, state, epsilon=eps)
+                    action = self._select_action(graph, state, epsilon=eps)
                     _, done = env.step(action)
                     state = torch.tensor(env.state, dtype=torch.long)
                     total_steps += 1
                     if done:
-                        self.memorize(env)
+                        self._memorize(env)
                         break
 
-            self.fit()
+            self._fit()
 
-            if (epoch + 1) % eval_interval == 0 and eval_graphs:
+            if (epoch + 1) % self.eval_interval == 0 and eval_graphs:
                 self.model.eval()
                 total_reward = 0
                 for eval_graph in eval_graphs:
@@ -457,7 +466,7 @@ class _BaseTrainer:
                     state = torch.tensor(env.state, dtype=torch.long)
 
                     for _ in range(budget):
-                        action = self.select_action(eval_graph, state, epsilon=0.0)
+                        action = self._select_action(eval_graph, state, epsilon=0.0)
                         _, done = env.step(action)
                         state = torch.tensor(env.state, dtype=torch.long)
                         if done:
@@ -466,21 +475,21 @@ class _BaseTrainer:
                     total_reward += env.prev_inf
 
                 avg_reward = total_reward / len(eval_graphs)
-                if verbose:
+                if self.verbose:
                     tqdm.write(f'Epoch {epoch + 1}/{num_epochs}: Avg Reward = {avg_reward:.2f}')
                 self.model.train()
 
-            if (epoch + 1) % save_interval == 0:
+            if (epoch + 1) % self.save_interval == 0:
                 self.save(f'{save_path}.epoch{epoch + 1}')
 
-            if (epoch + 1) % target_update_interval == 0:
-                self.update_target()
+            if (epoch + 1) % self.target_update_interval == 0:
+                self._update_target()
 
             progress.update(1)
 
         progress.close()
         self.save(save_path)
-        if verbose:
+        if self.verbose:
             tqdm.write(f'训练完成，模型已保存至 {save_path}')
 
 
@@ -496,7 +505,7 @@ class ToupleGDDTrainer(_BaseTrainer):
         model: 神经网络模型。
         device: 计算设备。
         gamma: 折扣因子。
-        n_step: n-step Q-learning 的步数。
+        n_steps: n-step Q-learning 的步数。
         memory: 经验回放缓冲区。
     """
 
@@ -504,38 +513,65 @@ class ToupleGDDTrainer(_BaseTrainer):
         self,
         device: str = 'auto',
         gamma: float = 0.99,
-        n_step: int = 1,
+        n_steps: int = 1,
         memory_size: int = 10000,
         batch_size: int = 64,
         lr: float = 1e-4,
         double_dqn: bool = True,
         embed_dim: int = 50,
-        T: int = 3
+        T: int = 3,
+        eps_start: float = 1.0,
+        eps_end: float = 0.05,
+        eps_decay_steps: int = 10000,
+        pretrain_episodes: int = 1000,
+        episodes_per_epoch: int = 10,
+        eval_interval: int = 10,
+        save_interval: int = 10,
+        target_update_interval: int = 100,
+        verbose: bool = True
     ):
         """初始化 ToupleGDD 训练器。
 
         Args:
             device: 计算设备，支持 'auto'、'cpu'、'cuda'。
             gamma: 折扣因子，默认为 0.99。
-            n_step: n-step Q-learning 的步数，默认为 1。
+            n_steps: n-step Q-learning 的步数，默认为 1。
             memory_size: 经验回放缓冲区大小，默认为 10000。
             batch_size: 批量大小，默认为 64。
             lr: 学习率，默认为 1e-4。
             double_dqn: 是否使用 Double DQN，默认为 True。
             embed_dim: 嵌入维度，默认为 50。
             T: GNN 层数，默认为 3。
+            eps_start: 初始探索率，默认为 1.0。
+            eps_end: 最终探索率，默认为 0.05。
+            eps_decay_steps: 探索率衰减步数，默认为 10000。
+            pretrain_episodes: 预训练回合数，默认为 1000。
+            episodes_per_epoch: 每轮训练回合数，默认为 10。
+            eval_interval: 评估间隔，默认为 10。
+            save_interval: 保存间隔，默认为 10。
+            target_update_interval: 目标网络更新间隔，默认为 100。
+            verbose: 是否显示进度，默认为 True。
         """
         super().__init__(
             model_type='Tripling',
             device=device,
             gamma=gamma,
-            n_step=n_step,
+            n_steps=n_steps,
             memory_size=memory_size,
             batch_size=batch_size,
             lr=lr,
             double_dqn=double_dqn,
             embed_dim=embed_dim,
-            T=T
+            T=T,
+            eps_start=eps_start,
+            eps_end=eps_end,
+            eps_decay_steps=eps_decay_steps,
+            pretrain_episodes=pretrain_episodes,
+            episodes_per_epoch=episodes_per_epoch,
+            eval_interval=eval_interval,
+            save_interval=save_interval,
+            target_update_interval=target_update_interval,
+            verbose=verbose
         )
 
 
@@ -551,7 +587,7 @@ class S2VDQNTrainer(_BaseTrainer):
         model: 神经网络模型。
         device: 计算设备。
         gamma: 折扣因子。
-        n_step: n-step Q-learning 的步数。
+        n_steps: n-step Q-learning 的步数。
         memory: 经验回放缓冲区。
     """
 
@@ -559,36 +595,63 @@ class S2VDQNTrainer(_BaseTrainer):
         self,
         device: str = 'auto',
         gamma: float = 0.99,
-        n_step: int = 1,
+        n_steps: int = 1,
         memory_size: int = 10000,
         batch_size: int = 64,
         lr: float = 1e-4,
         double_dqn: bool = True,
         reg_hidden: int = 32,
-        T: int = 3
+        T: int = 3,
+        eps_start: float = 1.0,
+        eps_end: float = 0.05,
+        eps_decay_steps: int = 10000,
+        pretrain_episodes: int = 1000,
+        episodes_per_epoch: int = 10,
+        eval_interval: int = 10,
+        save_interval: int = 10,
+        target_update_interval: int = 100,
+        verbose: bool = True
     ):
         """初始化 S2V-DQN 训练器。
 
         Args:
             device: 计算设备，支持 'auto'、'cpu'、'cuda'。
             gamma: 折扣因子，默认为 0.99。
-            n_step: n-step Q-learning 的步数，默认为 1。
+            n_steps: n-step Q-learning 的步数，默认为 1。
             memory_size: 经验回放缓冲区大小，默认为 10000。
             batch_size: 批量大小，默认为 64。
             lr: 学习率，默认为 1e-4。
             double_dqn: 是否使用 Double DQN，默认为 True。
             reg_hidden: 回归隐藏层维度，默认为 32。
             T: GNN 层数，默认为 3。
+            eps_start: 初始探索率，默认为 1.0。
+            eps_end: 最终探索率，默认为 0.05。
+            eps_decay_steps: 探索率衰减步数，默认为 10000。
+            pretrain_episodes: 预训练回合数，默认为 1000。
+            episodes_per_epoch: 每轮训练回合数，默认为 10。
+            eval_interval: 评估间隔，默认为 10。
+            save_interval: 保存间隔，默认为 10。
+            target_update_interval: 目标网络更新间隔，默认为 100。
+            verbose: 是否显示进度，默认为 True。
         """
         super().__init__(
             model_type='S2V_DQN',
             device=device,
             gamma=gamma,
-            n_step=n_step,
+            n_steps=n_steps,
             memory_size=memory_size,
             batch_size=batch_size,
             lr=lr,
             double_dqn=double_dqn,
             reg_hidden=reg_hidden,
-            T=T
+            T=T,
+            eps_start=eps_start,
+            eps_end=eps_end,
+            eps_decay_steps=eps_decay_steps,
+            pretrain_episodes=pretrain_episodes,
+            episodes_per_epoch=episodes_per_epoch,
+            eval_interval=eval_interval,
+            save_interval=save_interval,
+            target_update_interval=target_update_interval,
+            verbose=verbose
         )

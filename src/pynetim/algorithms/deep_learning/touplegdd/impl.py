@@ -1,13 +1,13 @@
 import os
 import random
-from typing import Set, Optional, TYPE_CHECKING
+from typing import Optional, TYPE_CHECKING
 
 import numpy as np
 import torch
 from torch_geometric.data import Data
 from torch_geometric.loader import DataLoader
 
-from ..base_dl import BaseDLAlgorithm
+from ..base_drl import BaseDRLAlgorithm
 from . import models
 
 if TYPE_CHECKING:
@@ -18,7 +18,7 @@ np.random.seed(123)
 torch.manual_seed(123)
 
 
-class ToupleGDDAlgorithm(BaseDLAlgorithm):
+class ToupleGDDAlgorithm(BaseDRLAlgorithm):
     """ToupleGDD 深度学习影响力最大化算法。
 
     使用三重门控图神经网络 (Tripling GNN) 结合强化学习选择种子节点。
@@ -94,47 +94,61 @@ class ToupleGDDAlgorithm(BaseDLAlgorithm):
             self._node_embed = models.get_init_node_embed(self.graph, num_epochs, self.device)
         return self._node_embed
 
-    @torch.no_grad()
-    def run(self, k: int, use_topk: bool = True) -> Set[int]:
-        """执行算法选择种子节点。
+    def _prepare_inference(self):
+        """准备推理环境。"""
+        self.model.eval()
 
-        Args:
-            k: 需要选择的种子节点数量。
-            use_topk: 是否使用 topk 一次性选择，默认为 True。
-                True: 一次性计算所有节点的 Q 值，选择 top-k。
-                False: 迭代选择，每次选择一个节点后更新状态。
+    def _init_state(self) -> torch.Tensor:
+        """初始化状态。
 
         Returns:
-            Set[int]: 选中的种子节点集合。
+            torch.Tensor: 初始状态向量（全 0）。
         """
-        state = torch.zeros(self.graph.num_nodes, dtype=torch.long)
+        return torch.zeros(self.graph.num_nodes, dtype=torch.long)
 
-        if use_topk:
-            graph_input = self._setup_graph_input(state)
-            loader = DataLoader([graph_input], batch_size=1, shuffle=False)
-            for batch in loader:
-                batch = batch.to(self.device)
-                q_values = self.model(batch).squeeze()
-            _, indices = torch.topk(q_values, k)
-            return set(indices.tolist())
+    def _compute_q_values(self, state: torch.Tensor) -> torch.Tensor:
+        """计算 Q 值。
 
-        selected = []
-        for _ in range(k):
-            graph_input = self._setup_graph_input(state)
-            loader = DataLoader([graph_input], batch_size=1, shuffle=False)
-            for batch in loader:
-                batch = batch.to(self.device)
-                q_values = self.model(batch).squeeze()
+        Args:
+            state: 当前状态向量。
 
-            q_values[state == 1] = -1e10
-            action = torch.argmax(q_values).item()
-            selected.append(action)
-            state[action] = 1
+        Returns:
+            torch.Tensor: 各节点的 Q 值。
+        """
+        graph_input = self._setup_graph_input(state)
+        loader = DataLoader([graph_input], batch_size=1, shuffle=False)
+        for batch in loader:
+            batch = batch.to(self.device)
+            return self.model(batch).squeeze()
 
-        return set(selected)
+    def _update_state(self, state: torch.Tensor, node: int) -> torch.Tensor:
+        """更新状态。
+
+        Args:
+            state: 当前状态向量。
+            node: 新选择的节点。
+
+        Returns:
+            torch.Tensor: 更新后的状态向量。
+        """
+        state[node] = 1
+        return state
+
+    def _mask_selected(self, q_values: torch.Tensor, state: torch.Tensor) -> torch.Tensor:
+        """屏蔽已选节点的 Q 值。
+
+        Args:
+            q_values: Q 值张量。
+            state: 当前状态向量。
+
+        Returns:
+            torch.Tensor: 屏蔽后的 Q 值。
+        """
+        q_values[state == 1] = -1e10
+        return q_values
 
 
-class S2VDQNAlgorithm(BaseDLAlgorithm):
+class S2VDQNAlgorithm(BaseDRLAlgorithm):
     """S2V-DQN 深度学习影响力最大化算法。
 
     使用 Structure2Vec 图神经网络结合 DQN 强化学习选择种子节点。
@@ -213,41 +227,55 @@ class S2VDQNAlgorithm(BaseDLAlgorithm):
 
         return Data(x=x, edge_index=edge_index, edge_attr=edge_attr)
 
-    @torch.no_grad()
-    def run(self, k: int, use_topk: bool = False) -> Set[int]:
-        """执行算法选择种子节点。
+    def _prepare_inference(self):
+        """准备推理环境。"""
+        self.model.eval()
 
-        Args:
-            k: 需要选择的种子节点数量。
-            use_topk: 是否使用 topk 一次性选择，默认为 False。
-                True: 一次性计算所有节点的 Q 值，选择 top-k。
-                False: 迭代选择，每次选择一个节点后更新状态。
+    def _init_state(self) -> torch.Tensor:
+        """初始化状态。
 
         Returns:
-            Set[int]: 选中的种子节点集合。
+            torch.Tensor: 初始状态向量（全 0）。
         """
-        state = torch.zeros(self.graph.num_nodes, dtype=torch.long)
+        return torch.zeros(self.graph.num_nodes, dtype=torch.long)
 
-        if use_topk:
-            graph_input = self._setup_graph_input(state)
-            loader = DataLoader([graph_input], batch_size=1, shuffle=False)
-            for batch in loader:
-                batch = batch.to(self.device)
-                q_values = self.model(batch).squeeze()
-            _, indices = torch.topk(q_values, k)
-            return set(indices.tolist())
+    def _compute_q_values(self, state: torch.Tensor) -> torch.Tensor:
+        """计算 Q 值。
 
-        selected = []
-        for _ in range(k):
-            graph_input = self._setup_graph_input(state)
-            loader = DataLoader([graph_input], batch_size=1, shuffle=False)
-            for batch in loader:
-                batch = batch.to(self.device)
-                q_values = self.model(batch).squeeze()
+        Args:
+            state: 当前状态向量。
 
-            q_values[state == 1] = -1e10
-            action = torch.argmax(q_values).item()
-            selected.append(action)
-            state[action] = 1
+        Returns:
+            torch.Tensor: 各节点的 Q 值。
+        """
+        graph_input = self._setup_graph_input(state)
+        loader = DataLoader([graph_input], batch_size=1, shuffle=False)
+        for batch in loader:
+            batch = batch.to(self.device)
+            return self.model(batch).squeeze()
 
-        return set(selected)
+    def _update_state(self, state: torch.Tensor, node: int) -> torch.Tensor:
+        """更新状态。
+
+        Args:
+            state: 当前状态向量。
+            node: 新选择的节点。
+
+        Returns:
+            torch.Tensor: 更新后的状态向量。
+        """
+        state[node] = 1
+        return state
+
+    def _mask_selected(self, q_values: torch.Tensor, state: torch.Tensor) -> torch.Tensor:
+        """屏蔽已选节点的 Q 值。
+
+        Args:
+            q_values: Q 值张量。
+            state: 当前状态向量。
+
+        Returns:
+            torch.Tensor: 屏蔽后的 Q 值。
+        """
+        q_values[state == 1] = -1e10
+        return q_values

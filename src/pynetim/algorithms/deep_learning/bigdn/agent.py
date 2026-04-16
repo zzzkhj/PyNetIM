@@ -50,15 +50,15 @@ class Agent:
     def __init__(
         self,
         num_features: int,
-        gamma: float,
-        epsilon: float,
-        lr: float,
         device: torch.device,
+        gamma: float = 0.99,
+        epsilon: float = 0.0,
+        lr: float = 0.001,
         target_update: int = 100,
-        n_steps: int = 1,
+        n_steps: int = 2,
         encoder_param_path: str = None,
         ntype: str = 'DQN',
-        training: bool = True
+        training: bool = False
     ):
         self.num_features = num_features
         self.q_net = QValueNet(num_features).to(device)
@@ -166,16 +166,16 @@ class StudentAgent:
     def __init__(
         self,
         num_features: int,
-        gamma: float,
-        epsilon: float,
-        lr: float,
         device: torch.device,
         teacher,
+        gamma: float = 0.99,
+        epsilon: float = 0.0,
+        lr: float = 0.001,
         alpha: float = 0.5,
         target_update: int = 100,
-        n_steps: int = 1,
+        n_steps: int = 2,
         ntype: str = 'DQN',
-        training: bool = True
+        training: bool = False
     ):
         self.num_features = num_features
         self.q_net = StudentQValueNet(num_features).to(device)

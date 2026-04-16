@@ -7,7 +7,7 @@ from tqdm import tqdm
 
 from .agent import Agent, StudentAgent, ReplayBuffer, get_q_net_input
 from .environment import GraphEnvironment
-from .models import QValueNet, StudentQValueNet, NodeEncoder
+from .models import QValueNet, NodeEncoder
 
 if TYPE_CHECKING:
     from ....graph import IMGraph
@@ -39,7 +39,18 @@ class BiGDNTrainer:
         is_student: bool = False,
         teacher_path: Optional[str] = None,
         encoder_path: Optional[str] = None,
-        alpha: float = 0.5
+        alpha: float = 0.5,
+        eps_start: float = 1.0,
+        eps_end: float = 0.05,
+        eps_decay_steps: int = 10000,
+        pretrain_episodes: int = 100,
+        episodes_per_epoch: int = 10,
+        eval_interval: int = 10,
+        save_interval: int = 100,
+        target_update_interval: int = 100,
+        method: str = 'MC',
+        num_trials: int = 1000,
+        verbose: bool = True
     ):
         """初始化训练器。
 
@@ -57,6 +68,17 @@ class BiGDNTrainer:
             teacher_path: 教师模型路径（仅学生模型使用）。
             encoder_path: NodeEncoder 预训练权重路径（仅 BiGDN 使用，BiGDNS 不需要）。
             alpha: 知识蒸馏权重（仅学生模型使用）。
+            eps_start: 初始探索率，默认为 1.0。
+            eps_end: 最终探索率，默认为 0.05。
+            eps_decay_steps: 探索率衰减步数，默认为 10000。
+            pretrain_episodes: 预训练回合数，默认为 100。
+            episodes_per_epoch: 每轮训练回合数，默认为 10。
+            eval_interval: 评估间隔，默认为 10。
+            save_interval: 保存间隔，默认为 100。
+            target_update_interval: 目标网络更新间隔，默认为 100。
+            method: 影响力估计方法，默认为 'MC'。
+            num_trials: 影响力估计试验次数，默认为 1000。
+            verbose: 是否显示进度，默认为 True。
         """
         self.num_features = num_features
         self.gamma = gamma
@@ -67,6 +89,17 @@ class BiGDNTrainer:
         self.batch_size = batch_size
         self.is_student = is_student
         self.alpha = alpha
+        self.eps_start = eps_start
+        self.eps_end = eps_end
+        self.eps_decay_steps = eps_decay_steps
+        self.pretrain_episodes = pretrain_episodes
+        self.episodes_per_epoch = episodes_per_epoch
+        self.eval_interval = eval_interval
+        self.save_interval = save_interval
+        self.target_update_interval = target_update_interval
+        self.method = method
+        self.num_trials = num_trials
+        self.verbose = verbose
 
         if device == 'auto':
             self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
@@ -106,8 +139,8 @@ class BiGDNTrainer:
                 encoder_param_path=encoder_path
             )
 
-    def select_action(self, graph: 'IMGraph', state: List[int], epsilon: float) -> int:
-        """选择动作。
+    def _select_action(self, graph: 'IMGraph', state: List[int], epsilon: float) -> int:
+        """选择动作（内部方法）。
 
         Args:
             graph: 图对象。
@@ -139,8 +172,8 @@ class BiGDNTrainer:
         self.agent.q_net.train()
         return best_node
 
-    def memorize(self, env: GraphEnvironment):
-        """将轨迹存入经验回放缓冲区。
+    def _memorize(self, env: GraphEnvironment):
+        """将轨迹存入经验回放缓冲区（内部方法）。
 
         Args:
             env: 环境对象。
@@ -159,16 +192,16 @@ class BiGDNTrainer:
 
             self.memory.add(state, action, reward, next_state, done, env.graph)
 
-    def fit(self):
-        """执行一步训练。"""
+    def _fit(self):
+        """执行一步训练（内部方法）。"""
         if len(self.memory) < self.batch_size:
             return
 
         states, actions, rewards, next_states, dones, graphs = self.memory.sample(self.batch_size)
         self.agent.update(states, actions, rewards, next_states, graphs, dones)
 
-    def update_target(self):
-        """更新目标网络。"""
+    def _update_target(self):
+        """更新目标网络（内部方法）。"""
         self.agent.target_q_net.load_state_dict(self.agent.q_net.state_dict())
 
     def save(self, path: str):
@@ -194,18 +227,7 @@ class BiGDNTrainer:
         budget: int,
         num_epochs: int,
         save_path: str,
-        eval_graphs: Optional[List['IMGraph']] = None,
-        eval_interval: int = 10,
-        save_interval: int = 100,
-        target_update_interval: int = 100,
-        eps_start: float = 1.0,
-        eps_end: float = 0.05,
-        eps_decay_steps: int = 10000,
-        pretrain_episodes: int = 100,
-        episodes_per_epoch: int = 10,
-        method: str = 'MC',
-        num_trials: int = 1000,
-        verbose: bool = True
+        eval_graphs: Optional[List['IMGraph']] = None
     ):
         """训练模型。
 
@@ -215,77 +237,66 @@ class BiGDNTrainer:
             num_epochs: 训练轮数。
             save_path: 模型保存路径。
             eval_graphs: 评估图列表（可选）。
-            eval_interval: 评估间隔，默认为 10。
-            save_interval: 保存间隔，默认为 100。
-            target_update_interval: 目标网络更新间隔，默认为 100。
-            eps_start: 初始探索率，默认为 1.0。
-            eps_end: 最终探索率，默认为 0.05。
-            eps_decay_steps: 探索率衰减步数，默认为 10000。
-            pretrain_episodes: 预训练回合数，默认为 100。
-            episodes_per_epoch: 每轮训练回合数，默认为 10。
-            method: 影响力估计方法，默认为 'MC'。
-            num_trials: 影响力估计试验次数，默认为 1000。
-            verbose: 是否显示进度，默认为 True。
         """
         import random
 
         os.makedirs(os.path.dirname(save_path) if os.path.dirname(save_path) else '.', exist_ok=True)
 
-        if verbose:
+        if self.verbose:
             tqdm.write('预训练阶段...')
 
-        for _ in range(pretrain_episodes):
+        for _ in range(self.pretrain_episodes):
             graph = random.choice(graphs)
-            env = GraphEnvironment([graph], k=budget, gamma=self.gamma, n_steps=self.n_steps, method=method, num_trials=num_trials)
+            env = GraphEnvironment([graph], k=budget, gamma=self.gamma, n_steps=self.n_steps, method=self.method, num_trials=self.num_trials)
             state = env.reset()
 
             for _ in range(budget):
-                action = self.select_action(graph, state, epsilon=1.0)
+                action = self._select_action(graph, state, epsilon=1.0)
                 if action == -1:
                     break
                 _, state, done = env.step(action)
                 if done:
-                    self.memorize(env)
+                    self._memorize(env)
                     break
 
-        if verbose:
+        if self.verbose:
             tqdm.write('开始训练...')
 
-        progress = tqdm(total=num_epochs, disable=not verbose, desc=f'使用 {len(graphs)} 个图训练 {"BiGDNS" if self.is_student else "BiGDN"}')
+        progress = tqdm(total=num_epochs, disable=not self.verbose, desc=f'使用 {len(graphs)} 个图训练 {"BiGDNS" if self.is_student else "BiGDN"}')
         total_steps = 0
 
         for epoch in range(num_epochs):
-            eps = eps_end + max(0.0, (eps_start - eps_end) * (eps_decay_steps - total_steps) / eps_decay_steps)
+            eps = self.eps_end + max(0.0, (self.eps_start - self.eps_end) * (self.eps_decay_steps - total_steps) / self.eps_decay_steps)
 
-            for _ in range(episodes_per_epoch):
+            for _ in range(self.episodes_per_epoch):
                 graph = random.choice(graphs)
-                env = GraphEnvironment([graph], k=budget, gamma=self.gamma, n_steps=self.n_steps, method=method, num_trials=num_trials)
+                env = GraphEnvironment([graph], k=budget, gamma=self.gamma, n_steps=self.n_steps, method=self.method, num_trials=self.num_trials)
                 state = env.reset()
 
                 for _ in range(budget):
-                    action = self.select_action(graph, state, epsilon=eps)
+                    action = self._select_action(graph, state, epsilon=eps)
                     if action == -1:
                         break
                     _, state, done = env.step(action)
                     total_steps += 1
                     if done:
-                        self.memorize(env)
+                        self._memorize(env)
                         break
 
-            self.fit()
+            self._fit()
 
-            if (epoch + 1) % target_update_interval == 0:
-                self.update_target()
+            if (epoch + 1) % self.target_update_interval == 0:
+                self._update_target()
 
-            if (epoch + 1) % eval_interval == 0 and eval_graphs:
+            if (epoch + 1) % self.eval_interval == 0 and eval_graphs:
                 self.agent.q_net.eval()
                 total_reward = 0
                 for eval_graph in eval_graphs:
-                    env = GraphEnvironment([eval_graph], k=budget, gamma=self.gamma, n_steps=self.n_steps, method=method, num_trials=num_trials * 10)
+                    env = GraphEnvironment([eval_graph], k=budget, gamma=self.gamma, n_steps=self.n_steps, method=self.method, num_trials=self.num_trials * 10)
                     state = env.reset()
 
                     for _ in range(budget):
-                        action = self.select_action(eval_graph, state, epsilon=0.0)
+                        action = self._select_action(eval_graph, state, epsilon=0.0)
                         if action == -1:
                             break
                         _, state, done = env.step(action)
@@ -295,18 +306,18 @@ class BiGDNTrainer:
                     total_reward += env.preview_reward
 
                 avg_reward = total_reward / len(eval_graphs)
-                if verbose:
+                if self.verbose:
                     tqdm.write(f'Epoch {epoch + 1}/{num_epochs}: Avg Reward = {avg_reward:.2f}, Buffer = {len(self.memory)}')
                 self.agent.q_net.train()
 
-            if (epoch + 1) % save_interval == 0:
+            if (epoch + 1) % self.save_interval == 0:
                 self.save(f'{save_path}.epoch{epoch + 1}')
 
             progress.update(1)
 
         progress.close()
         self.save(save_path)
-        if verbose:
+        if self.verbose:
             tqdm.write(f'训练完成，模型已保存至 {save_path}')
 
 

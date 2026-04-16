@@ -18,9 +18,7 @@ def _init_worker(graph_data, model_class):
         model_class: 模型类。
     """
     global _global_graph, _global_model_class
-    import sys
-    sys.path.insert(0, '/root/PyNetIM/src')
-    from pynetim import IMGraph
+    from ..graph import IMGraph
     _global_graph = IMGraph(graph_data['edges'], graph_data['weights'], graph_data['directed'])
     _global_model_class = model_class
 

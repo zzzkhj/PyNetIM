@@ -71,3 +71,11 @@ class BaseAlgorithm:
             NotImplementedError: 子类未实现此方法时抛出。
         """
         raise NotImplementedError
+
+    def get_seeds(self) -> Set[int]:
+        """获取最后一次运行选出的种子集合。
+
+        Returns:
+            Set[int]: 种子节点集合。
+        """
+        return self.seeds

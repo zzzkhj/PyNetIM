@@ -10,6 +10,7 @@
 
 | 版本 | 发布日期 | 主要更新 |
 |------|----------|----------|
+| [v0.5.3](changelog/v0.5.3.md) | 待定 | 跨平台编译修复、C++17 兼容性、深度学习模块重构 |
 | [v0.5.2](changelog/v0.5.2.md) | 2026-04-16 | 深度学习算法模块、训练框架、pybind 签名文档修复 |
 | [v0.5.1](changelog/v0.5.1.md) | 2026-04-10 | 评估指标模块、时间测量工具、7个启发式算法 |
 | [v0.5.0](changelog/v0.5.0.md) | 2026-04-07 | 模块扁平化、算法模块、自定义传播模型、OPIM算法、中文输出 |
@@ -24,6 +25,35 @@
 ---
 
 ## 最新版本
+
+### [v0.5.3] - 待定
+
+**Bug 修复**:
+- 修复 GitHub Actions 中 Linux/macOS 平台的构建失败问题
+- 修复 macOS ARM64 编译失败（移除不兼容的 -mavx2 编译选项）
+- 移除 C++20 `<format>` 依赖，改用 C++17 兼容的 `std::ostringstream`
+- 修复 utils 模块参数签名显示问题（禁用 pybind 自动签名，手动定义类型提示）
+
+**改进**:
+- C++ 标准要求从 C++20 降至 C++17
+- 编译器要求降低：GCC 8+, Clang 7+, MSVC 19.14+
+- 平台特定编译选项自动选择
+- 深度学习模块代码重构：
+  - 新增 DRL 算法基类: BaseDRLAlgorithm, BiGDNBaseAlgorithm
+  - 移除算法类冗余 train() 方法，训练功能统一由 Trainer 类提供
+  - 移除算法类中的训练参数（gamma, epsilon, lr, target_update, n_steps, ntype 等）
+  - 移除算法类中的 save_weights() 方法（推理阶段不需要）
+  - Trainer 内部方法私有化（select_action → _select_action 等）
+  - 统一 device 参数默认值为 'auto'
+  - 重构 Trainer 参数，将配置参数从 train() 移到 __init__
+  - 统一 n_steps 参数命名（ToupleGDD 模块 n_step → n_steps）
+
+**文档更新**:
+- 修正 BiGDNS 使用说明（推理时不需要 teacher_path）
+- 添加预训练权重说明
+- 更新系统要求
+
+👉 [查看完整更新内容](changelog/v0.5.3.md)
 
 ### [v0.5.2] - 2026-04-16
 
@@ -44,7 +74,7 @@
 - 添加 graph.pyi 缺失的 `get_adj_list_py()` 方法
 
 **改进**:
-- 所有 pybind 绑定添加友好的中文错误提示，替代冗长的默认错误信息
+- 所有 pybind 绑定添加友好的中文错误提示
 
 👉 [查看完整更新内容](changelog/v0.5.2.md)
 

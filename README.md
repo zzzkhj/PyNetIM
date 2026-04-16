@@ -32,7 +32,7 @@ pip install pynetim
 **系统要求：**
 
 - Python 3.8+（推荐 3.10+）
-- C++20 编译器（GCC 10+, Clang 10+, MSVC 19.28+）
+- C++17 编译器（GCC 8+, Clang 7+, MSVC 19.14+）
 
 ***
 

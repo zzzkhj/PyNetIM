@@ -34,12 +34,14 @@ if not DEEP_LEARNING_AVAILABLE:
     )
 
 from .base_dl import BaseDLAlgorithm
+from .base_drl import BaseDRLAlgorithm
 
 if DEEP_LEARNING_AVAILABLE:
     from .touplegdd import ToupleGDDAlgorithm, S2VDQNAlgorithm, ToupleGDDTrainer, S2VDQNTrainer
     from .bigdn import BiGDNAlgorithm, BiGDNSAlgorithm, BiGDNTrainer, BiGDNNodeEncoderTrainer
     __all__ = [
         'BaseDLAlgorithm',
+        'BaseDRLAlgorithm',
         'ToupleGDDAlgorithm',
         'S2VDQNAlgorithm',
         'ToupleGDDTrainer',
@@ -50,4 +52,4 @@ if DEEP_LEARNING_AVAILABLE:
         'BiGDNNodeEncoderTrainer',
     ]
 else:
-    __all__ = ['BaseDLAlgorithm']
+    __all__ = ['BaseDLAlgorithm', 'BaseDRLAlgorithm']

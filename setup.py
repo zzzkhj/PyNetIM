@@ -1,5 +1,6 @@
 import os
 import sys
+import platform
 from setuptools import setup, find_packages
 from pybind11.setup_helpers import Pybind11Extension, build_ext
 
@@ -8,30 +9,32 @@ include_dir = os.path.join(cpp_dir, "include")
 bindings_dir = os.path.join(cpp_dir, "bindings")
 
 if sys.platform == "win32":
-    extra_compile_args = ["/std:c++20", "/O2"]
+    extra_compile_args = ["/std:c++17", "/O2"]
+elif sys.platform == "darwin" and platform.machine() == "arm64":
+    extra_compile_args = ["-std=c++17", "-O3"]
 else:
-    extra_compile_args = ["-std=c++20", "-O3", "-mavx2"]
+    extra_compile_args = ["-std=c++17", "-O3", "-mavx2"]
 
 ext_modules = [
     Pybind11Extension(
         "pynetim.utils.utils",
         [os.path.join(bindings_dir, "utils_bind.cpp")],
         include_dirs=[bindings_dir, include_dir],
-        cxx_std=20,
+        cxx_std=17,
         extra_compile_args=extra_compile_args,
     ),
     Pybind11Extension(
         "pynetim.utils.rr_utils",
         [os.path.join(bindings_dir, "utils", "rr_utils_bind.cpp")],
         include_dirs=[bindings_dir, include_dir],
-        cxx_std=20,
+        cxx_std=17,
         extra_compile_args=extra_compile_args,
     ),
     Pybind11Extension(
         "pynetim.graph.graph",
         [os.path.join(bindings_dir, "graph", "graph_bind.cpp")],
         include_dirs=[bindings_dir, include_dir],
-        cxx_std=20,
+        cxx_std=17,
         extra_compile_args=extra_compile_args,
     ),
     Pybind11Extension(
@@ -41,7 +44,7 @@ ext_modules = [
             os.path.join(bindings_dir, "graph", "graph_bind.cpp"),
         ],
         include_dirs=[bindings_dir, include_dir],
-        cxx_std=20,
+        cxx_std=17,
         extra_compile_args=extra_compile_args,
     ),
     Pybind11Extension(
@@ -51,7 +54,7 @@ ext_modules = [
             os.path.join(bindings_dir, "graph", "graph_bind.cpp"),
         ],
         include_dirs=[bindings_dir, include_dir],
-        cxx_std=20,
+        cxx_std=17,
         extra_compile_args=extra_compile_args,
     ),
     Pybind11Extension(
@@ -61,7 +64,7 @@ ext_modules = [
             os.path.join(bindings_dir, "graph", "graph_bind.cpp"),
         ],
         include_dirs=[bindings_dir, include_dir],
-        cxx_std=20,
+        cxx_std=17,
         extra_compile_args=extra_compile_args,
     ),
     Pybind11Extension(
@@ -71,7 +74,7 @@ ext_modules = [
             os.path.join(bindings_dir, "graph", "graph_bind.cpp"),
         ],
         include_dirs=[bindings_dir, include_dir],
-        cxx_std=20,
+        cxx_std=17,
         extra_compile_args=extra_compile_args,
     ),
     Pybind11Extension(
@@ -81,35 +84,35 @@ ext_modules = [
             os.path.join(bindings_dir, "graph", "graph_bind.cpp"),
         ],
         include_dirs=[bindings_dir, include_dir],
-        cxx_std=20,
+        cxx_std=17,
         extra_compile_args=extra_compile_args,
     ),
     Pybind11Extension(
         "pynetim.algorithms.ris.base_ris_algorithm",
         [os.path.join(bindings_dir, "algorithms", "base_ris_bind.cpp")],
         include_dirs=[bindings_dir, include_dir],
-        cxx_std=20,
+        cxx_std=17,
         extra_compile_args=extra_compile_args,
     ),
     Pybind11Extension(
         "pynetim.algorithms.ris.imm_algorithm",
         [os.path.join(bindings_dir, "algorithms", "imm_bind.cpp")],
         include_dirs=[bindings_dir, include_dir],
-        cxx_std=20,
+        cxx_std=17,
         extra_compile_args=extra_compile_args,
     ),
     Pybind11Extension(
         "pynetim.algorithms.ris.tim_algorithm",
         [os.path.join(bindings_dir, "algorithms", "tim_bind.cpp")],
         include_dirs=[bindings_dir, include_dir],
-        cxx_std=20,
+        cxx_std=17,
         extra_compile_args=extra_compile_args,
     ),
     Pybind11Extension(
         "pynetim.algorithms.ris.opim_algorithm",
         [os.path.join(bindings_dir, "algorithms", "opim_bind.cpp")],
         include_dirs=[bindings_dir, include_dir],
-        cxx_std=20,
+        cxx_std=17,
         extra_compile_args=extra_compile_args,
     ),
 ]
