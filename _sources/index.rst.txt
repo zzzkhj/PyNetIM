@@ -3,7 +3,7 @@ PyNetIM
 
 |GitHubStars| |PyPIVersion| |Python| |License| |DownloadsTotal| |DownloadsDaily| |DownloadsWeekly| |DownloadsMonthly|
 
-.. |GitHubStars| image:: https://img.shields.io/github/stars/zzzkhj/PyNetIM
+.. |GitHubStars| image:: https://img.shields.io/static/v1?label=stars&message=4&color=blue&style=flat&logo=github
    :target: https://github.com/zzzkhj/PyNetIM
 
 .. |PyPIVersion| image:: https://badge.fury.io/py/pynetim.svg
