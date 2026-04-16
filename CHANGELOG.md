@@ -10,6 +10,7 @@
 
 | 版本 | 发布日期 | 主要更新 |
 |------|----------|----------|
+| [v0.5.2](changelog/v0.5.2.md) | 2026-04-16 | 深度学习算法模块、训练框架、pybind 签名文档修复 |
 | [v0.5.1](changelog/v0.5.1.md) | 2026-04-10 | 评估指标模块、时间测量工具、7个启发式算法 |
 | [v0.5.0](changelog/v0.5.0.md) | 2026-04-07 | 模块扁平化、算法模块、自定义传播模型、OPIM算法、中文输出 |
 | [v0.4.5](changelog/v0.4.5.md) | 2026-04-04 | SI/SIR 扩散模型、统一权重支持 |
@@ -23,6 +24,29 @@
 ---
 
 ## 最新版本
+
+### [v0.5.2] - 2026-04-16
+
+**新增功能**:
+- 深度学习影响力最大化算法模块 (`pynetim.algorithms.deep_learning`)
+  - ToupleGDD: 三重门控图神经网络 + DQN (IEEE TCSS 2024)
+  - S2V-DQN: Structure2Vec + DQN (NeurIPS 2017)
+  - BiGDN: 端到端图神经网络 + DQN (Expert Syst. Appl. 2025)
+  - BiGDNS: BiGDN 学生模型，支持知识蒸馏
+- 训练框架: ToupleGDDTrainer, S2VDQNTrainer, BiGDNTrainer, BiGDNNodeEncoderTrainer
+- 支持 topk 一次性选择和迭代选择两种推理模式
+- 预训练权重自动加载
+
+**Bug 修复**:
+- 修复 pybind 算法绑定文件签名文档重复问题（IMM/TIM/OPIM/BaseRIS）
+- 修复 opim_algorithm.pyi 中 `run()` 方法多余的 `mode` 参数
+- 添加 SI/SIR 模型缺失的 `set_beta()`, `set_max_steps()`, `set_gamma()` 方法绑定
+- 添加 graph.pyi 缺失的 `get_adj_list_py()` 方法
+
+**改进**:
+- 所有 pybind 绑定添加友好的中文错误提示，替代冗长的默认错误信息
+
+👉 [查看完整更新内容](changelog/v0.5.2.md)
 
 ### [v0.5.1] - 2026-04-10
 
@@ -131,4 +155,4 @@ PyNetIM 遵循 [语义化版本控制](https://semver.org/) (Semantic Versioning
 
 ---
 
-**最后更新**: 2026-04-10
+**最后更新**: 2026-04-16

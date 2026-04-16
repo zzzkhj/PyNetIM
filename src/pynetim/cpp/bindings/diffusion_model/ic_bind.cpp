@@ -13,8 +13,12 @@ PYBIND11_MODULE(independent_cascade_model, m) {
 
         py::class_<pynetim::IndependentCascadeModel>(m, "IndependentCascadeModel")
             .def(py::init([](py::object graph_obj, const std::set<int>& seeds, bool record_activated, bool record_activation_frequency) {
-                auto graph_ptr = py::cast<std::shared_ptr<pynetim::Graph>>(graph_obj);
-                return std::make_unique<pynetim::IndependentCascadeModel>(graph_ptr, seeds, graph_obj, record_activated, record_activation_frequency);
+                try {
+                    auto graph_ptr = py::cast<std::shared_ptr<pynetim::Graph>>(graph_obj);
+                    return std::make_unique<pynetim::IndependentCascadeModel>(graph_ptr, seeds, graph_obj, record_activated, record_activation_frequency);
+                } catch (const py::cast_error&) {
+                    throw py::type_error("IndependentCascadeModel() 参数错误: graph 必须是 IMGraph 类型。\n用法: IndependentCascadeModel(graph, seeds, record_activated=False, record_activation_frequency=False)");
+                }
             }),
                 py::arg("graph"), py::arg("seeds"), py::arg("record_activated") = false, py::arg("record_activation_frequency") = false,
                 py::keep_alive<0, 1>(),

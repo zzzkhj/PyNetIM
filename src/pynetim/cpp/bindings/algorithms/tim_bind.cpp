@@ -9,15 +9,25 @@ namespace py = pybind11;
 PYBIND11_MODULE(tim_algorithm, m) {
     m.doc() = "TIM/TIM+算法模块";
 
-    py::class_<pynetim::TIMAlgorithm, pynetim::BaseRISAlgorithm,
-               std::shared_ptr<pynetim::TIMAlgorithm>>(m, "TIMAlgorithm")
-        .def(py::init([](std::shared_ptr<pynetim::Graph> graph,
+    {
+        py::options options;
+        options.disable_function_signatures();
+
+        py::class_<pynetim::TIMAlgorithm, pynetim::BaseRISAlgorithm,
+                   std::shared_ptr<pynetim::TIMAlgorithm>>(m, "TIMAlgorithm")
+        .def(py::init([](py::object graph_obj,
                          const std::string& model,
                          double epsilon,
                          int l,
                          std::optional<int> random_seed,
                          bool verbose) {
-            return std::make_shared<pynetim::TIMAlgorithm>(graph, model, epsilon, l, random_seed, verbose);
+            std::shared_ptr<pynetim::Graph> graph_ptr;
+            try {
+                graph_ptr = py::cast<std::shared_ptr<pynetim::Graph>>(graph_obj);
+            } catch (const py::cast_error&) {
+                throw py::type_error("TIMAlgorithm() 参数错误: graph 必须是 IMGraph 类型。\n用法: TIMAlgorithm(graph, model, epsilon=0.5, l=1, random_seed=None, verbose=False)");
+            }
+            return std::make_shared<pynetim::TIMAlgorithm>(graph_ptr, model, epsilon, l, random_seed, verbose);
         }),
             py::arg("graph"),
             py::arg("model"),
@@ -51,8 +61,8 @@ Returns:
     set[int]: 选中的种子节点集合。
 )doc");
 
-    py::class_<pynetim::TIMPlusAlgorithm, pynetim::BaseRISAlgorithm,
-               std::shared_ptr<pynetim::TIMPlusAlgorithm>>(m, "TIMPlusAlgorithm")
+        py::class_<pynetim::TIMPlusAlgorithm, pynetim::BaseRISAlgorithm,
+                   std::shared_ptr<pynetim::TIMPlusAlgorithm>>(m, "TIMPlusAlgorithm")
         .def(py::init([](std::shared_ptr<pynetim::Graph> graph,
                          const std::string& model,
                          double epsilon,
@@ -94,4 +104,5 @@ Args:
 Returns:
     set[int]: 选中的种子节点集合。
 )doc");
+    }
 }

@@ -13,8 +13,12 @@ PYBIND11_MODULE(linear_threshold_model, m) {
 
         py::class_<pynetim::LinearThresholdModel>(m, "LinearThresholdModel")
             .def(py::init([](py::object graph_obj, const std::set<int>& seeds, double theta_l, double theta_h, bool record_activated, bool record_activation_frequency) {
-                auto graph_ptr = py::cast<std::shared_ptr<pynetim::Graph>>(graph_obj);
-                return std::make_unique<pynetim::LinearThresholdModel>(graph_ptr, seeds, theta_l, theta_h, record_activated, record_activation_frequency);
+                try {
+                    auto graph_ptr = py::cast<std::shared_ptr<pynetim::Graph>>(graph_obj);
+                    return std::make_unique<pynetim::LinearThresholdModel>(graph_ptr, seeds, theta_l, theta_h, record_activated, record_activation_frequency);
+                } catch (const py::cast_error&) {
+                    throw py::type_error("LinearThresholdModel() 参数错误: graph 必须是 IMGraph 类型。\n用法: LinearThresholdModel(graph, seeds, theta_l=0.0, theta_h=1.0, record_activated=False, record_activation_frequency=False)");
+                }
             }),
                 py::arg("graph"), py::arg("seeds"), py::arg("theta_l") = 0.0, py::arg("theta_h") = 1.0, py::arg("record_activated") = false, py::arg("record_activation_frequency") = false,
                 py::keep_alive<0, 1>(),

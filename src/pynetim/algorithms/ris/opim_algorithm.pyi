@@ -44,7 +44,7 @@ class OPIMAlgorithm:
         """
         ...
     
-    def run(self, k: int, num_rr_sets: int, delta: float = -1.0, mode: int = 2) -> Set[int]:
+    def run(self, k: int, num_rr_sets: int, delta: float = -1.0) -> Set[int]:
         """执行 OPIM 算法选择种子节点。
 
         OPIM 使用固定数量的 RR 集合，最大化近似保证。
@@ -53,10 +53,6 @@ class OPIMAlgorithm:
             k: 需要选择的种子节点数量。
             num_rr_sets: RR 集合总采样数量（会均分给 R1 和 R2）。
             delta: 失败概率参数，默认为 1/n。
-            mode: 上界计算模式：
-                - 0: Vanilla 版本，返回 (1-1/e)-近似
-                - 1: 使用最后一轮的上界
-                - 2: 使用所有轮中的最小上界（默认）
 
         Returns:
             Set[int]: 选中的种子节点集合。
@@ -127,7 +123,7 @@ class OPIMCAlgorithm(OPIMAlgorithm):
         """
         ...
     
-    def run(self, k: int, epsilon: float, delta: float = -1.0, mode: int = 2) -> Set[int]:
+    def run(self, k: int, epsilon: float, delta: float = -1.0) -> Set[int]:
         """执行 OPIM-C 算法选择种子节点。
 
         OPIM-C 会自动迭代增加 RR 集合数量，直到达到目标近似保证。
@@ -136,10 +132,6 @@ class OPIMCAlgorithm(OPIMAlgorithm):
             k: 需要选择的种子节点数量。
             epsilon: 误差阈值，算法返回 (1-1/e-ε)-近似解。
             delta: 失败概率参数，默认为 1/n。
-            mode: 上界计算模式：
-                - 0: Vanilla 版本
-                - 1: 使用最后一轮的上界
-                - 2: 使用所有轮中的最小上界（默认）
 
         Returns:
             Set[int]: 选中的种子节点集合。

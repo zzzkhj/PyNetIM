@@ -68,9 +68,13 @@ PYBIND11_MODULE(py_diffusion_model_base, m) {
         py::class_<pynetim::PyDiffusionModelBase, pynetim::PyDiffusionModelBaseTrampoline>(m, "PyDiffusionModelBase")
             .def(py::init([](py::object graph_obj, const std::set<int>& seeds,
                              py::object py_override, bool record_activated, bool record_activation_frequency) {
-                auto graph_ptr = py::cast<std::shared_ptr<pynetim::Graph>>(graph_obj);
-                return std::make_unique<pynetim::PyDiffusionModelBaseTrampoline>(
-                    graph_ptr, seeds, py_override, record_activated, record_activation_frequency);
+                try {
+                    auto graph_ptr = py::cast<std::shared_ptr<pynetim::Graph>>(graph_obj);
+                    return std::make_unique<pynetim::PyDiffusionModelBaseTrampoline>(
+                        graph_ptr, seeds, py_override, record_activated, record_activation_frequency);
+                } catch (const py::cast_error&) {
+                    throw py::type_error("PyDiffusionModelBase() 参数错误: graph 必须是 IMGraph 类型。\n用法: PyDiffusionModelBase(graph, seeds, py_override=None, record_activated=False, record_activation_frequency=False)");
+                }
             }),
                 py::arg("graph"),
                 py::arg("seeds"),

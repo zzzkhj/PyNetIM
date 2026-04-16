@@ -9,12 +9,22 @@ namespace py = pybind11;
 PYBIND11_MODULE(opim_algorithm, m) {
     m.doc() = "OPIM算法模块，提供Online Processing for Influence Maximization算法";
 
-    py::class_<pynetim::OPIMAlgorithm, pynetim::BaseRISAlgorithm, std::shared_ptr<pynetim::OPIMAlgorithm>>(m, "OPIMAlgorithm")
-        .def(py::init([](std::shared_ptr<pynetim::Graph> graph,
+    {
+        py::options options;
+        options.disable_function_signatures();
+
+        py::class_<pynetim::OPIMAlgorithm, pynetim::BaseRISAlgorithm, std::shared_ptr<pynetim::OPIMAlgorithm>>(m, "OPIMAlgorithm")
+        .def(py::init([](py::object graph_obj,
                          const std::string& model,
                          std::optional<int> random_seed,
                          bool verbose) {
-            return std::make_shared<pynetim::OPIMAlgorithm>(graph, model, random_seed, verbose);
+            std::shared_ptr<pynetim::Graph> graph_ptr;
+            try {
+                graph_ptr = py::cast<std::shared_ptr<pynetim::Graph>>(graph_obj);
+            } catch (const py::cast_error&) {
+                throw py::type_error("OPIMAlgorithm() 参数错误: graph 必须是 IMGraph 类型。\n用法: OPIMAlgorithm(graph, model, random_seed=None, verbose=False)");
+            }
+            return std::make_shared<pynetim::OPIMAlgorithm>(graph_ptr, model, random_seed, verbose);
         }),
             py::arg("graph"),
             py::arg("model"),
@@ -86,8 +96,8 @@ Returns:
     float: 影响力估计值。
 )doc");
 
-    py::class_<pynetim::OPIMCAlgorithm, pynetim::OPIMAlgorithm,
-               std::shared_ptr<pynetim::OPIMCAlgorithm>>(m, "OPIMCAlgorithm")
+        py::class_<pynetim::OPIMCAlgorithm, pynetim::OPIMAlgorithm,
+                   std::shared_ptr<pynetim::OPIMCAlgorithm>>(m, "OPIMCAlgorithm")
         .def(py::init([](std::shared_ptr<pynetim::Graph> graph,
                          const std::string& model,
                          std::optional<int> random_seed,
@@ -135,4 +145,5 @@ Args:
 Returns:
     set[int]: 选中的种子节点集合。
 )doc");
+    }
 }

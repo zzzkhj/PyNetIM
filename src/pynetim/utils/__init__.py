@@ -20,6 +20,12 @@ from .graph_utils import (
     to_pyg,
 )
 
+try:
+    from .rr_utils import sample_rr_set_ic, sample_rr_set_lt, generate_rr_sets
+    RR_UTILS_AVAILABLE = True
+except ImportError:
+    RR_UTILS_AVAILABLE = False
+
 
 def renumber_edges(edges: List[Tuple[int, int]]) -> Tuple[List[Tuple[int, int]], dict, List[int]]:
     """重新编号边列表中的节点为连续整数。
@@ -216,3 +222,6 @@ __all__ = [
     'shortest_path_length',
     'all_pairs_shortest_path_length',
 ]
+
+if RR_UTILS_AVAILABLE:
+    __all__.extend(['sample_rr_set_ic', 'sample_rr_set_lt', 'generate_rr_sets'])

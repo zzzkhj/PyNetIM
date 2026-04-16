@@ -10,6 +10,7 @@
 #include <set>
 #include <optional>
 #include "../graph/Graph.h"
+#include "../rr_utils.h"
 
 namespace pynetim {
 
@@ -25,57 +26,11 @@ protected:
     std::set<int> seedSet_;
 
     std::vector<int> sampleRRSetIC() {
-        std::vector<int> rr_set;
-        std::vector<bool> visited(graph_->num_nodes, false);
-        std::queue<int> q;
-
-        int start = std::uniform_int_distribution<int>(
-            0, graph_->num_nodes - 1)(rng_);
-        rr_set.push_back(start);
-        visited[start] = true;
-        q.push(start);
-
-        while (!q.empty()) {
-            int u = q.front(); q.pop();
-            for (int v : graph_->in_neighbors(u)) {
-                if (visited[v]) continue;
-                double w = graph_->get_edge_weight(v, u);
-                if (std::uniform_real_distribution<double>(0.0, 1.0)(rng_) <= w) {
-                    visited[v] = true;
-                    rr_set.push_back(v);
-                    q.push(v);
-                }
-            }
-        }
-        return rr_set;
+        return utils::sampleRRSetIC(graph_, rng_);
     }
 
     std::vector<int> sampleRRSetLT() {
-        std::vector<int> rr_set;
-        std::vector<bool> visited(graph_->num_nodes, false);
-
-        int current = std::uniform_int_distribution<int>(
-            0, graph_->num_nodes - 1)(rng_);
-        rr_set.push_back(current);
-        visited[current] = true;
-
-        while (true) {
-            auto in_nbrs = graph_->in_neighbors(current);
-            if (in_nbrs.empty()) break;
-
-            double r = std::uniform_real_distribution<double>(0.0, 1.0)(rng_);
-            double cum = 0.0;
-            int selected = -1;
-            for (int v : in_nbrs) {
-                cum += graph_->get_edge_weight(v, current);
-                if (r <= cum) { selected = v; break; }
-            }
-            if (selected == -1 || visited[selected]) break;
-            visited[selected] = true;
-            rr_set.push_back(selected);
-            current = selected;
-        }
-        return rr_set;
+        return utils::sampleRRSetLT(graph_, rng_);
     }
 
     void buildHyperGraphR(int64_t R) {

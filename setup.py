@@ -15,6 +15,13 @@ ext_modules = [
         extra_compile_args=["-mavx2"],
     ),
     Pybind11Extension(
+        "pynetim.utils.rr_utils",
+        [os.path.join(bindings_dir, "utils", "rr_utils_bind.cpp")],
+        include_dirs=[bindings_dir, include_dir],
+        cxx_std=20,
+        extra_compile_args=["-mavx2"],
+    ),
+    Pybind11Extension(
         "pynetim.graph.graph",
         [os.path.join(bindings_dir, "graph", "graph_bind.cpp")],
         include_dirs=[bindings_dir, include_dir],

@@ -13,7 +13,8 @@
 PyNetIM 提供完整的影响力最大化解决方案：
 
 - **多种传播模型** - IC、LT、SI、SIR
-- **多种 IM 算法** - 启发式、模拟类、RIS  类
+- **多种 IM 算法** - 启发式、模拟类、RIS 类、深度学习
+- **深度学习算法** - ToupleGDD、S2V-DQN、BiGDN
 - **评估指标** - 排名指标、影响力指标、种子质量指标、网络指标
 - **时间测量** - 装饰器、AlgorithmTimer、多次运行统计
 - **高性能 C++ 后端** - 比纯 Python 快 20-30 倍
@@ -167,6 +168,74 @@ algo = OPIMCAlgorithm(graph, model='IC', random_seed=42, verbose=True)
 seeds = algo.run(k=10, epsilon=0.3)
 ```
 
+### 深度学习算法
+
+PyNetIM 集成了基于深度强化学习的影响力最大化算法：
+
+| 算法 | 类型 | 特点 | 参考文献 |
+| --- | --- | --- | --- |
+| `ToupleGDDAlgorithm` | 深度学习 | 三重门控图神经网络 + DQN | IEEE TCSS 2024 |
+| `S2VDQNAlgorithm` | 深度学习 | Structure2Vec + DQN | NeurIPS 2017 |
+| `BiGDNAlgorithm` | 深度学习 | 端到端图神经网络 + DQN（教师模型） | Expert Syst. Appl. 2025 |
+| `BiGDNSAlgorithm` | 深度学习 | BiGDN 学生模型，支持知识蒸馏 | - |
+
+```python
+from pynetim import IMGraph
+from pynetim.algorithms import (
+    ToupleGDDAlgorithm, S2VDQNAlgorithm,
+    BiGDNAlgorithm, BiGDNSAlgorithm
+)
+
+# 创建图
+graph = IMGraph(edges, weights=0.3)
+
+# ToupleGDD（默认 use_topk=True，一次性选择）
+algo = ToupleGDDAlgorithm(graph, pretrained=True)
+seeds = algo.run(k=10)
+
+# S2V-DQN（默认 use_topk=False，迭代选择）
+algo = S2VDQNAlgorithm(graph, pretrained=True)
+seeds = algo.run(k=10)
+
+# BiGDN
+algo = BiGDNAlgorithm(graph, pretrained=True)
+seeds = algo.run(k=10)
+
+# BiGDNS（学生模型，需要教师模型权重）
+algo = BiGDNSAlgorithm(graph, teacher_path='teacher.pth', pretrained=True)
+seeds = algo.run(k=10)
+```
+
+#### 训练深度学习模型
+
+```python
+from pynetim.algorithms import (
+    ToupleGDDTrainer, S2VDQNTrainer,
+    BiGDNTrainer, BiGDNNodeEncoderTrainer
+)
+
+# ToupleGDD 训练
+trainer = ToupleGDDTrainer(device='auto')
+trainer.train(graphs=[graph], budget=10, num_epochs=100, save_path='model.ckpt')
+
+# S2V-DQN 训练
+trainer = S2VDQNTrainer(device='auto')
+trainer.train(graphs=[graph], budget=10, num_epochs=100, save_path='model.ckpt')
+
+# BiGDN 训练（需要先预训练 NodeEncoder）
+ne_trainer = BiGDNNodeEncoderTrainer(num_features=64, device='auto')
+ne_trainer.train(graphs=train_graphs, num_epochs=100, save_path='encoder.pth')
+
+trainer = BiGDNTrainer(num_features=64, device='auto', encoder_path='encoder.pth')
+trainer.train(graphs=[graph], budget=10, num_epochs=100, save_path='model.pth')
+```
+
+**注意**：深度学习算法需要安装额外依赖：
+
+```bash
+pip install pynetim[deep-learning]
+```
+
 ### 自定义传播模型
 
 PyNetIM 提供两种自定义模型基类：
@@ -299,13 +368,22 @@ src/pynetim/
 │   │   ├── BetweennessCentralityAlgorithm
 │   │   ├── ClosenessCentralityAlgorithm
 │   │   └── EigenvectorCentralityAlgorithm
-│   └── ris/                  # RIS 类算法
-│       ├── BaseRISAlgorithm
-│       ├── IMMAlgorithm
-│       ├── TIMAlgorithm
-│       ├── TIMPlusAlgorithm
-│       ├── OPIMAlgorithm
-│       └── OPIMCAlgorithm
+│   ├── ris/                  # RIS 类算法
+│   │   ├── BaseRISAlgorithm
+│   │   ├── IMMAlgorithm
+│   │   ├── TIMAlgorithm
+│   │   ├── TIMPlusAlgorithm
+│   │   ├── OPIMAlgorithm
+│   │   └── OPIMCAlgorithm
+│   └── deep_learning/        # 深度学习算法
+│       ├── ToupleGDDAlgorithm
+│       ├── S2VDQNAlgorithm
+│       ├── BiGDNAlgorithm
+│       ├── BiGDNSAlgorithm
+│       ├── ToupleGDDTrainer
+│       ├── S2VDQNTrainer
+│       ├── BiGDNTrainer
+│       └── BiGDNNodeEncoderTrainer
 ├── evaluation/               # 评估指标
 │   ├── ranking_metrics       # 排名指标
 │   ├── influence_metrics     # 影响力指标

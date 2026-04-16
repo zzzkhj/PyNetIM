@@ -9,12 +9,22 @@ namespace py = pybind11;
 PYBIND11_MODULE(base_ris_algorithm, m) {
     m.doc() = "基础RIS算法模块";
 
-    py::class_<pynetim::BaseRISAlgorithm, std::shared_ptr<pynetim::BaseRISAlgorithm>>(m, "BaseRISAlgorithm")
-        .def(py::init([](std::shared_ptr<pynetim::Graph> graph,
+    {
+        py::options options;
+        options.disable_function_signatures();
+
+        py::class_<pynetim::BaseRISAlgorithm, std::shared_ptr<pynetim::BaseRISAlgorithm>>(m, "BaseRISAlgorithm")
+        .def(py::init([](py::object graph_obj,
                          const std::string& model,
                          std::optional<int> random_seed,
                          bool verbose) {
-            return std::make_shared<pynetim::BaseRISAlgorithm>(graph, model, random_seed, verbose);
+            std::shared_ptr<pynetim::Graph> graph_ptr;
+            try {
+                graph_ptr = py::cast<std::shared_ptr<pynetim::Graph>>(graph_obj);
+            } catch (const py::cast_error&) {
+                throw py::type_error("BaseRISAlgorithm() 参数错误: graph 必须是 IMGraph 类型。\n用法: BaseRISAlgorithm(graph, model, random_seed=None, verbose=False)");
+            }
+            return std::make_shared<pynetim::BaseRISAlgorithm>(graph_ptr, model, random_seed, verbose);
         }),
             py::arg("graph"),
             py::arg("model"),
@@ -54,4 +64,5 @@ Returns:
 Returns:
     set[int]: 种子节点集合。
 )doc");
+    }
 }

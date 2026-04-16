@@ -13,8 +13,12 @@ PYBIND11_MODULE(susceptible_infected_model, m) {
 
         py::class_<pynetim::SusceptibleInfectedModel>(m, "SusceptibleInfectedModel")
             .def(py::init([](py::object graph_obj, const std::set<int>& seeds, double beta, int max_steps, bool record_activated, bool record_activation_frequency) {
-                auto graph_ptr = py::cast<std::shared_ptr<pynetim::Graph>>(graph_obj);
-                return std::make_unique<pynetim::SusceptibleInfectedModel>(graph_ptr, seeds, beta, max_steps, record_activated, record_activation_frequency);
+                try {
+                    auto graph_ptr = py::cast<std::shared_ptr<pynetim::Graph>>(graph_obj);
+                    return std::make_unique<pynetim::SusceptibleInfectedModel>(graph_ptr, seeds, beta, max_steps, record_activated, record_activation_frequency);
+                } catch (const py::cast_error&) {
+                    throw py::type_error("SusceptibleInfectedModel() 参数错误: graph 必须是 IMGraph 类型。\n用法: SusceptibleInfectedModel(graph, seeds, beta, max_steps, record_activated=False, record_activation_frequency=False)");
+                }
             }),
                 py::arg("graph"), py::arg("seeds"), py::arg("beta"), py::arg("max_steps"), py::arg("record_activated") = false, py::arg("record_activation_frequency") = false,
                 py::keep_alive<0, 1>(),
@@ -39,6 +43,26 @@ Args:
 
 Args:
     new_seeds: 新的种子节点集合。
+)doc")
+
+            .def("set_beta", &pynetim::SusceptibleInfectedModel::set_beta,
+                py::arg("beta"),
+                R"doc(set_beta(beta: float) -> None
+
+设置感染概率。
+
+Args:
+    beta: 感染概率，必须在 (0, 1] 范围内。
+)doc")
+
+            .def("set_max_steps", &pynetim::SusceptibleInfectedModel::set_max_steps,
+                py::arg("max_steps"),
+                R"doc(set_max_steps(max_steps: int) -> None
+
+设置最大传播步数。
+
+Args:
+    max_steps: 最大传播步数。
 )doc")
 
             .def("set_record_activated", &pynetim::SusceptibleInfectedModel::set_record_activated,

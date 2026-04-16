@@ -278,6 +278,14 @@ class IMGraph:
         """
         ...
     
+    def get_adj_list_py(self) -> List[List[Tuple[int, float]]]:
+        """返回 Python 友好格式的邻接表。
+        
+        Returns:
+            List[List[Tuple[int, float]]]: (邻居, 权重) 元组列表的列表。
+        """
+        ...
+    
     def get_adj_matrix(self) -> List[List[float]]:
         """返回稠密邻接矩阵。
         

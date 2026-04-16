@@ -34,3 +34,9 @@ __all__ = [
     'OPIMAlgorithm',
     'OPIMCAlgorithm',
 ]
+
+try:
+    from .deep_learning import ToupleGDDAlgorithm, S2VDQNAlgorithm, Trainer, IMEnvironment
+    __all__.extend(['ToupleGDDAlgorithm', 'S2VDQNAlgorithm', 'Trainer', 'IMEnvironment'])
+except ImportError:
+    pass

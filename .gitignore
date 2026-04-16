@@ -127,3 +127,10 @@ secrets.json
 
 build_docs.py
 docs/
+
+# 深度学习预训练权重文件（需用户自行训练）
+*.pth
+*.ckpt
+
+# 发布文档（包含敏感信息）
+RELEASE.md

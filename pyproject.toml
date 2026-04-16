@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "pynetim"
-version = "0.5.1"
+version = "0.5.2"
 authors = [{ name = "Kaijing Zhang", email = "zhkaij@foxmail.com" }]
 description = "A Python library for Network Influence Maximization"
 readme = "README.md"
@@ -21,3 +21,13 @@ license = { text = "MIT" }
 Homepage = "https://github.com/zzzkhj/PyNetIM"
 Repository = "https://github.com/zzzkhj/PyNetIM"
 Issues = "https://github.com/zzzkhj/PyNetIM/issues"
+
+[project.optional-dependencies]
+deep-learning = [
+    "torch>=1.10",
+    "torch-geometric>=2.0",
+    "torch-scatter>=2.0",
+]
+all = [
+    "pynetim[deep-learning]",
+]

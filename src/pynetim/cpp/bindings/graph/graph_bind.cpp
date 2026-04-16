@@ -27,9 +27,23 @@ PYBIND11_MODULE(graph, m) {
                              py::object weights_obj,
                              bool directed,
                              bool renumber) {
+                if (!py::isinstance<py::list>(edges_obj) && !py::isinstance<py::tuple>(edges_obj)) {
+                    throw py::type_error("IMGraph() 参数错误: edges 必须是 list[tuple[int, int]] 类型。\n用法: IMGraph(edges, weights=1.0, directed=True, renumber=True)");
+                }
+                
                 std::vector<std::tuple<int, int>> edges;
                 if (py::isinstance<py::list>(edges_obj)) {
                     for (auto item : edges_obj.cast<py::list>()) {
+                        if (py::isinstance<py::tuple>(item)) {
+                            auto t = item.cast<py::tuple>();
+                            edges.emplace_back(t[0].cast<int>(), t[1].cast<int>());
+                        } else if (py::isinstance<py::list>(item)) {
+                            auto l = item.cast<py::list>();
+                            edges.emplace_back(l[0].cast<int>(), l[1].cast<int>());
+                        }
+                    }
+                } else if (py::isinstance<py::tuple>(edges_obj)) {
+                    for (auto item : edges_obj.cast<py::tuple>()) {
                         if (py::isinstance<py::tuple>(item)) {
                             auto t = item.cast<py::tuple>();
                             edges.emplace_back(t[0].cast<int>(), t[1].cast<int>());
@@ -45,9 +59,11 @@ PYBIND11_MODULE(graph, m) {
                 } else if (py::isinstance<py::float_>(weights_obj) || py::isinstance<py::int_>(weights_obj)) {
                     double uniform_weight = weights_obj.cast<double>();
                     return std::make_shared<pynetim::Graph>(edges, uniform_weight, directed, renumber);
-                } else {
+                } else if (py::isinstance<py::list>(weights_obj)) {
                     std::vector<double> weights = weights_obj.cast<std::vector<double>>();
                     return std::make_shared<pynetim::Graph>(edges, weights, directed, renumber);
+                } else {
+                    throw py::type_error("IMGraph() 参数错误: weights 必须是 float 或 list[float] 类型。\n用法: IMGraph(edges, weights=1.0, directed=True, renumber=True)");
                 }
             }),
                 py::arg("edges"),
