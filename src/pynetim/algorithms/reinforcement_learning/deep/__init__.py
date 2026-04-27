@@ -1,6 +1,9 @@
 """深度强化学习影响力最大化算法模块。"""
 
-from .base_drl import BaseDRLAlgorithm
+try:
+    from .base_drl import BaseDRLAlgorithm
+except ImportError:
+    BaseDRLAlgorithm = None
 
 __all__ = [
     'BaseDRLAlgorithm',

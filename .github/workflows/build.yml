@@ -101,11 +101,30 @@ jobs:
           pip install networkx numpy tqdm
           pip install --find-links=wheelhouse pynetim
 
-      - name: Test import
+      - name: Test basic import (without torch)
         run: |
-          python -c "from pynetim import IMGraph; print('Import successful')"
-          python -c "from pynetim.diffusion_model import IndependentCascadeModel; print('IC Model import successful')"
-          python -c "from pynetim.algorithms import IMMAlgorithm; print('IMM Algorithm import successful')"
+          python -c "from pynetim import IMGraph; print('IMGraph import OK')"
+          python -c "from pynetim.diffusion_model import IndependentCascadeModel; print('IC Model import OK')"
+          python -c "from pynetim.algorithms import IMMAlgorithm; print('IMM Algorithm import OK')"
+          python -c "from pynetim.algorithms import DegreeCentralityAlgorithm; print('Heuristic import OK')"
+          python -c "from pynetim.algorithms import GreedyAlgorithm; print('Simulation import OK')"
+          python -c "from pynetim.algorithms import BaseRLAlgorithm, CoreQAlgorithm; print('RL import OK')"
+          python -c "from pynetim.algorithms import SADPEAAlgorithm; print('Population import OK')"
+          python -W error::ImportWarning -c "
+          import warnings
+          warnings.filterwarnings('error', category=ImportWarning)
+          try:
+              from pynetim.algorithms import BiGDNAlgorithm
+              assert BiGDNAlgorithm is None, 'BiGDNAlgorithm should be None without torch'
+          except ImportWarning as e:
+              print(f'Got expected ImportWarning: {e}')
+          "
+
+      - name: Install torch and test deep learning algorithms
+        shell: bash
+        run: |
+          pip install torch --index-url https://download.pytorch.org/whl/cpu
+          python -c "from pynetim.algorithms import BiGDNAlgorithm, ToupleGDDAlgorithm, RLSetGWOAlgorithm; print('Deep learning algorithms import OK')"
 
   release:
     name: Create Release

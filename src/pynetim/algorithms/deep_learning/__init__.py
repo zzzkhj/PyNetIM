@@ -24,21 +24,9 @@ except ImportError:
 
 DEEP_LEARNING_AVAILABLE = TORCH_AVAILABLE and TORCH_GEOMETRIC_AVAILABLE and TORCH_SCATTER_AVAILABLE
 
-if not DEEP_LEARNING_AVAILABLE:
-    import warnings
-    missing = []
-    if not TORCH_AVAILABLE:
-        missing.append("torch")
-    if not TORCH_GEOMETRIC_AVAILABLE:
-        missing.append("torch_geometric")
-    if not TORCH_SCATTER_AVAILABLE:
-        missing.append("torch_scatter")
-    warnings.warn(
-        f"深度学习依赖未安装 ({', '.join(missing)})，深度学习算法不可用。\n"
-        "请使用 'pip install pynetim[deep-learning]' 安装。",
-        ImportWarning
-    )
-
-from .base_dl import BaseDLAlgorithm
+try:
+    from .base_dl import BaseDLAlgorithm
+except ImportError:
+    BaseDLAlgorithm = None
 
 __all__ = ['BaseDLAlgorithm']

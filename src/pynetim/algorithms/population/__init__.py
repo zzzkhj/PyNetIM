@@ -4,8 +4,12 @@
 """
 
 from .base_population import BasePopulationAlgorithm
-from .rlsetgwo import RLSetGWOAlgorithm
 from .sadpea import SADPEAAlgorithm
+
+try:
+    from .rlsetgwo import RLSetGWOAlgorithm
+except ImportError:
+    RLSetGWOAlgorithm = None
 
 __all__ = [
     'BasePopulationAlgorithm',
