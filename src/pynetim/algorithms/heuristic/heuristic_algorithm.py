@@ -6,6 +6,7 @@ if TYPE_CHECKING:
     from ...graph import IMGraph
 
 from ..base_algorithm import BaseAlgorithm
+from ...graph import compute_k_shell_values as _compute_k_shell_values
 
 
 class DegreeCentralityAlgorithm(BaseAlgorithm):
@@ -209,35 +210,38 @@ class KShellDecompositionAlgorithm(BaseAlgorithm):
     def __init__(self, graph: 'IMGraph', diffusion_model: str = None):
         super().__init__(graph, diffusion_model)
 
+    @staticmethod
+    def compute_k_shell_values(graph: 'IMGraph') -> Dict[int, int]:
+        """计算图中所有节点的 K-shell 值。
+
+        使用 Batagelj-Zaversnik 算法，时间复杂度 O(m)。
+
+        Args:
+            graph: IMGraph 图对象。
+
+        Returns:
+            Dict[int, int]: 节点到 K-shell 值的映射。
+
+        References:
+            Batagelj, V., & Zaversnik, M. (2003). An O(m) algorithm for 
+            cores decomposition of networks. arXiv preprint cs/0310049.
+
+        Note:
+            此方法是 pynetim.graph.compute_k_shell_values 的便捷包装。
+
+        Example:
+            >>> from pynetim import IMGraph
+            >>> from pynetim.algorithms import KShellDecompositionAlgorithm
+            >>> graph = IMGraph(edges, directed=True)
+            >>> k_shell = KShellDecompositionAlgorithm.compute_k_shell_values(graph)
+        """
+        return _compute_k_shell_values(graph)
+
     def run(self, k: int) -> Set[int]:
         n = self.graph.num_nodes
         
+        k_shell = self.compute_k_shell_values(self.graph)
         degree = {v: self.graph.out_degree(v) for v in range(n)}
-        k_shell = {v: 0 for v in range(n)}
-        
-        remaining = set(range(n))
-        current_k = 1
-        
-        while remaining:
-            changed = True
-            while changed:
-                changed = False
-                to_remove = []
-                
-                for v in list(remaining):
-                    if degree[v] <= current_k:
-                        k_shell[v] = current_k
-                        to_remove.append(v)
-                        changed = True
-                
-                for v in to_remove:
-                    remaining.remove(v)
-                    for u, _ in self.graph.out_neighbors_with_weights(v):
-                        if u in remaining:
-                            degree[u] -= 1
-            
-            if remaining:
-                current_k += 1
         
         ranked = sorted(k_shell.items(), key=lambda x: (x[1], degree[x[0]]), reverse=True)
         seeds = {v for v, _ in ranked[:k]}

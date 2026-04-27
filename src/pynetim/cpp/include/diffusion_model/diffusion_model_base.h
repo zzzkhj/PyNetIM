@@ -78,7 +78,7 @@ public:
     }
 
     double run_monte_carlo_diffusion(int rounds, bool use_random_seed = true, unsigned int seed = 0,
-                                      bool use_multithread = false, int num_threads = 0) {
+                                      bool use_multithread = false, int num_threads = 0, bool normalize = false) {
         if (rounds <= 0) return 0.0;
 
         std::vector<unsigned int> trial_seeds(rounds);
@@ -114,7 +114,7 @@ public:
                     sum += run_single_trial(rng, dist, seeds);
                 }
             }
-            return sum / rounds;
+            return normalize ? (sum / rounds / num_nodes) : (sum / rounds);
         }
 
         int actual_num_threads = (num_threads > 0) ? num_threads : std::thread::hardware_concurrency();
@@ -170,7 +170,7 @@ public:
             }
         }
 
-        return total / rounds;
+        return normalize ? (total / rounds / num_nodes) : (total / rounds);
     }
 };
 

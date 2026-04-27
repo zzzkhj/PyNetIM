@@ -10,7 +10,7 @@ from .environment import GraphEnvironment
 from .models import QValueNet, NodeEncoder
 
 if TYPE_CHECKING:
-    from ....graph import IMGraph
+    from .....graph import IMGraph
 
 
 class BiGDNTrainer:
@@ -19,10 +19,9 @@ class BiGDNTrainer:
     用于训练 BiGDN 和 BiGDNS 模型。
 
     References:
-        BiGDN: An end-to-end influence maximization framework based on deep reinforcement
-        learning and graph neural networks.
-        Wenlong Zhu, Kaijing Zhang, Jiahui Zhong, Chengle Hou, Jie Ji.
-        Expert Systems with Applications, 270:126384, 2025.
+        Zhu, W., Zhang, K., Zhong, J., Hou, C., & Ji, J. (2025). BiGDN: An end-to-end 
+        influence maximization framework based on deep reinforcement learning and graph 
+        neural networks. Expert Systems with Applications, 270, 126384.
     """
 
     def __init__(
@@ -484,7 +483,7 @@ def _compute_influence_mc(graph: 'IMGraph', seeds: List[int], num_trials: int = 
     if not seeds:
         return 0.0
 
-    from ....diffusion_model import IndependentCascadeModel
+    from .....diffusion_model import IndependentCascadeModel
 
     ic_model = IndependentCascadeModel(graph, set(seeds))
     avg_activated = ic_model.run_monte_carlo_diffusion(num_trials)

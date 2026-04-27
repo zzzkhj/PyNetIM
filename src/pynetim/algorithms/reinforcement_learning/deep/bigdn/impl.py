@@ -7,21 +7,21 @@ from .base import BiGDNBaseAlgorithm
 from .agent import Agent, StudentAgent
 from .trainer import BiGDNTrainer
 from .models import QValueNet
+from .....weights import WeightManager
 
 if TYPE_CHECKING:
-    from ....graph import IMGraph
+    from .....graph import IMGraph
 
 
 class BiGDNAlgorithm(BiGDNBaseAlgorithm):
     """BiGDN 影响力最大化算法。
 
-    使用双向图扩散网络进行种子节点选择。
+    使用双向图网络+DQN进行种子节点选择。
 
     References:
-        BiGDN: An end-to-end influence maximization framework based on deep reinforcement
-        learning and graph neural networks.
-        Wenlong Zhu, Kaijing Zhang, Jiahui Zhong, Chengle Hou, Jie Ji.
-        Expert Systems with Applications, 270:126384, 2025.
+        Zhu, W., Zhang, K., Zhong, J., Hou, C., & Ji, J. (2025). BiGDN: An end-to-end 
+        influence maximization framework based on deep reinforcement learning and graph 
+        neural networks. Expert Systems with Applications, 270, 126384.
     """
 
     _weights_filename = "bigdn_weights.pth"
@@ -34,7 +34,8 @@ class BiGDNAlgorithm(BiGDNBaseAlgorithm):
         pretrained: bool = True,
         weights_path: Optional[str] = None,
         encoder_path: Optional[str] = None,
-        verbose: bool = False
+        verbose: bool = False,
+        **kwargs
     ):
         """初始化 BiGDN 算法。
 
@@ -46,15 +47,28 @@ class BiGDNAlgorithm(BiGDNBaseAlgorithm):
             weights_path: 本地权重路径，优先级高于 pretrained。
             encoder_path: NodeEncoder 预训练权重路径。
             verbose: 是否输出详细信息，默认为 False。
+            **kwargs: 传递给父类的其他参数，包括：
+                - diffusion_model: 扩散模型名称，支持 'IC' 或 'LT'
         """
-        super().__init__(graph, num_features=num_features, verbose=verbose)
+        super().__init__(graph, num_features=num_features, verbose=verbose, **kwargs)
 
         self.device = self._get_device(device)
+
+        encoder_param_path = encoder_path
+        if encoder_path is None and pretrained:
+            try:
+                encoder_param_path = WeightManager.get_weights_path(
+                    "node_encoder.pth", 
+                    verbose=verbose
+                )
+            except FileNotFoundError:
+                if verbose:
+                    print("Warning: node_encoder.pth not found, using random initialization")
 
         self.agent = Agent(
             num_features=num_features,
             device=self.device,
-            encoder_param_path=encoder_path
+            encoder_param_path=encoder_param_path
         )
 
         if weights_path is not None:
@@ -69,10 +83,9 @@ class BiGDNSAlgorithm(BiGDNBaseAlgorithm):
     使用知识蒸馏训练的轻量级学生网络。
 
     References:
-        BiGDN: An end-to-end influence maximization framework based on deep reinforcement
-        learning and graph neural networks.
-        Wenlong Zhu, Kaijing Zhang, Jiahui Zhong, Chengle Hou, Jie Ji.
-        Expert Systems with Applications, 270:126384, 2025.
+        Zhu, W., Zhang, K., Zhong, J., Hou, C., & Ji, J. (2025). BiGDN: An end-to-end 
+        influence maximization framework based on deep reinforcement learning and graph 
+        neural networks. Expert Systems with Applications, 270, 126384.
     """
 
     _weights_filename = "bigdns_weights.pth"
@@ -84,7 +97,8 @@ class BiGDNSAlgorithm(BiGDNBaseAlgorithm):
         device: str = 'auto',
         pretrained: bool = True,
         weights_path: Optional[str] = None,
-        verbose: bool = False
+        verbose: bool = False,
+        **kwargs
     ):
         """初始化 BiGDNS 算法。
 
@@ -95,26 +109,27 @@ class BiGDNSAlgorithm(BiGDNBaseAlgorithm):
             pretrained: 是否使用预训练权重，默认为 True。
             weights_path: 本地权重路径，优先级高于 pretrained。
             verbose: 是否输出详细信息，默认为 False。
+            **kwargs: 传递给父类的其他参数，包括：
+                - diffusion_model: 扩散模型名称，支持 'IC' 或 'LT'
         """
-        super().__init__(graph, num_features=num_features, verbose=verbose)
+        super().__init__(graph, num_features=num_features, verbose=verbose, **kwargs)
 
         self.device = self._get_device(device)
 
         teacher_q_net = QValueNet(num_features).to(self.device)
-        teacher_path = Path(__file__).parent / "weights" / "bigdn_weights.pth"
-        if Path(teacher_path).exists():
-            try:
-                teacher_q_net.load_state_dict(
-                    torch.load(teacher_path, map_location=self.device, weights_only=True)
-                )
-                if self.verbose:
-                    print(f"Loaded teacher weights from {teacher_path}")
-            except RuntimeError as e:
-                if self.verbose:
-                    print(f"Warning: Failed to load teacher weights (size mismatch): {e}")
-        else:
-            if self.verbose:
-                print(f"Warning: Teacher weights not found at {teacher_path}")
+        try:
+            teacher_path = WeightManager.get_weights_path(
+                "bigdn_weights.pth", 
+                verbose=verbose
+            )
+            teacher_q_net.load_state_dict(
+                torch.load(teacher_path, map_location=self.device, weights_only=True)
+            )
+            if verbose:
+                print(f"Loaded teacher weights from {teacher_path}")
+        except (FileNotFoundError, RuntimeError) as e:
+            if verbose:
+                print(f"Warning: Failed to load teacher weights: {e}")
 
         self.agent = StudentAgent(
             num_features=num_features,

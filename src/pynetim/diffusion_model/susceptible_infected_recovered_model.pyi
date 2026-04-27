@@ -89,7 +89,7 @@ class SusceptibleInfectedRecoveredModel:
         """
         ...
     
-    def run_monte_carlo_diffusion(self, mc_rounds: int, random_seed: int | None = None, use_multithread: bool = False, num_threads: int = 0) -> float:
+    def run_monte_carlo_diffusion(self, mc_rounds: int, random_seed: int | None = None, use_multithread: bool = False, num_threads: int = 0, normalize: bool = False) -> float:
         """运行蒙特卡洛模拟，计算平均感染+恢复人数。
         
         Args:
@@ -97,9 +97,10 @@ class SusceptibleInfectedRecoveredModel:
             random_seed: 随机种子，用于结果可重现。若为 None 则使用真随机种子。
             use_multithread: 是否启用多线程，默认为 False。
             num_threads: 线程数，当 use_multithread=True 时必须大于 0。
+            normalize: 是否将结果归一化（除以图节点数），默认为 False。
         
         Returns:
-            float: 平均感染+恢复节点数。
+            float: 平均感染+恢复节点数。若 normalize=True，返回归一化后的感染比例。
         
         Raises:
             ValueError: 当 use_multithread=True 但 num_threads <= 0 时抛出。

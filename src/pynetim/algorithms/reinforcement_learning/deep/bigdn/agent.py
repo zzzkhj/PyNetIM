@@ -11,7 +11,7 @@ from torch_geometric.data import Batch, Data
 from .models import QValueNet, StudentQValueNet
 
 if TYPE_CHECKING:
-    from ....graph import IMGraph
+    from .....graph import IMGraph
 
 
 class ReplayBuffer:
@@ -41,10 +41,9 @@ class Agent:
     """BiGDN Agent。
 
     References:
-        BiGDN: An end-to-end influence maximization framework based on deep reinforcement
-        learning and graph neural networks.
-        Wenlong Zhu, Kaijing Zhang, Jiahui Zhong, Chengle Hou, Jie Ji.
-        Expert Systems with Applications, 270:126384, 2025.
+        Zhu, W., Zhang, K., Zhong, J., Hou, C., & Ji, J. (2025). BiGDN: An end-to-end 
+        influence maximization framework based on deep reinforcement learning and graph 
+        neural networks. Expert Systems with Applications, 270, 126384.
     """
 
     def __init__(

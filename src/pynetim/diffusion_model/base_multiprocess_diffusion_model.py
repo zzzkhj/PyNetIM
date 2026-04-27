@@ -135,7 +135,8 @@ class BaseMultiprocessDiffusionModel(ABC):
         mc_rounds: int, 
         num_processes: int = None,
         show_progress: bool = False,
-        random_seed: int = None
+        random_seed: int = None,
+        normalize: bool = False
     ) -> float:
         """运行蒙特卡洛模拟，计算平均影响力。
 
@@ -144,9 +145,10 @@ class BaseMultiprocessDiffusionModel(ABC):
             num_processes: 进程数，默认使用 CPU 核心数。
             show_progress: 是否显示进度条（暂未实现）。
             random_seed: 随机数种子，默认为 None（每次结果不同）。
+            normalize: 是否将结果归一化（除以图节点数），默认为 False。
 
         Returns:
-            float: 平均激活节点数。
+            float: 平均激活节点数。若 normalize=True，返回归一化后的影响力比例。
 
         Note:
             当模拟次数较多时（>= 进程数 * 10），自动启用多进程并行。
@@ -179,13 +181,15 @@ class BaseMultiprocessDiffusionModel(ABC):
                 count, _, _ = self.run_single_trial(list(self.seeds), rng_seeds[i])
                 total_activated += count
         
-        return total_activated / mc_rounds
+        avg = total_activated / mc_rounds
+        return avg / self.num_nodes if normalize else avg
     
     def run_monte_carlo_with_frequency(
         self, 
         mc_rounds: int, 
         num_processes: int = None,
-        random_seed: int = None
+        random_seed: int = None,
+        normalize: bool = False
     ) -> Tuple[float, List[int]]:
         """运行蒙特卡洛模拟，返回平均影响力和激活频数。
 
@@ -193,10 +197,11 @@ class BaseMultiprocessDiffusionModel(ABC):
             mc_rounds: 蒙特卡洛模拟次数，建议 1000-10000 次。
             num_processes: 进程数，默认使用 CPU 核心数。
             random_seed: 随机数种子，默认为 None（每次结果不同）。
+            normalize: 是否将结果归一化（除以图节点数），默认为 False。
 
         Returns:
             Tuple[float, List[int]]: 包含两个元素：
-                - 平均激活节点数
+                - 平均激活节点数。若 normalize=True，返回归一化后的影响力比例。
                 - 每个节点的激活频数列表
         """
         if num_processes is None:
@@ -234,4 +239,5 @@ class BaseMultiprocessDiffusionModel(ABC):
                 for j, f in enumerate(freq):
                     total_frequency[j] += f
         
-        return total_activated / mc_rounds, total_frequency
+        avg = total_activated / mc_rounds
+        return (avg / self.num_nodes if normalize else avg), total_frequency

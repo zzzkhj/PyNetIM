@@ -1,8 +1,3 @@
-include src/pynetim/cpp/include/*.h
-include src/pynetim/cpp/bindings/*.cpp
-include src/pynetim/cpp/diffusion_model/*.pyi
-include src/pynetim/cpp/graph/*.pyi
-recursive-include src/pynetim *.h *.cpp *.pyi
 include LICENSE
 include README.md
 include CHANGELOG.md
@@ -15,3 +10,4 @@ prune .git
 prune build
 prune dist
 prune *.egg-info
+recursive-include src/pynetim *

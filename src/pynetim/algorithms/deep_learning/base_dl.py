@@ -36,7 +36,8 @@ class BaseDLAlgorithm(BaseAlgorithm):
         graph: 'IMGraph',
         pretrained: bool = True,
         weights_path: Optional[str] = None,
-        device: str = 'auto'
+        device: str = 'auto',
+        diffusion_model: str = None
     ):
         """初始化深度学习算法基类。
 
@@ -45,8 +46,9 @@ class BaseDLAlgorithm(BaseAlgorithm):
             pretrained: 是否使用预训练权重，默认为 True。
             weights_path: 本地权重路径，优先级高于 pretrained。
             device: 计算设备，支持 'auto'、'cpu'、'cuda'，默认为 'auto'。
+            diffusion_model: 扩散模型名称，支持 'IC' 或 'LT'，默认为 None。
         """
-        super().__init__(graph)
+        super().__init__(graph, diffusion_model)
         self.device = self._get_device(device)
         self._node_embed = None
         self.model = None

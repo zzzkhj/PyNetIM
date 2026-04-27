@@ -28,8 +28,8 @@ TestResults.xml
 dist/
 build/
 
-# 测试脚本
-test_*.py
+# 测试脚本（仅根目录）
+/test_*.py
 analyze_*.py
 # Git版本控制目录
 .git/
@@ -129,8 +129,15 @@ build_docs.py
 docs/
 
 # 深度学习预训练权重文件（需用户自行训练）
-*.pth
-*.ckpt
+# *.pth
+# *.ckpt
 
 # 发布文档（包含敏感信息）
 RELEASE.md
+algorithm_hierarchy_design.md
+DEPLOYMENT.md
+
+# examples/
+examples/
+
+scripts/

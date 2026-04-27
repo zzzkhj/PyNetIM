@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import os
 from pathlib import Path
 from typing import List, Optional, Set, TYPE_CHECKING
 
@@ -7,9 +8,10 @@ import torch
 
 from ..base_drl import BaseDRLAlgorithm
 from .agent import get_q_net_input
+from .....weights import WeightManager
 
 if TYPE_CHECKING:
-    from ....graph import IMGraph
+    from .....graph import IMGraph
 
 
 class BiGDNBaseAlgorithm(BaseDRLAlgorithm):
@@ -130,39 +132,41 @@ class BiGDNBaseAlgorithm(BaseDRLAlgorithm):
         """
         return Path(__file__).parent / "weights" / self._weights_filename
 
-    def _load_weights(self) -> bool:
+    def _load_weights(self):
         """加载预训练权重。
 
-        Returns:
-            bool: 是否成功加载。
+        Raises:
+            FileNotFoundError: 权重文件不存在时抛出异常。
         """
-        weights_path = self._get_weights_path()
-        if weights_path.exists():
-            self.agent.q_net.load_state_dict(
-                torch.load(weights_path, map_location=self.device, weights_only=True)
-            )
-            self.agent.target_q_net.load_state_dict(self.agent.q_net.state_dict())
-            if self.verbose:
-                print(f"Loaded weights from {weights_path}")
-            return True
-        return False
+        weights_path = WeightManager.get_weights_path(
+            self._weights_filename, 
+            verbose=self.verbose
+        )
+        self.agent.q_net.load_state_dict(
+            torch.load(weights_path, map_location=self.device, weights_only=True)
+        )
+        self.agent.target_q_net.load_state_dict(self.agent.q_net.state_dict())
+        if self.verbose:
+            print(f"Loaded weights from {weights_path}")
 
-    def _load_weights_from_path(self, weights_path: str) -> bool:
+    def _load_weights_from_path(self, weights_path: str):
         """从指定路径加载权重。
 
         Args:
             weights_path: 权重文件路径。
 
-        Returns:
-            bool: 是否成功加载。
+        Raises:
+            FileNotFoundError: 权重文件不存在时抛出异常。
         """
         path = Path(weights_path)
-        if path.exists():
-            self.agent.q_net.load_state_dict(
-                torch.load(path, map_location=self.device, weights_only=True)
+        if not path.exists():
+            raise FileNotFoundError(
+                f"权重文件未找到: {path}\n"
+                "请下载预训练权重或设置 pretrained=False"
             )
-            self.agent.target_q_net.load_state_dict(self.agent.q_net.state_dict())
-            if self.verbose:
-                print(f"Loaded weights from {path}")
-            return True
-        return False
+        self.agent.q_net.load_state_dict(
+            torch.load(path, map_location=self.device, weights_only=True)
+        )
+        self.agent.target_q_net.load_state_dict(self.agent.q_net.state_dict())
+        if self.verbose:
+            print(f"Loaded weights from {path}")

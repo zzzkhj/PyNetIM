@@ -18,9 +18,10 @@ class TIMAlgorithm:
         model: 扩散模型名称（'IC' 或 'LT'）。
 
     References:
-        Youze Tang, Xiaokui Xiao, Yanchen Shi, 
-        "Influence Maximization: Near-Optimal Time Complexity Meets Practical Efficiency," 
-        in Proc. ACM SIGMOD, 2014.
+        Tang, Y., Xiao, X., & Shi, Y. (2014). Influence Maximization: 
+        Near-Optimal Time Complexity Meets Practical Efficiency. 
+        Proceedings of the ACM SIGMOD International Conference on Management 
+        of Data, 921-936.
 
     Example:
         >>> from pynetim import IMGraph
@@ -82,9 +83,10 @@ class TIMPlusAlgorithm:
         model: 扩散模型名称（'IC' 或 'LT'）。
 
     References:
-        Youze Tang, Xiaokui Xiao, Yanchen Shi, 
-        "Influence Maximization: Near-Optimal Time Complexity Meets Practical Efficiency," 
-        in Proc. ACM SIGMOD, 2014.
+        Tang, Y., Xiao, X., & Shi, Y. (2014). Influence Maximization: 
+        Near-Optimal Time Complexity Meets Practical Efficiency. 
+        Proceedings of the ACM SIGMOD International Conference on Management 
+        of Data, 921-936.
 
     Example:
         >>> from pynetim import IMGraph

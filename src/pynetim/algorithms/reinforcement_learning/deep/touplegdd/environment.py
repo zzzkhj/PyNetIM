@@ -4,7 +4,7 @@ from typing import List, Optional, Set, TYPE_CHECKING
 import numpy as np
 
 if TYPE_CHECKING:
-    from ...graph import IMGraph
+    from ....graph import IMGraph
 
 random.seed(123)
 np.random.seed(123)

@@ -38,17 +38,17 @@ def kendall_tau(
     Raises:
         ImportError: 如果 scipy 未安装。
         ValueError: 如果输入长度不一致。
-    
+
+    References:
+        Kendall, M. G. (1938). A new measure of rank correlation.
+        Biometrika, 30(1/2), 81-93.
+
     Example:
         >>> from pynetim.evaluation import kendall_tau
         >>> seeds_algo1 = [0, 1, 2, 3, 4]
         >>> seeds_algo2 = [0, 2, 1, 3, 4]
         >>> tau, p = kendall_tau(seeds_algo1, seeds_algo2)
         >>> print(f"Kendall's Tau: {tau:.4f}, p-value: {p:.4f}")
-    
-    References:
-        Kendall, M. G. (1938). A new measure of rank correlation.
-        Biometrika, 30(1/2), 81-93.
     """
     if not SCIPY_AVAILABLE:
         raise ImportError(
@@ -148,7 +148,12 @@ def monotonicity_score(
         float: 单调性得分，范围 [0, 1]。
             - 1.0 表示所有节点的重要性值都唯一（完美区分）
             - 0.0 表示所有节点的重要性值都相同（无区分度）
-    
+
+    References:
+        - A novel voting measure for identifying influential nodes in complex 
+          networks based on local structure. Scientific Reports, 2025.
+        - 复杂网络节点重要性排序算法的单调性评估。
+
     Example:
         >>> from pynetim.evaluation import monotonicity_score
         >>> # 所有值都不同，单调性高
@@ -165,11 +170,6 @@ def monotonicity_score(
         >>> values3 = [3.0, 3.0, 3.0, 3.0, 3.0]
         >>> score3 = monotonicity_score(values3)
         >>> print(f"Monotonicity: {score3:.4f}")  # 0.0
-    
-    References:
-        - A novel voting measure for identifying influential nodes in complex 
-          networks based on local structure. Scientific Reports, 2025.
-        - 复杂网络节点重要性排序算法的单调性评估。
     """
     values = np.array(values)
     

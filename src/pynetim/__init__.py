@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-__version__ = "0.5.3"
+__version__ = "0.5.4"
 __author__ = "Zhang Kaijing"
 
 from . import graph
@@ -8,6 +8,7 @@ from . import utils
 from . import algorithms
 from . import evaluation
 from . import timing
+from . import weights
 
 from .graph import IMGraph
 from .diffusion_model import (
@@ -72,6 +73,8 @@ from .timing import (
     compare_algorithms_runtime,
 )
 
+from .weights import WeightManager, WEIGHTS_CONFIG
+
 __all__ = [
     'graph',
     'diffusion_model',
@@ -79,6 +82,7 @@ __all__ = [
     'algorithms',
     'evaluation',
     'timing',
+    'weights',
     'IMGraph',
     'IndependentCascadeModel',
     'LinearThresholdModel',
@@ -130,4 +134,6 @@ __all__ = [
     'measure_runtime',
     'measure_runtime_multiple_runs',
     'compare_algorithms_runtime',
+    'WeightManager',
+    'WEIGHTS_CONFIG',
 ]

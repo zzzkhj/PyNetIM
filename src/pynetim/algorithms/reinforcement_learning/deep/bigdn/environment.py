@@ -4,7 +4,7 @@ from typing import List, Set, TYPE_CHECKING
 import numpy as np
 
 if TYPE_CHECKING:
-    from ....graph import IMGraph
+    from .....graph import IMGraph
 
 random.seed(123)
 np.random.seed(123)
@@ -14,10 +14,9 @@ class GraphEnvironment:
     """BiGDN 强化学习环境（内部使用，不向外导出）。
 
     References:
-        BiGDN: An end-to-end influence maximization framework based on deep reinforcement
-        learning and graph neural networks.
-        Wenlong Zhu, Kaijing Zhang, Jiahui Zhong, Chengle Hou, Jie Ji.
-        Expert Systems with Applications, 270:126384, 2025.
+        Zhu, W., Zhang, K., Zhong, J., Hou, C., & Ji, J. (2025). BiGDN: An end-to-end 
+        influence maximization framework based on deep reinforcement learning and graph 
+        neural networks. Expert Systems with Applications, 270, 126384.
     """
 
     def __init__(

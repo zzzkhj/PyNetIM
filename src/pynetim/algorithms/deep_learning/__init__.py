@@ -1,3 +1,9 @@
+"""深度学习影响力最大化算法模块。
+
+此模块包含纯深度学习算法（非强化学习）。
+深度强化学习算法已移动到 reinforcement_learning.deep 模块。
+"""
+
 try:
     import torch
     TORCH_AVAILABLE = True
@@ -34,22 +40,5 @@ if not DEEP_LEARNING_AVAILABLE:
     )
 
 from .base_dl import BaseDLAlgorithm
-from .base_drl import BaseDRLAlgorithm
 
-if DEEP_LEARNING_AVAILABLE:
-    from .touplegdd import ToupleGDDAlgorithm, S2VDQNAlgorithm, ToupleGDDTrainer, S2VDQNTrainer
-    from .bigdn import BiGDNAlgorithm, BiGDNSAlgorithm, BiGDNTrainer, BiGDNNodeEncoderTrainer
-    __all__ = [
-        'BaseDLAlgorithm',
-        'BaseDRLAlgorithm',
-        'ToupleGDDAlgorithm',
-        'S2VDQNAlgorithm',
-        'ToupleGDDTrainer',
-        'S2VDQNTrainer',
-        'BiGDNAlgorithm',
-        'BiGDNSAlgorithm',
-        'BiGDNTrainer',
-        'BiGDNNodeEncoderTrainer',
-    ]
-else:
-    __all__ = ['BaseDLAlgorithm', 'BaseDRLAlgorithm']
+__all__ = ['BaseDLAlgorithm']

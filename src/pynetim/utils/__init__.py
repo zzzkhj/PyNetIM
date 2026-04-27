@@ -12,6 +12,10 @@ if TYPE_CHECKING:
     from ..graph import IMGraph
 
 from .graph_utils import (
+    generate_er_graph,
+    generate_ba_graph,
+    generate_ws_graph,
+    compute_sir_beta,
     load_edgelist,
     save_edgelist,
     to_networkx,
@@ -212,6 +216,10 @@ def all_pairs_shortest_path_length(
 
 
 __all__ = [
+    'generate_er_graph',
+    'generate_ba_graph',
+    'generate_ws_graph',
+    'compute_sir_beta',
     'load_edgelist',
     'save_edgelist',
     'to_networkx',

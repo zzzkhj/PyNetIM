@@ -12,9 +12,32 @@ from .heuristic import (
 )
 from .simulation import GreedyAlgorithm, CELFAlgorithm, CELFPlusAlgorithm
 from .ris import BaseRISAlgorithm, IMMAlgorithm, TIMAlgorithm, TIMPlusAlgorithm, OPIMAlgorithm, OPIMCAlgorithm
+from .population import BasePopulationAlgorithm, RLSetGWOAlgorithm, SADPEAAlgorithm
+from .reinforcement_learning import (
+    BaseRLAlgorithm, CoreQAlgorithm, TCQAlgorithm,
+    BaseDRLAlgorithm,
+    BiGDNAlgorithm, BiGDNSAlgorithm, BiGDNTrainer, BiGDNNodeEncoderTrainer,
+    ToupleGDDAlgorithm, S2VDQNAlgorithm, ToupleGDDTrainer, S2VDQNTrainer, IMEnvironment
+)
 
 __all__ = [
     'BaseAlgorithm',
+    'BasePopulationAlgorithm',
+    'BaseRLAlgorithm',
+    'BaseDRLAlgorithm',
+    'CoreQAlgorithm',
+    'TCQAlgorithm',
+    'RLSetGWOAlgorithm',
+    'SADPEAAlgorithm',
+    'BiGDNAlgorithm',
+    'BiGDNSAlgorithm',
+    'BiGDNTrainer',
+    'BiGDNNodeEncoderTrainer',
+    'ToupleGDDAlgorithm',
+    'S2VDQNAlgorithm',
+    'ToupleGDDTrainer',
+    'S2VDQNTrainer',
+    'IMEnvironment',
     'DegreeCentralityAlgorithm',
     'PageRankAlgorithm',
     'VoteRankAlgorithm',
@@ -34,9 +57,3 @@ __all__ = [
     'OPIMAlgorithm',
     'OPIMCAlgorithm',
 ]
-
-try:
-    from .deep_learning import ToupleGDDAlgorithm, S2VDQNAlgorithm, Trainer, IMEnvironment
-    __all__.extend(['ToupleGDDAlgorithm', 'S2VDQNAlgorithm', 'Trainer', 'IMEnvironment'])
-except ImportError:
-    pass

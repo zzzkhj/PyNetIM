@@ -124,19 +124,20 @@ Returns:
 )doc")
 
             .def("run_monte_carlo_diffusion",
-                [](pynetim::SusceptibleInfectedRecoveredModel& self, int mc_rounds, py::object random_seed_obj, bool use_multithread = false, int num_threads = 0) {
+                [](pynetim::SusceptibleInfectedRecoveredModel& self, int mc_rounds, py::object random_seed_obj, bool use_multithread = false, int num_threads = 0, bool normalize = false) {
                     if (use_multithread && num_threads <= 0) {
                         throw std::invalid_argument("启用多线程时，线程数(num_threads)必须大于0");
                     }
                     bool use_random_seed = random_seed_obj.is_none();
                     unsigned int random_seed = use_random_seed ? 0 : py::cast<unsigned int>(random_seed_obj);
-                    return self.run_monte_carlo_diffusion(mc_rounds, use_random_seed, random_seed, use_multithread, num_threads);
+                    return self.run_monte_carlo_diffusion(mc_rounds, use_random_seed, random_seed, use_multithread, num_threads, normalize);
                 },
                 py::arg("mc_rounds"),
                 py::arg("random_seed") = py::none(),
                 py::arg("use_multithread") = false,
                 py::arg("num_threads") = 0,
-                R"doc(run_monte_carlo_diffusion(mc_rounds: int, random_seed: int | None = None, use_multithread: bool = False, num_threads: int = 0) -> float
+                py::arg("normalize") = false,
+                R"doc(run_monte_carlo_diffusion(mc_rounds: int, random_seed: int | None = None, use_multithread: bool = False, num_threads: int = 0, normalize: bool = False) -> float
 
 运行蒙特卡洛模拟，计算平均影响力。
 
@@ -145,9 +146,10 @@ Args:
     random_seed: 随机种子，用于结果可重现。若为 None 则使用真随机种子。
     use_multithread: 是否启用多线程，默认为 False。
     num_threads: 线程数，当 use_multithread=True 时必须大于 0。
+    normalize: 是否将结果归一化（除以图节点数），默认为 False。
 
 Returns:
-    float: 平均感染节点数。
+    float: 平均感染节点数。若 normalize=True，返回归一化后的感染比例。
 
 Raises:
     ValueError: 当 use_multithread=True 但 num_threads <= 0 时抛出。

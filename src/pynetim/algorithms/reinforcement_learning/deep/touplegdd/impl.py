@@ -9,9 +9,10 @@ from torch_geometric.loader import DataLoader
 
 from ..base_drl import BaseDRLAlgorithm
 from . import models
+from .....weights import WeightManager
 
 if TYPE_CHECKING:
-    from ...graph import IMGraph
+    from .....graph import IMGraph
 
 random.seed(123)
 np.random.seed(123)
@@ -24,9 +25,9 @@ class ToupleGDDAlgorithm(BaseDRLAlgorithm):
     使用三重门控图神经网络 (Tripling GNN) 结合强化学习选择种子节点。
 
     References:
-        Chen T, Yan S, Guo J, Wu W. ToupleGDD: A Fine-Designed Solution of Influence
-        Maximization by Deep Reinforcement Learning. IEEE Transactions on Computational
-        Social Systems, 2024.
+        Chen, T., Yan, S., Guo, J., & Wu, W. (2024). ToupleGDD: A Fine-Designed 
+        Solution of Influence Maximization by Deep Reinforcement Learning. 
+        IEEE Transactions on Computational Social Systems.
 
     Example:
         >>> from pynetim import IMGraph
@@ -44,7 +45,10 @@ class ToupleGDDAlgorithm(BaseDRLAlgorithm):
         graph: 'IMGraph',
         pretrained: bool = True,
         weights_path: Optional[str] = None,
-        device: str = 'auto'
+        device: str = 'auto',
+        use_deepwalk: bool = False,
+        deepwalk_epochs: int = 0,
+        **kwargs
     ):
         """初始化 ToupleGDD 算法。
 
@@ -53,11 +57,22 @@ class ToupleGDDAlgorithm(BaseDRLAlgorithm):
             pretrained: 是否使用预训练权重，默认为 True。
             weights_path: 本地权重路径，优先级高于 pretrained。
             device: 计算设备，支持 'auto'、'cpu'、'cuda'，默认为 'auto'。
+            use_deepwalk: 是否使用 DeepWalk 学习节点嵌入，默认为 False。
+                - True: 使用 DeepWalk 模型学习节点嵌入（较慢）。
+                - False: 使用随机初始化的嵌入向量（较快）。
+            deepwalk_epochs: DeepWalk 训练轮次，默认为 0。
+                仅当 use_deepwalk=True 时有效。
+            **kwargs: 传递给父类的其他参数，包括：
+                - diffusion_model: 扩散模型名称，支持 'IC' 或 'LT'
         """
-        super().__init__(graph, pretrained, weights_path, device)
+        super().__init__(graph, pretrained, weights_path, device, **kwargs)
+        
+        self.use_deepwalk = use_deepwalk
+        self.deepwalk_epochs = deepwalk_epochs
+        self.embed_dim = 50
 
         self.model = models.Tripling(
-            embed_dim=50,
+            embed_dim=self.embed_dim,
             sgate_l1_dim=128,
             tgate_l1_dim=128,
             T=3,
@@ -71,16 +86,23 @@ class ToupleGDDAlgorithm(BaseDRLAlgorithm):
         self.model.eval()
 
     def _load_weights(self, weights_path: Optional[str] = None):
-        weights_path = self._get_weights_path(weights_path)
-        if not os.path.exists(weights_path):
+        if weights_path is not None:
+            weights_file = weights_path
+        else:
+            weights_file = WeightManager.get_weights_path(
+                self._weights_filename, 
+                verbose=False
+            )
+        
+        if not os.path.exists(weights_file):
             raise FileNotFoundError(
-                f"权重文件未找到: {weights_path}\n"
+                f"权重文件未找到: {weights_file}\n"
                 "请下载预训练权重或设置 pretrained=False"
             )
-        self.model.load_state_dict(torch.load(weights_path, map_location=self.device, weights_only=True))
+        self.model.load_state_dict(torch.load(weights_file, map_location=self.device, weights_only=True))
 
     def _setup_graph_input(self, state: torch.Tensor) -> Data:
-        node_embed = self._get_init_node_embed(num_epochs=0)
+        node_embed = self._get_init_node_embed()
         x = torch.cat((node_embed, state.detach().clone().unsqueeze(dim=1)), dim=-1)
 
         edges = list(self.graph.edges.keys())
@@ -89,9 +111,12 @@ class ToupleGDDAlgorithm(BaseDRLAlgorithm):
 
         return Data(x=x, edge_index=edge_index, edge_weight=edge_weight)
 
-    def _get_init_node_embed(self, num_epochs: int = 0) -> torch.Tensor:
+    def _get_init_node_embed(self) -> torch.Tensor:
         if self._node_embed is None:
-            self._node_embed = models.get_init_node_embed(self.graph, num_epochs, self.device)
+            if self.use_deepwalk:
+                self._node_embed = models.get_init_node_embed(self.graph, self.deepwalk_epochs, self.device)
+            else:
+                self._node_embed = torch.randn(self.graph.num_nodes, self.embed_dim * 2, device=self.device)
         return self._node_embed
 
     def _prepare_inference(self):
@@ -154,8 +179,9 @@ class S2VDQNAlgorithm(BaseDRLAlgorithm):
     使用 Structure2Vec 图神经网络结合 DQN 强化学习选择种子节点。
 
     References:
-        Dai H, Khalil E B, Zhang Y, Dilkina B, Song L. Learning Combinatorial Optimization
-        Algorithms over Graphs. Advances in Neural Information Processing Systems (NeurIPS), 2017.
+        Dai, H., Khalil, E. B., Zhang, Y., Dilkina, B., & Song, L. (2017). 
+        Learning Combinatorial Optimization Algorithms over Graphs. 
+        Advances in Neural Information Processing Systems (NeurIPS).
 
     Example:
         >>> from pynetim import IMGraph
@@ -204,13 +230,20 @@ class S2VDQNAlgorithm(BaseDRLAlgorithm):
         self.model.eval()
 
     def _load_weights(self, weights_path: Optional[str] = None):
-        weights_path = self._get_weights_path(weights_path)
-        if not os.path.exists(weights_path):
+        if weights_path is not None:
+            weights_file = weights_path
+        else:
+            weights_file = WeightManager.get_weights_path(
+                self._weights_filename, 
+                verbose=False
+            )
+        
+        if not os.path.exists(weights_file):
             raise FileNotFoundError(
-                f"权重文件未找到: {weights_path}\n"
+                f"权重文件未找到: {weights_file}\n"
                 "请下载预训练权重或设置 pretrained=False"
             )
-        self.model.load_state_dict(torch.load(weights_path, map_location=self.device, weights_only=True))
+        self.model.load_state_dict(torch.load(weights_file, map_location=self.device, weights_only=True))
 
     def _setup_graph_input(self, state: torch.Tensor) -> Data:
         x = torch.ones(self.graph.num_nodes, self.node_dim)

@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "pynetim"
-version = "0.5.3"
+dynamic = ["version"]
 authors = [{ name = "Kaijing Zhang", email = "zhkaij@foxmail.com" }]
 description = "A Python library for Network Influence Maximization"
 readme = "README.md"
@@ -31,3 +31,10 @@ deep-learning = [
 all = [
     "pynetim[deep-learning]",
 ]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+exclude = ["*__pycache__*", "*.pyc", "*.pyo"]
+
+[tool.setuptools.dynamic]
+version = {attr = "pynetim.__version__"}

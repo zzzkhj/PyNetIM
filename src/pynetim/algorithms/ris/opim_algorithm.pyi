@@ -18,9 +18,9 @@ class OPIMAlgorithm:
         model: 扩散模型名称（'IC' 或 'LT'）。
 
     References:
-        Jing Tang, Xueyan Tang, Xiaokui Xiao, Junsong Yuan, 
-        "Online Processing Algorithms for Influence Maximization," 
-        in Proc. ACM SIGMOD, 2018.
+        Tang, J., Tang, X., Xiao, X., & Yuan, J. (2018). Online Processing 
+        Algorithms for Influence Maximization. Proceedings of the ACM SIGMOD 
+        International Conference on Management of Data, 991-1005.
 
     Example:
         >>> from pynetim import IMGraph
@@ -98,9 +98,9 @@ class OPIMCAlgorithm(OPIMAlgorithm):
         model: 扩散模型名称（'IC' 或 'LT'）。
 
     References:
-        Jing Tang, Xueyan Tang, Xiaokui Xiao, Junsong Yuan, 
-        "Online Processing Algorithms for Influence Maximization," 
-        in Proc. ACM SIGMOD, 2018.
+        Tang, J., Tang, X., Xiao, X., & Yuan, J. (2018). Online Processing 
+        Algorithms for Influence Maximization. Proceedings of the ACM SIGMOD 
+        International Conference on Management of Data, 991-1005.
 
     Example:
         >>> from pynetim import IMGraph

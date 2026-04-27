@@ -17,9 +17,9 @@ class IMMAlgorithm:
         model: 扩散模型名称（'IC' 或 'LT'）。
 
     References:
-        Youze Tang, Yanchen Shi, Xiaokui Xiao, 
-        "Influence Maximization in Near-Linear Time: A Martingale Approach," 
-        in Proc. ACM SIGMOD, 2015.
+        Tang, Y., Shi, Y., & Xiao, X. (2015). Influence Maximization in 
+        Near-Linear Time: A Martingale Approach. Proceedings of the ACM 
+        SIGMOD International Conference on Management of Data, 1539-1554.
 
     Example:
         >>> from pynetim import IMGraph

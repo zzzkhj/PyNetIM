@@ -1,9 +1,75 @@
 import re
 from pathlib import Path
-from typing import Union, Optional, TYPE_CHECKING
+from typing import Union, Optional, Tuple, TYPE_CHECKING
+
+import numpy as np
 
 if TYPE_CHECKING:
     from pynetim.graph import IMGraph
+
+from pynetim.graph import generate_er_graph, generate_ba_graph, generate_ws_graph
+
+
+def compute_sir_beta(
+    graph: "IMGraph",
+    gamma: float = 0.1,
+    c: float = 1.3
+) -> Tuple[float, float]:
+    """计算 SIR 模型的感染率 β。
+
+    基于配置模型近似 (Configuration Model Approximation) 计算感染率。
+
+    公式:
+        β_c = γ · <k> / <k²>
+        β = c · β_c
+
+    其中:
+        - <k>: 平均度
+        - <k²>: 度的平方均值
+        - γ: 恢复率
+        - c: 调节系数
+
+    Parameters
+    ----------
+    graph : IMGraph
+        图对象。
+    gamma : float, optional
+        恢复率，默认 0.1。
+    c : float, optional
+        调节系数，默认 1.3。
+        - c < 1: 不爆发
+        - c = 1: 临界状态
+        - c > 1: 爆发
+
+    Returns
+    -------
+    tuple[float, float]
+        (beta, beta_c): 感染率和临界感染率。
+
+    References
+    ----------
+    Pastor-Satorras, R., Castellano, C., Van Mieghem, P., & Vespignani, A. (2015).
+    Epidemic processes in complex networks. Reviews of Modern Physics, 87(3), 925.
+
+    Examples
+    --------
+    >>> from pynetim.utils import generate_er_graph, compute_sir_beta
+    >>> g = generate_er_graph(n=100, p=0.1, random_seed=42)
+    >>> beta, beta_c = compute_sir_beta(g, gamma=0.1, c=1.3)
+    >>> print(f"感染率: {beta:.4f}, 临界感染率: {beta_c:.4f}")
+    """
+    degrees = np.array(graph.batch_out_degree(list(range(graph.num_nodes))))
+
+    k_mean = degrees.mean()
+    k2_mean = (degrees ** 2).mean()
+
+    if k2_mean == 0:
+        raise ValueError("图的度平方均值为 0，无法计算感染率")
+
+    beta_c = gamma * k_mean / k2_mean
+    beta = c * beta_c
+
+    return beta, beta_c
 
 
 def load_edgelist(

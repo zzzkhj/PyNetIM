@@ -4,60 +4,117 @@
 
 格式基于 [Keep a Changelog](https://keepachangelog.com/)。
 
----
+***
 
 ## 版本历史
 
-| 版本 | 发布日期 | 主要更新 |
-|------|----------|----------|
-| [v0.5.3](changelog/v0.5.3.md) | 2026-04-16 | 跨平台编译修复、C++17 兼容性、深度学习模块重构 |
-| [v0.5.2](changelog/v0.5.2.md) | 2026-04-16 | 深度学习算法模块、训练框架、pybind 签名文档修复 |
-| [v0.5.1](changelog/v0.5.1.md) | 2026-04-10 | 评估指标模块、时间测量工具、7个启发式算法 |
+| 版本                            | 发布日期       | 主要更新                           |
+| ----------------------------- | ---------- | ------------------------------ |
+| [v0.5.4](changelog/v0.5.4.md) | 2026-04-28 | 图分解函数、随机图生成、CoreQ/TCQ算法、种群优化算法 |
+| [v0.5.3](changelog/v0.5.3.md) | 2026-04-16 | 跨平台编译修复、C++17 兼容性、深度学习模块重构     |
+| [v0.5.2](changelog/v0.5.2.md) | 2026-04-16 | 深度学习算法模块、训练框架、pybind 签名文档修复    |
+| [v0.5.1](changelog/v0.5.1.md) | 2026-04-10 | 评估指标模块、时间测量工具、7个启发式算法          |
 | [v0.5.0](changelog/v0.5.0.md) | 2026-04-07 | 模块扁平化、算法模块、自定义传播模型、OPIM算法、中文输出 |
-| [v0.4.5](changelog/v0.4.5.md) | 2026-04-04 | SI/SIR 扩散模型、统一权重支持 |
-| [v0.4.4](changelog/v0.4.4.md) | 2026-03-30 | 激活频率记录、随机种子改进 |
-| [v0.4.3](changelog/v0.4.3.md) | 2026-03-30 | 激活节点记录功能 |
-| [v0.4.2](changelog/v0.4.2.md) | 2026-03-24 | 线程安全修复 |
-| [v0.4.1](changelog/v0.4.1.md) | 2026-03-24 | 性能优化 |
-| [v0.4.0](changelog/v0.4.0.md) | 2026-03-23 | C++ 图支持、学术参考文献 |
-| [v0.3.0](changelog/v0.3.0.md) | 2025-XX-XX | 初始版本发布 |
+| [v0.4.5](changelog/v0.4.5.md) | 2026-04-04 | SI/SIR 扩散模型、统一权重支持             |
+| [v0.4.4](changelog/v0.4.4.md) | 2026-03-30 | 激活频率记录、随机种子改进                  |
+| [v0.4.3](changelog/v0.4.3.md) | 2026-03-30 | 激活节点记录功能                       |
+| [v0.4.2](changelog/v0.4.2.md) | 2026-03-24 | 线程安全修复                         |
+| [v0.4.1](changelog/v0.4.1.md) | 2026-03-24 | 性能优化                           |
+| [v0.4.0](changelog/v0.4.0.md) | 2026-03-23 | C++ 图支持、学术参考文献                 |
+| [v0.3.0](changelog/v0.3.0.md) | 2025-XX-XX | 初始版本发布                         |
 
----
+***
 
 ## 最新版本
 
-### [v0.5.3] - 待定
+### \[v0.5.4] - 2026-04-28
+
+**新增功能**:
+
+- 权重管理器模块 (`pynetim.weights.WeightManager`)
+  - 从远程 URL 自动下载预训练权重
+  - 本地缓存机制（`~/.pynetim/weights/`）
+  - 下载进度条显示（使用 tqdm）
+- 图分解函数 (`pynetim.graph.compute_k_shell_values`)
+  - K-shell 分解，Batagelj-Zaversnik 算法，O(m) 时间复杂度
+- 随机图生成函数 (`pynetim.utils`)
+  - generate\_er\_graph: Erdős-Rényi 随机图
+  - generate\_ba\_graph: Barabási-Albert 无标度网络
+  - generate\_ws\_graph: Watts-Strogatz 小世界网络
+- 强化学习算法模块 (`pynetim.algorithms.reinforcement_learning`)
+  - BaseRLAlgorithm: 传统强化学习算法基类
+  - CoreQAlgorithm: K-core 层次引导的 Q-learning 算法 (Expert Systems With Applications, 2025)
+  - TCQAlgorithm: K-core 引导的目标约束 Q-learning 算法 (Neurocomputing, 2025)
+  - deep/: 深度强化学习子模块（BiGDN, ToupleGDD）
+- 种群优化算法模块 (`pynetim.algorithms.population`)
+  - BasePopulationAlgorithm: 种群优化算法基类
+  - RLSetGWOAlgorithm: 基于强化学习的灰狼优化算法
+  - SADPEAAlgorithm: 结构感知双概率进化自适应算法 (Information Sciences, 2025)
+
+**目录重组**:
+
+- 深度强化学习算法从 `deep_learning/` 迁移到 `reinforcement_learning/deep/`
+- `deep_learning/` 保留给纯深度学习算法（非 RL）
+
+**改进**:
+
+- BiGDN 和 ToupleGDD 算法集成权重管理器
+- BaseDLAlgorithm 添加 diffusion\_model 参数支持
+- BaseDRLAlgorithm 参数传递统一（明确接收 diffusion\_model 和 mc\_rounds）
+- WeightManager 添加完整类型提示
+- 参数命名统一（k, max\_iter, random\_seed）
+- 传播模型新增 `normalize` 参数，支持归一化影响力结果（除以图规模）
 
 **Bug 修复**:
+
+- 修复 ToupleGDD 算法节点嵌入维度不匹配导致的运行时错误
+
+**新增导出**:
+
+- `WeightManager` (pynetim.weights)
+- `compute_k_shell_values` (pynetim.graph)
+- `generate_er_graph`, `generate_ba_graph`, `generate_ws_graph` (pynetim.utils)
+- `CoreQAlgorithm`, `TCQAlgorithm`, `BaseRLAlgorithm`, `BaseDRLAlgorithm` (pynetim.algorithms)
+- `RLSetGWOAlgorithm`, `SADPEAAlgorithm`, `BasePopulationAlgorithm` (pynetim.algorithms)
+
+👉 [查看完整更新内容](changelog/v0.5.4.md)
+
+### \[v0.5.3] - 2026-04-16
+
+**Bug 修复**:
+
 - 修复 GitHub Actions 中 Linux/macOS 平台的构建失败问题
 - 修复 macOS ARM64 编译失败（移除不兼容的 -mavx2 编译选项）
 - 移除 C++20 `<format>` 依赖，改用 C++17 兼容的 `std::ostringstream`
 - 修复 utils 模块参数签名显示问题（禁用 pybind 自动签名，手动定义类型提示）
 
 **改进**:
+
 - C++ 标准要求从 C++20 降至 C++17
 - 编译器要求降低：GCC 8+, Clang 7+, MSVC 19.14+
 - 平台特定编译选项自动选择
 - 深度学习模块代码重构：
   - 新增 DRL 算法基类: BaseDRLAlgorithm, BiGDNBaseAlgorithm
   - 移除算法类冗余 train() 方法，训练功能统一由 Trainer 类提供
-  - 移除算法类中的训练参数（gamma, epsilon, lr, target_update, n_steps, ntype 等）
-  - 移除算法类中的 save_weights() 方法（推理阶段不需要）
-  - Trainer 内部方法私有化（select_action → _select_action 等）
+  - 移除算法类中的训练参数（gamma, epsilon, lr, target\_update, n\_steps, ntype 等）
+  - 移除算法类中的 save\_weights() 方法（推理阶段不需要）
+  - Trainer 内部方法私有化（select\_action → \_select\_action 等）
   - 统一 device 参数默认值为 'auto'
   - 重构 Trainer 参数，将配置参数从 train() 移到 __init__
-  - 统一 n_steps 参数命名（ToupleGDD 模块 n_step → n_steps）
+  - 统一 n\_steps 参数命名（ToupleGDD 模块 n\_step → n\_steps）
 
 **文档更新**:
-- 修正 BiGDNS 使用说明（推理时不需要 teacher_path）
+
+- 修正 BiGDNS 使用说明（推理时不需要 teacher\_path）
 - 添加预训练权重说明
 - 更新系统要求
 
 👉 [查看完整更新内容](changelog/v0.5.3.md)
 
-### [v0.5.2] - 2026-04-16
+### \[v0.5.2] - 2026-04-16
 
 **新增功能**:
+
 - 深度学习影响力最大化算法模块 (`pynetim.algorithms.deep_learning`)
   - ToupleGDD: 三重门控图神经网络 + DQN (IEEE TCSS 2024)
   - S2V-DQN: Structure2Vec + DQN (NeurIPS 2017)
@@ -68,39 +125,45 @@
 - 预训练权重自动加载
 
 **Bug 修复**:
+
 - 修复 pybind 算法绑定文件签名文档重复问题（IMM/TIM/OPIM/BaseRIS）
-- 修复 opim_algorithm.pyi 中 `run()` 方法多余的 `mode` 参数
+- 修复 opim\_algorithm.pyi 中 `run()` 方法多余的 `mode` 参数
 - 添加 SI/SIR 模型缺失的 `set_beta()`, `set_max_steps()`, `set_gamma()` 方法绑定
 - 添加 graph.pyi 缺失的 `get_adj_list_py()` 方法
 
 **改进**:
+
 - 所有 pybind 绑定添加友好的中文错误提示
 
 👉 [查看完整更新内容](changelog/v0.5.2.md)
 
-### [v0.5.1] - 2026-04-10
+### \[v0.5.1] - 2026-04-10
 
 **新增功能**:
+
 - 评估指标模块 (evaluation)：排名指标、影响力指标、种子质量指标、网络指标
 - 时间测量模块 (timing)：装饰器、AlgorithmTimer、多次运行统计
 - 工具函数 (utils)：最短路径计算（支持跳数和权重）
 - 7个经典启发式算法：DegreeCentrality, PageRank, VoteRank, K-shell, Betweenness, Closeness, Eigenvector
 
 **API 变更**:
+
 - 参数重命名：`rounds` → `mc_rounds`，`seed` → `random_seed`
 - 所有 `random_seed` 默认值改为 `None`（每次结果不同）
 - 多线程参数验证：`use_multithread=True` 时 `num_threads` 必须 > 0
 
 👉 [查看完整更新内容](changelog/v0.5.1.md)
 
-### [v0.5.0] - 2026-04-07
+### \[v0.5.0] - 2026-04-07
 
 **重大变更**:
+
 - 模块结构扁平化，C++ 模块直接作为主模块
 - `pynetim.py` 模块进入维护模式
 - `out_neighbors()` 返回类型变更
 
 **新增功能**:
+
 - 影响力最大化算法模块 (`pynetim.algorithms`)
   - 启发式: SingleDiscount, DegreeDiscount
   - 模拟类: Greedy, CELF, CELF++
@@ -112,11 +175,12 @@
 
 👉 [查看完整更新内容](changelog/v0.5.0.md)
 
----
+***
 
 ## 版本说明
 
 ### 版本号规范
+
 PyNetIM 遵循 [语义化版本控制](https://semver.org/) (Semantic Versioning)：
 
 - **主版本号 (MAJOR)**: 不兼容的 API 修改
@@ -124,40 +188,46 @@ PyNetIM 遵循 [语义化版本控制](https://semver.org/) (Semantic Versioning
 - **修订号 (PATCH)**: 向下兼容的问题修正
 
 ### 版本类型
+
 - **主版本更新**: 重大架构变更、API 不兼容
 - **次版本更新**: 新增功能、性能优化
 - **修订版本更新**: Bug 修复、文档更新
 
----
+***
 
 ## 更新分类
 
 ### 🎯 功能新增
+
 - 新的算法实现
 - 新的传播模型
 - 新的图操作功能
 
 ### ⚡ 性能优化
+
 - 算法效率提升
 - 内存使用优化
 - 计算速度提升
 
 ### 🐛 Bug 修复
+
 - 代码错误修复
 - 边界情况处理
 - 兼容性问题修复
 
 ### 📚 文档改进
+
 - API 文档更新
 - 示例代码更新
 - 学术参考文献添加
 
 ### 🔧 内部改进
+
 - 代码重构
 - 测试覆盖提升
 - 构建流程优化
 
----
+***
 
 ## 贡献指南
 
@@ -169,20 +239,20 @@ PyNetIM 遵循 [语义化版本控制](https://semver.org/) (Semantic Versioning
 4. 推送到分支 (`git push origin feature/AmazingFeature`)
 5. 开启 Pull Request
 
----
+***
 
 ## 许可证
 
 本项目采用 MIT 许可证 - 详见 [LICENSE](LICENSE) 文件。
 
----
+***
 
 ## 联系方式
 
 - **作者**: Zhang Kaijing
-- **项目主页**: https://zzzkhj.github.io/PyNetIM/
+- **项目主页**: <https://zzzkhj.github.io/PyNetIM/>
 - **问题反馈**: [GitHub Issues](https://github.com/zzzkhj/PyNetIM/issues)
 
----
+***
 
-**最后更新**: 2026-04-16
+**最后更新**: 2026-04-28

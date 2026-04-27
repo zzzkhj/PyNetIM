@@ -19,9 +19,9 @@ class BaseRISAlgorithm:
         model: 扩散模型名称（'IC' 或 'LT'）。
 
     References:
-        Chong Wang, Wei Chen, Yajun Wang, 
-        "Scalable Influence Maximization for Independent Cascade Model in Large Social Networks," 
-        Data Mining and Knowledge Discovery, 2012.
+        Wang, C., Chen, W., & Wang, Y. (2012). Scalable Influence Maximization 
+        for Independent Cascade Model in Large Social Networks. Data Mining 
+        and Knowledge Discovery, 25(3), 545-576.
 
     Example:
         >>> from pynetim import IMGraph
