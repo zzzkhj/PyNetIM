@@ -10,4 +10,7 @@ prune .git
 prune build
 prune dist
 prune *.egg-info
-recursive-include src/pynetim *
+recursive-include src/pynetim *.py *.pyi *.h *.cpp *.hpp *.c *.cu
+recursive-include src/pynetim/cpp *
+global-exclude *.so *.pyc *.pyo *.egg
+prune */__pycache__
