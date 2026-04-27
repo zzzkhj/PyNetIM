@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>时间测量 &mdash; PyNetIM  documentation</title>
+  <title>时间测量 &mdash; PyNetIM 0.5.4 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
 
@@ -14,7 +14,7 @@
     <link rel="shortcut icon" href="../_static/favicon_32.png"/>
       <script src="../_static/jquery.js?v=5d32c60e"></script>
       <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/documentation_options.js?v=e1a677a5"></script>
       <script src="../_static/doctools.js?v=9bcbadda"></script>
       <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/js/theme.js"></script>
@@ -35,7 +35,7 @@
           
           <a href="../index.html" class="icon icon-home">
             PyNetIM
-              <img src="../_static/icon.svg" class="logo" alt="Logo"/>
+              <img src="../_static/logo.png" class="logo" alt="Logo"/>
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -47,8 +47,8 @@
 <div class="version-selector" style="padding: 12px 15px; margin-top: -10px;">
     <label style="font-weight: 600; font-size: 12px; color: #404040; display: block; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px;">Version</label>
     <select id="version-select" style="width: 100%; padding: 6px 10px; border: 1px solid #d1d5da; border-radius: 6px; background: #f6f8fa; font-size: 13px; cursor: pointer; color: #24292e; font-weight: 500;">
-        <option value="v0.5.3">v0.5.3 (latest)</option>
-        <option value="v0.5.4">v0.5.4</option>
+        <option value="v0.5.3">v0.5.3</option>
+        <option value="v0.5.4">v0.5.4 (latest)</option>
     </select>
 </div>
 <script>
@@ -114,6 +114,7 @@
 <li class="toctree-l1"><a class="reference internal" href="evaluation.html">评估指标</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">时间测量</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#pynetim.timing.AlgorithmTimer"><code class="docutils literal notranslate"><span class="pre">AlgorithmTimer</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#pynetim.timing.AlgorithmTimer.__init__"><code class="docutils literal notranslate"><span class="pre">AlgorithmTimer.__init__()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#pynetim.timing.AlgorithmTimer.all_runtimes"><code class="docutils literal notranslate"><span class="pre">AlgorithmTimer.all_runtimes</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#pynetim.timing.AlgorithmTimer.clear"><code class="docutils literal notranslate"><span class="pre">AlgorithmTimer.clear()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#pynetim.timing.AlgorithmTimer.last_runtime"><code class="docutils literal notranslate"><span class="pre">AlgorithmTimer.last_runtime</span></code></a></li>
@@ -154,7 +155,7 @@
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
       <li class="breadcrumb-item active">时间测量</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../_sources/api/timing.rst.txt" rel="nofollow"> View page source</a>
+              <a href="https://github.com/zzzkhj/PyNetIM/blob/main/docs/api/timing.rst" class="fa fa-github"> Edit on GitHub</a>
       </li>
   </ul>
   <hr/>
@@ -169,7 +170,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="pynetim.timing.AlgorithmTimer">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pynetim.timing.</span></span><span class="sig-name descname"><span class="pre">AlgorithmTimer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">algorithm_instance</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pynetim/timing.html#AlgorithmTimer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.timing.AlgorithmTimer" title="Link to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>算法运行时间测量器。</p>
 <p>用于测量算法类实例的运行时间，支持多次运行统计。</p>
 <dl class="simple">
@@ -201,16 +202,27 @@
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Mean runtime: </span><span class="si">{</span><span class="n">stats</span><span class="p">[</span><span class="s1">&#39;mean&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">s&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
+<dl class="py method">
+<dt class="sig sig-object py" id="pynetim.timing.AlgorithmTimer.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">algorithm_instance</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pynetim/timing.html#AlgorithmTimer.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.timing.AlgorithmTimer.__init__" title="Link to this definition"></a></dt>
+<dd><p>初始化计时器。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>algorithm_instance</strong> – 算法类实例，需要有 run() 方法。</p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py property">
 <dt class="sig sig-object py" id="pynetim.timing.AlgorithmTimer.all_runtimes">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">all_runtimes</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#pynetim.timing.AlgorithmTimer.all_runtimes" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">all_runtimes</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.14)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#pynetim.timing.AlgorithmTimer.all_runtimes" title="Link to this definition"></a></dt>
 <dd><p>获取所有运行时间记录。</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>运行时间列表。</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>List[float]</p>
+<dd class="field-even"><p>List[<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a>]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -223,21 +235,21 @@
 
 <dl class="py property">
 <dt class="sig sig-object py" id="pynetim.timing.AlgorithmTimer.last_runtime">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">last_runtime</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#pynetim.timing.AlgorithmTimer.last_runtime" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">last_runtime</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><a class="headerlink" href="#pynetim.timing.AlgorithmTimer.last_runtime" title="Link to this definition"></a></dt>
 <dd><p>获取最后一次运行的运行时间。</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>运行时间（秒），如果没有运行过则返回 None。</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>Optional[float]</p>
+<dd class="field-even"><p>Optional[<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a>]</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pynetim.timing.AlgorithmTimer.run">
-<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span></span></span><a class="reference internal" href="../_modules/pynetim/timing.html#AlgorithmTimer.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.timing.AlgorithmTimer.run" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pynetim/timing.html#AlgorithmTimer.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.timing.AlgorithmTimer.run" title="Link to this definition"></a></dt>
 <dd><p>运行算法并测量时间。</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -255,7 +267,7 @@
 <dd class="field-even"><p>(种子节点集合, 运行时间)</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>tuple</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)">tuple</a></p>
 </dd>
 </dl>
 <p class="rubric">Example</p>
@@ -275,12 +287,12 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pynetim.timing.AlgorithmTimer.run_multiple">
-<span class="sig-name descname"><span class="pre">run_multiple</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_runs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/pynetim/timing.html#AlgorithmTimer.run_multiple"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.timing.AlgorithmTimer.run_multiple" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">run_multiple</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_runs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pynetim/timing.html#AlgorithmTimer.run_multiple"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.timing.AlgorithmTimer.run_multiple" title="Link to this definition"></a></dt>
 <dd><p>多次运行算法并统计运行时间。</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>num_runs</strong> – 运行次数，默认 10。</p></li>
+<li><p><strong>num_runs</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – 运行次数，默认 10。</p></li>
 <li><p><strong>**kwargs</strong> – 传递给算法 run() 方法的参数。
 必须包含 k 参数（种子节点数量）。</p></li>
 </ul>
@@ -300,7 +312,7 @@
 </p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Dict[str, float]</p>
+<dd class="field-odd"><p>Dict[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a>]</p>
 </dd>
 </dl>
 <p class="rubric">Example</p>
@@ -314,12 +326,12 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pynetim.timing.compare_algorithms_runtime">
-<span class="sig-prename descclassname"><span class="pre">pynetim.timing.</span></span><span class="sig-name descname"><span class="pre">compare_algorithms_runtime</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">algorithms</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/pynetim/timing.html#compare_algorithms_runtime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.timing.compare_algorithms_runtime" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">pynetim.timing.</span></span><span class="sig-name descname"><span class="pre">compare_algorithms_runtime</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">algorithms</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pynetim/timing.html#compare_algorithms_runtime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.timing.compare_algorithms_runtime" title="Link to this definition"></a></dt>
 <dd><p>比较多个算法的运行时间。</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>algorithms</strong> – 算法名称到算法实例的映射。</p></li>
+<li><p><strong>algorithms</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.14)"><em>Dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a><em>]</em>) – 算法名称到算法实例的映射。</p></li>
 <li><p><strong>**kwargs</strong> – 传递给算法 run() 方法的参数。
 必须包含 k 参数（种子节点数量）。</p></li>
 </ul>
@@ -332,7 +344,7 @@
 </p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Dict[str, Dict[str, Any]]</p>
+<dd class="field-odd"><p>Dict[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a>, Dict[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a>, Any]]</p>
 </dd>
 </dl>
 <p class="rubric">Example</p>
@@ -352,12 +364,12 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pynetim.timing.measure_runtime">
-<span class="sig-prename descclassname"><span class="pre">pynetim.timing.</span></span><span class="sig-name descname"><span class="pre">measure_runtime</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span></span></span><a class="reference internal" href="../_modules/pynetim/timing.html#measure_runtime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.timing.measure_runtime" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">pynetim.timing.</span></span><span class="sig-name descname"><span class="pre">measure_runtime</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pynetim/timing.html#measure_runtime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.timing.measure_runtime" title="Link to this definition"></a></dt>
 <dd><p>测量函数运行时间。</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>func</strong> – 要测量的函数。</p></li>
+<li><p><strong>func</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.14)"><em>Callable</em></a>) – 要测量的函数。</p></li>
 <li><p><strong>*args</strong> – 函数位置参数。</p></li>
 <li><p><strong>**kwargs</strong> – 函数关键字参数。</p></li>
 </ul>
@@ -366,7 +378,7 @@
 <dd class="field-even"><p>(函数返回值, 运行时间秒数)</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>tuple</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)">tuple</a></p>
 </dd>
 </dl>
 <p class="rubric">Example</p>
@@ -379,13 +391,13 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pynetim.timing.measure_runtime_multiple_runs">
-<span class="sig-prename descclassname"><span class="pre">pynetim.timing.</span></span><span class="sig-name descname"><span class="pre">measure_runtime_multiple_runs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_runs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/pynetim/timing.html#measure_runtime_multiple_runs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.timing.measure_runtime_multiple_runs" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">pynetim.timing.</span></span><span class="sig-name descname"><span class="pre">measure_runtime_multiple_runs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_runs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pynetim/timing.html#measure_runtime_multiple_runs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.timing.measure_runtime_multiple_runs" title="Link to this definition"></a></dt>
 <dd><p>多次运行函数并统计运行时间。</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>func</strong> – 要测量的函数。</p></li>
-<li><p><strong>num_runs</strong> – 运行次数，默认 10。</p></li>
+<li><p><strong>func</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.14)"><em>Callable</em></a>) – 要测量的函数。</p></li>
+<li><p><strong>num_runs</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – 运行次数，默认 10。</p></li>
 <li><p><strong>*args</strong> – 函数位置参数。</p></li>
 <li><p><strong>**kwargs</strong> – 函数关键字参数。</p></li>
 </ul>
@@ -405,7 +417,7 @@
 </p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Dict[str, float]</p>
+<dd class="field-odd"><p>Dict[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a>]</p>
 </dd>
 </dl>
 <p class="rubric">Example</p>
@@ -418,12 +430,12 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pynetim.timing.measure_time">
-<span class="sig-prename descclassname"><span class="pre">pynetim.timing.</span></span><span class="sig-name descname"><span class="pre">measure_time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Callable</span></span></span><a class="reference internal" href="../_modules/pynetim/timing.html#measure_time"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.timing.measure_time" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">pynetim.timing.</span></span><span class="sig-name descname"><span class="pre">measure_time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pynetim/timing.html#measure_time"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.timing.measure_time" title="Link to this definition"></a></dt>
 <dd><p>装饰器：测量函数或方法的运行时间。</p>
 <p>可以用于类方法或普通函数，支持C++绑定方法。</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>func</strong> – 要测量的函数或方法。</p>
+<dd class="field-odd"><p><strong>func</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.14)"><em>Callable</em></a>) – 要测量的函数或方法。</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>包装后的函数。</p>
@@ -469,7 +481,7 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2026, Kaijing Zhang.</p>
+    <p>&#169; Copyright 2026, Zhang Kaijing.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pynetim.diffusion_model.base_multiprocess_diffusion_model &mdash; PyNetIM  documentation</title>
+  <title>pynetim.diffusion_model.base_multiprocess_diffusion_model &mdash; PyNetIM 0.5.4 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
 
@@ -13,7 +13,7 @@
     <link rel="shortcut icon" href="../../../_static/favicon_32.png"/>
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../../_static/documentation_options.js?v=e1a677a5"></script>
       <script src="../../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/js/theme.js"></script>
@@ -32,7 +32,7 @@
           
           <a href="../../../index.html" class="icon icon-home">
             PyNetIM
-              <img src="../../../_static/icon.svg" class="logo" alt="Logo"/>
+              <img src="../../../_static/logo.png" class="logo" alt="Logo"/>
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -44,8 +44,8 @@
 <div class="version-selector" style="padding: 12px 15px; margin-top: -10px;">
     <label style="font-weight: 600; font-size: 12px; color: #404040; display: block; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px;">Version</label>
     <select id="version-select" style="width: 100%; padding: 6px 10px; border: 1px solid #d1d5da; border-radius: 6px; background: #f6f8fa; font-size: 13px; cursor: pointer; color: #24292e; font-weight: 500;">
-        <option value="v0.5.3">v0.5.3 (latest)</option>
-        <option value="v0.5.4">v0.5.4</option>
+        <option value="v0.5.3">v0.5.3</option>
+        <option value="v0.5.4">v0.5.4 (latest)</option>
     </select>
 </div>
 <script>
@@ -296,7 +296,8 @@
         <span class="n">mc_rounds</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> 
         <span class="n">num_processes</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">show_progress</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-        <span class="n">random_seed</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">random_seed</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">normalize</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;运行蒙特卡洛模拟，计算平均影响力。</span>
 
@@ -305,9 +306,10 @@
 <span class="sd">            num_processes: 进程数，默认使用 CPU 核心数。</span>
 <span class="sd">            show_progress: 是否显示进度条（暂未实现）。</span>
 <span class="sd">            random_seed: 随机数种子，默认为 None（每次结果不同）。</span>
+<span class="sd">            normalize: 是否将结果归一化（除以图节点数），默认为 False。</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            float: 平均激活节点数。</span>
+<span class="sd">            float: 平均激活节点数。若 normalize=True，返回归一化后的影响力比例。</span>
 
 <span class="sd">        Note:</span>
 <span class="sd">            当模拟次数较多时（&gt;= 进程数 * 10），自动启用多进程并行。</span>
@@ -340,7 +342,8 @@
                 <span class="n">count</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">run_single_trial</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">seeds</span><span class="p">),</span> <span class="n">rng_seeds</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
                 <span class="n">total_activated</span> <span class="o">+=</span> <span class="n">count</span>
         
-        <span class="k">return</span> <span class="n">total_activated</span> <span class="o">/</span> <span class="n">mc_rounds</span></div>
+        <span class="n">avg</span> <span class="o">=</span> <span class="n">total_activated</span> <span class="o">/</span> <span class="n">mc_rounds</span>
+        <span class="k">return</span> <span class="n">avg</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_nodes</span> <span class="k">if</span> <span class="n">normalize</span> <span class="k">else</span> <span class="n">avg</span></div>
 
     
 <div class="viewcode-block" id="BaseMultiprocessDiffusionModel.run_monte_carlo_with_frequency">
@@ -349,7 +352,8 @@
         <span class="bp">self</span><span class="p">,</span> 
         <span class="n">mc_rounds</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> 
         <span class="n">num_processes</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">random_seed</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">random_seed</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">normalize</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;运行蒙特卡洛模拟，返回平均影响力和激活频数。</span>
 
@@ -357,10 +361,11 @@
 <span class="sd">            mc_rounds: 蒙特卡洛模拟次数，建议 1000-10000 次。</span>
 <span class="sd">            num_processes: 进程数，默认使用 CPU 核心数。</span>
 <span class="sd">            random_seed: 随机数种子，默认为 None（每次结果不同）。</span>
+<span class="sd">            normalize: 是否将结果归一化（除以图节点数），默认为 False。</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            Tuple[float, List[int]]: 包含两个元素：</span>
-<span class="sd">                - 平均激活节点数</span>
+<span class="sd">                - 平均激活节点数。若 normalize=True，返回归一化后的影响力比例。</span>
 <span class="sd">                - 每个节点的激活频数列表</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">num_processes</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -398,7 +403,8 @@
                 <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">f</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">freq</span><span class="p">):</span>
                     <span class="n">total_frequency</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">+=</span> <span class="n">f</span>
         
-        <span class="k">return</span> <span class="n">total_activated</span> <span class="o">/</span> <span class="n">mc_rounds</span><span class="p">,</span> <span class="n">total_frequency</span></div>
+        <span class="n">avg</span> <span class="o">=</span> <span class="n">total_activated</span> <span class="o">/</span> <span class="n">mc_rounds</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">avg</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_nodes</span> <span class="k">if</span> <span class="n">normalize</span> <span class="k">else</span> <span class="n">avg</span><span class="p">),</span> <span class="n">total_frequency</span></div>
 </div>
 
 </pre></div>
@@ -410,7 +416,7 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2026, Kaijing Zhang.</p>
+    <p>&#169; Copyright 2026, Zhang Kaijing.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pynetim.utils.graph_utils &mdash; PyNetIM  documentation</title>
+  <title>pynetim.utils.graph_utils &mdash; PyNetIM 0.5.4 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
 
@@ -13,7 +13,7 @@
     <link rel="shortcut icon" href="../../../_static/favicon_32.png"/>
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../../_static/documentation_options.js?v=e1a677a5"></script>
       <script src="../../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/js/theme.js"></script>
@@ -32,7 +32,7 @@
           
           <a href="../../../index.html" class="icon icon-home">
             PyNetIM
-              <img src="../../../_static/icon.svg" class="logo" alt="Logo"/>
+              <img src="../../../_static/logo.png" class="logo" alt="Logo"/>
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -44,8 +44,8 @@
 <div class="version-selector" style="padding: 12px 15px; margin-top: -10px;">
     <label style="font-weight: 600; font-size: 12px; color: #404040; display: block; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px;">Version</label>
     <select id="version-select" style="width: 100%; padding: 6px 10px; border: 1px solid #d1d5da; border-radius: 6px; background: #f6f8fa; font-size: 13px; cursor: pointer; color: #24292e; font-weight: 500;">
-        <option value="v0.5.3">v0.5.3 (latest)</option>
-        <option value="v0.5.4">v0.5.4</option>
+        <option value="v0.5.3">v0.5.3</option>
+        <option value="v0.5.4">v0.5.4 (latest)</option>
     </select>
 </div>
 <script>
@@ -149,10 +149,79 @@
   <h1>Source code for pynetim.utils.graph_utils</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">TYPE_CHECKING</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">TYPE_CHECKING</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
     <span class="kn">from</span><span class="w"> </span><span class="nn">pynetim.graph</span><span class="w"> </span><span class="kn">import</span> <span class="n">IMGraph</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">pynetim.graph</span><span class="w"> </span><span class="kn">import</span> <span class="n">generate_er_graph</span><span class="p">,</span> <span class="n">generate_ba_graph</span><span class="p">,</span> <span class="n">generate_ws_graph</span>
+
+
+<div class="viewcode-block" id="compute_sir_beta">
+<a class="viewcode-back" href="../../../api/utils.html#pynetim.utils.compute_sir_beta">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">compute_sir_beta</span><span class="p">(</span>
+    <span class="n">graph</span><span class="p">:</span> <span class="s2">&quot;IMGraph&quot;</span><span class="p">,</span>
+    <span class="n">gamma</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">,</span>
+    <span class="n">c</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.3</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;计算 SIR 模型的感染率 β。</span>
+
+<span class="sd">    基于配置模型近似 (Configuration Model Approximation) 计算感染率。</span>
+
+<span class="sd">    公式:</span>
+<span class="sd">        β_c = γ · &lt;k&gt; / &lt;k²&gt;</span>
+<span class="sd">        β = c · β_c</span>
+
+<span class="sd">    其中:</span>
+<span class="sd">        - &lt;k&gt;: 平均度</span>
+<span class="sd">        - &lt;k²&gt;: 度的平方均值</span>
+<span class="sd">        - γ: 恢复率</span>
+<span class="sd">        - c: 调节系数</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    graph : IMGraph</span>
+<span class="sd">        图对象。</span>
+<span class="sd">    gamma : float, optional</span>
+<span class="sd">        恢复率，默认 0.1。</span>
+<span class="sd">    c : float, optional</span>
+<span class="sd">        调节系数，默认 1.3。</span>
+<span class="sd">        - c &lt; 1: 不爆发</span>
+<span class="sd">        - c = 1: 临界状态</span>
+<span class="sd">        - c &gt; 1: 爆发</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    tuple[float, float]</span>
+<span class="sd">        (beta, beta_c): 感染率和临界感染率。</span>
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">    Pastor-Satorras, R., Castellano, C., Van Mieghem, P., &amp; Vespignani, A. (2015).</span>
+<span class="sd">    Epidemic processes in complex networks. Reviews of Modern Physics, 87(3), 925.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; from pynetim.utils import generate_er_graph, compute_sir_beta</span>
+<span class="sd">    &gt;&gt;&gt; g = generate_er_graph(n=100, p=0.1, random_seed=42)</span>
+<span class="sd">    &gt;&gt;&gt; beta, beta_c = compute_sir_beta(g, gamma=0.1, c=1.3)</span>
+<span class="sd">    &gt;&gt;&gt; print(f&quot;感染率: {beta:.4f}, 临界感染率: {beta_c:.4f}&quot;)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">degrees</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">graph</span><span class="o">.</span><span class="n">batch_out_degree</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">graph</span><span class="o">.</span><span class="n">num_nodes</span><span class="p">))))</span>
+
+    <span class="n">k_mean</span> <span class="o">=</span> <span class="n">degrees</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+    <span class="n">k2_mean</span> <span class="o">=</span> <span class="p">(</span><span class="n">degrees</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="n">k2_mean</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;图的度平方均值为 0，无法计算感染率&quot;</span><span class="p">)</span>
+
+    <span class="n">beta_c</span> <span class="o">=</span> <span class="n">gamma</span> <span class="o">*</span> <span class="n">k_mean</span> <span class="o">/</span> <span class="n">k2_mean</span>
+    <span class="n">beta</span> <span class="o">=</span> <span class="n">c</span> <span class="o">*</span> <span class="n">beta_c</span>
+
+    <span class="k">return</span> <span class="n">beta</span><span class="p">,</span> <span class="n">beta_c</span></div>
+
 
 
 <div class="viewcode-block" id="load_edgelist">
@@ -468,7 +537,7 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2026, Kaijing Zhang.</p>
+    <p>&#169; Copyright 2026, Zhang Kaijing.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

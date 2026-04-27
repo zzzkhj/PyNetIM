@@ -1,0 +1,278 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pynetim.graph.decomposition &mdash; PyNetIM 0.5.4 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+
+  
+    <link rel="shortcut icon" href="../../../_static/favicon_32.png"/>
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=e1a677a5"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            PyNetIM
+              <img src="../../../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+<div class="version-selector" style="padding: 12px 15px; margin-top: -10px;">
+    <label style="font-weight: 600; font-size: 12px; color: #404040; display: block; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px;">Version</label>
+    <select id="version-select" style="width: 100%; padding: 6px 10px; border: 1px solid #d1d5da; border-radius: 6px; background: #f6f8fa; font-size: 13px; cursor: pointer; color: #24292e; font-weight: 500;">
+        <option value="v0.5.3">v0.5.3</option>
+        <option value="v0.5.4">v0.5.4 (latest)</option>
+    </select>
+</div>
+<script>
+(function() {
+    var select = document.getElementById('version-select');
+    
+    // 获取当前版本并设置选中状态
+    var currentPath = window.location.pathname;
+    var versionMatch = currentPath.match(/\/v([\d.]+)\//);
+    if (versionMatch) {
+        var currentVersion = 'v' + versionMatch[1];
+        for (var i = 0; i < select.options.length; i++) {
+            if (select.options[i].value === currentVersion) {
+                select.options[i].selected = true;
+                break;
+            }
+        }
+    }
+    
+    // 版本切换
+    select.addEventListener('change', function() {
+        var targetVersion = this.value;
+        var currentPath = window.location.pathname;
+        
+        // 获取基础路径（去掉版本号部分）
+        var basePath;
+        var match = currentPath.match(/\/v([\d.]+)\//);
+        if (match) {
+            // 如果当前在版本目录中，去掉版本号部分
+            basePath = currentPath.split('/v' + match[1] + '/')[0];
+        } else {
+            // 如果不在版本目录中，使用当前路径
+            basePath = currentPath.substring(0, currentPath.lastIndexOf('/'));
+        }
+        
+        // 构建新路径
+        var newPath = basePath + '/' + targetVersion + '/';
+        
+        console.log('版本切换:', {
+            currentPath: currentPath,
+            targetVersion: targetVersion,
+            basePath: basePath,
+            newPath: newPath
+        });
+        
+        // 跳转到新版本
+        window.location.href = newPath;
+    });
+})();
+</script>
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">指南</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">安装指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">快速开始</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API 参考</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/graph.html">图模块</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/diffusion_model.html">扩散模型</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/algorithms.html">算法模块</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/evaluation.html">评估指标</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/timing.html">时间测量</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/utils.html">工具函数</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">其他</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">更新日志</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html#id66">版本说明</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html#id75">贡献指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html#id76">许可证</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html#id77">联系方式</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">PyNetIM</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">pynetim.graph.decomposition</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for pynetim.graph.decomposition</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;图分解算法模块。</span>
+
+<span class="sd">提供 K-shell、K-core 等图分解算法。</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">TYPE_CHECKING</span>
+
+<span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">.graph</span><span class="w"> </span><span class="kn">import</span> <span class="n">IMGraph</span>
+
+
+<div class="viewcode-block" id="compute_k_shell_values">
+<a class="viewcode-back" href="../../../api/graph.html#pynetim.graph.compute_k_shell_values">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">compute_k_shell_values</span><span class="p">(</span><span class="n">graph</span><span class="p">:</span> <span class="s1">&#39;IMGraph&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;计算图中所有节点的 K-shell 值。</span>
+
+<span class="sd">    使用 Batagelj-Zaversnik 算法，时间复杂度 O(m)。</span>
+
+<span class="sd">    K-shell 分解是一种识别网络核心层次结构的方法：</span>
+<span class="sd">    - K-shell 值高的节点位于网络核心</span>
+<span class="sd">    - K-shell 值低的节点位于网络边缘</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        graph: IMGraph 图对象。</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Dict[int, int]: 节点到 K-shell 值的映射。</span>
+
+<span class="sd">    References:</span>
+<span class="sd">        Batagelj, V., &amp; Zaversnik, M. (2003). An O(m) algorithm for </span>
+<span class="sd">        cores decomposition of networks. arXiv preprint cs/0310049.</span>
+
+<span class="sd">        Kitsak, M., Gallos, L. K., Havlin, S., Liljeros, F., Muchnik, L., </span>
+<span class="sd">        Stanley, H. E., &amp; Makse, H. A. (2010). Identification of influential </span>
+<span class="sd">        spreaders in complex networks. Nature physics, 6(11), 888-893.</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        &gt;&gt;&gt; from pynetim import IMGraph</span>
+<span class="sd">        &gt;&gt;&gt; from pynetim.graph import compute_k_shell_values</span>
+<span class="sd">        &gt;&gt;&gt; </span>
+<span class="sd">        &gt;&gt;&gt; graph = IMGraph(edges, directed=True)</span>
+<span class="sd">        &gt;&gt;&gt; k_shell = compute_k_shell_values(graph)</span>
+<span class="sd">        &gt;&gt;&gt; print(k_shell)  # {0: 1, 1: 2, 2: 1, ...}</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="n">num_nodes</span>
+    <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">{}</span>
+    
+    <span class="n">nodes</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
+    <span class="n">degree</span> <span class="o">=</span> <span class="p">{</span><span class="n">v</span><span class="p">:</span> <span class="n">graph</span><span class="o">.</span><span class="n">out_degree</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">nodes</span><span class="p">}</span>
+    
+    <span class="n">md</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">degree</span><span class="o">.</span><span class="n">values</span><span class="p">())</span> <span class="k">if</span> <span class="n">degree</span> <span class="k">else</span> <span class="mi">0</span>
+    
+    <span class="n">bins</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">md</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">nodes</span><span class="p">:</span>
+        <span class="n">bins</span><span class="p">[</span><span class="n">degree</span><span class="p">[</span><span class="n">node</span><span class="p">]]</span> <span class="o">+=</span> <span class="mi">1</span>
+    
+    <span class="n">start</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">md</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="n">num</span> <span class="o">=</span> <span class="n">bins</span><span class="p">[</span><span class="n">d</span><span class="p">]</span>
+        <span class="n">bins</span><span class="p">[</span><span class="n">d</span><span class="p">]</span> <span class="o">=</span> <span class="n">start</span>
+        <span class="n">start</span> <span class="o">+=</span> <span class="n">num</span>
+    
+    <span class="n">pos</span> <span class="o">=</span> <span class="p">{</span><span class="n">node</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span> <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">nodes</span><span class="p">}</span>
+    <span class="n">vert</span> <span class="o">=</span> <span class="p">{</span><span class="n">p</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)}</span>
+    
+    <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">nodes</span><span class="p">:</span>
+        <span class="n">pos</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">=</span> <span class="n">bins</span><span class="p">[</span><span class="n">degree</span><span class="p">[</span><span class="n">node</span><span class="p">]]</span>
+        <span class="n">vert</span><span class="p">[</span><span class="n">pos</span><span class="p">[</span><span class="n">node</span><span class="p">]]</span> <span class="o">=</span> <span class="n">node</span>
+        <span class="n">bins</span><span class="p">[</span><span class="n">degree</span><span class="p">[</span><span class="n">node</span><span class="p">]]</span> <span class="o">+=</span> <span class="mi">1</span>
+    
+    <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">md</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+        <span class="n">bins</span><span class="p">[</span><span class="n">d</span><span class="p">]</span> <span class="o">=</span> <span class="n">bins</span><span class="p">[</span><span class="n">d</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+    <span class="n">bins</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+    
+    <span class="n">nbrs</span> <span class="o">=</span> <span class="p">{</span><span class="n">v</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="n">graph</span><span class="o">.</span><span class="n">out_neighbors</span><span class="p">(</span><span class="n">v</span><span class="p">))</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">nodes</span><span class="p">}</span>
+    
+    <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="n">v</span> <span class="o">=</span> <span class="n">vert</span><span class="p">[</span><span class="n">p</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">nbrs</span><span class="p">[</span><span class="n">v</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="n">degree</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">degree</span><span class="p">[</span><span class="n">v</span><span class="p">]:</span>
+                <span class="n">du</span> <span class="o">=</span> <span class="n">degree</span><span class="p">[</span><span class="n">u</span><span class="p">]</span>
+                <span class="n">pu</span> <span class="o">=</span> <span class="n">pos</span><span class="p">[</span><span class="n">u</span><span class="p">]</span>
+                <span class="n">pw</span> <span class="o">=</span> <span class="n">bins</span><span class="p">[</span><span class="n">du</span><span class="p">]</span>
+                <span class="n">w</span> <span class="o">=</span> <span class="n">vert</span><span class="p">[</span><span class="n">pw</span><span class="p">]</span>
+                
+                <span class="k">if</span> <span class="n">u</span> <span class="o">!=</span> <span class="n">w</span><span class="p">:</span>
+                    <span class="n">pos</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">=</span> <span class="n">pw</span>
+                    <span class="n">vert</span><span class="p">[</span><span class="n">pu</span><span class="p">]</span> <span class="o">=</span> <span class="n">w</span>
+                    <span class="n">pos</span><span class="p">[</span><span class="n">w</span><span class="p">]</span> <span class="o">=</span> <span class="n">pu</span>
+                    <span class="n">vert</span><span class="p">[</span><span class="n">pw</span><span class="p">]</span> <span class="o">=</span> <span class="n">u</span>
+                
+                <span class="n">bins</span><span class="p">[</span><span class="n">du</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="n">degree</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">-=</span> <span class="mi">1</span>
+    
+    <span class="k">return</span> <span class="n">degree</span></div>
+
+
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;compute_k_shell_values&#39;</span><span class="p">]</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Zhang Kaijing.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
