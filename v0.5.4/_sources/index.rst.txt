@@ -73,12 +73,13 @@ PyNetIM
 --------
 
 - **多种传播模型** - IC、LT、SI、SIR
-- **多种 IM 算法** - 启发式、模拟类、RIS 类、深度学习
-- **深度学习算法** - ToupleGDD、S2V-DQN、BiGDN
+- **多种 IM 算法** - 启发式、模拟类、RIS 类、深度强化学习
+- **深度强化学习算法** - ToupleGDD、S2V-DQN、BiGDN、BiGDNS
 - **评估指标** - 排名指标、影响力指标、种子质量指标、网络指标
 - **时间测量** - 装饰器、AlgorithmTimer、多次运行统计
 - **高性能 C++ 后端** - 比纯 Python 快 20-30 倍
 - **自定义模型支持** - 支持用户自定义传播模型
+- **权重管理** - 预训练权重自动下载与本地缓存
 - **简洁 API** - 一行代码完成复杂任务
 
 快速示例
@@ -97,7 +98,7 @@ PyNetIM
 
     # 评估影响力
     model = IndependentCascadeModel(graph, set(seeds))
-    avg = model.run_monte_carlo_diffusion(1000, num_threads=4)
+    avg = model.run_monte_carlo_diffusion(1000, use_multithread=True, num_threads=4)
 
 相关链接
 --------

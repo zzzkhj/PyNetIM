@@ -5,6 +5,79 @@
 
 格式基于 `Keep a Changelog <https://keepachangelog.com/>`_。
 
+[0.5.4] - 2026-04-28
+------------------------
+
+新增
+~~~~
+
+**权重管理器模块**:
+
+新增 ``pynetim.weights`` 模块，提供类似 Hugging Face Transformers 的预训练权重管理机制。
+
+* 从远程 URL 自动下载预训练权重
+* 本地缓存机制（``~/.pynetim/weights/``）
+* 下载进度条显示（使用 tqdm）
+* 权重文件校验
+
+**图分解函数**:
+
+* 新增 ``compute_k_shell_values`` - K-shell 分解，Batagelj-Zaversnik 算法，O(m) 时间复杂度
+
+**随机图生成函数**:
+
+* ``generate_er_graph`` - Erdős-Rényi 随机图
+* ``generate_ba_graph`` - Barabási-Albert 无标度网络
+* ``generate_ws_graph`` - Watts-Strogatz 小世界网络
+
+**边权重设置函数**:
+
+* ``set_edge_weights`` - 通用边权重设置
+* ``set_const_weights`` - 常数边权重
+* ``set_tv_weights`` - 从列表中随机选择边权重
+* ``set_uniform_weights`` - 均匀分布边权重
+* ``set_wc_weights`` - WC 模型边权重（权重 = 1/入度）
+* ``set_edge_weights_dict`` - 通过字典设置边权重
+
+**强化学习算法模块**:
+
+* ``BaseRLAlgorithm`` - 传统强化学习算法基类
+* ``CoreQAlgorithm`` - K-core 层次引导的 Q-learning 算法 (Expert Systems With Applications, 2025)
+* ``TCQAlgorithm`` - K-core 引导的目标约束 Q-learning 算法 (Neurocomputing, 2025)
+
+**种群优化算法模块**:
+
+* ``BasePopulationAlgorithm`` - 种群优化算法基类
+* ``RLSetGWOAlgorithm`` - 基于强化学习的灰狼优化算法
+* ``SADPEAAlgorithm`` - 结构感知双概率进化自适应算法 (Information Sciences, 2025)
+
+**传播模型 normalize 参数**:
+
+* 所有传播模型的 ``run_monte_carlo_diffusion`` 和 ``run_monte_carlo_with_frequency`` 方法新增 ``normalize`` 参数
+* 控制返回的平均影响范围是否归一化（除以图规模）
+* 默认 ``normalize=False``，保持向后兼容
+
+目录重组
+~~~~~~~~
+
+* 深度强化学习算法从 ``deep_learning/`` 迁移到 ``reinforcement_learning/deep/``
+* ``deep_learning/`` 保留给纯深度学习算法（非 RL）
+
+改进
+~~~~
+
+* BiGDN 和 ToupleGDD 算法集成权重管理器
+* BaseDLAlgorithm 添加 ``diffusion_model`` 参数支持
+* BaseDRLAlgorithm 参数传递统一（明确接收 ``diffusion_model`` 和 ``mc_rounds``）
+* WeightManager 添加完整类型提示
+* 参数命名统一（k, max_iter, random_seed）
+
+Bug 修复
+~~~~~~~~
+
+* 修复 ToupleGDD 算法节点嵌入维度不匹配导致的运行时错误
+* 修复 BaseDLAlgorithm 缺少 ``diffusion_model`` 参数的问题
+
 [0.5.3] - 2026-04-16
 ------------------------
 
