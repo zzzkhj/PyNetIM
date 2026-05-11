@@ -1,6 +1,6 @@
 # PyNetIM
 
-[![GitHub stars](https://img.shields.io/static/v1?label=stars\&message=4\&color=blue\&style=flat\&logo=github)](https://github.com/zzzkhj/PyNetIM)
+[![GitHub stars](https://img.shields.io/static/v1?label=stars\&message=5\&color=blue\&style=flat\&logo=github)](https://github.com/zzzkhj/PyNetIM)
 [![PyPI version](https://badge.fury.io/py/pynetim.svg)](https://pypi.org/project/pynetim/)
 [![Python Version](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
