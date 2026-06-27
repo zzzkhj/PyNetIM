@@ -1,0 +1,263 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pynetim.diffusion_model.base_callback_diffusion_model &mdash; PyNetIM 0.5.5 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+
+  
+    <link rel="shortcut icon" href="../../../_static/favicon_32.png"/>
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=45def3bc"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            PyNetIM
+              <img src="../../../_static/icon.svg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+<div class="version-selector" style="padding: 12px 15px; margin-top: -10px;">
+    <label style="font-weight: 600; font-size: 12px; color: #404040; display: block; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px;">Version</label>
+    <select id="version-select" style="width: 100%; padding: 6px 10px; border: 1px solid #d1d5da; border-radius: 6px; background: #f6f8fa; font-size: 13px; cursor: pointer; color: #24292e; font-weight: 500;">
+<option value="v0.5.3">v0.5.3</option><option value="v0.5.4">v0.5.4</option><option value="v0.5.5">v0.5.5</option><option value="v0.5.6">v0.5.6 (latest)</option>
+    </select>
+</div>
+<script>
+(function() {
+    var select = document.getElementById('version-select');
+    
+    // 获取当前版本并设置选中状态
+    var currentPath = window.location.pathname;
+    var versionMatch = currentPath.match(/\/v([\d.]+)\//);
+    if (versionMatch) {
+        var currentVersion = 'v' + versionMatch[1];
+        for (var i = 0; i < select.options.length; i++) {
+            if (select.options[i].value === currentVersion) {
+                select.options[i].selected = true;
+                break;
+            }
+        }
+    }
+    
+    // 版本切换
+    select.addEventListener('change', function() {
+        var targetVersion = this.value;
+        var currentPath = window.location.pathname;
+        
+        // 获取基础路径（去掉版本号部分）
+        var basePath;
+        var match = currentPath.match(/\/v([\d.]+)\//);
+        if (match) {
+            // 如果当前在版本目录中，去掉版本号部分
+            basePath = currentPath.split('/v' + match[1] + '/')[0];
+        } else {
+            // 如果不在版本目录中，使用当前路径
+            basePath = currentPath.substring(0, currentPath.lastIndexOf('/'));
+        }
+        
+        // 构建新路径
+        var newPath = basePath + '/' + targetVersion + '/';
+        
+        console.log('版本切换:', {
+            currentPath: currentPath,
+            targetVersion: targetVersion,
+            basePath: basePath,
+            newPath: newPath
+        });
+        
+        // 跳转到新版本
+        window.location.href = newPath;
+    });
+})();
+</script>
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">指南</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">安装指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">快速开始</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API 参考</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/graph.html">图模块</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/diffusion_model.html">扩散模型</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/algorithms.html">算法模块</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/evaluation.html">评估指标</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/timing.html">时间测量</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/utils.html">工具函数</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/embedding.html">图嵌入模块</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/weights.html">权重管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/random.html">随机种子控制</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">其他</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">更新日志</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html#id77">版本说明</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html#id86">贡献指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html#id87">许可证</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html#id88">联系方式</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">PyNetIM</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">pynetim.diffusion_model.base_callback_diffusion_model</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for pynetim.diffusion_model.base_callback_diffusion_model</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Set</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">TYPE_CHECKING</span>
+
+<span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">..graph</span><span class="w"> </span><span class="kn">import</span> <span class="n">IMGraph</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">.py_diffusion_model_base</span><span class="w"> </span><span class="kn">import</span> <span class="n">PyDiffusionModelBase</span>
+
+
+<div class="viewcode-block" id="BaseCallbackDiffusionModel">
+<a class="viewcode-back" href="../../../api/diffusion_model.html#pynetim.diffusion_model.BaseCallbackDiffusionModel">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">BaseCallbackDiffusionModel</span><span class="p">(</span><span class="n">PyDiffusionModelBase</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;C++回调版自定义传播模型基类。</span>
+
+<span class="sd">    继承 C++ 的 PyDiffusionModelBase，通过回调机制实现自定义传播逻辑。</span>
+<span class="sd">    单线程模式下可用，比纯 Python 实现快。</span>
+<span class="sd">    多线程模式受 Python GIL 限制，无法真正并行。</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        graph: 图对象。</span>
+<span class="sd">        seeds: 种子节点集合。</span>
+<span class="sd">        num_nodes: 节点数量。</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        &gt;&gt;&gt; from pynetim.diffusion_model import BaseCallbackDiffusionModel</span>
+<span class="sd">        &gt;&gt;&gt; </span>
+<span class="sd">        &gt;&gt;&gt; class MyICModel(BaseCallbackDiffusionModel):</span>
+<span class="sd">        ...     def run_single_trial(self, seeds, random_seed):</span>
+<span class="sd">        ...         import random</span>
+<span class="sd">        ...         random.seed(random_seed)</span>
+<span class="sd">        ...         activated = set(seeds)</span>
+<span class="sd">        ...         current = list(seeds)</span>
+<span class="sd">        ...         count = len(seeds)</span>
+<span class="sd">        ...         frequency = [0] * self.graph.num_nodes</span>
+<span class="sd">        ...         </span>
+<span class="sd">        ...         while current:</span>
+<span class="sd">        ...             new_active = []</span>
+<span class="sd">        ...             for node in current:</span>
+<span class="sd">        ...                 for neighbor, weight in self.graph.out_neighbors(node):</span>
+<span class="sd">        ...                     if neighbor not in activated and random.random() &lt; weight:</span>
+<span class="sd">        ...                         activated.add(neighbor)</span>
+<span class="sd">        ...                         new_active.append(neighbor)</span>
+<span class="sd">        ...                         count += 1</span>
+<span class="sd">        ...                         frequency[neighbor] += 1</span>
+<span class="sd">        ...             current = new_active</span>
+<span class="sd">        ...         </span>
+<span class="sd">        ...         return count, activated, frequency</span>
+<span class="sd">        ...</span>
+<span class="sd">        &gt;&gt;&gt; model = MyICModel(graph, {0, 1})</span>
+<span class="sd">        &gt;&gt;&gt; avg = model.run_monte_carlo_diffusion(mc_rounds=1000, random_seed=42)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+<div class="viewcode-block" id="BaseCallbackDiffusionModel.run_single_trial">
+<a class="viewcode-back" href="../../../api/diffusion_model.html#pynetim.diffusion_model.BaseCallbackDiffusionModel.run_single_trial">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">run_single_trial</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">seeds</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
+        <span class="n">random_seed</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Set</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;执行单次传播试验。</span>
+
+<span class="sd">        子类必须重写此方法实现自定义传播逻辑。</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            seeds: 初始种子节点列表。</span>
+<span class="sd">            random_seed: 随机数种子，用于确保结果可重现。</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Tuple[int, Set[int], List[int]]: 包含三个元素的元组：</span>
+<span class="sd">                - 激活节点总数</span>
+<span class="sd">                - 激活的节点集合</span>
+<span class="sd">                - 每个节点的激活频数列表</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            NotImplementedError: 子类未实现此方法时抛出。</span>
+
+<span class="sd">        Note:</span>
+<span class="sd">            此方法会被 C++ 层回调，因此需要保持签名一致。</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2"> 必须实现 run_single_trial(seeds, random_seed) 方法&quot;</span>
+        <span class="p">)</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Zhang Kaijing.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

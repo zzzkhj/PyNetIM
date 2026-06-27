@@ -1,0 +1,121 @@
+快速开始
+========
+
+基本使用
+--------
+
+创建图
+~~~~~~
+
+.. code-block:: python
+
+    from pynetim import IMGraph
+
+    # 从边列表创建（统一权重）
+    edges = [(0, 1), (1, 2), (2, 3), (3, 4), (4, 5)]
+    graph = IMGraph(edges, weights=0.3)
+
+    # 逐边指定权重
+    weights = [0.1, 0.2, 0.15, 0.25, 0.3]
+    graph = IMGraph(edges, weights=weights)
+
+    # 查询邻居
+    for neighbor, weight in graph.out_neighbors_with_weights(0):
+        print(f"邻居: {neighbor}, 权重: {weight}")
+
+选择种子节点
+~~~~~~~~~~~~
+
+.. code-block:: python
+
+    from pynetim import IMGraph, IMMAlgorithm
+
+    # 创建图
+    graph = IMGraph(edges, weights=0.3)
+
+    # 使用 IMM 算法
+    imm = IMMAlgorithm(graph, model='IC', epsilon=0.5)
+    seeds = imm.run(k=10)
+    print(f"种子节点: {seeds}")
+
+评估影响力
+~~~~~~~~~~
+
+.. code-block:: python
+
+    from pynetim import IndependentCascadeModel
+
+    # 创建传播模型
+    model = IndependentCascadeModel(graph, seeds)
+
+    # 单次模拟
+    count = model.run_single_simulation()
+
+    # 蒙特卡洛模拟（多线程）
+    avg_influence = model.run_monte_carlo_diffusion(1000, num_threads=4)
+    print(f"平均影响力: {avg_influence:.2f}")
+
+算法选择指南
+------------
+
+.. list-table::
+   :header-rows: 1
+
+   * - 场景
+     - 推荐算法
+     - 原因
+   * - 大规模图
+     - IMMAlgorithm
+     - 时间复杂度低，精度高
+   * - 需要精度保证
+     - OPIMCAlgorithm
+     - 可证明近似保证
+   * - 快速原型
+     - DegreeDiscountAlgorithm
+     - 速度最快
+   * - 深度学习研究
+     - BiGDNAlgorithm
+     - 端到端学习
+
+传播模型选择
+------------
+
+.. list-table::
+   :header-rows: 1
+
+   * - 模型
+     - 说明
+     - 使用场景
+   * - IndependentCascadeModel
+     - 独立级联模型
+     - 社交网络传播
+   * - LinearThresholdModel
+     - 线性阈值模型
+     - 观点传播
+   * - SusceptibleInfectedModel
+     - SI 模型
+     - 疫情传播
+   * - SusceptibleInfectedRecoveredModel
+     - SIR 模型
+     - 疫情传播（含恢复）
+
+完整示例
+--------
+
+.. code-block:: python
+
+    from pynetim import IMGraph, IndependentCascadeModel, IMMAlgorithm
+
+    # 1. 创建图
+    edges = [(0, 1), (1, 2), (2, 3), (3, 4), (4, 5)]
+    graph = IMGraph(edges, weights=0.3)
+
+    # 2. 选择种子节点
+    imm = IMMAlgorithm(graph, model='IC', epsilon=0.5)
+    seeds = imm.run(k=2)
+    print(f"种子节点: {seeds}")
+
+    # 3. 评估影响力
+    model = IndependentCascadeModel(graph, set(seeds))
+    avg_influence = model.run_monte_carlo_diffusion(1000, num_threads=4)
+    print(f"平均影响力: {avg_influence:.2f}")

@@ -1,0 +1,23 @@
+扩散模型
+========
+
+.. automodule:: pynetim.diffusion_model
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :special-members: __init__
+
+自定义扩散模型
+--------------
+
+.. automodule:: pynetim.diffusion_model.base_callback_diffusion_model
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :special-members: __init__
+
+.. automodule:: pynetim.diffusion_model.base_multiprocess_diffusion_model
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :special-members: __init__

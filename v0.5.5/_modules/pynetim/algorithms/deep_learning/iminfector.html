@@ -1,0 +1,444 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pynetim.algorithms.deep_learning.iminfector &mdash; PyNetIM 0.5.5 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=9edc463e" />
+
+  
+    <link rel="shortcut icon" href="../../../../_static/favicon_32.png"/>
+      <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../../_static/documentation_options.js?v=45def3bc"></script>
+      <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            PyNetIM
+              <img src="../../../../_static/icon.svg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+<div class="version-selector" style="padding: 12px 15px; margin-top: -10px;">
+    <label style="font-weight: 600; font-size: 12px; color: #404040; display: block; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px;">Version</label>
+    <select id="version-select" style="width: 100%; padding: 6px 10px; border: 1px solid #d1d5da; border-radius: 6px; background: #f6f8fa; font-size: 13px; cursor: pointer; color: #24292e; font-weight: 500;">
+<option value="v0.5.3">v0.5.3</option><option value="v0.5.4">v0.5.4</option><option value="v0.5.5">v0.5.5</option><option value="v0.5.6">v0.5.6 (latest)</option>
+    </select>
+</div>
+<script>
+(function() {
+    var select = document.getElementById('version-select');
+    
+    // 获取当前版本并设置选中状态
+    var currentPath = window.location.pathname;
+    var versionMatch = currentPath.match(/\/v([\d.]+)\//);
+    if (versionMatch) {
+        var currentVersion = 'v' + versionMatch[1];
+        for (var i = 0; i < select.options.length; i++) {
+            if (select.options[i].value === currentVersion) {
+                select.options[i].selected = true;
+                break;
+            }
+        }
+    }
+    
+    // 版本切换
+    select.addEventListener('change', function() {
+        var targetVersion = this.value;
+        var currentPath = window.location.pathname;
+        
+        // 获取基础路径（去掉版本号部分）
+        var basePath;
+        var match = currentPath.match(/\/v([\d.]+)\//);
+        if (match) {
+            // 如果当前在版本目录中，去掉版本号部分
+            basePath = currentPath.split('/v' + match[1] + '/')[0];
+        } else {
+            // 如果不在版本目录中，使用当前路径
+            basePath = currentPath.substring(0, currentPath.lastIndexOf('/'));
+        }
+        
+        // 构建新路径
+        var newPath = basePath + '/' + targetVersion + '/';
+        
+        console.log('版本切换:', {
+            currentPath: currentPath,
+            targetVersion: targetVersion,
+            basePath: basePath,
+            newPath: newPath
+        });
+        
+        // 跳转到新版本
+        window.location.href = newPath;
+    });
+})();
+</script>
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">指南</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../installation.html">安装指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../quickstart.html">快速开始</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API 参考</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/graph.html">图模块</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/diffusion_model.html">扩散模型</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/algorithms.html">算法模块</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/evaluation.html">评估指标</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/timing.html">时间测量</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/utils.html">工具函数</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/embedding.html">图嵌入模块</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/weights.html">权重管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/random.html">随机种子控制</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">其他</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changelog.html">更新日志</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changelog.html#id77">版本说明</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changelog.html#id86">贡献指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changelog.html#id87">许可证</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changelog.html#id88">联系方式</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">PyNetIM</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">pynetim.algorithms.deep_learning.iminfector</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for pynetim.algorithms.deep_learning.iminfector</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;IMInfector 影响力最大化算法。</span>
+
+<span class="sd">基于嵌入的影响力最大化算法，利用 Inf2Vec 学习的 Source/Target 嵌入</span>
+<span class="sd">计算影响概率矩阵，并通过贪心策略选择种子节点。</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Set</span><span class="p">,</span> <span class="n">TYPE_CHECKING</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">...graph</span><span class="w"> </span><span class="kn">import</span> <span class="n">IMGraph</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">...embedding.inf2vec</span><span class="w"> </span><span class="kn">import</span> <span class="n">Inf2Vec</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">..base_algorithm</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseAlgorithm</span>
+
+
+<div class="viewcode-block" id="IMInfectorAlgorithm">
+<a class="viewcode-back" href="../../../../api/algorithms.html#pynetim.algorithms.deep_learning.IMInfectorAlgorithm">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">IMInfectorAlgorithm</span><span class="p">(</span><span class="n">BaseAlgorithm</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;IMInfector 影响力最大化算法。</span>
+
+<span class="sd">    基于学习到的 Source/Target 嵌入表示，计算影响概率矩阵 D = softmax(S · T^T)，</span>
+<span class="sd">    使用贪心策略选择种子节点。每个候选种子的预算（影响节点数）由其 Source 嵌入</span>
+<span class="sd">    的 L2 范数决定。</span>
+
+<span class="sd">    使用方式:</span>
+<span class="sd">        1. 先用 Inf2Vec 训练嵌入</span>
+<span class="sd">        2. 将训练好的 Inf2Vec 模型传入本算法</span>
+<span class="sd">        3. 调用 run(k) 选择种子</span>
+
+<span class="sd">    References:</span>
+<span class="sd">        Panagopoulos, G., Malliaros, F., &amp; Vazirgiannis, M. (2020).</span>
+<span class="sd">        Multi-task Learning for Influence Estimation and Maximization.</span>
+<span class="sd">        IEEE Transactions on Knowledge and Data Engineering.</span>
+
+<span class="sd">        Panagopoulos, G., Malliaros, F. D., &amp; Vazirgiannis, M. (2020).</span>
+<span class="sd">        Influence Maximization Using Influence and Susceptibility Embeddings.</span>
+<span class="sd">        Proceedings of the International AAAI Conference on Web and Social Media,</span>
+<span class="sd">        14, 511-521.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        graph: 输入图对象。</span>
+<span class="sd">        source_embeddings: 源嵌入矩阵。</span>
+<span class="sd">        target_embeddings: 目标嵌入矩阵。</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        &gt;&gt;&gt; from pynetim import IMGraph</span>
+<span class="sd">        &gt;&gt;&gt; from pynetim.embedding import Inf2Vec</span>
+<span class="sd">        &gt;&gt;&gt; from pynetim.algorithms import IMInfectorAlgorithm</span>
+<span class="sd">        &gt;&gt;&gt;</span>
+<span class="sd">        &gt;&gt;&gt; graph = IMGraph(edges, weights=0.3)</span>
+<span class="sd">        &gt;&gt;&gt; cascades = [[0, 1, 3], [2, 4, 5, 1]]</span>
+<span class="sd">        &gt;&gt;&gt; inf2vec = Inf2Vec(graph, cascades=cascades, dimensions=64)</span>
+<span class="sd">        &gt;&gt;&gt; inf2vec.train()</span>
+<span class="sd">        &gt;&gt;&gt;</span>
+<span class="sd">        &gt;&gt;&gt; algo = IMInfectorAlgorithm(graph, inf2vec_model=inf2vec)</span>
+<span class="sd">        &gt;&gt;&gt; seeds = algo.run(k=5)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="IMInfectorAlgorithm.__init__">
+<a class="viewcode-back" href="../../../../api/algorithms.html#pynetim.algorithms.deep_learning.IMInfectorAlgorithm.__init__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">graph</span><span class="p">:</span> <span class="s1">&#39;IMGraph&#39;</span><span class="p">,</span>
+        <span class="n">inf2vec_model</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="s1">&#39;Inf2Vec&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">source_embeddings</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">target_embeddings</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">diffusion_model</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;初始化 IMInfector 算法。</span>
+
+<span class="sd">        可以通过 Inf2Vec 模型或直接提供嵌入矩阵来初始化。</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            graph: IMGraph 图对象。</span>
+<span class="sd">            inf2vec_model: 已训练的 Inf2Vec 模型。若提供，则从中提取嵌入。</span>
+<span class="sd">            source_embeddings: 源嵌入矩阵，形状 (num_nodes, dim)。</span>
+<span class="sd">                               若提供 inf2vec_model 则忽略此参数。</span>
+<span class="sd">            target_embeddings: 目标嵌入矩阵，形状 (num_nodes, dim)。</span>
+<span class="sd">                               若提供 inf2vec_model 则忽略此参数。</span>
+<span class="sd">            diffusion_model: 扩散模型名称，支持 &#39;IC&#39; 或 &#39;LT&#39;，默认 None。</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            ValueError: 未提供嵌入数据。</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">diffusion_model</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">inf2vec_model</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">inf2vec_model</span><span class="o">.</span><span class="n">source_embeddings</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Inf2Vec 模型尚未训练，请先调用 train() 方法。&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">source_embeddings</span> <span class="o">=</span> <span class="n">inf2vec_model</span><span class="o">.</span><span class="n">source_embeddings</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">target_embeddings</span> <span class="o">=</span> <span class="n">inf2vec_model</span><span class="o">.</span><span class="n">target_embeddings</span>
+        <span class="k">elif</span> <span class="n">source_embeddings</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">target_embeddings</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">source_embeddings</span> <span class="o">=</span> <span class="n">source_embeddings</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">target_embeddings</span> <span class="o">=</span> <span class="n">target_embeddings</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;必须提供 inf2vec_model 或 source_embeddings/target_embeddings。&quot;</span>
+            <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_influence_matrix</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span></div>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_compute_influence_matrix</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;计算影响概率矩阵 D = softmax(S · T^T)。</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            np.ndarray: 影响概率矩阵，形状为 (num_nodes, num_nodes)。</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">D</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">source_embeddings</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">target_embeddings</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+
+        <span class="n">D</span> <span class="o">=</span> <span class="n">D</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">D</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">exp_D</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">D</span><span class="p">)</span>
+        <span class="n">D</span> <span class="o">=</span> <span class="n">exp_D</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">exp_D</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">D</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_compute_budgets</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">top_p</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">100.0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;计算每个候选节点的预算（影响节点数）。</span>
+
+<span class="sd">        基于 Source 嵌入的 L2 范数，按比例分配预算。</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            top_p: 选择 Source 范数前 top_p% 的节点作为候选种子。</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            tuple: (chosen_indices, budgets) 候选节点索引和对应预算。</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">norms</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">source_embeddings</span> <span class="o">**</span> <span class="mi">2</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="n">num_nodes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">num_nodes</span>
+        <span class="n">num_candidates</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">top_p</span> <span class="o">*</span> <span class="n">num_nodes</span> <span class="o">/</span> <span class="mf">100.0</span><span class="p">))</span>
+        <span class="n">chosen</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="o">-</span><span class="n">norms</span><span class="p">)[:</span><span class="n">num_candidates</span><span class="p">]</span>
+
+        <span class="n">chosen_norms</span> <span class="o">=</span> <span class="n">norms</span><span class="p">[</span><span class="n">chosen</span><span class="p">]</span>
+        <span class="n">total_norm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">chosen_norms</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">total_norm</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">budgets</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">num_candidates</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">budgets</span> <span class="o">=</span> <span class="n">num_nodes</span> <span class="o">*</span> <span class="n">chosen_norms</span> <span class="o">/</span> <span class="n">total_norm</span>
+
+        <span class="n">budgets</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">rint</span><span class="p">(</span><span class="n">budgets</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+        <span class="n">budgets</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">budgets</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">chosen</span><span class="p">,</span> <span class="n">budgets</span>
+
+<div class="viewcode-block" id="IMInfectorAlgorithm.run">
+<a class="viewcode-back" href="../../../../api/algorithms.html#pynetim.algorithms.deep_learning.IMInfectorAlgorithm.run">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">top_p</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">100.0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Set</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;执行 IMInfector 算法选择种子节点。</span>
+
+<span class="sd">        基于影响概率矩阵 D，使用类似 CELF 的贪心策略选择种子。</span>
+<span class="sd">        每个种子的预算（影响节点数）由其 Source 嵌入的 L2 范数决定。</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            k: 种子数量。</span>
+<span class="sd">            top_p: 选择 Source 范数前 top_p% 的节点作为候选种子。默认 100.0。</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Set[int]: 选出的种子节点集合。</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">D</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_influence_matrix</span><span class="p">()</span>
+        <span class="n">chosen</span><span class="p">,</span> <span class="n">budgets</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_budgets</span><span class="p">(</span><span class="n">top_p</span><span class="p">)</span>
+
+        <span class="n">num_targets</span> <span class="o">=</span> <span class="n">D</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">influenced</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">num_targets</span><span class="p">)</span>
+        <span class="n">total_set</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">num_targets</span><span class="p">))</span>
+        <span class="n">seeds</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="n">Q</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">cand</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">chosen</span><span class="p">):</span>
+            <span class="n">budget</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">budgets</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+            <span class="n">uninfected</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">total_set</span> <span class="o">-</span> <span class="nb">set</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">influenced</span><span class="p">)[</span><span class="mi">0</span><span class="p">]))</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">uninfected</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">budget</span> <span class="o">&lt;=</span> <span class="nb">len</span><span class="p">(</span><span class="n">uninfected</span><span class="p">):</span>
+                <span class="n">top_indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argpartition</span><span class="p">(</span><span class="n">D</span><span class="p">[</span><span class="n">cand</span><span class="p">,</span> <span class="n">uninfected</span><span class="p">],</span> <span class="o">-</span><span class="n">budget</span><span class="p">)[</span><span class="o">-</span><span class="n">budget</span><span class="p">:]</span>
+                <span class="n">spread</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">D</span><span class="p">[</span><span class="n">cand</span><span class="p">,</span> <span class="n">uninfected</span><span class="p">][</span><span class="n">top_indices</span><span class="p">])</span>
+            <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">uninfected</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">spread</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">D</span><span class="p">[</span><span class="n">cand</span><span class="p">,</span> <span class="n">uninfected</span><span class="p">])</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">spread</span> <span class="o">=</span> <span class="mf">0.0</span>
+            <span class="n">Q</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="nb">int</span><span class="p">(</span><span class="n">cand</span><span class="p">),</span> <span class="n">spread</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+
+        <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">seeds</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">k</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">Q</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">u</span> <span class="o">=</span> <span class="n">Q</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">cand</span> <span class="o">=</span> <span class="n">u</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+            <span class="k">if</span> <span class="n">u</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">seeds</span><span class="p">):</span>
+                <span class="n">budget</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">budgets</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">chosen</span> <span class="o">==</span> <span class="n">cand</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]])</span>
+                <span class="n">uninfected</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">total_set</span> <span class="o">-</span> <span class="nb">set</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">influenced</span><span class="p">)[</span><span class="mi">0</span><span class="p">]))</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">uninfected</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">budget</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">actual_budget</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">budget</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">uninfected</span><span class="p">))</span>
+                    <span class="n">top_indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argpartition</span><span class="p">(</span><span class="n">D</span><span class="p">[</span><span class="n">cand</span><span class="p">,</span> <span class="n">uninfected</span><span class="p">],</span> <span class="o">-</span><span class="n">actual_budget</span><span class="p">)[</span><span class="o">-</span><span class="n">actual_budget</span><span class="p">:]</span>
+                    <span class="n">influenced_nodes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">uninfected</span><span class="p">)[</span><span class="n">top_indices</span><span class="p">]</span>
+                    <span class="n">influenced</span><span class="p">[</span><span class="n">influenced_nodes</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+
+                <span class="n">seeds</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cand</span><span class="p">)</span>
+                <span class="n">Q</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">Q</span> <span class="k">if</span> <span class="n">item</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="n">cand</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">budget</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">budgets</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">chosen</span> <span class="o">==</span> <span class="n">cand</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]])</span>
+                <span class="n">uninfected</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">total_set</span> <span class="o">-</span> <span class="nb">set</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">influenced</span><span class="p">)[</span><span class="mi">0</span><span class="p">]))</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">uninfected</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">budget</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">actual_budget</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">budget</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">uninfected</span><span class="p">))</span>
+                    <span class="n">top_indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argpartition</span><span class="p">(</span><span class="n">D</span><span class="p">[</span><span class="n">cand</span><span class="p">,</span> <span class="n">uninfected</span><span class="p">],</span> <span class="o">-</span><span class="n">actual_budget</span><span class="p">)[</span><span class="o">-</span><span class="n">actual_budget</span><span class="p">:]</span>
+                    <span class="n">spread</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">D</span><span class="p">[</span><span class="n">cand</span><span class="p">,</span> <span class="n">uninfected</span><span class="p">][</span><span class="n">top_indices</span><span class="p">])</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">spread</span> <span class="o">=</span> <span class="mf">0.0</span>
+
+                <span class="n">u</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">spread</span>
+                <span class="n">u</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">seeds</span><span class="p">)</span>
+                <span class="n">Q</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">Q</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">seeds</span> <span class="o">=</span> <span class="n">seeds</span>
+        <span class="k">return</span> <span class="nb">set</span><span class="p">(</span><span class="n">seeds</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="IMInfectorAlgorithm.get_influence_matrix">
+<a class="viewcode-back" href="../../../../api/algorithms.html#pynetim.algorithms.deep_learning.IMInfectorAlgorithm.get_influence_matrix">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_influence_matrix</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;获取影响概率矩阵。</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            np.ndarray: 影响概率矩阵，形状为 (num_nodes, num_nodes)。</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_influence_matrix</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_influence_matrix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_influence_matrix</span><span class="p">()</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_influence_matrix</span></div>
+
+
+<div class="viewcode-block" id="IMInfectorAlgorithm.get_influence_probability">
+<a class="viewcode-back" href="../../../../api/algorithms.html#pynetim.algorithms.deep_learning.IMInfectorAlgorithm.get_influence_probability">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_influence_probability</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">source</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">target</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;计算节点 source 对节点 target 的影响概率。</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            source: 源节点 ID。</span>
+<span class="sd">            target: 目标节点 ID。</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            float: 影响概率。</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">D</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_influence_matrix</span><span class="p">()</span>
+        <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">D</span><span class="p">[</span><span class="n">source</span><span class="p">,</span> <span class="n">target</span><span class="p">])</span></div>
+
+
+<div class="viewcode-block" id="IMInfectorAlgorithm.get_influence_weights">
+<a class="viewcode-back" href="../../../../api/algorithms.html#pynetim.algorithms.deep_learning.IMInfectorAlgorithm.get_influence_weights">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_influence_weights</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">tuple</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;计算所有边的影响权重（归一化）。</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Dict[tuple, float]: 边到影响权重的映射。</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">D</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_influence_matrix</span><span class="p">()</span>
+        <span class="n">result</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">tuple</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">num_nodes</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">out_neighbors</span><span class="p">(</span><span class="n">u</span><span class="p">):</span>
+                <span class="n">result</span><span class="p">[(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">)]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">D</span><span class="p">[</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">])</span>
+
+        <span class="k">return</span> <span class="n">result</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Zhang Kaijing.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

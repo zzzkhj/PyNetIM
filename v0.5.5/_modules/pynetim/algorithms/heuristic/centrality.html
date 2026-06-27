@@ -1,0 +1,665 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pynetim.algorithms.heuristic.centrality &mdash; PyNetIM 0.5.5 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=9edc463e" />
+
+  
+    <link rel="shortcut icon" href="../../../../_static/favicon_32.png"/>
+      <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../../_static/documentation_options.js?v=45def3bc"></script>
+      <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            PyNetIM
+              <img src="../../../../_static/icon.svg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+<div class="version-selector" style="padding: 12px 15px; margin-top: -10px;">
+    <label style="font-weight: 600; font-size: 12px; color: #404040; display: block; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px;">Version</label>
+    <select id="version-select" style="width: 100%; padding: 6px 10px; border: 1px solid #d1d5da; border-radius: 6px; background: #f6f8fa; font-size: 13px; cursor: pointer; color: #24292e; font-weight: 500;">
+<option value="v0.5.3">v0.5.3</option><option value="v0.5.4">v0.5.4</option><option value="v0.5.5">v0.5.5</option><option value="v0.5.6">v0.5.6 (latest)</option>
+    </select>
+</div>
+<script>
+(function() {
+    var select = document.getElementById('version-select');
+    
+    // 获取当前版本并设置选中状态
+    var currentPath = window.location.pathname;
+    var versionMatch = currentPath.match(/\/v([\d.]+)\//);
+    if (versionMatch) {
+        var currentVersion = 'v' + versionMatch[1];
+        for (var i = 0; i < select.options.length; i++) {
+            if (select.options[i].value === currentVersion) {
+                select.options[i].selected = true;
+                break;
+            }
+        }
+    }
+    
+    // 版本切换
+    select.addEventListener('change', function() {
+        var targetVersion = this.value;
+        var currentPath = window.location.pathname;
+        
+        // 获取基础路径（去掉版本号部分）
+        var basePath;
+        var match = currentPath.match(/\/v([\d.]+)\//);
+        if (match) {
+            // 如果当前在版本目录中，去掉版本号部分
+            basePath = currentPath.split('/v' + match[1] + '/')[0];
+        } else {
+            // 如果不在版本目录中，使用当前路径
+            basePath = currentPath.substring(0, currentPath.lastIndexOf('/'));
+        }
+        
+        // 构建新路径
+        var newPath = basePath + '/' + targetVersion + '/';
+        
+        console.log('版本切换:', {
+            currentPath: currentPath,
+            targetVersion: targetVersion,
+            basePath: basePath,
+            newPath: newPath
+        });
+        
+        // 跳转到新版本
+        window.location.href = newPath;
+    });
+})();
+</script>
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">指南</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../installation.html">安装指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../quickstart.html">快速开始</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API 参考</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/graph.html">图模块</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/diffusion_model.html">扩散模型</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/algorithms.html">算法模块</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/evaluation.html">评估指标</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/timing.html">时间测量</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/utils.html">工具函数</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/embedding.html">图嵌入模块</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/weights.html">权重管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/random.html">随机种子控制</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">其他</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changelog.html">更新日志</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changelog.html#id77">版本说明</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changelog.html#id86">贡献指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changelog.html#id87">许可证</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changelog.html#id88">联系方式</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">PyNetIM</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">pynetim.algorithms.heuristic.centrality</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for pynetim.algorithms.heuristic.centrality</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;中心性启发式算法。</span>
+
+<span class="sd">包含基于节点中心性的影响力最大化算法。</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">heapq</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Set</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">TYPE_CHECKING</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">defaultdict</span>
+
+<span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">...graph</span><span class="w"> </span><span class="kn">import</span> <span class="n">IMGraph</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">..base_algorithm</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseAlgorithm</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">...graph</span><span class="w"> </span><span class="kn">import</span> <span class="n">compute_k_shell_values</span> <span class="k">as</span> <span class="n">_compute_k_shell_values</span>
+
+
+<div class="viewcode-block" id="DegreeCentralityAlgorithm">
+<a class="viewcode-back" href="../../../../api/algorithms.html#pynetim.algorithms.heuristic.DegreeCentralityAlgorithm">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">DegreeCentralityAlgorithm</span><span class="p">(</span><span class="n">BaseAlgorithm</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;度中心性启发式算法。</span>
+
+<span class="sd">    选择出度最大的节点作为种子节点，是最简单快速的启发式方法。</span>
+<span class="sd">    适合作为基准算法进行比较。</span>
+
+<span class="sd">    时间复杂度: O(n log n)</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        graph: 输入图对象。</span>
+<span class="sd">        seeds: 种子节点集合。</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        &gt;&gt;&gt; from pynetim import IMGraph</span>
+<span class="sd">        &gt;&gt;&gt; from pynetim.algorithms import DegreeCentralityAlgorithm</span>
+<span class="sd">        &gt;&gt;&gt; </span>
+<span class="sd">        &gt;&gt;&gt; graph = IMGraph(edges, weights=0.3)</span>
+<span class="sd">        &gt;&gt;&gt; algo = DegreeCentralityAlgorithm(graph)</span>
+<span class="sd">        &gt;&gt;&gt; seeds = algo.run(k=10)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="DegreeCentralityAlgorithm.__init__">
+<a class="viewcode-back" href="../../../../api/algorithms.html#pynetim.algorithms.heuristic.DegreeCentralityAlgorithm.__init__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">graph</span><span class="p">:</span> <span class="s1">&#39;IMGraph&#39;</span><span class="p">,</span> <span class="n">diffusion_model</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">diffusion_model</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="DegreeCentralityAlgorithm.run">
+<a class="viewcode-back" href="../../../../api/algorithms.html#pynetim.algorithms.heuristic.DegreeCentralityAlgorithm.run">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Set</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+        <span class="n">degrees</span> <span class="o">=</span> <span class="p">[(</span><span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">out_degree</span><span class="p">(</span><span class="n">v</span><span class="p">),</span> <span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">num_nodes</span><span class="p">)]</span>
+        <span class="n">degrees</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">seeds</span> <span class="o">=</span> <span class="p">[</span><span class="n">v</span> <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">degrees</span><span class="p">[:</span><span class="n">k</span><span class="p">]]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">seeds</span> <span class="o">=</span> <span class="n">seeds</span>
+        <span class="k">return</span> <span class="nb">set</span><span class="p">(</span><span class="n">seeds</span><span class="p">)</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="PageRankAlgorithm">
+<a class="viewcode-back" href="../../../../api/algorithms.html#pynetim.algorithms.heuristic.PageRankAlgorithm">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">PageRankAlgorithm</span><span class="p">(</span><span class="n">BaseAlgorithm</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;PageRank 启发式算法。</span>
+
+<span class="sd">    基于 Google 的 PageRank 算法，通过模拟随机游走来评估节点的重要性。</span>
+<span class="sd">    节点的重要性取决于指向它的节点的重要性。</span>
+
+<span class="sd">    时间复杂度: O(n * max_iter)</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        graph: 输入图对象。</span>
+<span class="sd">        seeds: 种子节点集合。</span>
+
+<span class="sd">    References:</span>
+<span class="sd">        Brin, S., &amp; Page, L. (1998). The anatomy of a large-scale hypertextual </span>
+<span class="sd">        Web search engine. Computer networks and ISDN systems, 30(1-7), 107-117.</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        &gt;&gt;&gt; from pynetim import IMGraph</span>
+<span class="sd">        &gt;&gt;&gt; from pynetim.algorithms import PageRankAlgorithm</span>
+<span class="sd">        &gt;&gt;&gt; </span>
+<span class="sd">        &gt;&gt;&gt; graph = IMGraph(edges, weights=0.3)</span>
+<span class="sd">        &gt;&gt;&gt; algo = PageRankAlgorithm(graph)</span>
+<span class="sd">        &gt;&gt;&gt; seeds = algo.run(k=10)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="PageRankAlgorithm.__init__">
+<a class="viewcode-back" href="../../../../api/algorithms.html#pynetim.algorithms.heuristic.PageRankAlgorithm.__init__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">graph</span><span class="p">:</span> <span class="s1">&#39;IMGraph&#39;</span><span class="p">,</span> <span class="n">diffusion_model</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> 
+                 <span class="n">damping</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.85</span><span class="p">,</span> <span class="n">max_iter</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">tol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-6</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;初始化 PageRank 算法。</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            graph: 输入图对象。</span>
+<span class="sd">            diffusion_model: 扩散模型（此算法不使用该参数）。</span>
+<span class="sd">            damping: 阻尼系数，表示继续随机游走的概率，默认 0.85。</span>
+<span class="sd">            max_iter: 最大迭代次数，默认 100。</span>
+<span class="sd">            tol: 收敛阈值，默认 1e-6。</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">diffusion_model</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">damping</span> <span class="o">=</span> <span class="n">damping</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">max_iter</span> <span class="o">=</span> <span class="n">max_iter</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tol</span> <span class="o">=</span> <span class="n">tol</span></div>
+
+
+<div class="viewcode-block" id="PageRankAlgorithm.run">
+<a class="viewcode-back" href="../../../../api/algorithms.html#pynetim.algorithms.heuristic.PageRankAlgorithm.run">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Set</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">num_nodes</span>
+        <span class="n">pr</span> <span class="o">=</span> <span class="p">{</span><span class="n">v</span><span class="p">:</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="n">n</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)}</span>
+        
+        <span class="n">in_neighbors</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">tuple</span><span class="p">]]</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
+        <span class="n">out_degree</span> <span class="o">=</span> <span class="p">{}</span>
+        
+        <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+            <span class="n">neighbors</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">out_neighbors_with_weights</span><span class="p">(</span><span class="n">v</span><span class="p">))</span>
+            <span class="n">out_degree</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">neighbors</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">u</span><span class="p">,</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">neighbors</span><span class="p">:</span>
+                <span class="n">in_neighbors</span><span class="p">[</span><span class="n">u</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">v</span><span class="p">,</span> <span class="n">w</span><span class="p">))</span>
+        
+        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">max_iter</span><span class="p">):</span>
+            <span class="n">new_pr</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="n">diff</span> <span class="o">=</span> <span class="mf">0.0</span>
+            
+            <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+                <span class="n">rank_sum</span> <span class="o">=</span> <span class="mf">0.0</span>
+                <span class="k">for</span> <span class="n">u</span><span class="p">,</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">in_neighbors</span><span class="p">[</span><span class="n">v</span><span class="p">]:</span>
+                    <span class="k">if</span> <span class="n">out_degree</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                        <span class="n">rank_sum</span> <span class="o">+=</span> <span class="n">pr</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">/</span> <span class="n">out_degree</span><span class="p">[</span><span class="n">u</span><span class="p">]</span>
+                
+                <span class="n">new_pr</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">damping</span><span class="p">)</span> <span class="o">/</span> <span class="n">n</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">damping</span> <span class="o">*</span> <span class="n">rank_sum</span>
+                <span class="n">diff</span> <span class="o">+=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">new_pr</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">-</span> <span class="n">pr</span><span class="p">[</span><span class="n">v</span><span class="p">])</span>
+            
+            <span class="n">pr</span> <span class="o">=</span> <span class="n">new_pr</span>
+            <span class="k">if</span> <span class="n">diff</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">tol</span><span class="p">:</span>
+                <span class="k">break</span>
+        
+        <span class="n">ranked</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">pr</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">seeds</span> <span class="o">=</span> <span class="p">[</span><span class="n">v</span> <span class="k">for</span> <span class="n">v</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">ranked</span><span class="p">[:</span><span class="n">k</span><span class="p">]]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">seeds</span> <span class="o">=</span> <span class="n">seeds</span>
+        <span class="k">return</span> <span class="nb">set</span><span class="p">(</span><span class="n">seeds</span><span class="p">)</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="KShellDecompositionAlgorithm">
+<a class="viewcode-back" href="../../../../api/algorithms.html#pynetim.algorithms.heuristic.KShellDecompositionAlgorithm">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">KShellDecompositionAlgorithm</span><span class="p">(</span><span class="n">BaseAlgorithm</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;K-shell 分解启发式算法。</span>
+
+<span class="sd">    通过迭代移除度数最小的节点，将网络分层。位于核心层（高 k-shell 值）</span>
+<span class="sd">    的节点被认为具有更大的影响力。</span>
+
+<span class="sd">    时间复杂度: O(m)，m 为边数</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        graph: 输入图对象。</span>
+<span class="sd">        seeds: 种子节点集合。</span>
+
+<span class="sd">    References:</span>
+<span class="sd">        Kitsak, M., Gallos, L. K., Havlin, S., Liljeros, F., Muchnik, L., </span>
+<span class="sd">        Stanley, H. E., &amp; Makse, H. A. (2010). Identification of influential </span>
+<span class="sd">        spreaders in complex networks. Nature physics, 6(11), 888-893.</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        &gt;&gt;&gt; from pynetim import IMGraph</span>
+<span class="sd">        &gt;&gt;&gt; from pynetim.algorithms import KShellDecompositionAlgorithm</span>
+<span class="sd">        &gt;&gt;&gt; </span>
+<span class="sd">        &gt;&gt;&gt; graph = IMGraph(edges, weights=0.3)</span>
+<span class="sd">        &gt;&gt;&gt; algo = KShellDecompositionAlgorithm(graph)</span>
+<span class="sd">        &gt;&gt;&gt; seeds = algo.run(k=10)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="KShellDecompositionAlgorithm.__init__">
+<a class="viewcode-back" href="../../../../api/algorithms.html#pynetim.algorithms.heuristic.KShellDecompositionAlgorithm.__init__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">graph</span><span class="p">:</span> <span class="s1">&#39;IMGraph&#39;</span><span class="p">,</span> <span class="n">diffusion_model</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">diffusion_model</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="KShellDecompositionAlgorithm.compute_k_shell_values">
+<a class="viewcode-back" href="../../../../api/algorithms.html#pynetim.algorithms.heuristic.KShellDecompositionAlgorithm.compute_k_shell_values">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">compute_k_shell_values</span><span class="p">(</span><span class="n">graph</span><span class="p">:</span> <span class="s1">&#39;IMGraph&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;计算图中所有节点的 K-shell 值。</span>
+
+<span class="sd">        使用 Batagelj-Zaversnik 算法，时间复杂度 O(m)。</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            graph: IMGraph 图对象。</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Dict[int, int]: 节点到 K-shell 值的映射。</span>
+
+<span class="sd">        References:</span>
+<span class="sd">            Batagelj, V., &amp; Zaversnik, M. (2003). An O(m) algorithm for </span>
+<span class="sd">            cores decomposition of networks. arXiv preprint cs/0310049.</span>
+
+<span class="sd">        Note:</span>
+<span class="sd">            此方法是 pynetim.graph.compute_k_shell_values 的便捷包装。</span>
+
+<span class="sd">        Example:</span>
+<span class="sd">            &gt;&gt;&gt; from pynetim import IMGraph</span>
+<span class="sd">            &gt;&gt;&gt; from pynetim.algorithms import KShellDecompositionAlgorithm</span>
+<span class="sd">            &gt;&gt;&gt; graph = IMGraph(edges, directed=True)</span>
+<span class="sd">            &gt;&gt;&gt; k_shell = KShellDecompositionAlgorithm.compute_k_shell_values(graph)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">_compute_k_shell_values</span><span class="p">(</span><span class="n">graph</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="KShellDecompositionAlgorithm.run">
+<a class="viewcode-back" href="../../../../api/algorithms.html#pynetim.algorithms.heuristic.KShellDecompositionAlgorithm.run">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Set</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">num_nodes</span>
+        
+        <span class="n">k_shell</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">compute_k_shell_values</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="p">)</span>
+        <span class="n">degree</span> <span class="o">=</span> <span class="p">{</span><span class="n">v</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">out_degree</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)}</span>
+        
+        <span class="n">ranked</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">k_shell</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">degree</span><span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]]),</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">seeds</span> <span class="o">=</span> <span class="p">[</span><span class="n">v</span> <span class="k">for</span> <span class="n">v</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">ranked</span><span class="p">[:</span><span class="n">k</span><span class="p">]]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">seeds</span> <span class="o">=</span> <span class="n">seeds</span>
+        <span class="k">return</span> <span class="nb">set</span><span class="p">(</span><span class="n">seeds</span><span class="p">)</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="BetweennessCentralityAlgorithm">
+<a class="viewcode-back" href="../../../../api/algorithms.html#pynetim.algorithms.heuristic.BetweennessCentralityAlgorithm">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">BetweennessCentralityAlgorithm</span><span class="p">(</span><span class="n">BaseAlgorithm</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;介数中心性启发式算法。</span>
+
+<span class="sd">    选择在网络中作为最短路径&quot;桥梁&quot;的节点。介数中心性高的节点</span>
+<span class="sd">    控制着网络中的信息流动，是关键的传播节点。</span>
+
+<span class="sd">    时间复杂度: O(n * m) 或 O(n^2) 对于稀疏图</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        graph: 输入图对象。</span>
+<span class="sd">        seeds: 种子节点集合。</span>
+
+<span class="sd">    References:</span>
+<span class="sd">        Freeman, L. C. (1977). A set of measures of centrality based on </span>
+<span class="sd">        betweenness. Sociometry, 35-41.</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        &gt;&gt;&gt; from pynetim import IMGraph</span>
+<span class="sd">        &gt;&gt;&gt; from pynetim.algorithms import BetweennessCentralityAlgorithm</span>
+<span class="sd">        &gt;&gt;&gt; </span>
+<span class="sd">        &gt;&gt;&gt; graph = IMGraph(edges, weights=0.3)</span>
+<span class="sd">        &gt;&gt;&gt; algo = BetweennessCentralityAlgorithm(graph)</span>
+<span class="sd">        &gt;&gt;&gt; seeds = algo.run(k=10)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="BetweennessCentralityAlgorithm.__init__">
+<a class="viewcode-back" href="../../../../api/algorithms.html#pynetim.algorithms.heuristic.BetweennessCentralityAlgorithm.__init__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">graph</span><span class="p">:</span> <span class="s1">&#39;IMGraph&#39;</span><span class="p">,</span> <span class="n">diffusion_model</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> 
+                 <span class="n">normalized</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">sample_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;初始化介数中心性算法。</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            graph: 输入图对象。</span>
+<span class="sd">            diffusion_model: 扩散模型（此算法不使用该参数）。</span>
+<span class="sd">            normalized: 是否归一化介数值，默认 True。</span>
+<span class="sd">            sample_size: 采样节点数，用于加速大规模图计算，默认 None（使用全部节点）。</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">diffusion_model</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">normalized</span> <span class="o">=</span> <span class="n">normalized</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sample_size</span> <span class="o">=</span> <span class="n">sample_size</span></div>
+
+
+<div class="viewcode-block" id="BetweennessCentralityAlgorithm.run">
+<a class="viewcode-back" href="../../../../api/algorithms.html#pynetim.algorithms.heuristic.BetweennessCentralityAlgorithm.run">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Set</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+        <span class="kn">import</span><span class="w"> </span><span class="nn">random</span>
+        
+        <span class="n">n</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">num_nodes</span>
+        <span class="n">betweenness</span> <span class="o">=</span> <span class="p">{</span><span class="n">v</span><span class="p">:</span> <span class="mf">0.0</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)}</span>
+        
+        <span class="n">nodes</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">sample_size</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">sample_size</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">:</span>
+            <span class="n">nodes</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">nodes</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">sample_size</span><span class="p">)</span>
+        
+        <span class="n">adj</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+            <span class="n">adj</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">u</span> <span class="k">for</span> <span class="n">u</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">out_neighbors_with_weights</span><span class="p">(</span><span class="n">v</span><span class="p">)]</span>
+        
+        <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">nodes</span><span class="p">:</span>
+            <span class="n">stack</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">predecessors</span> <span class="o">=</span> <span class="p">{</span><span class="n">v</span><span class="p">:</span> <span class="p">[]</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)}</span>
+            <span class="n">sigma</span> <span class="o">=</span> <span class="p">{</span><span class="n">v</span><span class="p">:</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)}</span>
+            <span class="n">sigma</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+            <span class="n">dist</span> <span class="o">=</span> <span class="p">{</span><span class="n">v</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)}</span>
+            <span class="n">dist</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+            
+            <span class="n">queue</span> <span class="o">=</span> <span class="p">[</span><span class="n">s</span><span class="p">]</span>
+            
+            <span class="k">while</span> <span class="n">queue</span><span class="p">:</span>
+                <span class="n">v</span> <span class="o">=</span> <span class="n">queue</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+                <span class="n">stack</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+                
+                <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">adj</span><span class="p">[</span><span class="n">v</span><span class="p">]:</span>
+                    <span class="k">if</span> <span class="n">dist</span><span class="p">[</span><span class="n">w</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+                        <span class="n">queue</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
+                        <span class="n">dist</span><span class="p">[</span><span class="n">w</span><span class="p">]</span> <span class="o">=</span> <span class="n">dist</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span>
+                    
+                    <span class="k">if</span> <span class="n">dist</span><span class="p">[</span><span class="n">w</span><span class="p">]</span> <span class="o">==</span> <span class="n">dist</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">:</span>
+                        <span class="n">sigma</span><span class="p">[</span><span class="n">w</span><span class="p">]</span> <span class="o">+=</span> <span class="n">sigma</span><span class="p">[</span><span class="n">v</span><span class="p">]</span>
+                        <span class="n">predecessors</span><span class="p">[</span><span class="n">w</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+            
+            <span class="n">delta</span> <span class="o">=</span> <span class="p">{</span><span class="n">v</span><span class="p">:</span> <span class="mf">0.0</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)}</span>
+            
+            <span class="k">while</span> <span class="n">stack</span><span class="p">:</span>
+                <span class="n">w</span> <span class="o">=</span> <span class="n">stack</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+                <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">predecessors</span><span class="p">[</span><span class="n">w</span><span class="p">]:</span>
+                    <span class="n">delta</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">+=</span> <span class="p">(</span><span class="n">sigma</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">/</span> <span class="n">sigma</span><span class="p">[</span><span class="n">w</span><span class="p">])</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">delta</span><span class="p">[</span><span class="n">w</span><span class="p">])</span>
+                
+                <span class="k">if</span> <span class="n">w</span> <span class="o">!=</span> <span class="n">s</span><span class="p">:</span>
+                    <span class="n">betweenness</span><span class="p">[</span><span class="n">w</span><span class="p">]</span> <span class="o">+=</span> <span class="n">delta</span><span class="p">[</span><span class="n">w</span><span class="p">]</span>
+        
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">normalized</span> <span class="ow">and</span> <span class="n">n</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="n">scale</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="p">((</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">2</span><span class="p">))</span>
+            <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">betweenness</span><span class="p">:</span>
+                <span class="n">betweenness</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">*=</span> <span class="n">scale</span>
+        
+        <span class="n">ranked</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">betweenness</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">seeds</span> <span class="o">=</span> <span class="p">[</span><span class="n">v</span> <span class="k">for</span> <span class="n">v</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">ranked</span><span class="p">[:</span><span class="n">k</span><span class="p">]]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">seeds</span> <span class="o">=</span> <span class="n">seeds</span>
+        <span class="k">return</span> <span class="nb">set</span><span class="p">(</span><span class="n">seeds</span><span class="p">)</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="ClosenessCentralityAlgorithm">
+<a class="viewcode-back" href="../../../../api/algorithms.html#pynetim.algorithms.heuristic.ClosenessCentralityAlgorithm">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">ClosenessCentralityAlgorithm</span><span class="p">(</span><span class="n">BaseAlgorithm</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;接近中心性启发式算法。</span>
+
+<span class="sd">    选择距离网络中其他节点最近的节点。接近中心性高的节点</span>
+<span class="sd">    可以快速将信息传播到整个网络。</span>
+
+<span class="sd">    时间复杂度: O(n * m)</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        graph: 输入图对象。</span>
+<span class="sd">        seeds: 种子节点集合。</span>
+
+<span class="sd">    References:</span>
+<span class="sd">        Sabidussi, G. (1966). The centrality index of a graph. </span>
+<span class="sd">        Psychometrika, 31(4), 581-603.</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        &gt;&gt;&gt; from pynetim import IMGraph</span>
+<span class="sd">        &gt;&gt;&gt; from pynetim.algorithms import ClosenessCentralityAlgorithm</span>
+<span class="sd">        &gt;&gt;&gt; </span>
+<span class="sd">        &gt;&gt;&gt; graph = IMGraph(edges, weights=0.3)</span>
+<span class="sd">        &gt;&gt;&gt; algo = ClosenessCentralityAlgorithm(graph)</span>
+<span class="sd">        &gt;&gt;&gt; seeds = algo.run(k=10)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="ClosenessCentralityAlgorithm.__init__">
+<a class="viewcode-back" href="../../../../api/algorithms.html#pynetim.algorithms.heuristic.ClosenessCentralityAlgorithm.__init__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">graph</span><span class="p">:</span> <span class="s1">&#39;IMGraph&#39;</span><span class="p">,</span> <span class="n">diffusion_model</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">diffusion_model</span><span class="p">)</span></div>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_bfs_distances</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">source</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">deque</span>
+        
+        <span class="n">n</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">num_nodes</span>
+        <span class="n">dist</span> <span class="o">=</span> <span class="p">{</span><span class="n">v</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)}</span>
+        <span class="n">dist</span><span class="p">[</span><span class="n">source</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">queue</span> <span class="o">=</span> <span class="n">deque</span><span class="p">([</span><span class="n">source</span><span class="p">])</span>
+        
+        <span class="n">adj</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+            <span class="n">adj</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">u</span> <span class="k">for</span> <span class="n">u</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">out_neighbors_with_weights</span><span class="p">(</span><span class="n">v</span><span class="p">)]</span>
+        
+        <span class="k">while</span> <span class="n">queue</span><span class="p">:</span>
+            <span class="n">v</span> <span class="o">=</span> <span class="n">queue</span><span class="o">.</span><span class="n">popleft</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">adj</span><span class="p">[</span><span class="n">v</span><span class="p">]:</span>
+                <span class="k">if</span> <span class="n">dist</span><span class="p">[</span><span class="n">w</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">dist</span><span class="p">[</span><span class="n">w</span><span class="p">]</span> <span class="o">=</span> <span class="n">dist</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span>
+                    <span class="n">queue</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
+        
+        <span class="k">return</span> <span class="n">dist</span>
+
+<div class="viewcode-block" id="ClosenessCentralityAlgorithm.run">
+<a class="viewcode-back" href="../../../../api/algorithms.html#pynetim.algorithms.heuristic.ClosenessCentralityAlgorithm.run">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Set</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">num_nodes</span>
+        <span class="n">closeness</span> <span class="o">=</span> <span class="p">{}</span>
+        
+        <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+            <span class="n">dist</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bfs_distances</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+            <span class="n">reachable</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="mi">1</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">dist</span><span class="o">.</span><span class="n">values</span><span class="p">()</span> <span class="k">if</span> <span class="n">d</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="n">total_dist</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">d</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">dist</span><span class="o">.</span><span class="n">values</span><span class="p">()</span> <span class="k">if</span> <span class="n">d</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
+            
+            <span class="k">if</span> <span class="n">total_dist</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">closeness</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="n">reachable</span> <span class="o">/</span> <span class="p">(</span><span class="n">total_dist</span> <span class="o">*</span> <span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">closeness</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
+        
+        <span class="n">ranked</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">closeness</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">seeds</span> <span class="o">=</span> <span class="p">[</span><span class="n">v</span> <span class="k">for</span> <span class="n">v</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">ranked</span><span class="p">[:</span><span class="n">k</span><span class="p">]]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">seeds</span> <span class="o">=</span> <span class="n">seeds</span>
+        <span class="k">return</span> <span class="nb">set</span><span class="p">(</span><span class="n">seeds</span><span class="p">)</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="EigenvectorCentralityAlgorithm">
+<a class="viewcode-back" href="../../../../api/algorithms.html#pynetim.algorithms.heuristic.EigenvectorCentralityAlgorithm">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">EigenvectorCentralityAlgorithm</span><span class="p">(</span><span class="n">BaseAlgorithm</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;特征向量中心性启发式算法。</span>
+
+<span class="sd">    节点的重要性取决于其邻居的重要性。一个节点如果连接了许多</span>
+<span class="sd">    重要的节点，那么它自己也更重要。</span>
+
+<span class="sd">    时间复杂度: O(n * max_iter)</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        graph: 输入图对象。</span>
+<span class="sd">        seeds: 种子节点集合。</span>
+
+<span class="sd">    References:</span>
+<span class="sd">        Bonacich, P. (1972). Factoring and weighting approaches to status </span>
+<span class="sd">        scores and clique identification. Journal of Mathematical Sociology, </span>
+<span class="sd">        2(1), 113-120.</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        &gt;&gt;&gt; from pynetim import IMGraph</span>
+<span class="sd">        &gt;&gt;&gt; from pynetim.algorithms import EigenvectorCentralityAlgorithm</span>
+<span class="sd">        &gt;&gt;&gt; </span>
+<span class="sd">        &gt;&gt;&gt; graph = IMGraph(edges, weights=0.3)</span>
+<span class="sd">        &gt;&gt;&gt; algo = EigenvectorCentralityAlgorithm(graph)</span>
+<span class="sd">        &gt;&gt;&gt; seeds = algo.run(k=10)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="EigenvectorCentralityAlgorithm.__init__">
+<a class="viewcode-back" href="../../../../api/algorithms.html#pynetim.algorithms.heuristic.EigenvectorCentralityAlgorithm.__init__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">graph</span><span class="p">:</span> <span class="s1">&#39;IMGraph&#39;</span><span class="p">,</span> <span class="n">diffusion_model</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                 <span class="n">max_iter</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">tol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-6</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;初始化特征向量中心性算法。</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            graph: 输入图对象。</span>
+<span class="sd">            diffusion_model: 扩散模型（此算法不使用该参数）。</span>
+<span class="sd">            max_iter: 最大迭代次数，默认 100。</span>
+<span class="sd">            tol: 收敛阈值，默认 1e-6。</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">diffusion_model</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">max_iter</span> <span class="o">=</span> <span class="n">max_iter</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tol</span> <span class="o">=</span> <span class="n">tol</span></div>
+
+
+<div class="viewcode-block" id="EigenvectorCentralityAlgorithm.run">
+<a class="viewcode-back" href="../../../../api/algorithms.html#pynetim.algorithms.heuristic.EigenvectorCentralityAlgorithm.run">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Set</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">num_nodes</span>
+        
+        <span class="n">adj</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+            <span class="n">adj</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">u</span> <span class="k">for</span> <span class="n">u</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">out_neighbors_with_weights</span><span class="p">(</span><span class="n">v</span><span class="p">)]</span>
+        
+        <span class="n">x</span> <span class="o">=</span> <span class="p">{</span><span class="n">v</span><span class="p">:</span> <span class="mf">1.0</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)}</span>
+        
+        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">max_iter</span><span class="p">):</span>
+            <span class="n">x_new</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+                <span class="n">x_new</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">adj</span><span class="p">[</span><span class="n">v</span><span class="p">])</span>
+            
+            <span class="n">norm</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">x_new</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+            <span class="k">if</span> <span class="n">norm</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">x_new</span><span class="p">:</span>
+                    <span class="n">x_new</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">/=</span> <span class="n">norm</span>
+            
+            <span class="n">diff</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">x_new</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">-</span> <span class="n">x</span><span class="p">[</span><span class="n">v</span><span class="p">])</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="n">x_new</span>
+            
+            <span class="k">if</span> <span class="n">diff</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">tol</span><span class="p">:</span>
+                <span class="k">break</span>
+        
+        <span class="n">ranked</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">item</span><span class="p">:</span> <span class="n">item</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">seeds</span> <span class="o">=</span> <span class="p">[</span><span class="n">v</span> <span class="k">for</span> <span class="n">v</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">ranked</span><span class="p">[:</span><span class="n">k</span><span class="p">]]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">seeds</span> <span class="o">=</span> <span class="n">seeds</span>
+        <span class="k">return</span> <span class="nb">set</span><span class="p">(</span><span class="n">seeds</span><span class="p">)</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Zhang Kaijing.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

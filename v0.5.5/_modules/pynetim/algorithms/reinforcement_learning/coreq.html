@@ -1,0 +1,505 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pynetim.algorithms.reinforcement_learning.coreq &mdash; PyNetIM 0.5.5 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=9edc463e" />
+
+  
+    <link rel="shortcut icon" href="../../../../_static/favicon_32.png"/>
+      <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../../_static/documentation_options.js?v=45def3bc"></script>
+      <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            PyNetIM
+              <img src="../../../../_static/icon.svg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+<div class="version-selector" style="padding: 12px 15px; margin-top: -10px;">
+    <label style="font-weight: 600; font-size: 12px; color: #404040; display: block; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px;">Version</label>
+    <select id="version-select" style="width: 100%; padding: 6px 10px; border: 1px solid #d1d5da; border-radius: 6px; background: #f6f8fa; font-size: 13px; cursor: pointer; color: #24292e; font-weight: 500;">
+<option value="v0.5.3">v0.5.3</option><option value="v0.5.4">v0.5.4</option><option value="v0.5.5">v0.5.5</option><option value="v0.5.6">v0.5.6 (latest)</option>
+    </select>
+</div>
+<script>
+(function() {
+    var select = document.getElementById('version-select');
+    
+    // 获取当前版本并设置选中状态
+    var currentPath = window.location.pathname;
+    var versionMatch = currentPath.match(/\/v([\d.]+)\//);
+    if (versionMatch) {
+        var currentVersion = 'v' + versionMatch[1];
+        for (var i = 0; i < select.options.length; i++) {
+            if (select.options[i].value === currentVersion) {
+                select.options[i].selected = true;
+                break;
+            }
+        }
+    }
+    
+    // 版本切换
+    select.addEventListener('change', function() {
+        var targetVersion = this.value;
+        var currentPath = window.location.pathname;
+        
+        // 获取基础路径（去掉版本号部分）
+        var basePath;
+        var match = currentPath.match(/\/v([\d.]+)\//);
+        if (match) {
+            // 如果当前在版本目录中，去掉版本号部分
+            basePath = currentPath.split('/v' + match[1] + '/')[0];
+        } else {
+            // 如果不在版本目录中，使用当前路径
+            basePath = currentPath.substring(0, currentPath.lastIndexOf('/'));
+        }
+        
+        // 构建新路径
+        var newPath = basePath + '/' + targetVersion + '/';
+        
+        console.log('版本切换:', {
+            currentPath: currentPath,
+            targetVersion: targetVersion,
+            basePath: basePath,
+            newPath: newPath
+        });
+        
+        // 跳转到新版本
+        window.location.href = newPath;
+    });
+})();
+</script>
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">指南</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../installation.html">安装指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../quickstart.html">快速开始</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API 参考</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/graph.html">图模块</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/diffusion_model.html">扩散模型</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/algorithms.html">算法模块</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/evaluation.html">评估指标</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/timing.html">时间测量</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/utils.html">工具函数</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/embedding.html">图嵌入模块</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/weights.html">权重管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/random.html">随机种子控制</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">其他</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changelog.html">更新日志</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changelog.html#id77">版本说明</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changelog.html#id86">贡献指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changelog.html#id87">许可证</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changelog.html#id88">联系方式</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">PyNetIM</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">pynetim.algorithms.reinforcement_learning.coreq</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for pynetim.algorithms.reinforcement_learning.coreq</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">random</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Set</span><span class="p">,</span> <span class="n">TYPE_CHECKING</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">...graph</span><span class="w"> </span><span class="kn">import</span> <span class="n">IMGraph</span><span class="p">,</span> <span class="n">compute_k_shell_values</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.base_rl</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseRLAlgorithm</span>
+
+<span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">...graph</span><span class="w"> </span><span class="kn">import</span> <span class="n">IMGraph</span>
+
+
+<div class="viewcode-block" id="CoreQAlgorithm">
+<a class="viewcode-back" href="../../../../api/algorithms.html#pynetim.algorithms.reinforcement_learning.CoreQAlgorithm">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">CoreQAlgorithm</span><span class="p">(</span><span class="n">BaseRLAlgorithm</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;K-core 层次引导的 Q-learning 影响力最大化算法。</span>
+<span class="sd">    </span>
+<span class="sd">    结合 K-core 分解和强化学习进行种子节点选择，</span>
+<span class="sd">    使用最大似然估计方法选择候选种子集。</span>
+<span class="sd">    </span>
+<span class="sd">    算法框架：</span>
+<span class="sd">        1. K-core 分解：识别网络核心层次结构</span>
+<span class="sd">        2. 候选集生成：基于最大似然估计筛选候选种子</span>
+<span class="sd">        3. Q-learning 优化：通过强化学习迭代优化种子选择策略</span>
+<span class="sd">    </span>
+<span class="sd">    与 TCQAlgorithm 的区别：</span>
+<span class="sd">        - CoreQ: 传统 IM，最大似然候选选择</span>
+<span class="sd">        - TCQ: Targeted IM，目标节点筛选</span>
+<span class="sd">    </span>
+<span class="sd">    References:</span>
+<span class="sd">        Ahmad, W., &amp; Wang, B. (2025). A learning-based influence maximization </span>
+<span class="sd">        framework for complex networks via K-core hierarchies and reinforcement </span>
+<span class="sd">        learning. Expert Systems with Applications, 259, 125393.</span>
+<span class="sd">    </span>
+<span class="sd">    Attributes:</span>
+<span class="sd">        n_candidates: 候选集大小</span>
+<span class="sd">        episodes: Q-learning 训练轮数</span>
+<span class="sd">    </span>
+<span class="sd">    Example:</span>
+<span class="sd">        &gt;&gt;&gt; from pynetim import IMGraph</span>
+<span class="sd">        &gt;&gt;&gt; from pynetim.algorithms.reinforcement_learning import CoreQAlgorithm</span>
+<span class="sd">        &gt;&gt;&gt; </span>
+<span class="sd">        &gt;&gt;&gt; # 创建图</span>
+<span class="sd">        &gt;&gt;&gt; edges = [(0, 1, 0.1), (0, 2, 0.15), (1, 2, 0.2)]</span>
+<span class="sd">        &gt;&gt;&gt; graph = IMGraph(edges, directed=True)</span>
+<span class="sd">        &gt;&gt;&gt; </span>
+<span class="sd">        &gt;&gt;&gt; # 初始化算法</span>
+<span class="sd">        &gt;&gt;&gt; algo = CoreQAlgorithm(</span>
+<span class="sd">        ...     graph,</span>
+<span class="sd">        ...     n_candidates=60,   # 候选集大小</span>
+<span class="sd">        ...     episodes=200,      # 训练轮数</span>
+<span class="sd">        ...     random_seed=42</span>
+<span class="sd">        ... )</span>
+<span class="sd">        &gt;&gt;&gt; </span>
+<span class="sd">        &gt;&gt;&gt; # 运行算法</span>
+<span class="sd">        &gt;&gt;&gt; seeds = algo.run(k=10)</span>
+<span class="sd">        &gt;&gt;&gt; print(f&quot;种子节点: {seeds}&quot;)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="CoreQAlgorithm.__init__">
+<a class="viewcode-back" href="../../../../api/algorithms.html#pynetim.algorithms.reinforcement_learning.CoreQAlgorithm.__init__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">graph</span><span class="p">:</span> <span class="n">IMGraph</span><span class="p">,</span>
+        <span class="n">n_candidates</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">60</span><span class="p">,</span>
+        <span class="n">episodes</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">200</span><span class="p">,</span>
+        <span class="n">random_seed</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;初始化 CoreQ 算法。</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            graph: IMGraph 图对象。</span>
+<span class="sd">            n_candidates: 候选集大小，默认 60。</span>
+<span class="sd">            episodes: Q-learning 训练轮数，默认 200。</span>
+<span class="sd">            random_seed: 随机种子，用于结果复现。</span>
+<span class="sd">            **kwargs: 传递给父类的参数，包括：</span>
+<span class="sd">                - alpha: 学习率，默认 0.1</span>
+<span class="sd">                - gamma: 折扣因子，默认 0.9</span>
+<span class="sd">                - epsilon: 探索率，默认 0.5</span>
+<span class="sd">                - diffusion_model: 扩散模型，默认 &#39;IC&#39;</span>
+<span class="sd">                - mc_rounds: 蒙特卡洛模拟次数，默认 100</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">n_candidates</span> <span class="o">=</span> <span class="n">n_candidates</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">episodes</span> <span class="o">=</span> <span class="n">episodes</span>
+        
+        <span class="k">if</span> <span class="n">random_seed</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">random_seed</span><span class="p">)</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">random_seed</span><span class="p">)</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">_k_core</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_candidate_set</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">q_table</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span></div>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_compute_k_core</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;计算 K-shell 分解。</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            Dict[int, int]: 节点到 K-shell 值的映射。</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">compute_k_shell_values</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_compute_likelihood_score</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;计算节点的最大似然得分。</span>
+<span class="sd">        </span>
+<span class="sd">        基于论文公式：Sc(w) = Σ(1 - p_uw)</span>
+<span class="sd">        其中 p_uw 是邻居 u 激活节点 w 的概率。</span>
+<span class="sd">        </span>
+<span class="sd">        得分越高，节点越有可能影响整个网络。</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            node: 节点 ID。</span>
+<span class="sd">            </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            float: 最大似然得分。</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">in_neighbors</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">in_neighbors</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">in_neighbors</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mf">0.0</span>
+        
+        <span class="n">score</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">in_neighbors</span><span class="p">:</span>
+            <span class="n">p_uw</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">get_edge_weight</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">node</span><span class="p">)</span>
+            <span class="n">score</span> <span class="o">+=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">p_uw</span><span class="p">)</span>
+        
+        <span class="k">return</span> <span class="n">score</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_get_candidate_seeds</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;基于最大似然估计选择候选种子集。</span>
+<span class="sd">        </span>
+<span class="sd">        计算每个节点的似然得分，选择得分最高的 n_candidates 个节点。</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            List[int]: 候选种子节点列表。</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">nodes</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">num_nodes</span><span class="p">))</span>
+        
+        <span class="n">node_scores</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">nodes</span><span class="p">:</span>
+            <span class="n">score</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_likelihood_score</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+            <span class="n">k_core</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_k_core</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="n">node_scores</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">node</span><span class="p">,</span> <span class="n">score</span><span class="p">,</span> <span class="n">k_core</span><span class="p">))</span>
+        
+        <span class="n">node_scores</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        
+        <span class="n">candidates</span> <span class="o">=</span> <span class="p">[</span><span class="n">node</span> <span class="k">for</span> <span class="n">node</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">node_scores</span><span class="p">[:</span><span class="bp">self</span><span class="o">.</span><span class="n">n_candidates</span><span class="p">]]</span>
+        
+        <span class="k">return</span> <span class="n">candidates</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_init_q_table</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;初始化 Q 表。</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            np.ndarray: 初始化的 Q 表。</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">m</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_candidate_set</span><span class="p">)</span>
+        <span class="n">q_table</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="n">m</span><span class="p">,</span> <span class="n">m</span><span class="p">])</span>
+        
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
+            <span class="n">q_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_sigma</span><span class="p">({</span><span class="bp">self</span><span class="o">.</span><span class="n">_candidate_set</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">_candidate_set</span><span class="p">[</span><span class="mi">0</span><span class="p">]})</span>
+            <span class="n">q_table</span><span class="p">[:,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">q_value</span>
+        
+        <span class="k">return</span> <span class="n">q_table</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_compute_activation_probability</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">seed_set</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;计算节点被激活的概率。</span>
+<span class="sd">        </span>
+<span class="sd">        P(w) = 1 - (1 - p_vw)^r</span>
+<span class="sd">        其中 p_vw 是边权重，r 是种子集中邻居的数量。</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            node: 目标节点。</span>
+<span class="sd">            seed_set: 种子节点集合。</span>
+<span class="sd">            </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            float: 激活概率。</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">neighbors</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">in_neighbors</span><span class="p">(</span><span class="n">node</span><span class="p">))</span>
+        <span class="n">seed_neighbors</span> <span class="o">=</span> <span class="n">neighbors</span> <span class="o">&amp;</span> <span class="n">seed_set</span>
+        
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">seed_neighbors</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mf">0.0</span>
+        
+        <span class="n">prob_not_activated</span> <span class="o">=</span> <span class="mf">1.0</span>
+        <span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">seed_neighbors</span><span class="p">:</span>
+            <span class="n">p_uw</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">get_edge_weight</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">node</span><span class="p">)</span>
+            <span class="n">prob_not_activated</span> <span class="o">*=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">p_uw</span><span class="p">)</span>
+        
+        <span class="k">return</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">prob_not_activated</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_compute_sigma</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">seed_set</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;计算种子集的影响力传播（近似）。</span>
+<span class="sd">        </span>
+<span class="sd">        使用代理函数近似计算影响力传播，避免蒙特卡洛模拟。</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            seed_set: 种子节点集合。</span>
+<span class="sd">            </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            float: 影响力传播值。</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">gamma_s</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">seed_set</span><span class="p">:</span>
+            <span class="n">gamma_s</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">out_neighbors</span><span class="p">(</span><span class="n">node</span><span class="p">))</span>
+        
+        <span class="n">gamma_s</span> <span class="o">=</span> <span class="n">gamma_s</span> <span class="o">-</span> <span class="n">seed_set</span>
+        
+        <span class="n">sigma</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">seed_set</span><span class="p">)</span> <span class="o">+</span> <span class="nb">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_compute_activation_probability</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">seed_set</span><span class="p">)</span> 
+                                    <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">gamma_s</span><span class="p">)</span>
+        
+        <span class="k">return</span> <span class="n">sigma</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_argmax_q</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">q_table</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">state</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">visited</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> 
+                  <span class="n">candidate_set</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;选择 Q 值最大的动作。</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            q_table: Q 表。</span>
+<span class="sd">            state: 当前状态。</span>
+<span class="sd">            visited: 已访问的节点集合。</span>
+<span class="sd">            candidate_set: 候选节点列表。</span>
+<span class="sd">            </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            Optional[int]: 选择的动作索引，如果没有可用动作则返回 None。</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">max_value</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s1">&#39;-inf&#39;</span><span class="p">)</span>
+        <span class="n">best_action</span> <span class="o">=</span> <span class="kc">None</span>
+        
+        <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">candidate_set</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="n">candidate_set</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">visited</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">q_table</span><span class="p">[</span><span class="n">state</span><span class="p">,</span> <span class="n">idx</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">max_value</span><span class="p">:</span>
+                    <span class="n">max_value</span> <span class="o">=</span> <span class="n">q_table</span><span class="p">[</span><span class="n">state</span><span class="p">,</span> <span class="n">idx</span><span class="p">]</span>
+                    <span class="n">best_action</span> <span class="o">=</span> <span class="n">idx</span>
+        
+        <span class="k">return</span> <span class="n">best_action</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_max_q</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">q_table</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">action</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">visited</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> 
+               <span class="n">candidate_set</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;获取下一状态的最大 Q 值。</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            q_table: Q 表。</span>
+<span class="sd">            action: 当前动作。</span>
+<span class="sd">            visited: 已访问的节点集合。</span>
+<span class="sd">            candidate_set: 候选节点列表。</span>
+<span class="sd">            </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            float: 最大 Q 值。</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">max_value</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s1">&#39;-inf&#39;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">q_table</span><span class="p">[</span><span class="n">action</span><span class="p">,</span> <span class="p">:]):</span>
+            <span class="k">if</span> <span class="n">candidate_set</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">visited</span> <span class="ow">and</span> <span class="n">value</span> <span class="o">&gt;</span> <span class="n">max_value</span><span class="p">:</span>
+                <span class="n">max_value</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="k">return</span> <span class="n">max_value</span>
+
+<div class="viewcode-block" id="CoreQAlgorithm.run">
+<a class="viewcode-back" href="../../../../api/algorithms.html#pynetim.algorithms.reinforcement_learning.CoreQAlgorithm.run">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Set</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;运行 CoreQ 算法。</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            k: 种子节点数量。</span>
+<span class="sd">            </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            Set[int]: 选中的种子节点集合。</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_k_core</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_k_core</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_candidate_set</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_candidate_seeds</span><span class="p">()</span>
+        
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_candidate_set</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">k</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_candidate_set</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">num_nodes</span><span class="p">))</span>
+        
+        <span class="n">initial_state</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">m</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_candidate_set</span><span class="p">)</span>
+        
+        <span class="n">q_table</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_init_q_table</span><span class="p">()</span>
+        
+        <span class="k">for</span> <span class="n">episode</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">episodes</span><span class="p">):</span>
+            <span class="n">state</span> <span class="o">=</span> <span class="n">initial_state</span>
+            <span class="n">visited</span> <span class="o">=</span> <span class="p">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_candidate_set</span><span class="p">[</span><span class="n">state</span><span class="p">]}</span>
+            <span class="n">prev_sigma</span> <span class="o">=</span> <span class="mi">0</span>
+            
+            <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">k</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">epsilon</span><span class="p">:</span>
+                    <span class="n">possible_actions</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">m</span><span class="p">)</span> 
+                                       <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_candidate_set</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">visited</span><span class="p">]</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="n">possible_actions</span><span class="p">:</span>
+                        <span class="k">break</span>
+                    <span class="n">action</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">possible_actions</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">action</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_argmax_q</span><span class="p">(</span><span class="n">q_table</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">visited</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_candidate_set</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">action</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                        <span class="k">break</span>
+                
+                <span class="n">current_sigma</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_sigma</span><span class="p">(</span><span class="n">visited</span> <span class="o">|</span> <span class="p">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_candidate_set</span><span class="p">[</span><span class="n">action</span><span class="p">]})</span>
+                <span class="n">reward</span> <span class="o">=</span> <span class="n">current_sigma</span> <span class="o">-</span> <span class="n">prev_sigma</span>
+                <span class="n">prev_sigma</span> <span class="o">=</span> <span class="n">current_sigma</span>
+                
+                <span class="n">max_q</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_max_q</span><span class="p">(</span><span class="n">q_table</span><span class="p">,</span> <span class="n">action</span><span class="p">,</span> <span class="n">visited</span> <span class="o">|</span> <span class="p">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_candidate_set</span><span class="p">[</span><span class="n">action</span><span class="p">]},</span> 
+                                   <span class="bp">self</span><span class="o">.</span><span class="n">_candidate_set</span><span class="p">)</span>
+                <span class="n">q_table</span><span class="p">[</span><span class="n">state</span><span class="p">,</span> <span class="n">action</span><span class="p">]</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span> <span class="o">*</span> <span class="p">(</span><span class="n">reward</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">gamma</span> <span class="o">*</span> <span class="n">max_q</span> <span class="o">-</span> <span class="n">q_table</span><span class="p">[</span><span class="n">state</span><span class="p">,</span> <span class="n">action</span><span class="p">])</span>
+                
+                <span class="n">state</span> <span class="o">=</span> <span class="n">action</span>
+                <span class="n">visited</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_candidate_set</span><span class="p">[</span><span class="n">state</span><span class="p">])</span>
+        
+        <span class="n">selected_nodes</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">state</span> <span class="o">=</span> <span class="n">initial_state</span>
+        <span class="n">selected_nodes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_candidate_set</span><span class="p">[</span><span class="n">state</span><span class="p">])</span>
+        
+        <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">selected_nodes</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">k</span><span class="p">:</span>
+            <span class="n">action</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_argmax_q</span><span class="p">(</span><span class="n">q_table</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="nb">set</span><span class="p">(</span><span class="n">selected_nodes</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_candidate_set</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">action</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">break</span>
+            <span class="n">state</span> <span class="o">=</span> <span class="n">action</span>
+            <span class="n">selected_nodes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_candidate_set</span><span class="p">[</span><span class="n">state</span><span class="p">])</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">seeds</span> <span class="o">=</span> <span class="n">selected_nodes</span><span class="p">[:</span><span class="n">k</span><span class="p">]</span>
+        <span class="k">return</span> <span class="nb">set</span><span class="p">(</span><span class="n">selected_nodes</span><span class="p">[:</span><span class="n">k</span><span class="p">])</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Zhang Kaijing.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
