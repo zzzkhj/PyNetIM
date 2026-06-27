@@ -47,7 +47,7 @@
 <div class="version-selector" style="padding: 12px 15px; margin-top: -10px;">
     <label style="font-weight: 600; font-size: 12px; color: #404040; display: block; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px;">Version</label>
     <select id="version-select" style="width: 100%; padding: 6px 10px; border: 1px solid #d1d5da; border-radius: 6px; background: #f6f8fa; font-size: 13px; cursor: pointer; color: #24292e; font-weight: 500;">
-<option value="v0.5.3">v0.5.3</option><option value="v0.5.4">v0.5.4</option><option value="v0.5.5">v0.5.5</option><option value="v0.5.6">v0.5.6 (latest)</option>
+<option value="v0.5.3">v0.5.3</option><option value="v0.5.4">v0.5.4</option><option value="v0.5.5">v0.5.5 (latest)</option><option value="v0.5.6">v0.5.6</option>
     </select>
 </div>
 <script>
@@ -191,7 +191,7 @@ C++ 模块通过 pybind11 回调 Python 端获取全局种子。</p>
 <dd class="field-odd"><p>当前种子值，未设置时返回 None。</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a> | None</p>
+<dd class="field-even"><p>int | None</p>
 </dd>
 </dl>
 </dd></dl>
@@ -205,7 +205,7 @@ C++ 模块通过 pybind11 回调 Python 端获取全局种子。</p>
 <dd class="field-odd"><p>已设置返回 True，否则返回 False。</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)">bool</a></p>
+<dd class="field-even"><p>bool</p>
 </dd>
 </dl>
 </dd></dl>
@@ -218,7 +218,7 @@ C++ 模块通过 pybind11 回调 Python 端获取全局种子。</p>
 仅影响 PyNetIM 内部 C++ 模块的随机行为，不影响 Python random、NumPy、PyTorch 等。</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>seed_value</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – 随机种子值。</p>
+<dd class="field-odd"><p><strong>seed_value</strong> (<em>int</em>) – 随机种子值。</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>None</p>

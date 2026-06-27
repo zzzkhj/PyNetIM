@@ -47,7 +47,7 @@
 <div class="version-selector" style="padding: 12px 15px; margin-top: -10px;">
     <label style="font-weight: 600; font-size: 12px; color: #404040; display: block; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px;">Version</label>
     <select id="version-select" style="width: 100%; padding: 6px 10px; border: 1px solid #d1d5da; border-radius: 6px; background: #f6f8fa; font-size: 13px; cursor: pointer; color: #24292e; font-weight: 500;">
-<option value="v0.5.3">v0.5.3</option><option value="v0.5.4">v0.5.4</option><option value="v0.5.5">v0.5.5</option><option value="v0.5.6">v0.5.6 (latest)</option>
+<option value="v0.5.3">v0.5.3</option><option value="v0.5.4">v0.5.4</option><option value="v0.5.5">v0.5.5 (latest)</option><option value="v0.5.6">v0.5.6</option>
     </select>
 </div>
 <script>
@@ -184,15 +184,15 @@
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>graph</strong> (<a class="reference internal" href="graph.html#pynetim.graph.IMGraph" title="pynetim.graph.IMGraph"><em>IMGraph</em></a>) – 图对象。</p></li>
-<li><p><strong>nodes</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.14)"><em>List</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>] </em><em>| </em><em>None</em>) – 要计算的节点列表，如果为 None 则计算所有节点。</p></li>
-<li><p><strong>use_weight</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – 是否使用边权重。</p></li>
+<li><p><strong>nodes</strong> (<em>List</em><em>[</em><em>int</em><em>] </em><em>| </em><em>None</em>) – 要计算的节点列表，如果为 None 则计算所有节点。</p></li>
+<li><p><strong>use_weight</strong> (<em>bool</em>) – 是否使用边权重。</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>嵌套字典，distances[u][v] 表示 u 到 v 的最短路径长度。</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)">dict</a></p>
+<dd class="field-odd"><p>dict</p>
 </dd>
 </dl>
 <p class="rubric">Example</p>
@@ -224,8 +224,8 @@
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>graph</strong> (<a class="reference internal" href="graph.html#pynetim.graph.IMGraph" title="pynetim.graph.graph.IMGraph"><em>IMGraph</em></a>) – 图对象。</p></li>
-<li><p><strong>gamma</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – 恢复率，默认 0.1。</p></li>
-<li><p><strong>c</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – 调节系数，默认 1.3。
+<li><p><strong>gamma</strong> (<em>float</em>) – 恢复率，默认 0.1。</p></li>
+<li><p><strong>c</strong> (<em>float</em>) – 调节系数，默认 1.3。
 - c &lt; 1: 不爆发
 - c = 1: 临界状态
 - c &gt; 1: 爆发</p></li>
@@ -235,7 +235,7 @@
 <dd class="field-even"><p>(beta, beta_c): 感染率和临界感染率。</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)">tuple</a>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a>]</p>
+<dd class="field-odd"><p>tuple[float, float]</p>
 </dd>
 </dl>
 <p class="rubric">References</p>
@@ -258,8 +258,8 @@ Epidemic processes in complex networks. Reviews of Modern Physics, 87(3), 925.</
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>graph</strong> – igraph 图对象。</p></li>
-<li><p><strong>weight_attr</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – 边权重属性名，默认 ‘weight’。</p></li>
-<li><p><strong>default_weight</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – 默认权重值，当边没有权重属性时使用，默认 1.0。</p></li>
+<li><p><strong>weight_attr</strong> (<em>str</em>) – 边权重属性名，默认 ‘weight’。</p></li>
+<li><p><strong>default_weight</strong> (<em>float</em>) – 默认权重值，当边没有权重属性时使用，默认 1.0。</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -288,8 +288,8 @@ Epidemic processes in complex networks. Reviews of Modern Physics, 87(3), 925.</
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>graph</strong> – networkx 图对象。</p></li>
-<li><p><strong>weight_attr</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – 边权重属性名，默认 ‘weight’。</p></li>
-<li><p><strong>default_weight</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – 默认权重值，当边没有权重属性时使用，默认 1.0。</p></li>
+<li><p><strong>weight_attr</strong> (<em>str</em>) – 边权重属性名，默认 ‘weight’。</p></li>
+<li><p><strong>default_weight</strong> (<em>float</em>) – 默认权重值，当边没有权重属性时使用，默认 1.0。</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -319,7 +319,7 @@ Epidemic processes in complex networks. Reviews of Modern Physics, 87(3), 925.</
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>data</strong> – torch_geometric.data.Data 对象。</p></li>
-<li><p><strong>default_weight</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – 默认权重值，当 Data 没有 edge_attr 时使用，默认 1.0。</p></li>
+<li><p><strong>default_weight</strong> (<em>float</em>) – 默认权重值，当 Data 没有 edge_attr 时使用，默认 1.0。</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -350,7 +350,7 @@ Epidemic processes in complex networks. Reviews of Modern Physics, 87(3), 925.</
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>matrix</strong> – scipy 稀疏矩阵，matrix[i, j] 表示边 (i, j) 的权重。</p></li>
-<li><p><strong>directed</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – 是否有向图，默认 True。</p></li>
+<li><p><strong>directed</strong> (<em>bool</em>) – 是否有向图，默认 True。</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -378,10 +378,10 @@ Epidemic processes in complex networks. Reviews of Modern Physics, 87(3), 925.</
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>n</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – 最终节点数量。</p></li>
-<li><p><strong>m</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – 每个新节点连接的边数，必须小于 n。</p></li>
-<li><p><strong>directed</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – 是否有向图，默认 True。</p></li>
-<li><p><strong>random_seed</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em> | </em><em>None</em>) – 随机种子，用于可重复性。</p></li>
+<li><p><strong>n</strong> (<em>int</em>) – 最终节点数量。</p></li>
+<li><p><strong>m</strong> (<em>int</em>) – 每个新节点连接的边数，必须小于 n。</p></li>
+<li><p><strong>directed</strong> (<em>bool</em>) – 是否有向图，默认 True。</p></li>
+<li><p><strong>random_seed</strong> (<em>int</em><em> | </em><em>None</em>) – 随机种子，用于可重复性。</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -410,10 +410,10 @@ Science, 286(5439), 509-512.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>n</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – 节点数量。</p></li>
-<li><p><strong>p</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – 边连接概率，取值范围 [0, 1]。</p></li>
-<li><p><strong>directed</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – 是否有向图，默认 True。</p></li>
-<li><p><strong>random_seed</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em> | </em><em>None</em>) – 随机种子，用于可重复性。</p></li>
+<li><p><strong>n</strong> (<em>int</em>) – 节点数量。</p></li>
+<li><p><strong>p</strong> (<em>float</em>) – 边连接概率，取值范围 [0, 1]。</p></li>
+<li><p><strong>directed</strong> (<em>bool</em>) – 是否有向图，默认 True。</p></li>
+<li><p><strong>random_seed</strong> (<em>int</em><em> | </em><em>None</em>) – 随机种子，用于可重复性。</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -436,7 +436,7 @@ Publicationes Mathematicae, 6, 290-297.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pynetim.utils.generate_rr_sets">
-<span class="sig-prename descclassname"><span class="pre">pynetim.utils.</span></span><span class="sig-name descname"><span class="pre">generate_rr_sets</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="graph.html#pynetim.graph.IMGraph" title="pynetim.graph.IMGraph"><span class="pre">IMGraph</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_sets</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'IC'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pynetim.utils.generate_rr_sets" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">pynetim.utils.</span></span><span class="sig-name descname"><span class="pre">generate_rr_sets</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="graph.html#pynetim.graph.IMGraph" title="pynetim.graph.IMGraph"><span class="pre">IMGraph</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_sets</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'IC'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pynetim.utils.generate_rr_sets" title="Link to this definition"></a></dt>
 <dd><p>生成多个 RR 集合。</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -451,7 +451,7 @@ Publicationes Mathematicae, 6, 290-297.</p>
 <dd class="field-even"><p>RR 集合列表。</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)">list</a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)">list</a>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a>]]</p>
+<dd class="field-odd"><p>list[list[int]]</p>
 </dd>
 </dl>
 <p class="rubric">Example</p>
@@ -469,14 +469,14 @@ Publicationes Mathematicae, 6, 290-297.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>n</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – 节点数量。</p></li>
-<li><p><strong>k</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – 每个节点连接的邻居数（必须是偶数）。</p></li>
-<li><p><strong>beta</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – 重连概率，取值范围 [0, 1]。
+<li><p><strong>n</strong> (<em>int</em>) – 节点数量。</p></li>
+<li><p><strong>k</strong> (<em>int</em>) – 每个节点连接的邻居数（必须是偶数）。</p></li>
+<li><p><strong>beta</strong> (<em>float</em>) – 重连概率，取值范围 [0, 1]。
 - beta=0: 规则网络
 - beta=1: 随机网络
 - beta~0.1: 小世界网络</p></li>
-<li><p><strong>directed</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – 是否有向图，默认 True。</p></li>
-<li><p><strong>random_seed</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em> | </em><em>None</em>) – 随机种子，用于可重复性。</p></li>
+<li><p><strong>directed</strong> (<em>bool</em>) – 是否有向图，默认 True。</p></li>
+<li><p><strong>random_seed</strong> (<em>int</em><em> | </em><em>None</em>) – 随机种子，用于可重复性。</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -506,11 +506,11 @@ Nature, 393(6684), 440-442.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>filepath</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.14)"><em>Path</em></a>) – 边列表文件路径。</p></li>
-<li><p><strong>directed</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – 是否有向图，默认 True。</p></li>
-<li><p><strong>renumber</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – 是否重编号节点为连续整数，默认 False。</p></li>
-<li><p><strong>comment</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em> | </em><em>None</em>) – 注释行前缀，如 ‘#’ 或 ‘%’，默认 None。</p></li>
-<li><p><strong>skip_lines</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – 跳过文件开头的行数，默认 0。</p></li>
+<li><p><strong>filepath</strong> (<em>str</em><em> | </em><em>Path</em>) – 边列表文件路径。</p></li>
+<li><p><strong>directed</strong> (<em>bool</em>) – 是否有向图，默认 True。</p></li>
+<li><p><strong>renumber</strong> (<em>bool</em>) – 是否重编号节点为连续整数，默认 False。</p></li>
+<li><p><strong>comment</strong> (<em>str</em><em> | </em><em>None</em>) – 注释行前缀，如 ‘#’ 或 ‘%’，默认 None。</p></li>
+<li><p><strong>skip_lines</strong> (<em>int</em>) – 跳过文件开头的行数，默认 0。</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -540,7 +540,7 @@ Nature, 393(6684), 440-442.</p>
 <dd><p>重新编号边列表中的节点为连续整数。</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>edges</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.14)"><em>List</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.14)"><em>Tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>]</em><em>]</em>) – 边列表，每个元素为 (u, v) 元组。</p>
+<dd class="field-odd"><p><strong>edges</strong> (<em>List</em><em>[</em><em>Tuple</em><em>[</em><em>int</em><em>, </em><em>int</em><em>]</em><em>]</em>) – 边列表，每个元素为 (u, v) 元组。</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><ul class="simple">
@@ -551,7 +551,7 @@ Nature, 393(6684), 440-442.</p>
 </p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Tuple[List[Tuple[<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a>]], <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)">dict</a>, List[<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a>]]</p>
+<dd class="field-odd"><p>Tuple[List[Tuple[int, int]], dict, List[int]]</p>
 </dd>
 </dl>
 <p class="rubric">Example</p>
@@ -565,7 +565,7 @@ Nature, 393(6684), 440-442.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pynetim.utils.sample_rr_set_ic">
-<span class="sig-prename descclassname"><span class="pre">pynetim.utils.</span></span><span class="sig-name descname"><span class="pre">sample_rr_set_ic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="graph.html#pynetim.graph.IMGraph" title="pynetim.graph.IMGraph"><span class="pre">IMGraph</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pynetim.utils.sample_rr_set_ic" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">pynetim.utils.</span></span><span class="sig-name descname"><span class="pre">sample_rr_set_ic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="graph.html#pynetim.graph.IMGraph" title="pynetim.graph.IMGraph"><span class="pre">IMGraph</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pynetim.utils.sample_rr_set_ic" title="Link to this definition"></a></dt>
 <dd><p>采样一个 IC 模型的 RR 集合。</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -578,7 +578,7 @@ Nature, 393(6684), 440-442.</p>
 <dd class="field-even"><p>RR 集合中的节点列表。</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)">list</a>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a>]</p>
+<dd class="field-odd"><p>list[int]</p>
 </dd>
 </dl>
 <p class="rubric">Example</p>
@@ -590,7 +590,7 @@ Nature, 393(6684), 440-442.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pynetim.utils.sample_rr_set_lt">
-<span class="sig-prename descclassname"><span class="pre">pynetim.utils.</span></span><span class="sig-name descname"><span class="pre">sample_rr_set_lt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="graph.html#pynetim.graph.IMGraph" title="pynetim.graph.IMGraph"><span class="pre">IMGraph</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pynetim.utils.sample_rr_set_lt" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">pynetim.utils.</span></span><span class="sig-name descname"><span class="pre">sample_rr_set_lt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="graph.html#pynetim.graph.IMGraph" title="pynetim.graph.IMGraph"><span class="pre">IMGraph</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pynetim.utils.sample_rr_set_lt" title="Link to this definition"></a></dt>
 <dd><p>采样一个 LT 模型的 RR 集合。</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -603,7 +603,7 @@ Nature, 393(6684), 440-442.</p>
 <dd class="field-even"><p>RR 集合中的节点列表。</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)">list</a>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a>]</p>
+<dd class="field-odd"><p>list[int]</p>
 </dd>
 </dl>
 <p class="rubric">Example</p>
@@ -621,9 +621,9 @@ Nature, 393(6684), 440-442.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>graph</strong> (<a class="reference internal" href="graph.html#pynetim.graph.IMGraph" title="pynetim.graph.graph.IMGraph"><em>IMGraph</em></a>) – 图对象。</p></li>
-<li><p><strong>filepath</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.14)"><em>Path</em></a>) – 输出文件路径。</p></li>
-<li><p><strong>delimiter</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – 分隔符，默认制表符。</p></li>
-<li><p><strong>include_weight</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – 是否包含权重列，默认 True。</p></li>
+<li><p><strong>filepath</strong> (<em>str</em><em> | </em><em>Path</em>) – 输出文件路径。</p></li>
+<li><p><strong>delimiter</strong> (<em>str</em>) – 分隔符，默认制表符。</p></li>
+<li><p><strong>include_weight</strong> (<em>bool</em>) – 是否包含权重列，默认 True。</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
@@ -645,9 +645,9 @@ Nature, 393(6684), 440-442.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>graph</strong> (<a class="reference internal" href="graph.html#pynetim.graph.IMGraph" title="pynetim.graph.IMGraph"><em>IMGraph</em></a>) – 图对象。</p></li>
-<li><p><strong>source</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – 源节点。</p></li>
-<li><p><strong>target</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – 目标节点。</p></li>
-<li><p><strong>use_weight</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – 是否使用边权重计算最短路径。
+<li><p><strong>source</strong> (<em>int</em>) – 源节点。</p></li>
+<li><p><strong>target</strong> (<em>int</em>) – 目标节点。</p></li>
+<li><p><strong>use_weight</strong> (<em>bool</em>) – 是否使用边权重计算最短路径。
 - False (默认): 使用跳数（边数）作为距离
 - True: 使用边权重之和作为距离</p></li>
 </ul>
@@ -663,7 +663,7 @@ Nature, 393(6684), 440-442.</p>
 </p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Optional[<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a>]</p>
+<dd class="field-odd"><p>Optional[float]</p>
 </dd>
 </dl>
 <p class="rubric">Example</p>
@@ -756,7 +756,7 @@ Nature, 393(6684), 440-442.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>graph</strong> (<a class="reference internal" href="graph.html#pynetim.graph.IMGraph" title="pynetim.graph.graph.IMGraph"><em>IMGraph</em></a>) – 图对象。</p></li>
-<li><p><strong>format</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – 稀疏矩阵格式，可选 ‘csr’, ‘csc’, ‘coo’, ‘lil’, ‘dok’，默认 ‘csr’。</p></li>
+<li><p><strong>format</strong> (<em>str</em>) – 稀疏矩阵格式，可选 ‘csr’, ‘csc’, ‘coo’, ‘lil’, ‘dok’，默认 ‘csr’。</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>

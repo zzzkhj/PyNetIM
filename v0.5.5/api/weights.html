@@ -47,7 +47,7 @@
 <div class="version-selector" style="padding: 12px 15px; margin-top: -10px;">
     <label style="font-weight: 600; font-size: 12px; color: #404040; display: block; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px;">Version</label>
     <select id="version-select" style="width: 100%; padding: 6px 10px; border: 1px solid #d1d5da; border-radius: 6px; background: #f6f8fa; font-size: 13px; cursor: pointer; color: #24292e; font-weight: 500;">
-<option value="v0.5.3">v0.5.3</option><option value="v0.5.4">v0.5.4</option><option value="v0.5.5">v0.5.5</option><option value="v0.5.6">v0.5.6 (latest)</option>
+<option value="v0.5.3">v0.5.3</option><option value="v0.5.4">v0.5.4</option><option value="v0.5.5">v0.5.5 (latest)</option><option value="v0.5.6">v0.5.6</option>
     </select>
 </div>
 <script>
@@ -167,7 +167,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="pynetim.weights.WeightManager">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pynetim.weights.</span></span><span class="sig-name descname"><span class="pre">WeightManager</span></span><a class="reference internal" href="../_modules/pynetim/weights/weight_manager.html#WeightManager"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.weights.WeightManager" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>预训练权重管理器。</p>
 <p>管理深度强化学习算法的预训练权重，支持：
 - 从本地缓存目录加载
@@ -219,9 +219,9 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>weight_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – 权重文件名或权重配置键。</p></li>
-<li><p><strong>force_download</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – 强制从远程下载。</p></li>
-<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – 是否输出详细信息。</p></li>
+<li><p><strong>weight_name</strong> (<em>str</em>) – 权重文件名或权重配置键。</p></li>
+<li><p><strong>force_download</strong> (<em>bool</em>) – 强制从远程下载。</p></li>
+<li><p><strong>verbose</strong> (<em>bool</em>) – 是否输出详细信息。</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -232,8 +232,8 @@
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
-<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#FileNotFoundError" title="(in Python v3.14)"><strong>FileNotFoundError</strong></a> – 权重文件未找到。</p></li>
-<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.14)"><strong>ValueError</strong></a> – 权重配置不存在。</p></li>
+<li><p><strong>FileNotFoundError</strong> – 权重文件未找到。</p></li>
+<li><p><strong>ValueError</strong> – 权重配置不存在。</p></li>
 </ul>
 </dd>
 </dl>
@@ -254,7 +254,7 @@
 <dd class="field-odd"><p>权重文件名列表。</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)">list</a></p>
+<dd class="field-even"><p>list</p>
 </dd>
 </dl>
 </dd></dl>
@@ -265,7 +265,7 @@
 <dd><p>设置缓存目录。</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.14)"><em>Path</em></a>) – 新的缓存目录路径。</p>
+<dd class="field-odd"><p><strong>path</strong> (<em>Path</em>) – 新的缓存目录路径。</p>
 </dd>
 </dl>
 </dd></dl>

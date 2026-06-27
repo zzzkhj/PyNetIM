@@ -47,7 +47,7 @@
 <div class="version-selector" style="padding: 12px 15px; margin-top: -10px;">
     <label style="font-weight: 600; font-size: 12px; color: #404040; display: block; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px;">Version</label>
     <select id="version-select" style="width: 100%; padding: 6px 10px; border: 1px solid #d1d5da; border-radius: 6px; background: #f6f8fa; font-size: 13px; cursor: pointer; color: #24292e; font-weight: 500;">
-<option value="v0.5.3">v0.5.3</option><option value="v0.5.4">v0.5.4</option><option value="v0.5.5">v0.5.5</option><option value="v0.5.6">v0.5.6 (latest)</option>
+<option value="v0.5.3">v0.5.3</option><option value="v0.5.4">v0.5.4</option><option value="v0.5.5">v0.5.5 (latest)</option><option value="v0.5.6">v0.5.6</option>
     </select>
 </div>
 <script>
@@ -226,17 +226,17 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="pynetim.embedding.BaseEmbedding">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pynetim.embedding.</span></span><span class="sig-name descname"><span class="pre">BaseEmbedding</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dimensions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">128</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">walk_length</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">80</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_walks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pynetim/embedding/base.html#BaseEmbedding"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pynetim.embedding.BaseEmbedding" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/abc.html#abc.ABC" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></a></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
 <p>图嵌入算法基类。</p>
 <p>所有图嵌入算法的抽象基类，定义了通用接口。</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>graph</strong> (<a class="reference internal" href="graph.html#pynetim.graph.IMGraph" title="pynetim.graph.IMGraph"><em>IMGraph</em></a>)</p></li>
-<li><p><strong>dimensions</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>)</p></li>
-<li><p><strong>walk_length</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>)</p></li>
-<li><p><strong>num_walks</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>)</p></li>
-<li><p><strong>random_seed</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em> | </em><em>None</em>)</p></li>
+<li><p><strong>dimensions</strong> (<em>int</em>)</p></li>
+<li><p><strong>walk_length</strong> (<em>int</em>)</p></li>
+<li><p><strong>num_walks</strong> (<em>int</em>)</p></li>
+<li><p><strong>random_seed</strong> (<em>int</em><em> | </em><em>None</em>)</p></li>
 </ul>
 </dd>
 </dl>
@@ -276,10 +276,10 @@
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>graph</strong> (<a class="reference internal" href="graph.html#pynetim.graph.IMGraph" title="pynetim.graph.IMGraph"><em>IMGraph</em></a>) – IMGraph 图对象。</p></li>
-<li><p><strong>dimensions</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – 嵌入维度，默认 128。</p></li>
-<li><p><strong>walk_length</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – 每次随机游走的长度，默认 80。</p></li>
-<li><p><strong>num_walks</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – 每个节点的游走次数，默认 10。</p></li>
-<li><p><strong>random_seed</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em> | </em><em>None</em>) – 随机种子，默认 None（使用全局种子）。</p></li>
+<li><p><strong>dimensions</strong> (<em>int</em>) – 嵌入维度，默认 128。</p></li>
+<li><p><strong>walk_length</strong> (<em>int</em>) – 每次随机游走的长度，默认 80。</p></li>
+<li><p><strong>num_walks</strong> (<em>int</em>) – 每个节点的游走次数，默认 10。</p></li>
+<li><p><strong>random_seed</strong> (<em>int</em><em> | </em><em>None</em>) – 随机种子，默认 None（使用全局种子）。</p></li>
 </ul>
 </dd>
 </dl>
@@ -297,7 +297,7 @@
 <dd class="field-even"><p>np.ndarray</p>
 </dd>
 <dt class="field-odd">Raises<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.14)"><strong>ValueError</strong></a> – 模型尚未训练。</p>
+<dd class="field-odd"><p><strong>ValueError</strong> – 模型尚未训练。</p>
 </dd>
 </dl>
 </dd></dl>
@@ -308,7 +308,7 @@
 <dd><p>获取指定节点的嵌入向量。</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>node</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – 节点 ID。</p>
+<dd class="field-odd"><p><strong>node</strong> (<em>int</em>) – 节点 ID。</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>节点的嵌入向量。</p>
@@ -317,7 +317,7 @@
 <dd class="field-odd"><p>np.ndarray</p>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.14)"><strong>ValueError</strong></a> – 模型尚未训练。</p>
+<dd class="field-even"><p><strong>ValueError</strong> – 模型尚未训练。</p>
 </dd>
 </dl>
 </dd></dl>
@@ -329,18 +329,18 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>node</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – 目标节点 ID。</p></li>
-<li><p><strong>topn</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – 返回的相似节点数量，默认 10。</p></li>
+<li><p><strong>node</strong> (<em>int</em>) – 目标节点 ID。</p></li>
+<li><p><strong>topn</strong> (<em>int</em>) – 返回的相似节点数量，默认 10。</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>相似节点列表，每个元素为 (node_id, similarity)。</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>List[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)">tuple</a>]</p>
+<dd class="field-odd"><p>List[tuple]</p>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.14)"><strong>ValueError</strong></a> – 模型尚未训练。</p>
+<dd class="field-even"><p><strong>ValueError</strong> – 模型尚未训练。</p>
 </dd>
 </dl>
 </dd></dl>
@@ -352,12 +352,12 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>window_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – 上下文窗口大小，默认 10。</p></li>
-<li><p><strong>min_count</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – 忽略出现次数少于此值的节点，默认 1。</p></li>
-<li><p><strong>epochs</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – 训练轮数，默认 5。</p></li>
-<li><p><strong>learning_rate</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – 初始学习率，默认 0.025。</p></li>
-<li><p><strong>negative_samples</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – 负采样数量，默认 5。</p></li>
-<li><p><strong>backend</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – 后端实现，支持 ‘auto’、’gensim’、’pytorch’。</p></li>
+<li><p><strong>window_size</strong> (<em>int</em>) – 上下文窗口大小，默认 10。</p></li>
+<li><p><strong>min_count</strong> (<em>int</em>) – 忽略出现次数少于此值的节点，默认 1。</p></li>
+<li><p><strong>epochs</strong> (<em>int</em>) – 训练轮数，默认 5。</p></li>
+<li><p><strong>learning_rate</strong> (<em>float</em>) – 初始学习率，默认 0.025。</p></li>
+<li><p><strong>negative_samples</strong> (<em>int</em>) – 负采样数量，默认 5。</p></li>
+<li><p><strong>backend</strong> (<em>str</em>) – 后端实现，支持 ‘auto’、’gensim’、’pytorch’。</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
@@ -381,10 +381,10 @@
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>graph</strong> (<a class="reference internal" href="graph.html#pynetim.graph.IMGraph" title="pynetim.graph.IMGraph"><em>IMGraph</em></a>)</p></li>
-<li><p><strong>dimensions</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>)</p></li>
-<li><p><strong>walk_length</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>)</p></li>
-<li><p><strong>num_walks</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>)</p></li>
-<li><p><strong>random_seed</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em> | </em><em>None</em>)</p></li>
+<li><p><strong>dimensions</strong> (<em>int</em>)</p></li>
+<li><p><strong>walk_length</strong> (<em>int</em>)</p></li>
+<li><p><strong>num_walks</strong> (<em>int</em>)</p></li>
+<li><p><strong>random_seed</strong> (<em>int</em><em> | </em><em>None</em>)</p></li>
 </ul>
 </dd>
 </dl>
@@ -427,10 +427,10 @@ of Social Representations. KDD, 701-710.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>graph</strong> (<a class="reference internal" href="graph.html#pynetim.graph.IMGraph" title="pynetim.graph.IMGraph"><em>IMGraph</em></a>) – IMGraph 图对象。</p></li>
-<li><p><strong>dimensions</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – 嵌入维度，默认 128。</p></li>
-<li><p><strong>walk_length</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – 每次随机游走的长度，默认 80。</p></li>
-<li><p><strong>num_walks</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – 每个节点的游走次数，默认 10。</p></li>
-<li><p><strong>random_seed</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em> | </em><em>None</em>) – 随机种子，默认 None（使用全局种子）。</p></li>
+<li><p><strong>dimensions</strong> (<em>int</em>) – 嵌入维度，默认 128。</p></li>
+<li><p><strong>walk_length</strong> (<em>int</em>) – 每次随机游走的长度，默认 80。</p></li>
+<li><p><strong>num_walks</strong> (<em>int</em>) – 每个节点的游走次数，默认 10。</p></li>
+<li><p><strong>random_seed</strong> (<em>int</em><em> | </em><em>None</em>) – 随机种子，默认 None（使用全局种子）。</p></li>
 </ul>
 </dd>
 </dl>
@@ -448,7 +448,7 @@ of Social Representations. KDD, 701-710.</p>
 <dd class="field-even"><p>np.ndarray</p>
 </dd>
 <dt class="field-odd">Raises<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.14)"><strong>ValueError</strong></a> – 模型尚未训练。</p>
+<dd class="field-odd"><p><strong>ValueError</strong> – 模型尚未训练。</p>
 </dd>
 </dl>
 </dd></dl>
@@ -459,7 +459,7 @@ of Social Representations. KDD, 701-710.</p>
 <dd><p>获取指定节点的嵌入向量。</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>node</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – 节点 ID。</p>
+<dd class="field-odd"><p><strong>node</strong> (<em>int</em>) – 节点 ID。</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>节点的嵌入向量。</p>
@@ -468,7 +468,7 @@ of Social Representations. KDD, 701-710.</p>
 <dd class="field-odd"><p>np.ndarray</p>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.14)"><strong>ValueError</strong></a> – 模型尚未训练。</p>
+<dd class="field-even"><p><strong>ValueError</strong> – 模型尚未训练。</p>
 </dd>
 </dl>
 </dd></dl>
@@ -480,18 +480,18 @@ of Social Representations. KDD, 701-710.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>node</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – 目标节点 ID。</p></li>
-<li><p><strong>topn</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – 返回的相似节点数量，默认 10。</p></li>
+<li><p><strong>node</strong> (<em>int</em>) – 目标节点 ID。</p></li>
+<li><p><strong>topn</strong> (<em>int</em>) – 返回的相似节点数量，默认 10。</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>相似节点列表，每个元素为 (node_id, similarity)。</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>List[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)">tuple</a>]</p>
+<dd class="field-odd"><p>List[tuple]</p>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.14)"><strong>ValueError</strong></a> – 模型尚未训练。</p>
+<dd class="field-even"><p><strong>ValueError</strong> – 模型尚未训练。</p>
 </dd>
 </dl>
 </dd></dl>
@@ -503,12 +503,12 @@ of Social Representations. KDD, 701-710.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>window_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – 上下文窗口大小，默认 10。</p></li>
-<li><p><strong>min_count</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – 忽略出现次数少于此值的节点，默认 1。</p></li>
-<li><p><strong>epochs</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – 训练轮数，默认 5。</p></li>
-<li><p><strong>learning_rate</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – 初始学习率，默认 0.025。</p></li>
-<li><p><strong>negative_samples</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – 负采样数量，默认 5。</p></li>
-<li><p><strong>backend</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – 后端实现，支持 ‘auto’、’gensim’、’pytorch’。
+<li><p><strong>window_size</strong> (<em>int</em>) – 上下文窗口大小，默认 10。</p></li>
+<li><p><strong>min_count</strong> (<em>int</em>) – 忽略出现次数少于此值的节点，默认 1。</p></li>
+<li><p><strong>epochs</strong> (<em>int</em>) – 训练轮数，默认 5。</p></li>
+<li><p><strong>learning_rate</strong> (<em>float</em>) – 初始学习率，默认 0.025。</p></li>
+<li><p><strong>negative_samples</strong> (<em>int</em>) – 负采样数量，默认 5。</p></li>
+<li><p><strong>backend</strong> (<em>str</em>) – 后端实现，支持 ‘auto’、’gensim’、’pytorch’。
 ‘auto’ 优先使用 gensim，不可用时使用 pytorch。默认 ‘auto’。</p></li>
 </ul>
 </dd>
@@ -549,13 +549,13 @@ IEEE 34th International Conference on Data Engineering (ICDE), 946-957.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>graph</strong> (<a class="reference internal" href="graph.html#pynetim.graph.IMGraph" title="pynetim.graph.IMGraph"><em>IMGraph</em></a>)</p></li>
-<li><p><strong>cascades</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.14)"><em>List</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.14)"><em>List</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>]</em><em>] </em><em>| </em><em>None</em>)</p></li>
-<li><p><strong>dimensions</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>)</p></li>
-<li><p><strong>walk_length</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>)</p></li>
-<li><p><strong>num_walks</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>)</p></li>
-<li><p><strong>restart_prob</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>)</p></li>
-<li><p><strong>alpha</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>)</p></li>
-<li><p><strong>random_seed</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em> | </em><em>None</em>)</p></li>
+<li><p><strong>cascades</strong> (<em>List</em><em>[</em><em>List</em><em>[</em><em>int</em><em>]</em><em>] </em><em>| </em><em>None</em>)</p></li>
+<li><p><strong>dimensions</strong> (<em>int</em>)</p></li>
+<li><p><strong>walk_length</strong> (<em>int</em>)</p></li>
+<li><p><strong>num_walks</strong> (<em>int</em>)</p></li>
+<li><p><strong>restart_prob</strong> (<em>float</em>)</p></li>
+<li><p><strong>alpha</strong> (<em>float</em>)</p></li>
+<li><p><strong>random_seed</strong> (<em>int</em><em> | </em><em>None</em>)</p></li>
 </ul>
 </dd>
 </dl>
@@ -609,16 +609,16 @@ IEEE 34th International Conference on Data Engineering (ICDE), 946-957.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>graph</strong> (<a class="reference internal" href="graph.html#pynetim.graph.IMGraph" title="pynetim.graph.IMGraph"><em>IMGraph</em></a>) – IMGraph 图对象。</p></li>
-<li><p><strong>cascades</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.14)"><em>List</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.14)"><em>List</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>]</em><em>] </em><em>| </em><em>None</em>) – 扩散级联列表，每个级联是一个节点 ID 列表，
+<li><p><strong>cascades</strong> (<em>List</em><em>[</em><em>List</em><em>[</em><em>int</em><em>]</em><em>] </em><em>| </em><em>None</em>) – 扩散级联列表，每个级联是一个节点 ID 列表，
 按时间顺序排列（第一个为发起者）。若为 None，
 则仅使用网络结构生成上下文。默认 None。</p></li>
-<li><p><strong>dimensions</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – 嵌入维度，默认 128。</p></li>
-<li><p><strong>walk_length</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – 每次随机游走的长度，默认 80。</p></li>
-<li><p><strong>num_walks</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – 每个节点的游走次数，默认 10。</p></li>
-<li><p><strong>restart_prob</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – 随机游走重启概率，默认 0.5。</p></li>
-<li><p><strong>alpha</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – 局部影响上下文与全局相似性上下文的混合权重，
+<li><p><strong>dimensions</strong> (<em>int</em>) – 嵌入维度，默认 128。</p></li>
+<li><p><strong>walk_length</strong> (<em>int</em>) – 每次随机游走的长度，默认 80。</p></li>
+<li><p><strong>num_walks</strong> (<em>int</em>) – 每个节点的游走次数，默认 10。</p></li>
+<li><p><strong>restart_prob</strong> (<em>float</em>) – 随机游走重启概率，默认 0.5。</p></li>
+<li><p><strong>alpha</strong> (<em>float</em>) – 局部影响上下文与全局相似性上下文的混合权重，
 0 表示仅使用局部，1 表示仅使用全局。默认 0.5。</p></li>
-<li><p><strong>random_seed</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em> | </em><em>None</em>) – 随机种子，默认 None（使用全局种子）。</p></li>
+<li><p><strong>random_seed</strong> (<em>int</em><em> | </em><em>None</em>) – 随机种子，默认 None（使用全局种子）。</p></li>
 </ul>
 </dd>
 </dl>
@@ -644,7 +644,7 @@ IEEE 34th International Conference on Data Engineering (ICDE), 946-957.</p>
 <dd><p>获取指定节点的融合嵌入向量（Source + Target 拼接）。</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>node</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – 节点 ID。</p>
+<dd class="field-odd"><p><strong>node</strong> (<em>int</em>) – 节点 ID。</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>节点的融合嵌入向量，维度为 2 * dimensions。</p>
@@ -664,18 +664,18 @@ P(target | source) = exp(S_source · T_target) / Z</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>source</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – 源节点 ID。</p></li>
-<li><p><strong>target</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – 目标节点 ID。</p></li>
+<li><p><strong>source</strong> (<em>int</em>) – 源节点 ID。</p></li>
+<li><p><strong>target</strong> (<em>int</em>) – 目标节点 ID。</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>影响概率。</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a></p>
+<dd class="field-odd"><p>float</p>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.14)"><strong>ValueError</strong></a> – 模型尚未训练。</p>
+<dd class="field-even"><p><strong>ValueError</strong> – 模型尚未训练。</p>
 </dd>
 </dl>
 </dd></dl>
@@ -690,10 +690,10 @@ P(target | source) = exp(S_source · T_target) / Z</p>
 <dd class="field-odd"><p>边到影响权重的映射。</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>Dict[Tuple[<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a>], <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a>]</p>
+<dd class="field-even"><p>Dict[Tuple[int, int], float]</p>
 </dd>
 <dt class="field-odd">Raises<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.14)"><strong>ValueError</strong></a> – 模型尚未训练。</p>
+<dd class="field-odd"><p><strong>ValueError</strong> – 模型尚未训练。</p>
 </dd>
 </dl>
 </dd></dl>
@@ -704,7 +704,7 @@ P(target | source) = exp(S_source · T_target) / Z</p>
 <dd><p>获取指定节点的源嵌入向量（影响能力）。</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>node</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – 节点 ID。</p>
+<dd class="field-odd"><p><strong>node</strong> (<em>int</em>) – 节点 ID。</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>节点的源嵌入向量。</p>
@@ -713,7 +713,7 @@ P(target | source) = exp(S_source · T_target) / Z</p>
 <dd class="field-odd"><p>np.ndarray</p>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.14)"><strong>ValueError</strong></a> – 模型尚未训练。</p>
+<dd class="field-even"><p><strong>ValueError</strong> – 模型尚未训练。</p>
 </dd>
 </dl>
 </dd></dl>
@@ -724,7 +724,7 @@ P(target | source) = exp(S_source · T_target) / Z</p>
 <dd><p>获取指定节点的目标嵌入向量（被影响趋势）。</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>node</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – 节点 ID。</p>
+<dd class="field-odd"><p><strong>node</strong> (<em>int</em>) – 节点 ID。</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>节点的目标嵌入向量。</p>
@@ -733,7 +733,7 @@ P(target | source) = exp(S_source · T_target) / Z</p>
 <dd class="field-odd"><p>np.ndarray</p>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.14)"><strong>ValueError</strong></a> – 模型尚未训练。</p>
+<dd class="field-even"><p><strong>ValueError</strong> – 模型尚未训练。</p>
 </dd>
 </dl>
 </dd></dl>
@@ -745,15 +745,15 @@ P(target | source) = exp(S_source · T_target) / Z</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>node</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – 目标节点 ID。</p></li>
-<li><p><strong>topn</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – 返回的相似节点数量，默认 10。</p></li>
+<li><p><strong>node</strong> (<em>int</em>) – 目标节点 ID。</p></li>
+<li><p><strong>topn</strong> (<em>int</em>) – 返回的相似节点数量，默认 10。</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>相似节点列表，每个元素为 (node_id, similarity)。</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>List[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)">tuple</a>]</p>
+<dd class="field-odd"><p>List[tuple]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -765,12 +765,12 @@ P(target | source) = exp(S_source · T_target) / Z</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>window_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – 上下文窗口大小，默认 10。</p></li>
-<li><p><strong>min_count</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – 忽略出现次数少于此值的节点，默认 1。</p></li>
-<li><p><strong>epochs</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – 训练轮数，默认 5。</p></li>
-<li><p><strong>learning_rate</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – 初始学习率，默认 0.025。</p></li>
-<li><p><strong>negative_samples</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – 负采样数量，默认 5。</p></li>
-<li><p><strong>backend</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – 后端实现，支持 ‘auto’、’gensim’、’pytorch’。
+<li><p><strong>window_size</strong> (<em>int</em>) – 上下文窗口大小，默认 10。</p></li>
+<li><p><strong>min_count</strong> (<em>int</em>) – 忽略出现次数少于此值的节点，默认 1。</p></li>
+<li><p><strong>epochs</strong> (<em>int</em>) – 训练轮数，默认 5。</p></li>
+<li><p><strong>learning_rate</strong> (<em>float</em>) – 初始学习率，默认 0.025。</p></li>
+<li><p><strong>negative_samples</strong> (<em>int</em>) – 负采样数量，默认 5。</p></li>
+<li><p><strong>backend</strong> (<em>str</em>) – 后端实现，支持 ‘auto’、’gensim’、’pytorch’。
 ‘auto’ 优先使用 gensim，不可用时使用 pytorch。默认 ‘auto’。</p></li>
 </ul>
 </dd>
@@ -794,12 +794,12 @@ P(target | source) = exp(S_source · T_target) / Z</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>graph</strong> (<a class="reference internal" href="graph.html#pynetim.graph.IMGraph" title="pynetim.graph.IMGraph"><em>IMGraph</em></a>)</p></li>
-<li><p><strong>dimensions</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>)</p></li>
-<li><p><strong>walk_length</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>)</p></li>
-<li><p><strong>num_walks</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>)</p></li>
-<li><p><strong>p</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>)</p></li>
-<li><p><strong>q</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>)</p></li>
-<li><p><strong>random_seed</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em> | </em><em>None</em>)</p></li>
+<li><p><strong>dimensions</strong> (<em>int</em>)</p></li>
+<li><p><strong>walk_length</strong> (<em>int</em>)</p></li>
+<li><p><strong>num_walks</strong> (<em>int</em>)</p></li>
+<li><p><strong>p</strong> (<em>float</em>)</p></li>
+<li><p><strong>q</strong> (<em>float</em>)</p></li>
+<li><p><strong>random_seed</strong> (<em>int</em><em> | </em><em>None</em>)</p></li>
 </ul>
 </dd>
 </dl>
@@ -854,14 +854,14 @@ for Networks. KDD, 855-864.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>graph</strong> (<a class="reference internal" href="graph.html#pynetim.graph.IMGraph" title="pynetim.graph.IMGraph"><em>IMGraph</em></a>) – IMGraph 图对象。</p></li>
-<li><p><strong>dimensions</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – 嵌入维度，默认 128。</p></li>
-<li><p><strong>walk_length</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – 每次随机游走的长度，默认 80。</p></li>
-<li><p><strong>num_walks</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – 每个节点的游走次数，默认 10。</p></li>
-<li><p><strong>p</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – 返回参数，控制回访上一个节点的概率。p &gt; 1 降低回访概率，
+<li><p><strong>dimensions</strong> (<em>int</em>) – 嵌入维度，默认 128。</p></li>
+<li><p><strong>walk_length</strong> (<em>int</em>) – 每次随机游走的长度，默认 80。</p></li>
+<li><p><strong>num_walks</strong> (<em>int</em>) – 每个节点的游走次数，默认 10。</p></li>
+<li><p><strong>p</strong> (<em>float</em>) – 返回参数，控制回访上一个节点的概率。p &gt; 1 降低回访概率，
 p &lt; 1 增加回访概率。默认 1.0。</p></li>
-<li><p><strong>q</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – 进出参数，控制游走方向。q &gt; 1 倾向于 BFS（局部），
+<li><p><strong>q</strong> (<em>float</em>) – 进出参数，控制游走方向。q &gt; 1 倾向于 BFS（局部），
 q &lt; 1 倾向于 DFS（全局）。默认 1.0。</p></li>
-<li><p><strong>random_seed</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em> | </em><em>None</em>) – 随机种子，默认 None（使用全局种子）。</p></li>
+<li><p><strong>random_seed</strong> (<em>int</em><em> | </em><em>None</em>) – 随机种子，默认 None（使用全局种子）。</p></li>
 </ul>
 </dd>
 </dl>
@@ -879,7 +879,7 @@ q &lt; 1 倾向于 DFS（全局）。默认 1.0。</p></li>
 <dd class="field-even"><p>np.ndarray</p>
 </dd>
 <dt class="field-odd">Raises<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.14)"><strong>ValueError</strong></a> – 模型尚未训练。</p>
+<dd class="field-odd"><p><strong>ValueError</strong> – 模型尚未训练。</p>
 </dd>
 </dl>
 </dd></dl>
@@ -890,7 +890,7 @@ q &lt; 1 倾向于 DFS（全局）。默认 1.0。</p></li>
 <dd><p>获取指定节点的嵌入向量。</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>node</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – 节点 ID。</p>
+<dd class="field-odd"><p><strong>node</strong> (<em>int</em>) – 节点 ID。</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>节点的嵌入向量。</p>
@@ -899,7 +899,7 @@ q &lt; 1 倾向于 DFS（全局）。默认 1.0。</p></li>
 <dd class="field-odd"><p>np.ndarray</p>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.14)"><strong>ValueError</strong></a> – 模型尚未训练。</p>
+<dd class="field-even"><p><strong>ValueError</strong> – 模型尚未训练。</p>
 </dd>
 </dl>
 </dd></dl>
@@ -911,18 +911,18 @@ q &lt; 1 倾向于 DFS（全局）。默认 1.0。</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>node</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – 目标节点 ID。</p></li>
-<li><p><strong>topn</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – 返回的相似节点数量，默认 10。</p></li>
+<li><p><strong>node</strong> (<em>int</em>) – 目标节点 ID。</p></li>
+<li><p><strong>topn</strong> (<em>int</em>) – 返回的相似节点数量，默认 10。</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>相似节点列表，每个元素为 (node_id, similarity)。</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>List[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)">tuple</a>]</p>
+<dd class="field-odd"><p>List[tuple]</p>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.14)"><strong>ValueError</strong></a> – 模型尚未训练。</p>
+<dd class="field-even"><p><strong>ValueError</strong> – 模型尚未训练。</p>
 </dd>
 </dl>
 </dd></dl>
@@ -934,12 +934,12 @@ q &lt; 1 倾向于 DFS（全局）。默认 1.0。</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>window_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – 上下文窗口大小，默认 10。</p></li>
-<li><p><strong>min_count</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – 忽略出现次数少于此值的节点，默认 1。</p></li>
-<li><p><strong>epochs</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – 训练轮数，默认 5。</p></li>
-<li><p><strong>learning_rate</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – 初始学习率，默认 0.025。</p></li>
-<li><p><strong>negative_samples</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – 负采样数量，默认 5。</p></li>
-<li><p><strong>backend</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – 后端实现，支持 ‘auto’、’gensim’、’pytorch’。
+<li><p><strong>window_size</strong> (<em>int</em>) – 上下文窗口大小，默认 10。</p></li>
+<li><p><strong>min_count</strong> (<em>int</em>) – 忽略出现次数少于此值的节点，默认 1。</p></li>
+<li><p><strong>epochs</strong> (<em>int</em>) – 训练轮数，默认 5。</p></li>
+<li><p><strong>learning_rate</strong> (<em>float</em>) – 初始学习率，默认 0.025。</p></li>
+<li><p><strong>negative_samples</strong> (<em>int</em>) – 负采样数量，默认 5。</p></li>
+<li><p><strong>backend</strong> (<em>str</em>) – 后端实现，支持 ‘auto’、’gensim’、’pytorch’。
 ‘auto’ 优先使用 gensim，不可用时使用 pytorch。默认 ‘auto’。</p></li>
 </ul>
 </dd>
@@ -972,14 +972,14 @@ q &lt; 1 倾向于 DFS（全局）。默认 1.0。</p></li>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>graph</strong> (<a class="reference internal" href="graph.html#pynetim.graph.IMGraph" title="pynetim.graph.IMGraph"><em>IMGraph</em></a>)</p></li>
-<li><p><strong>dimensions</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>)</p></li>
-<li><p><strong>walk_length</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>)</p></li>
-<li><p><strong>num_walks</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>)</p></li>
-<li><p><strong>stay_prob</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>)</p></li>
-<li><p><strong>opt1_compact</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>)</p></li>
-<li><p><strong>opt2_reduce_sim_calc</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>)</p></li>
-<li><p><strong>opt3_num_layers</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em> | </em><em>None</em>)</p></li>
-<li><p><strong>random_seed</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em> | </em><em>None</em>)</p></li>
+<li><p><strong>dimensions</strong> (<em>int</em>)</p></li>
+<li><p><strong>walk_length</strong> (<em>int</em>)</p></li>
+<li><p><strong>num_walks</strong> (<em>int</em>)</p></li>
+<li><p><strong>stay_prob</strong> (<em>float</em>)</p></li>
+<li><p><strong>opt1_compact</strong> (<em>bool</em>)</p></li>
+<li><p><strong>opt2_reduce_sim_calc</strong> (<em>bool</em>)</p></li>
+<li><p><strong>opt3_num_layers</strong> (<em>int</em><em> | </em><em>None</em>)</p></li>
+<li><p><strong>random_seed</strong> (<em>int</em><em> | </em><em>None</em>)</p></li>
 </ul>
 </dd>
 </dl>
@@ -1047,14 +1047,14 @@ KDD, 385-394.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>graph</strong> (<a class="reference internal" href="graph.html#pynetim.graph.IMGraph" title="pynetim.graph.IMGraph"><em>IMGraph</em></a>) – IMGraph 图对象。</p></li>
-<li><p><strong>dimensions</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – 嵌入维度，默认 128。</p></li>
-<li><p><strong>walk_length</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – 每次随机游走的长度，默认 80。</p></li>
-<li><p><strong>num_walks</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – 每个节点的游走次数，默认 10。</p></li>
-<li><p><strong>stay_prob</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – 同层停留概率（1 - stay_prob 为跨层切换概率），默认 0.3。</p></li>
-<li><p><strong>opt1_compact</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – 是否使用 compact 度序列（度-频率对）减少 DTW 计算量，默认 True。</p></li>
-<li><p><strong>opt2_reduce_sim_calc</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – 是否只计算度相近的节点对之间的距离，默认 True。</p></li>
-<li><p><strong>opt3_num_layers</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em> | </em><em>None</em>) – 最大计算层数，None 表示自动确定（图的直径），默认 None。</p></li>
-<li><p><strong>random_seed</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em> | </em><em>None</em>) – 随机种子，默认 None（使用全局种子）。</p></li>
+<li><p><strong>dimensions</strong> (<em>int</em>) – 嵌入维度，默认 128。</p></li>
+<li><p><strong>walk_length</strong> (<em>int</em>) – 每次随机游走的长度，默认 80。</p></li>
+<li><p><strong>num_walks</strong> (<em>int</em>) – 每个节点的游走次数，默认 10。</p></li>
+<li><p><strong>stay_prob</strong> (<em>float</em>) – 同层停留概率（1 - stay_prob 为跨层切换概率），默认 0.3。</p></li>
+<li><p><strong>opt1_compact</strong> (<em>bool</em>) – 是否使用 compact 度序列（度-频率对）减少 DTW 计算量，默认 True。</p></li>
+<li><p><strong>opt2_reduce_sim_calc</strong> (<em>bool</em>) – 是否只计算度相近的节点对之间的距离，默认 True。</p></li>
+<li><p><strong>opt3_num_layers</strong> (<em>int</em><em> | </em><em>None</em>) – 最大计算层数，None 表示自动确定（图的直径），默认 None。</p></li>
+<li><p><strong>random_seed</strong> (<em>int</em><em> | </em><em>None</em>) – 随机种子，默认 None（使用全局种子）。</p></li>
 </ul>
 </dd>
 </dl>
@@ -1072,7 +1072,7 @@ KDD, 385-394.</p>
 <dd class="field-even"><p>np.ndarray</p>
 </dd>
 <dt class="field-odd">Raises<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.14)"><strong>ValueError</strong></a> – 模型尚未训练。</p>
+<dd class="field-odd"><p><strong>ValueError</strong> – 模型尚未训练。</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1083,7 +1083,7 @@ KDD, 385-394.</p>
 <dd><p>获取指定节点的嵌入向量。</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>node</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – 节点 ID。</p>
+<dd class="field-odd"><p><strong>node</strong> (<em>int</em>) – 节点 ID。</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>节点的嵌入向量。</p>
@@ -1092,7 +1092,7 @@ KDD, 385-394.</p>
 <dd class="field-odd"><p>np.ndarray</p>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.14)"><strong>ValueError</strong></a> – 模型尚未训练。</p>
+<dd class="field-even"><p><strong>ValueError</strong> – 模型尚未训练。</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1104,18 +1104,18 @@ KDD, 385-394.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>node</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – 目标节点 ID。</p></li>
-<li><p><strong>topn</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – 返回的相似节点数量，默认 10。</p></li>
+<li><p><strong>node</strong> (<em>int</em>) – 目标节点 ID。</p></li>
+<li><p><strong>topn</strong> (<em>int</em>) – 返回的相似节点数量，默认 10。</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>相似节点列表，每个元素为 (node_id, similarity)。</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>List[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)">tuple</a>]</p>
+<dd class="field-odd"><p>List[tuple]</p>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.14)"><strong>ValueError</strong></a> – 模型尚未训练。</p>
+<dd class="field-even"><p><strong>ValueError</strong> – 模型尚未训练。</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1127,12 +1127,12 @@ KDD, 385-394.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>window_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – 上下文窗口大小，默认 10。</p></li>
-<li><p><strong>min_count</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – 忽略出现次数少于此值的节点，默认 1。</p></li>
-<li><p><strong>epochs</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – 训练轮数，默认 5。</p></li>
-<li><p><strong>learning_rate</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – 初始学习率，默认 0.025。</p></li>
-<li><p><strong>negative_samples</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – 负采样数量，默认 5。</p></li>
-<li><p><strong>backend</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – 后端实现，支持 ‘auto’、’gensim’、’pytorch’。
+<li><p><strong>window_size</strong> (<em>int</em>) – 上下文窗口大小，默认 10。</p></li>
+<li><p><strong>min_count</strong> (<em>int</em>) – 忽略出现次数少于此值的节点，默认 1。</p></li>
+<li><p><strong>epochs</strong> (<em>int</em>) – 训练轮数，默认 5。</p></li>
+<li><p><strong>learning_rate</strong> (<em>float</em>) – 初始学习率，默认 0.025。</p></li>
+<li><p><strong>negative_samples</strong> (<em>int</em>) – 负采样数量，默认 5。</p></li>
+<li><p><strong>backend</strong> (<em>str</em>) – 后端实现，支持 ‘auto’、’gensim’、’pytorch’。
 ‘auto’ 优先使用 gensim，不可用时使用 pytorch。默认 ‘auto’。</p></li>
 </ul>
 </dd>
