@@ -6,6 +6,25 @@
 
 namespace py = pybind11;
 
+namespace {
+
+std::optional<int> resolve_random_seed_opt(py::object random_seed_obj) {
+    if (!random_seed_obj.is_none()) {
+        return py::cast<int>(random_seed_obj);
+    }
+    try {
+        py::module_ random_module = py::module_::import("pynetim.random");
+        py::object seed_obj = random_module.attr("get_random_seed")();
+        if (!seed_obj.is_none()) {
+            return py::cast<int>(seed_obj);
+        }
+    } catch (...) {
+    }
+    return std::nullopt;
+}
+
+}
+
 PYBIND11_MODULE(opim_algorithm, m) {
     m.doc() = "OPIM算法模块，提供Online Processing for Influence Maximization算法";
 
@@ -16,7 +35,7 @@ PYBIND11_MODULE(opim_algorithm, m) {
         py::class_<pynetim::OPIMAlgorithm, pynetim::BaseRISAlgorithm, std::shared_ptr<pynetim::OPIMAlgorithm>>(m, "OPIMAlgorithm")
         .def(py::init([](py::object graph_obj,
                          const std::string& model,
-                         std::optional<int> random_seed,
+                         py::object random_seed_obj,
                          bool verbose) {
             std::shared_ptr<pynetim::Graph> graph_ptr;
             try {
@@ -24,7 +43,7 @@ PYBIND11_MODULE(opim_algorithm, m) {
             } catch (const py::cast_error&) {
                 throw py::type_error("OPIMAlgorithm() 参数错误: graph 必须是 IMGraph 类型。\n用法: OPIMAlgorithm(graph, model, random_seed=None, verbose=False)");
             }
-            return std::make_shared<pynetim::OPIMAlgorithm>(graph_ptr, model, random_seed, verbose);
+            return std::make_shared<pynetim::OPIMAlgorithm>(graph_ptr, model, resolve_random_seed_opt(random_seed_obj), verbose);
         }),
             py::arg("graph"),
             py::arg("model"),
@@ -46,7 +65,7 @@ OPIM (Online Processing for Influence Maximization) 使用两组独立的RR集�
 Args:
     graph: 图对象。
     model: 扩散模型，支持 'IC' 或 'LT'。
-    random_seed: 随机种子，默认为 None（每次随机）。
+    random_seed: 随机种子，默认为 None（使用全局种子或随机）。
     verbose: 是否显示关键过程日志，默认为 False。
 )doc")
 
@@ -100,9 +119,9 @@ Returns:
                    std::shared_ptr<pynetim::OPIMCAlgorithm>>(m, "OPIMCAlgorithm")
         .def(py::init([](std::shared_ptr<pynetim::Graph> graph,
                          const std::string& model,
-                         std::optional<int> random_seed,
+                         py::object random_seed_obj,
                          bool verbose) {
-            return std::make_shared<pynetim::OPIMCAlgorithm>(graph, model, random_seed, verbose);
+            return std::make_shared<pynetim::OPIMCAlgorithm>(graph, model, resolve_random_seed_opt(random_seed_obj), verbose);
         }),
             py::arg("graph"),
             py::arg("model"),
@@ -123,7 +142,7 @@ OPIM-C是OPIM的自适应版本，迭代增加RR集合数量，
 Args:
     graph: 图对象。
     model: 扩散模型，支持 'IC' 或 'LT'。
-    random_seed: 随机种子，默认为 None（每次随机）。
+    random_seed: 随机种子，默认为 None（使用全局种子或随机）。
     verbose: 是否显示关键过程日志，默认为 False。
 )doc")
 

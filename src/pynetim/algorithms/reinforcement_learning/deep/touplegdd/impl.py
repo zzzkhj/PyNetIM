@@ -14,10 +14,6 @@ from .....weights import WeightManager
 if TYPE_CHECKING:
     from .....graph import IMGraph
 
-random.seed(123)
-np.random.seed(123)
-torch.manual_seed(123)
-
 
 class ToupleGDDAlgorithm(BaseDRLAlgorithm):
     """ToupleGDD 深度学习影响力最大化算法。
@@ -105,11 +101,7 @@ class ToupleGDDAlgorithm(BaseDRLAlgorithm):
         node_embed = self._get_init_node_embed()
         x = torch.cat((node_embed, state.detach().clone().unsqueeze(dim=1)), dim=-1)
 
-        edges = list(self.graph.edges.keys())
-        edge_index = torch.tensor(edges, dtype=torch.long).t().contiguous()
-        edge_weight = torch.tensor([self.graph.edges[e] for e in edges], dtype=torch.float)
-
-        return Data(x=x, edge_index=edge_index, edge_weight=edge_weight)
+        return Data(x=x, edge_index=self._cached_edge_index, edge_weight=self._cached_edge_weight)
 
     def _get_init_node_embed(self) -> torch.Tensor:
         if self._node_embed is None:
@@ -120,8 +112,16 @@ class ToupleGDDAlgorithm(BaseDRLAlgorithm):
         return self._node_embed
 
     def _prepare_inference(self):
-        """准备推理环境。"""
+        """准备推理环境。
+
+        缓存图结构（edge_index、edge_weight），避免每次推理时重复构建。
+        """
         self.model.eval()
+        edges = list(self.graph.edges.keys())
+        self._cached_edge_index = torch.tensor(edges, dtype=torch.long).t().contiguous()
+        self._cached_edge_weight = torch.tensor(
+            [self.graph.edges[e] for e in edges], dtype=torch.float
+        )
 
     def _init_state(self) -> torch.Tensor:
         """初始化状态。
@@ -129,7 +129,7 @@ class ToupleGDDAlgorithm(BaseDRLAlgorithm):
         Returns:
             torch.Tensor: 初始状态向量（全 0）。
         """
-        return torch.zeros(self.graph.num_nodes, dtype=torch.long)
+        return torch.zeros(self.graph.num_nodes, dtype=torch.long, device=self.device)
 
     def _compute_q_values(self, state: torch.Tensor) -> torch.Tensor:
         """计算 Q 值。
@@ -246,23 +246,31 @@ class S2VDQNAlgorithm(BaseDRLAlgorithm):
         self.model.load_state_dict(torch.load(weights_file, map_location=self.device, weights_only=True))
 
     def _setup_graph_input(self, state: torch.Tensor) -> Data:
-        x = torch.ones(self.graph.num_nodes, self.node_dim)
+        x = self._cached_x.clone()
         x[:, 1] = 1 - state
 
-        edges = list(self.graph.edges.keys())
-        edge_index = torch.tensor(edges, dtype=torch.long).t().contiguous()
+        edge_attr = self._cached_edge_attr.clone()
+        edge_attr[:, 0] = state[self._cached_edge_index[0]]
+        edge_attr[:, 2] = torch.abs(state[self._cached_edge_index[0]] - state[self._cached_edge_index[1]])
 
-        edge_attr = torch.ones(self.graph.num_edges, self.edge_dim)
-        edge_weights = torch.tensor([self.graph.edges[e] for e in edges], dtype=torch.float)
-        edge_attr[:, 1] = edge_weights
-        edge_attr[:, 0] = state[edge_index[0]]
-        edge_attr[:, 2] = torch.abs(state[edge_index[0]] - state[edge_index[1]])
-
-        return Data(x=x, edge_index=edge_index, edge_attr=edge_attr)
+        return Data(x=x, edge_index=self._cached_edge_index, edge_attr=edge_attr)
 
     def _prepare_inference(self):
-        """准备推理环境。"""
+        """准备推理环境。
+
+        缓存图结构（edge_index、edge_attr 基座、x 基座），
+        避免每次推理时重复构建不变的部分。
+        """
         self.model.eval()
+
+        edges = list(self.graph.edges.keys())
+        self._cached_edge_index = torch.tensor(edges, dtype=torch.long).t().contiguous()
+
+        self._cached_x = torch.ones(self.graph.num_nodes, self.node_dim)
+
+        self._cached_edge_attr = torch.ones(self.graph.num_edges, self.edge_dim)
+        edge_weights = torch.tensor([self.graph.edges[e] for e in edges], dtype=torch.float)
+        self._cached_edge_attr[:, 1] = edge_weights
 
     def _init_state(self) -> torch.Tensor:
         """初始化状态。
@@ -270,7 +278,7 @@ class S2VDQNAlgorithm(BaseDRLAlgorithm):
         Returns:
             torch.Tensor: 初始状态向量（全 0）。
         """
-        return torch.zeros(self.graph.num_nodes, dtype=torch.long)
+        return torch.zeros(self.graph.num_nodes, dtype=torch.long, device=self.device)
 
     def _compute_q_values(self, state: torch.Tensor) -> torch.Tensor:
         """计算 Q 值。

@@ -13,7 +13,7 @@ class IndependentCascadeModel(BaseDiffusionModel):
     在每一轮中，已激活的节点尝试激活其未激活的邻居节点。
     每条边都有固定的传播概率，当节点尝试传播时，根据概率决定是否成功激活邻居。
 
-    参考文献:
+    References:
         - Kempe, D., Kleinberg, J., & Tardos, É. (2003). "Maximizing the spread of influence through a social network."
           Proceedings of the 9th ACM SIGKDD International Conference on Knowledge Discovery and Data Mining (KDD), 137-146.
           DOI: 10.1145/956750.956769
@@ -32,9 +32,9 @@ class IndependentCascadeModel(BaseDiffusionModel):
         初始化独立级联模型。
 
         Args:
-            graph (IMGraph): 定义了节点和边的网络结构
-            init_seeds (list): 初始激活的节点集合
-            record_states (bool): 控制是否记录每一步的状态，默认为False
+            graph: 定义了节点和边的网络结构。
+            init_seeds: 初始激活的节点集合。
+            record_states: 控制是否记录每一步的状态，默认为False。
         """
         super(IndependentCascadeModel, self).__init__(graph, init_seeds, record_states)
         self.activated_nodes = set(init_seeds)
@@ -47,7 +47,7 @@ class IndependentCascadeModel(BaseDiffusionModel):
         成功激活的节点将在下一轮继续传播。
 
         Args:
-            current_activated_nodes (set): 当前轮次需要尝试传播的已激活节点集合
+            current_activated_nodes: 当前轮次需要尝试传播的已激活节点集合。
 
         Returns:
             set: 本轮新激活的节点集合
@@ -74,7 +74,7 @@ class IndependentCascadeModel(BaseDiffusionModel):
         进行指定轮次的传播更新，直到达到最大轮次或没有新的节点被激活。
 
         Args:
-            update_counts (int, optional): 最大更新轮次数。如果为None则持续传播直到无新节点激活
+            update_counts: 最大更新轮次数。如果为None则持续传播直到无新节点激活。
 
         Returns:
             set: 最终所有被激活的节点集合
@@ -96,11 +96,11 @@ class IndependentCascadeModel(BaseDiffusionModel):
         执行蒙特卡洛模拟扩散过程。
 
         Args:
-            mc_rounds (int): 蒙特卡洛模拟总轮数
-            update_counts (int, optional): 更新轮次数，适用于SI模型等需要限制传播轮次的模型
-            multi_process (bool): 是否启用多进程模式，默认为False
-            processes (int, optional): 多进程模式下的进程数，为None时使用CPU核心数
-            random_seed (int, optional): 模拟时的随机种子，默认为None（每次结果不同）
+            mc_rounds: 蒙特卡洛模拟总轮数。
+            update_counts: 更新轮次数，适用于SI模型等需要限制传播轮次的模型。
+            multi_process: 是否启用多进程模式，默认为False。
+            processes: 多进程模式下的进程数，为None时使用CPU核心数。
+            random_seed: 模拟时的随机种子，默认为None（每次结果不同）。
 
         Returns:
             float: 所有模拟轮次的平均激活节点数
@@ -116,7 +116,7 @@ class IndependentCascadeModel(BaseDiffusionModel):
         并重新设置初始种子节点状态。
 
         Args:
-            init_seeds (list, optional): 新的初始种子节点集合，若为None则使用原有种子集
+            init_seeds: 新的初始种子节点集合，若为None则使用原有种子集。
         """
         if init_seeds is None:
             init_seeds = self.init_seeds

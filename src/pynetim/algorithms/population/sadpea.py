@@ -697,5 +697,5 @@ class SADPEAAlgorithm(BasePopulationAlgorithm):
         seed_list = self._adaptive_simulated_annealing(budget, seed, pool_2_set)
         
         # 保存种子节点集合并返回
-        self.seeds = set(seed_list)
-        return self.seeds
+        self.seeds = seed_list
+        return set(seed_list)

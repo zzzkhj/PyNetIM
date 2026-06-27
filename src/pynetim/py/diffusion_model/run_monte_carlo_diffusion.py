@@ -10,10 +10,10 @@ def __simulate_multi_round(diffusion_model: BaseDiffusionModel, mc_rounds: int, 
     在单个进程中执行多轮蒙特卡洛模拟。
 
     Args:
-        diffusion_model (BaseDiffusionModel): 扩散模型实例
-        mc_rounds (int): 该进程需要执行的模拟轮数
-        update_counts (int, optional): 更新轮次数，适用于SI/SIR等模型
-        random_seed (int, optional): 随机种子的基础值，默认为None
+        diffusion_model: 扩散模型实例。
+        mc_rounds: 该进程需要执行的模拟轮数。
+        update_counts: 更新轮次数，适用于SI/SIR等模型。
+        random_seed: 随机种子的基础值，默认为None。
 
     Returns:
         float: 该进程所有模拟轮次的平均激活节点数
@@ -39,12 +39,12 @@ def run_monte_carlo_diffusion(
     执行蒙特卡洛模拟扩散过程，支持单进程和多进程模式。
 
     Args:
-        diffusion_model (BaseDiffusionModel): 扩散模型实例
-        mc_rounds (int): 蒙特卡洛模拟总轮数
-        update_counts (int, optional): 更新轮次数，适用于SI等模型
-        multi_process (bool, optional): 是否启用多进程模式，默认为False
-        processes (int, optional): 多进程模式下的进程数，为None时使用CPU核心数
-        random_seed (int, optional): 随机种子的基础值，默认为None
+        diffusion_model: 扩散模型实例。
+        mc_rounds: 蒙特卡洛模拟总轮数。
+        update_counts: 更新轮次数，适用于SI等模型。
+        multi_process: 是否启用多进程模式，默认为False。
+        processes: 多进程模式下的进程数，为None时使用CPU核心数。
+        random_seed: 随机种子的基础值，默认为None。
 
     Returns:
         float: 所有模拟轮次的平均激活节点数

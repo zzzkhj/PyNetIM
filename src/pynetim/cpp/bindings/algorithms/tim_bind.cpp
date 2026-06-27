@@ -6,6 +6,25 @@
 
 namespace py = pybind11;
 
+namespace {
+
+std::optional<int> resolve_random_seed_opt(py::object random_seed_obj) {
+    if (!random_seed_obj.is_none()) {
+        return py::cast<int>(random_seed_obj);
+    }
+    try {
+        py::module_ random_module = py::module_::import("pynetim.random");
+        py::object seed_obj = random_module.attr("get_random_seed")();
+        if (!seed_obj.is_none()) {
+            return py::cast<int>(seed_obj);
+        }
+    } catch (...) {
+    }
+    return std::nullopt;
+}
+
+}
+
 PYBIND11_MODULE(tim_algorithm, m) {
     m.doc() = "TIM/TIM+算法模块";
 
@@ -19,7 +38,7 @@ PYBIND11_MODULE(tim_algorithm, m) {
                          const std::string& model,
                          double epsilon,
                          int l,
-                         std::optional<int> random_seed,
+                         py::object random_seed_obj,
                          bool verbose) {
             std::shared_ptr<pynetim::Graph> graph_ptr;
             try {
@@ -27,7 +46,7 @@ PYBIND11_MODULE(tim_algorithm, m) {
             } catch (const py::cast_error&) {
                 throw py::type_error("TIMAlgorithm() 参数错误: graph 必须是 IMGraph 类型。\n用法: TIMAlgorithm(graph, model, epsilon=0.5, l=1, random_seed=None, verbose=False)");
             }
-            return std::make_shared<pynetim::TIMAlgorithm>(graph_ptr, model, epsilon, l, random_seed, verbose);
+            return std::make_shared<pynetim::TIMAlgorithm>(graph_ptr, model, epsilon, l, resolve_random_seed_opt(random_seed_obj), verbose);
         }),
             py::arg("graph"),
             py::arg("model"),
@@ -44,7 +63,7 @@ Args:
     model: 扩散模型，支持 'IC' 或 'LT'。
     epsilon: 近似参数ε，默认为 0.5。
     l: 失败概率参数，默认为 1。
-    random_seed: 随机种子，默认为 None（每次随机）。
+    random_seed: 随机种子，默认为 None（使用全局种子或随机）。
     verbose: 是否显示关键过程日志，默认为 False。
 )doc")
 
@@ -67,9 +86,9 @@ Returns:
                          const std::string& model,
                          double epsilon,
                          int l,
-                         std::optional<int> random_seed,
+                         py::object random_seed_obj,
                          bool verbose) {
-            return std::make_shared<pynetim::TIMPlusAlgorithm>(graph, model, epsilon, l, random_seed, verbose);
+            return std::make_shared<pynetim::TIMPlusAlgorithm>(graph, model, epsilon, l, resolve_random_seed_opt(random_seed_obj), verbose);
         }),
             py::arg("graph"),
             py::arg("model"),
@@ -88,7 +107,7 @@ Args:
     model: 扩散模型，支持 'IC' 或 'LT'。
     epsilon: 近似参数ε，默认为 0.5。
     l: 失败概率参数，默认为 1。
-    random_seed: 随机种子，默认为 None（每次随机）。
+    random_seed: 随机种子，默认为 None（使用全局种子或随机）。
     verbose: 是否显示关键过程日志，默认为 False。
 )doc")
 

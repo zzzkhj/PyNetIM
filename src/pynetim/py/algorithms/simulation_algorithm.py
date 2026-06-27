@@ -25,8 +25,8 @@ class GreedyAlgorithm(BaseAlgorithm):
         初始化贪婪算法实例。
 
         Args:
-            graph (IMGraph): 输入图对象
-            diffusion_model (BaseDiffusionModel): 影响传播模型类
+            graph: 输入图对象。
+            diffusion_model: 影响传播模型类。
         """
         super().__init__(graph, diffusion_model)
         self.diffusion_model_class = diffusion_model
@@ -36,12 +36,12 @@ class GreedyAlgorithm(BaseAlgorithm):
         运行贪婪算法选择影响力最大化种子节点。
 
         Args:
-            k (int): 种子节点数量
-            mc_rounds (int): 每次计算边际增益的蒙特卡洛模拟次数
-            multi_process (bool, optional): 是否启用多进程模式，默认为False
-            processes (int, optional): 多进程模式下的进程数，为None时使用默认值
-            show_progress (bool, optional): 是否显示进度条，默认为True
-            random_seed (int, optional): 随机数种子，默认为None（每次结果不同）
+            k: 种子节点数量。
+            mc_rounds: 每次计算边际增益的蒙特卡洛模拟次数。
+            multi_process: 是否启用多进程模式，默认为False。
+            processes: 多进程模式下的进程数，为None时使用默认值。
+            show_progress: 是否显示进度条，默认为True。
+            random_seed: 随机数种子，默认为None（每次结果不同）。
 
         Returns:
             list: 选择的种子节点列表
@@ -106,8 +106,8 @@ class CELFAlgorithm(BaseAlgorithm):
         初始化CELF算法实例。
 
         Args:
-            graph (IMGraph): 输入图对象
-            diffusion_model (BaseDiffusionModel): 影响传播模型类
+            graph: 输入图对象。
+            diffusion_model: 影响传播模型类。
         """
         super().__init__(graph, diffusion_model)
         self.diffusion_model_class = diffusion_model
@@ -117,12 +117,12 @@ class CELFAlgorithm(BaseAlgorithm):
         运行CELF算法选择影响力最大化种子节点。
 
         Args:
-            k (int): 种子节点数量
-            mc_rounds (int): 蒙特卡洛模拟次数
-            multi_process (bool, optional): 是否启用多进程模式，默认为False
-            processes (int, optional): 多进程模式下的进程数，为None时使用默认值
-            show_progress (bool, optional): 是否显示进度条，默认为True
-            random_seed (int, optional): 随机数种子，默认为None（每次结果不同）
+            k: 种子节点数量。
+            mc_rounds: 蒙特卡洛模拟次数。
+            multi_process: 是否启用多进程模式，默认为False。
+            processes: 多进程模式下的进程数，为None时使用默认值。
+            show_progress: 是否显示进度条，默认为True。
+            random_seed: 随机数种子，默认为None（每次结果不同）。
 
         Returns:
             list: 选择的种子节点列表

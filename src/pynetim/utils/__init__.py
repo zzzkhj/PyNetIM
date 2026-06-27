@@ -12,9 +12,6 @@ if TYPE_CHECKING:
     from ..graph import IMGraph
 
 from .graph_utils import (
-    generate_er_graph,
-    generate_ba_graph,
-    generate_ws_graph,
     compute_sir_beta,
     load_edgelist,
     save_edgelist,
@@ -22,7 +19,22 @@ from .graph_utils import (
     to_igraph,
     to_scipy_sparse,
     to_pyg,
+    from_networkx,
+    from_igraph,
+    from_scipy_sparse,
+    from_pyg,
 )
+
+try:
+    from ..graph.generators import (
+        generate_er_graph,
+        generate_ba_graph,
+        generate_ws_graph,
+    )
+except ImportError:
+    generate_er_graph = None
+    generate_ba_graph = None
+    generate_ws_graph = None
 
 try:
     from .rr_utils import sample_rr_set_ic, sample_rr_set_lt, generate_rr_sets
@@ -226,6 +238,10 @@ __all__ = [
     'to_igraph',
     'to_scipy_sparse',
     'to_pyg',
+    'from_networkx',
+    'from_igraph',
+    'from_scipy_sparse',
+    'from_pyg',
     'renumber_edges',
     'shortest_path_length',
     'all_pairs_shortest_path_length',

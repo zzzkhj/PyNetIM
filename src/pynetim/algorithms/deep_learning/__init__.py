@@ -29,4 +29,6 @@ try:
 except ImportError:
     BaseDLAlgorithm = None
 
-__all__ = ['BaseDLAlgorithm']
+from .iminfector import IMInfectorAlgorithm
+
+__all__ = ['BaseDLAlgorithm', 'IMInfectorAlgorithm']

@@ -70,7 +70,8 @@ class GreedyAlgorithm(BaseAlgorithm):
         if use_multithread and num_threads <= 0:
             raise ValueError("启用多线程时，线程数(num_threads)必须大于0")
         
-        seeds: Set[int] = set()
+        seeds_set: Set[int] = set()
+        seeds_list: List[int] = []
         nodes = set(range(self.graph.num_nodes))
 
         outer_pbar = tqdm(range(k), desc="选择种子节点", disable=not show_progress)
@@ -79,16 +80,16 @@ class GreedyAlgorithm(BaseAlgorithm):
             best_node = None
             best_gain = -1.0
 
-            node_list = list(nodes - seeds)
+            node_list = list(nodes - seeds_set)
             inner_pbar = tqdm(node_list, desc=f"评估候选节点({i+1}/{k})",
                              leave=False, disable=not show_progress)
 
             for node in inner_pbar:
-                model_with = self.diffusion_model(self.graph, seeds | {node})
+                model_with = self.diffusion_model(self.graph, seeds_set | {node})
                 avg_with = model_with.run_monte_carlo_diffusion(
                     mc_rounds, random_seed, use_multithread, num_threads)
                 
-                model_without = self.diffusion_model(self.graph, seeds)
+                model_without = self.diffusion_model(self.graph, seeds_set)
                 avg_without = model_without.run_monte_carlo_diffusion(
                     mc_rounds, random_seed, use_multithread, num_threads)
                 
@@ -101,12 +102,13 @@ class GreedyAlgorithm(BaseAlgorithm):
                 if show_progress:
                     inner_pbar.set_postfix({'当前最佳增益': f'{best_gain:.4f}'})
 
-            seeds.add(best_node)
+            seeds_set.add(best_node)
+            seeds_list.append(best_node)
             if show_progress:
                 outer_pbar.set_description(f"已选中节点: {best_node}")
 
-        self.seeds = seeds
-        return seeds
+        self.seeds = seeds_list
+        return set(seeds_list)
 
 
 class CELFPlusAlgorithm(BaseAlgorithm):
@@ -170,7 +172,8 @@ class CELFPlusAlgorithm(BaseAlgorithm):
         if use_multithread and num_threads <= 0:
             raise ValueError("启用多线程时，线程数(num_threads)必须大于0")
         
-        seeds: Set[int] = set()
+        seeds_set: Set[int] = set()
+        seeds_list: List[int] = []
         nodes = set(range(self.graph.num_nodes))
         
         mg1 = {}
@@ -208,38 +211,39 @@ class CELFPlusAlgorithm(BaseAlgorithm):
                 neg_gain, node, last_s_size, mg2_val = heapq.heappop(heap)
                 gain = -neg_gain
                 
-                if last_s_size == len(seeds):
-                    seeds.add(node)
+                if last_s_size == len(seeds_set):
+                    seeds_set.add(node)
+                    seeds_list.append(node)
                     if show_progress:
                         main_pbar.set_description(f"已选中节点: {node}")
                     
                     prev_best = None
                     max_mg1 = -1
                     for n, g in mg1.items():
-                        if n not in seeds and g > max_mg1:
+                        if n not in seeds_set and g > max_mg1:
                             max_mg1 = g
                             prev_best = n
                     break
                 else:
-                    if flag[node] == len(seeds):
+                    if flag[node] == len(seeds_set):
                         new_mg1 = mg2_val
                     else:
-                        model_with = self.diffusion_model(self.graph, seeds | {node})
+                        model_with = self.diffusion_model(self.graph, seeds_set | {node})
                         avg_with = model_with.run_monte_carlo_diffusion(
                             mc_rounds, random_seed, use_multithread, num_threads)
                         
-                        model_without = self.diffusion_model(self.graph, seeds)
+                        model_without = self.diffusion_model(self.graph, seeds_set)
                         avg_without = model_without.run_monte_carlo_diffusion(
                             mc_rounds, random_seed, use_multithread, num_threads)
                         
                         new_mg1 = avg_with - avg_without
                     
                     if prev_best is not None and prev_best != node:
-                        model_with = self.diffusion_model(self.graph, seeds | {prev_best, node})
+                        model_with = self.diffusion_model(self.graph, seeds_set | {prev_best, node})
                         avg_with = model_with.run_monte_carlo_diffusion(
                             mc_rounds, random_seed, use_multithread, num_threads)
                         
-                        model_without = self.diffusion_model(self.graph, seeds | {prev_best})
+                        model_without = self.diffusion_model(self.graph, seeds_set | {prev_best})
                         avg_without = model_without.run_monte_carlo_diffusion(
                             mc_rounds, random_seed, use_multithread, num_threads)
                         
@@ -249,12 +253,12 @@ class CELFPlusAlgorithm(BaseAlgorithm):
                     
                     mg1[node] = new_mg1
                     mg2[node] = new_mg2
-                    flag[node] = len(seeds)
+                    flag[node] = len(seeds_set)
                     
-                    heapq.heappush(heap, (-new_mg1, node, len(seeds), new_mg2))
+                    heapq.heappush(heap, (-new_mg1, node, len(seeds_set), new_mg2))
         
-        self.seeds = seeds
-        return seeds
+        self.seeds = seeds_list
+        return set(seeds_list)
 
 
 class CELFAlgorithm(BaseAlgorithm):
@@ -318,7 +322,8 @@ class CELFAlgorithm(BaseAlgorithm):
         if use_multithread and num_threads <= 0:
             raise ValueError("启用多线程时，线程数(num_threads)必须大于0")
         
-        seeds: Set[int] = set()
+        seeds_set: Set[int] = set()
+        seeds_list: List[int] = []
         nodes = set(range(self.graph.num_nodes))
         heap = []
 
@@ -338,22 +343,23 @@ class CELFAlgorithm(BaseAlgorithm):
             while True:
                 neg_gain, node, last_s_size = heapq.heappop(heap)
 
-                if last_s_size == len(seeds):
-                    seeds.add(node)
+                if last_s_size == len(seeds_set):
+                    seeds_set.add(node)
+                    seeds_list.append(node)
                     if show_progress:
                         main_pbar.set_description(f"已选中节点: {node}")
                     break
                 else:
-                    model_with = self.diffusion_model(self.graph, seeds | {node})
+                    model_with = self.diffusion_model(self.graph, seeds_set | {node})
                     avg_with = model_with.run_monte_carlo_diffusion(
                         mc_rounds, random_seed, use_multithread, num_threads)
                     
-                    model_without = self.diffusion_model(self.graph, seeds)
+                    model_without = self.diffusion_model(self.graph, seeds_set)
                     avg_without = model_without.run_monte_carlo_diffusion(
                         mc_rounds, random_seed, use_multithread, num_threads)
                     
                     marginal_gain = avg_with - avg_without
-                    heapq.heappush(heap, (-marginal_gain, node, len(seeds)))
+                    heapq.heappush(heap, (-marginal_gain, node, len(seeds_set)))
 
-        self.seeds = seeds
-        return seeds
+        self.seeds = seeds_list
+        return set(seeds_list)

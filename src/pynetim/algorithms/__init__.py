@@ -12,6 +12,11 @@ from .heuristic import (
     SingleDiscountAlgorithm,
     DegreeDiscountAlgorithm,
 )
+
+try:
+    from .heuristic import GATSHAlgorithm
+except ImportError:
+    GATSHAlgorithm = None
 from .simulation import GreedyAlgorithm, CELFAlgorithm, CELFPlusAlgorithm
 from .ris import BaseRISAlgorithm, IMMAlgorithm, TIMAlgorithm, TIMPlusAlgorithm, OPIMAlgorithm, OPIMCAlgorithm
 
@@ -45,12 +50,14 @@ except ImportError:
     S2VDQNTrainer = None
     IMEnvironment = None
 
+from .deep_learning import IMInfectorAlgorithm
+
 try:
     from .deep_learning import BaseDLAlgorithm
 except ImportError:
     BaseDLAlgorithm = None
 
-if not _DEEP_ALGORITHMS_AVAILABLE or RLSetGWOAlgorithm is None or BaseDLAlgorithm is None:
+if not _DEEP_ALGORITHMS_AVAILABLE or RLSetGWOAlgorithm is None or BaseDLAlgorithm is None or GATSHAlgorithm is None:
     _missing = []
     if RLSetGWOAlgorithm is None:
         _missing.append("RLSetGWOAlgorithm")
@@ -61,6 +68,8 @@ if not _DEEP_ALGORITHMS_AVAILABLE or RLSetGWOAlgorithm is None or BaseDLAlgorith
         ])
     if BaseDLAlgorithm is None:
         _missing.append("BaseDLAlgorithm")
+    if GATSHAlgorithm is None:
+        _missing.append("GATSHAlgorithm")
     warnings.warn(
         f"以下算法需要 torch 等依赖但不可用: {', '.join(_missing)}\n"
         "请使用 'pip install pynetim[deep-learning]' 安装。",
@@ -72,6 +81,8 @@ __all__ = [
     'BasePopulationAlgorithm',
     'BaseRLAlgorithm',
     'BaseDRLAlgorithm',
+    'BaseDLAlgorithm',
+    'GATSHAlgorithm',
     'CoreQAlgorithm',
     'TCQAlgorithm',
     'RLSetGWOAlgorithm',
@@ -103,4 +114,5 @@ __all__ = [
     'TIMPlusAlgorithm',
     'OPIMAlgorithm',
     'OPIMCAlgorithm',
+    'IMInfectorAlgorithm',
 ]

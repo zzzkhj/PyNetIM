@@ -21,9 +21,9 @@ class BaseDiffusionModel:
         初始化扩散模型基类。
 
         Args:
-            graph (IMGraph): 定义了节点和边的网络结构
-            init_seeds (list): 初始激活的节点集合
-            record_states (bool): 控制是否记录每一步的状态，默认为False
+            graph: 定义了节点和边的网络结构。
+            init_seeds: 初始激活的节点集合。
+            record_states: 控制是否记录每一步的状态，默认为False。
         """
         self.graph = graph
         self.init_seeds = init_seeds.copy()
@@ -54,7 +54,7 @@ class BaseDiffusionModel:
         子类必须实现此方法来定义从开始到结束的完整传播流程。
 
         Args:
-            update_counts (int, optional): 更新次数，控制扩散迭代的轮数
+            update_counts: 更新次数，控制扩散迭代的轮数。
 
         Returns:
             扩散结果，具体类型由子类定义
@@ -69,9 +69,9 @@ class BaseDiffusionModel:
         执行蒙特卡洛模拟扩散过程。
 
         Args:
-            round (int): 模拟的轮数
-            multi_process (bool): 指示是否使用多进程进行模拟
-            processes (int, optional): 多进程的进程数，默认为None，表示使用CPU核数
+            round: 模拟的轮数。
+            multi_process: 指示是否使用多进程进行模拟。
+            processes: 多进程的进程数，默认为None，表示使用CPU核数。
 
         Returns:
             模拟结果，具体类型由子类定义
@@ -89,7 +89,7 @@ class BaseDiffusionModel:
         并重新设置初始种子节点状态。
 
         Args:
-            init_seeds (list, optional): 新的初始种子节点集合，若为None则使用原有种子集
+            init_seeds: 新的初始种子节点集合，若为None则使用原有种子集。
         """
         if init_seeds is None:
             init_seeds = self.init_seeds

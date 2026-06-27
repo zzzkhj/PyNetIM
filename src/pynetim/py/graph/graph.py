@@ -25,9 +25,9 @@ class IMGraphPy:
         初始化IMGraph实例。
 
         Args:
-            graph (Graph | DiGraph): networkx图对象，可以是有向图或无向图
-            edge_weight_type (str): 边权重类型，支持' CONSTANT '、' TV '、' WC '等模式
-            constant_weight (float, optional): 当使用常量权重模式时的权重值
+            graph: networkx图对象，可以是有向图或无向图。
+            edge_weight_type: 边权重类型，支持' CONSTANT '、' TV '、' WC '等模式。
+            constant_weight: 当使用常量权重模式时的权重值。
         """
         self.nx_graph = graph
         self.direction = graph.is_directed()

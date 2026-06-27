@@ -22,9 +22,8 @@ class BaseAlgorithm:
         初始化算法基类。
 
         Args:
-            graph (IMGraph): 输入图对象
-            diffusion_model (str | BaseDiffusionModel, optional): 扩散模型，支持'IC'或'LT'字符串，
-                                                                 或直接传入扩散模型实例，默认为None
+            graph: 输入图对象。
+            diffusion_model: 扩散模型，支持'IC'或'LT'字符串，或直接传入扩散模型实例，默认为None。
         """
         self.graph = graph
         self.seeds = []

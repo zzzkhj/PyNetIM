@@ -4,6 +4,25 @@
 
 namespace py = pybind11;
 
+namespace {
+
+std::pair<bool, unsigned int> resolve_random_seed(py::object random_seed_obj) {
+    if (!random_seed_obj.is_none()) {
+        return {false, py::cast<unsigned int>(random_seed_obj)};
+    }
+    try {
+        py::module_ random_module = py::module_::import("pynetim.random");
+        py::object seed_obj = random_module.attr("get_random_seed")();
+        if (!seed_obj.is_none()) {
+            return {false, py::cast<unsigned int>(seed_obj)};
+        }
+    } catch (...) {
+    }
+    return {true, 0};
+}
+
+}
+
 PYBIND11_MODULE(linear_threshold_model, m) {
     m.doc() = "线性阈值模型（LT），用于社交网络影响力传播模拟";
 
@@ -67,8 +86,7 @@ Args:
 
             .def("run_single_simulation",
                 [](pynetim::LinearThresholdModel& self, py::object random_seed_obj) {
-                    bool use_random_seed = random_seed_obj.is_none();
-                    unsigned int random_seed = use_random_seed ? 0 : py::cast<unsigned int>(random_seed_obj);
+                    auto [use_random_seed, random_seed] = resolve_random_seed(random_seed_obj);
                     return self.run_single_simulation(use_random_seed, random_seed);
                 },
                 py::arg("random_seed") = py::none(),
@@ -77,7 +95,7 @@ Args:
 执行单次传播模拟。
 
 Args:
-    random_seed: 随机种子，用于结果可重现。若为 None 则使用真随机种子。
+    random_seed: 随机种子，用于结果可重现。若为 None 则使用全局种子（已设置时）或真随机种子。
 
 Returns:
     int: 本次模拟激活的节点数。
@@ -108,8 +126,7 @@ Returns:
                     if (use_multithread && num_threads <= 0) {
                         throw std::invalid_argument("启用多线程时，线程数(num_threads)必须大于0");
                     }
-                    bool use_random_seed = random_seed_obj.is_none();
-                    unsigned int random_seed = use_random_seed ? 0 : py::cast<unsigned int>(random_seed_obj);
+                    auto [use_random_seed, random_seed] = resolve_random_seed(random_seed_obj);
                     return self.run_monte_carlo_diffusion(mc_rounds, use_random_seed, random_seed, use_multithread, num_threads, normalize);
                 },
                 py::arg("mc_rounds"),
@@ -123,7 +140,7 @@ Returns:
 
 Args:
     mc_rounds: 蒙特卡洛模拟次数，建议 1000-10000 次。
-    random_seed: 随机种子，用于结果可重现。若为 None 则使用真随机种子。
+    random_seed: 随机种子，用于结果可重现。若为 None 则使用全局种子（已设置时）或真随机种子。
     use_multithread: 是否启用多线程，默认为 False。
     num_threads: 线程数，当 use_multithread=True 时必须大于 0。
     normalize: 是否将结果归一化（除以图节点数），默认为 False。

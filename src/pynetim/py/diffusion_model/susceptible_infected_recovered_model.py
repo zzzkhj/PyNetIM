@@ -14,7 +14,7 @@ class SusceptibleInfectedRecoveredModel(BaseDiffusionModel):
     节点有三种状态：易感(S)、感染(I)和康复(R)。
     易感节点可被感染节点感染，感染节点可以康复为免疫状态。
 
-    参考文献:
+    References:
         - Kermack, W. O., & McKendrick, A. G. (1927). "A contribution to the mathematical theory of epidemics."
           Proceedings of the Royal Society of London. Series A, 115(772), 700-721.
           DOI: 10.1098/rspa.1927.0118
@@ -37,11 +37,11 @@ class SusceptibleInfectedRecoveredModel(BaseDiffusionModel):
         初始化SIR模型。
 
         Args:
-            graph (IMGraph): 定义了节点和边的网络结构
-            init_seeds (list): 初始感染的节点集合
-            gamma (float): 康复率，每个时间步感染节点康复的概率
-            beta (float, optional): 感染率，如果为None则使用基于图结构计算的感染阈值
-            record_states (bool): 控制是否记录每一步的状态，默认为False
+            graph: 定义了节点和边的网络结构。
+            init_seeds: 初始感染的节点集合。
+            gamma: 康复率，每个时间步感染节点康复的概率。
+            beta: 感染率，如果为None则使用基于图结构计算的感染阈值。
+            record_states: 控制是否记录每一步的状态，默认为False。
         """
         super(SusceptibleInfectedRecoveredModel, self).__init__(graph, init_seeds, record_states)
         self.infected_nodes = set(init_seeds)
@@ -97,7 +97,7 @@ class SusceptibleInfectedRecoveredModel(BaseDiffusionModel):
         进行指定轮次的传播更新，直到达到最大轮次或没有新的节点被感染。
 
         Args:
-            update_counts (int, optional): 最大更新轮次数。如果为None则持续传播直到无新节点感染
+            update_counts: 最大更新轮次数。如果为None则持续传播直到无新节点感染。
 
         Returns:
             dict: 包含最终各状态节点集合的字典
@@ -124,11 +124,11 @@ class SusceptibleInfectedRecoveredModel(BaseDiffusionModel):
         执行蒙特卡洛模拟扩散过程。
 
         Args:
-            mc_rounds (int): 蒙特卡洛模拟总轮数
-            update_counts (int, optional): 更新轮次数，适用于SI模型等需要限制传播轮次的模型
-            multi_process (bool): 是否启用多进程模式，默认为False
-            processes (int, optional): 多进程模式下的进程数，为None时使用CPU核心数
-            random_seed (int, optional): 随机种子，默认为None（每次结果不同）
+            mc_rounds: 蒙特卡洛模拟总轮数。
+            update_counts: 更新轮次数，适用于SI模型等需要限制传播轮次的模型。
+            multi_process: 是否启用多进程模式，默认为False。
+            processes: 多进程模式下的进程数，为None时使用CPU核心数。
+            random_seed: 随机种子，默认为None（每次结果不同）。
 
         Returns:
             float: 所有模拟轮次的平均激活节点数
@@ -144,7 +144,7 @@ class SusceptibleInfectedRecoveredModel(BaseDiffusionModel):
         并重新设置初始感染节点状态。
 
         Args:
-            init_seeds (list, optional): 新的初始感染节点集合，若为None则使用原有种子集
+            init_seeds: 新的初始感染节点集合，若为None则使用原有种子集。
         """
         if init_seeds is None:
             init_seeds = self.init_seeds

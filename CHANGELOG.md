@@ -10,6 +10,7 @@
 
 | 版本                            | 发布日期       | 主要更新                           |
 | ----------------------------- | ---------- | ------------------------------ |
+| [v0.5.5](changelog/v0.5.5.md) | 2026-05-01 | 图嵌入模块、GATSH算法、全局随机种子控制、启发式模块重构、文档风格统一 |
 | [v0.5.4](changelog/v0.5.4.md) | 2026-04-28 | 图分解函数、随机图生成、CoreQ/TCQ算法、种群优化算法 |
 | [v0.5.3](changelog/v0.5.3.md) | 2026-04-16 | 跨平台编译修复、C++17 兼容性、深度学习模块重构     |
 | [v0.5.2](changelog/v0.5.2.md) | 2026-04-16 | 深度学习算法模块、训练框架、pybind 签名文档修复    |
@@ -26,6 +27,66 @@
 ***
 
 ## 最新版本
+
+### \[v0.5.5] - 2026-05-01
+
+**新增模块**:
+
+- 图嵌入模块 (`pynetim.embedding`)
+  - Node2Vec: 有偏随机游走图嵌入算法 (KDD 2016)
+  - DeepWalk: 均匀随机游走图嵌入算法 (KDD 2014)
+  - 支持 gensim 和 pytorch 两种训练后端
+- 全局随机种子控制 (`pynetim.random`)
+  - 同时控制 Python random、NumPy、PyTorch 和 C++ 模块
+  - 类似 `numpy.random.seed()` 的使用方式
+  - 确保实验可复现
+
+**新增算法**:
+
+- GATSHAlgorithm: 基于图注意力网络和结构洞的启发式算法 (ICETIS 2024)
+
+**模块重构**:
+
+- 启发式算法模块按类型分类:
+  - `centrality.py`: 中心性算法 (Degree, PageRank, K-shell, Betweenness, Closeness, Eigenvector)
+  - `discount.py`: 折扣算法 (SingleDiscount, DegreeDiscount)
+  - `vote.py`: 投票算法 (VoteRank)
+  - `gatsh.py`: GNN相关算法 (GATSH)
+
+**文档改进**:
+
+- 统一所有文档注释为 Google 风格
+- 参数注释格式统一（移除括号类型标注）
+- 返回值、示例、参考文献格式统一
+- 移除 NumPy 风格分割线
+- 补充缺失的 Attributes 部分
+
+**新增功能**:
+
+- 全局随机种子控制
+  - `pynetim.random.seed()`: 设置 C++ 模块全局种子
+  - `pynetim.random.clear_seed()`: 清除全局种子
+  - `pynetim.random.get_random_seed()`: 获取当前种子
+  - `pynetim.random.has_seed()`: 检查是否已设置
+  - 仅控制 C++ 扩散模型和 RIS 算法，不干预 Python 随机状态
+- 双向图转换工具函数
+  - `from_networkx()`: networkx → IMGraph
+  - `from_igraph()`: igraph → IMGraph
+  - `from_scipy_sparse()`: scipy 稀疏矩阵 → IMGraph
+  - `from_pyg()`: PyTorch Geometric → IMGraph
+
+**改进**:
+
+- 移除 generators.py 中重复的 import 语句
+- 图生成函数返回时设置 `renumber=False`
+- 修复 utils/__init__.py 中 generate_* 函数的导入路径问题
+- 移除 RL 模块中硬编码的随机种子
+- **随机种子控制精简**: `pynetim.random` 仅控制 C++ 模块，不再干预 Python 随机状态
+- **种子集保留顺序**: 新增 `get_seeds_ordered()` 方法，`self.seeds` 改为有序列表
+- **ToupleGDD 修复**: 修复 `_init_state()` 设备不一致问题
+- **ToupleGDD / S2V-DQN 性能优化**: 缓存图结构，迭代推理时避免重复重建 edge_index/edge_weight/edge_attr
+
+👉 [查看完整更新内容](changelog/v0.5.5.md)
 
 ### \[v0.5.4] - 2026-04-28
 
@@ -255,4 +316,4 @@ PyNetIM 遵循 [语义化版本控制](https://semver.org/) (Semantic Versioning
 
 ***
 
-**最后更新**: 2026-04-28
+**最后更新**: 2026-06-28

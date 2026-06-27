@@ -17,10 +17,6 @@ from .environment import IMEnvironment
 if TYPE_CHECKING:
     from ....graph import IMGraph
 
-random.seed(123)
-np.random.seed(123)
-torch.manual_seed(123)
-
 Transition = namedtuple('Transition', ('state', 'action', 'next_state', 'reward', 'graph'))
 
 

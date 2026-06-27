@@ -6,9 +6,6 @@ import numpy as np
 if TYPE_CHECKING:
     from .....graph import IMGraph
 
-random.seed(123)
-np.random.seed(123)
-
 
 class GraphEnvironment:
     """BiGDN 强化学习环境（内部使用，不向外导出）。

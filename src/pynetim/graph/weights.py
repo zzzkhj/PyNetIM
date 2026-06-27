@@ -31,7 +31,7 @@ def set_edge_weights(
     Raises:
         ValueError: 参数无效时抛出。
 
-    Examples:
+    Example:
         >>> from pynetim.graph import generate_er_graph, set_edge_weights
         >>> g = generate_er_graph(n=100, p=0.1)
         >>> set_edge_weights(g, "const", const_value=0.1)
@@ -66,7 +66,7 @@ def set_const_weights(graph: "IMGraph", value: float) -> None:
     Raises:
         ValueError: 权重值不在 (0, 1] 范围内时抛出。
 
-    Examples:
+    Example:
         >>> from pynetim.graph import generate_er_graph, set_const_weights
         >>> g = generate_er_graph(n=100, p=0.1)
         >>> set_const_weights(g, value=0.1)
@@ -88,7 +88,7 @@ def set_tv_weights(graph: "IMGraph", values: List[float]) -> None:
     Raises:
         ValueError: 权重值列表为空或权重值不在 (0, 1] 范围内时抛出。
 
-    Examples:
+    Example:
         >>> from pynetim.graph import generate_er_graph, set_tv_weights
         >>> g = generate_er_graph(n=100, p=0.1)
         >>> set_tv_weights(g, values=[0.001, 0.01, 0.1])
@@ -116,7 +116,7 @@ def set_uniform_weights(graph: "IMGraph", low: float, high: float) -> None:
     Raises:
         ValueError: 参数无效时抛出。
 
-    Examples:
+    Example:
         >>> from pynetim.graph import generate_er_graph, set_uniform_weights
         >>> g = generate_er_graph(n=100, p=0.1)
         >>> set_uniform_weights(g, low=0.01, high=0.5)
@@ -141,7 +141,7 @@ def set_wc_weights(graph: "IMGraph") -> None:
     Args:
         graph: 图对象。
 
-    Examples:
+    Example:
         >>> from pynetim.graph import generate_er_graph, set_wc_weights
         >>> g = generate_er_graph(n=100, p=0.1)
         >>> set_wc_weights(g)
@@ -166,7 +166,7 @@ def set_edge_weights_dict(
     Raises:
         ValueError: 权重值无效或边不存在时抛出。
 
-    Examples:
+    Example:
         >>> from pynetim.graph import generate_er_graph, set_edge_weights_dict
         >>> g = generate_er_graph(n=10, p=0.5, random_seed=42)
         >>> weights = {(0, 1): 0.1, (1, 2): 0.2, (2, 3): 0.3}

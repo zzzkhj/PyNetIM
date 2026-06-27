@@ -1,8 +1,7 @@
 import random
-from typing import Optional, TYPE_CHECKING
+from typing import Optional
 
-if TYPE_CHECKING:
-    from .graph import IMGraph
+from .graph import IMGraph
 
 
 def generate_er_graph(
@@ -15,35 +14,24 @@ def generate_er_graph(
 
     每对节点之间以概率 p 连接一条边。
 
-    Parameters
-    ----------
-    n : int
-        节点数量。
-    p : float
-        边连接概率，取值范围 [0, 1]。
-    directed : bool, optional
-        是否有向图，默认 True。
-    random_seed : int, optional
-        随机种子，用于可重复性。
+    Args:
+        n: 节点数量。
+        p: 边连接概率，取值范围 [0, 1]。
+        directed: 是否有向图，默认 True。
+        random_seed: 随机种子，用于可重复性。
 
-    Returns
-    -------
-    IMGraph
-        生成的随机图。
+    Returns:
+        IMGraph: 生成的随机图。
 
-    References
-    ----------
-    Erdős, P., & Rényi, A. (1959). On random graphs I.
-    Publicationes Mathematicae, 6, 290-297.
+    References:
+        Erdős, P., & Rényi, A. (1959). On random graphs I.
+        Publicationes Mathematicae, 6, 290-297.
 
-    Examples
-    --------
-    >>> from pynetim.graph import generate_er_graph
-    >>> g = generate_er_graph(n=100, p=0.1, random_seed=42)
-    >>> print(f"节点数: {g.num_nodes}, 边数: {g.num_edges}")
+    Example:
+        >>> from pynetim.graph import generate_er_graph
+        >>> g = generate_er_graph(n=100, p=0.1, random_seed=42)
+        >>> print(f"节点数: {g.num_nodes}, 边数: {g.num_edges}")
     """
-    from .graph import IMGraph
-
     if random_seed is not None:
         random.seed(random_seed)
 
@@ -63,7 +51,7 @@ def generate_er_graph(
                 if random.random() < p:
                     edges.append((u, v))
 
-    return IMGraph(edges=edges, directed=directed)
+    return IMGraph(edges=edges, directed=directed, renumber=False)
 
 
 def generate_ba_graph(
@@ -76,35 +64,24 @@ def generate_ba_graph(
 
     通过优先连接机制生成具有幂律度分布的网络。
 
-    Parameters
-    ----------
-    n : int
-        最终节点数量。
-    m : int
-        每个新节点连接的边数，必须小于 n。
-    directed : bool, optional
-        是否有向图，默认 True。
-    random_seed : int, optional
-        随机种子，用于可重复性。
+    Args:
+        n: 最终节点数量。
+        m: 每个新节点连接的边数，必须小于 n。
+        directed: 是否有向图，默认 True。
+        random_seed: 随机种子，用于可重复性。
 
-    Returns
-    -------
-    IMGraph
-        生成的无标度网络。
+    Returns:
+        IMGraph: 生成的无标度网络。
 
-    References
-    ----------
-    Barabási, A. L., & Albert, R. (1999). Emergence of scaling in random networks.
-    Science, 286(5439), 509-512.
+    References:
+        Barabási, A. L., & Albert, R. (1999). Emergence of scaling in random networks.
+        Science, 286(5439), 509-512.
 
-    Examples
-    --------
-    >>> from pynetim.graph import generate_ba_graph
-    >>> g = generate_ba_graph(n=100, m=3, random_seed=42)
-    >>> print(f"节点数: {g.num_nodes}, 边数: {g.num_edges}")
+    Example:
+        >>> from pynetim.graph import generate_ba_graph
+        >>> g = generate_ba_graph(n=100, m=3, random_seed=42)
+        >>> print(f"节点数: {g.num_nodes}, 边数: {g.num_edges}")
     """
-    from .graph import IMGraph
-
     if random_seed is not None:
         random.seed(random_seed)
 
@@ -140,7 +117,7 @@ def generate_ba_graph(
             degrees[v] += 1
             total_degree += 2
 
-    return IMGraph(edges=edges, directed=directed)
+    return IMGraph(edges=edges, directed=directed, renumber=False)
 
 
 def generate_ws_graph(
@@ -154,40 +131,28 @@ def generate_ws_graph(
 
     从环形规则网络开始，以概率 beta 重连边。
 
-    Parameters
-    ----------
-    n : int
-        节点数量。
-    k : int
-        每个节点连接的邻居数（必须是偶数）。
-    beta : float
-        重连概率，取值范围 [0, 1]。
-        - beta=0: 规则网络
-        - beta=1: 随机网络
-        - beta~0.1: 小世界网络
-    directed : bool, optional
-        是否有向图，默认 True。
-    random_seed : int, optional
-        随机种子，用于可重复性。
+    Args:
+        n: 节点数量。
+        k: 每个节点连接的邻居数（必须是偶数）。
+        beta: 重连概率，取值范围 [0, 1]。
+            - beta=0: 规则网络
+            - beta=1: 随机网络
+            - beta~0.1: 小世界网络
+        directed: 是否有向图，默认 True。
+        random_seed: 随机种子，用于可重复性。
 
-    Returns
-    -------
-    IMGraph
-        生成的小世界网络。
+    Returns:
+        IMGraph: 生成的小世界网络。
 
-    References
-    ----------
-    Watts, D. J., & Strogatz, S. H. (1998). Collective dynamics of 'small-world' networks.
-    Nature, 393(6684), 440-442.
+    References:
+        Watts, D. J., & Strogatz, S. H. (1998). Collective dynamics of 'small-world' networks.
+        Nature, 393(6684), 440-442.
 
-    Examples
-    --------
-    >>> from pynetim.graph import generate_ws_graph
-    >>> g = generate_ws_graph(n=100, k=4, beta=0.1, random_seed=42)
-    >>> print(f"节点数: {g.num_nodes}, 边数: {g.num_edges}")
+    Example:
+        >>> from pynetim.graph import generate_ws_graph
+        >>> g = generate_ws_graph(n=100, k=4, beta=0.1, random_seed=42)
+        >>> print(f"节点数: {g.num_nodes}, 边数: {g.num_edges}")
     """
-    from .graph import IMGraph
-
     if random_seed is not None:
         random.seed(random_seed)
 
@@ -217,4 +182,4 @@ def generate_ws_graph(
                 new_v = random.choice([x for x in range(n) if x != u and (u, x) not in edges])
                 edges.append((u, new_v))
 
-    return IMGraph(edges=edges, directed=directed)
+    return IMGraph(edges=edges, directed=directed, renumber=False)

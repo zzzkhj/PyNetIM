@@ -1,14 +1,30 @@
-from .heuristic_algorithm import (
+"""启发式影响力最大化算法模块。
+
+包含多种基于中心性和折扣的启发式算法。
+"""
+
+from .centrality import (
     DegreeCentralityAlgorithm,
     PageRankAlgorithm,
-    VoteRankAlgorithm,
     KShellDecompositionAlgorithm,
     BetweennessCentralityAlgorithm,
     ClosenessCentralityAlgorithm,
     EigenvectorCentralityAlgorithm,
+)
+
+from .discount import (
     SingleDiscountAlgorithm,
     DegreeDiscountAlgorithm,
 )
+
+from .vote import (
+    VoteRankAlgorithm,
+)
+
+try:
+    from .gatsh import GATSHAlgorithm
+except ImportError:
+    GATSHAlgorithm = None
 
 __all__ = [
     'DegreeCentralityAlgorithm',
@@ -20,4 +36,5 @@ __all__ = [
     'EigenvectorCentralityAlgorithm',
     'SingleDiscountAlgorithm',
     'DegreeDiscountAlgorithm',
+    'GATSHAlgorithm',
 ]

@@ -1,13 +1,11 @@
 import re
 from pathlib import Path
-from typing import Union, Optional, Tuple, TYPE_CHECKING
+from typing import Union, Optional, Tuple
 
 import numpy as np
 
-if TYPE_CHECKING:
-    from pynetim.graph import IMGraph
+from pynetim.graph import IMGraph
 
-from pynetim.graph import generate_er_graph, generate_ba_graph, generate_ws_graph
 
 
 def compute_sir_beta(
@@ -29,34 +27,26 @@ def compute_sir_beta(
         - γ: 恢复率
         - c: 调节系数
 
-    Parameters
-    ----------
-    graph : IMGraph
-        图对象。
-    gamma : float, optional
-        恢复率，默认 0.1。
-    c : float, optional
-        调节系数，默认 1.3。
-        - c < 1: 不爆发
-        - c = 1: 临界状态
-        - c > 1: 爆发
+    Args:
+        graph: 图对象。
+        gamma: 恢复率，默认 0.1。
+        c: 调节系数，默认 1.3。
+            - c < 1: 不爆发
+            - c = 1: 临界状态
+            - c > 1: 爆发
 
-    Returns
-    -------
-    tuple[float, float]
-        (beta, beta_c): 感染率和临界感染率。
+    Returns:
+        tuple[float, float]: (beta, beta_c): 感染率和临界感染率。
 
-    References
-    ----------
-    Pastor-Satorras, R., Castellano, C., Van Mieghem, P., & Vespignani, A. (2015).
-    Epidemic processes in complex networks. Reviews of Modern Physics, 87(3), 925.
+    References:
+        Pastor-Satorras, R., Castellano, C., Van Mieghem, P., & Vespignani, A. (2015).
+        Epidemic processes in complex networks. Reviews of Modern Physics, 87(3), 925.
 
-    Examples
-    --------
-    >>> from pynetim.utils import generate_er_graph, compute_sir_beta
-    >>> g = generate_er_graph(n=100, p=0.1, random_seed=42)
-    >>> beta, beta_c = compute_sir_beta(g, gamma=0.1, c=1.3)
-    >>> print(f"感染率: {beta:.4f}, 临界感染率: {beta_c:.4f}")
+    Example:
+        >>> from pynetim.utils import generate_er_graph, compute_sir_beta
+        >>> g = generate_er_graph(n=100, p=0.1, random_seed=42)
+        >>> beta, beta_c = compute_sir_beta(g, gamma=0.1, c=1.3)
+        >>> print(f"感染率: {beta:.4f}, 临界感染率: {beta_c:.4f}")
     """
     degrees = np.array(graph.batch_out_degree(list(range(graph.num_nodes))))
 
@@ -85,39 +75,28 @@ def load_edgelist(
     文件格式：每行 u v [weight]，分隔符支持空格/制表符/逗号。
     第三列可选，默认权重为 1.0。
     
-    Parameters
-    ----------
-    filepath : str or Path
-        边列表文件路径
-    directed : bool, optional
-        是否有向图，默认 True
-    renumber : bool, optional
-        是否重编号节点为连续整数，默认 False
-    comment : str, optional
-        注释行前缀，如 '#' 或 '%'，默认 None
-    skip_lines : int, optional
-        跳过文件开头的行数，默认 0
+    Args:
+        filepath: 边列表文件路径。
+        directed: 是否有向图，默认 True。
+        renumber: 是否重编号节点为连续整数，默认 False。
+        comment: 注释行前缀，如 '#' 或 '%'，默认 None。
+        skip_lines: 跳过文件开头的行数，默认 0。
     
-    Returns
-    -------
-    IMGraph
-        构造的图对象
+    Returns:
+        IMGraph: 构造的图对象。
     
-    Examples
-    --------
-    文件内容 (edges.txt):
-    0 1 0.5
-    1 2 0.8
-    2 3
-    
-    >>> g = load_edgelist("edges.txt")
-    >>> g.num_nodes
-    4
-    >>> g.num_edges
-    3
+    Example:
+        文件内容 (edges.txt):
+        0 1 0.5
+        1 2 0.8
+        2 3
+
+        >>> g = load_edgelist("edges.txt")
+        >>> g.num_nodes
+        4
+        >>> g.num_edges
+        3
     """
-    from pynetim.graph import IMGraph
-    
     filepath = Path(filepath)
     if not filepath.exists():
         raise FileNotFoundError(f"文件不存在: {filepath}")
@@ -167,21 +146,15 @@ def save_edgelist(
     """
     将 IMGraph 保存为边列表文件。
     
-    Parameters
-    ----------
-    graph : IMGraph
-        图对象
-    filepath : str or Path
-        输出文件路径
-    delimiter : str, optional
-        分隔符，默认制表符
-    include_weight : bool, optional
-        是否包含权重列，默认 True
+    Args:
+        graph: 图对象。
+        filepath: 输出文件路径。
+        delimiter: 分隔符，默认制表符。
+        include_weight: 是否包含权重列，默认 True。
     
-    Examples
-    --------
-    >>> g = IMGraph(edges=[(0, 1), (1, 2)], weights=[0.5, 0.8])
-    >>> save_edgelist(g, "output.txt")
+    Example:
+        >>> g = IMGraph(edges=[(0, 1), (1, 2)], weights=[0.5, 0.8])
+        >>> save_edgelist(g, "output.txt")
     """
     filepath = Path(filepath)
     filepath.parent.mkdir(parents=True, exist_ok=True)
@@ -199,22 +172,17 @@ def to_networkx(graph: "IMGraph"):
     """
     将 IMGraph 转换为 networkx.DiGraph 或 networkx.Graph。
     
-    Parameters
-    ----------
-    graph : IMGraph
-        图对象
+    Args:
+        graph: 图对象。
     
-    Returns
-    -------
-    networkx.DiGraph 或 networkx.Graph
-        取决于原图是否有向
+    Returns:
+        networkx.DiGraph 或 networkx.Graph: 取决于原图是否有向。
     
-    Examples
-    --------
-    >>> g = IMGraph(edges=[(0, 1), (1, 2)], directed=True)
-    >>> nx_g = to_networkx(g)
-    >>> nx_g.number_of_nodes()
-    3
+    Example:
+        >>> g = IMGraph(edges=[(0, 1), (1, 2)], directed=True)
+        >>> nx_g = to_networkx(g)
+        >>> nx_g.number_of_nodes()
+        3
     """
     import networkx as nx
     
@@ -238,22 +206,17 @@ def to_igraph(graph: "IMGraph"):
     """
     将 IMGraph 转换为 igraph.Graph。
     
-    Parameters
-    ----------
-    graph : IMGraph
-        图对象
+    Args:
+        graph: 图对象。
     
-    Returns
-    -------
-    igraph.Graph
-        igraph 图对象，边权重存储在 'weight' 属性中
+    Returns:
+        igraph.Graph: igraph 图对象，边权重存储在 'weight' 属性中。
     
-    Examples
-    --------
-    >>> g = IMGraph(edges=[(0, 1), (1, 2)], directed=True)
-    >>> ig_g = to_igraph(g)
-    >>> ig_g.vcount()
-    3
+    Example:
+        >>> g = IMGraph(edges=[(0, 1), (1, 2)], directed=True)
+        >>> ig_g = to_igraph(g)
+        >>> ig_g.vcount()
+        3
     """
     import igraph as ig
     
@@ -277,26 +240,20 @@ def to_scipy_sparse(graph: "IMGraph", format: str = "csr"):
     """
     将 IMGraph 转换为 scipy 稀疏矩阵。
     
-    Parameters
-    ----------
-    graph : IMGraph
-        图对象
-    format : str, optional
-        稀疏矩阵格式，可选 'csr', 'csc', 'coo', 'lil', 'dok'，默认 'csr'
+    Args:
+        graph: 图对象。
+        format: 稀疏矩阵格式，可选 'csr', 'csc', 'coo', 'lil', 'dok'，默认 'csr'。
     
-    Returns
-    -------
-    scipy.sparse.spmatrix
-        稀疏邻接矩阵，matrix[i, j] 表示边 (i, j) 的权重
+    Returns:
+        scipy.sparse.spmatrix: 稀疏邻接矩阵，matrix[i, j] 表示边 (i, j) 的权重。
     
-    Examples
-    --------
-    >>> g = IMGraph(edges=[(0, 1), (1, 2)], weights=[0.5, 0.8], directed=True)
-    >>> mat = to_scipy_sparse(g)
-    >>> mat.toarray()
-    array([[0. , 0.5, 0. ],
-           [0. , 0. , 0.8],
-           [0. , 0. , 0. ]])
+    Example:
+        >>> g = IMGraph(edges=[(0, 1), (1, 2)], weights=[0.5, 0.8], directed=True)
+        >>> mat = to_scipy_sparse(g)
+        >>> mat.toarray()
+        array([[0. , 0.5, 0. ],
+               [0. , 0. , 0.8],
+               [0. , 0. , 0. ]])
     """
     import scipy.sparse as sp
     
@@ -328,22 +285,17 @@ def to_pyg(graph: "IMGraph"):
     """
     将 IMGraph 转换为 PyTorch Geometric Data 对象。
     
-    Parameters
-    ----------
-    graph : IMGraph
-        图对象
+    Args:
+        graph: 图对象。
     
-    Returns
-    -------
-    torch_geometric.data.Data
-        PyG Data 对象，包含 edge_index 和 edge_attr (权重)
+    Returns:
+        torch_geometric.data.Data: PyG Data 对象，包含 edge_index 和 edge_attr (权重)。
     
-    Examples
-    --------
-    >>> g = IMGraph(edges=[(0, 1), (1, 2)], weights=[0.5, 0.8], directed=True)
-    >>> pyg_g = to_pyg(g)
-    >>> pyg_g.num_nodes
-    3
+    Example:
+        >>> g = IMGraph(edges=[(0, 1), (1, 2)], weights=[0.5, 0.8], directed=True)
+        >>> pyg_g = to_pyg(g)
+        >>> pyg_g.num_nodes
+        3
     """
     import torch
     from torch_geometric.data import Data
@@ -358,3 +310,130 @@ def to_pyg(graph: "IMGraph"):
         edge_attr = torch.tensor([[e[2]] for e in sparse_data], dtype=torch.float)
     
     return Data(edge_index=edge_index, edge_attr=edge_attr, num_nodes=graph.num_nodes)
+
+
+def from_networkx(graph, weight_attr: str = "weight", default_weight: float = 1.0) -> "IMGraph":
+    """
+    从 networkx.Graph 或 networkx.DiGraph 创建 IMGraph。
+
+    Args:
+        graph: networkx 图对象。
+        weight_attr: 边权重属性名，默认 'weight'。
+        default_weight: 默认权重值，当边没有权重属性时使用，默认 1.0。
+
+    Returns:
+        IMGraph: 转换后的图对象。
+
+    Example:
+        >>> import networkx as nx
+        >>> nx_g = nx.DiGraph()
+        >>> nx_g.add_edge(0, 1, weight=0.5)
+        >>> nx_g.add_edge(1, 2, weight=0.8)
+        >>> g = from_networkx(nx_g)
+        >>> g.num_nodes
+        3
+    """
+    edges = []
+    weights = []
+
+    node_mapping = {node: idx for idx, node in enumerate(graph.nodes())}
+
+    for u, v, data in graph.edges(data=True):
+        edges.append((node_mapping[u], node_mapping[v]))
+        weights.append(data.get(weight_attr, default_weight))
+
+    return IMGraph(edges=edges, weights=weights, directed=graph.is_directed(), renumber=False)
+
+
+def from_igraph(graph, weight_attr: str = "weight", default_weight: float = 1.0) -> "IMGraph":
+    """
+    从 igraph.Graph 创建 IMGraph。
+
+    Args:
+        graph: igraph 图对象。
+        weight_attr: 边权重属性名，默认 'weight'。
+        default_weight: 默认权重值，当边没有权重属性时使用，默认 1.0。
+
+    Returns:
+        IMGraph: 转换后的图对象。
+
+    Example:
+        >>> import igraph as ig
+        >>> ig_g = ig.Graph(n=3, edges=[(0, 1), (1, 2)], directed=True)
+        >>> ig_g.es['weight'] = [0.5, 0.8]
+        >>> g = from_igraph(ig_g)
+        >>> g.num_nodes
+        3
+    """
+    edges = []
+    weights = []
+
+    if 'weight' in graph.edge_attributes():
+        weights = graph.es[weight_attr]
+    else:
+        weights = [default_weight] * graph.ecount()
+
+    edges = [e.tuple for e in graph.es]
+
+    return IMGraph(edges=edges, weights=weights, directed=graph.is_directed(), renumber=False)
+
+
+def from_scipy_sparse(matrix, directed: bool = True) -> "IMGraph":
+    """
+    从 scipy 稀疏矩阵创建 IMGraph。
+
+    Args:
+        matrix: scipy 稀疏矩阵，matrix[i, j] 表示边 (i, j) 的权重。
+        directed: 是否有向图，默认 True。
+
+    Returns:
+        IMGraph: 转换后的图对象。
+
+    Example:
+        >>> import scipy.sparse as sp
+        >>> mat = sp.csr_matrix([[0, 0.5, 0], [0, 0, 0.8], [0, 0, 0]])
+        >>> g = from_scipy_sparse(mat, directed=True)
+        >>> g.num_nodes
+        3
+    """
+    coo = matrix.tocoo()
+
+    edges = list(zip(coo.row.tolist(), coo.col.tolist()))
+    weights = coo.data.tolist()
+
+    return IMGraph(edges=edges, weights=weights, directed=directed, renumber=False)
+
+
+def from_pyg(data, default_weight: float = 1.0) -> "IMGraph":
+    """
+    从 PyTorch Geometric Data 对象创建 IMGraph。
+
+    Args:
+        data: torch_geometric.data.Data 对象。
+        default_weight: 默认权重值，当 Data 没有 edge_attr 时使用，默认 1.0。
+
+    Returns:
+        IMGraph: 转换后的图对象。
+
+    Example:
+        >>> import torch
+        >>> from torch_geometric.data import Data
+        >>> edge_index = torch.tensor([[0, 1], [1, 2]], dtype=torch.long).t()
+        >>> edge_attr = torch.tensor([[0.5], [0.8]], dtype=torch.float)
+        >>> pyg_data = Data(edge_index=edge_index, edge_attr=edge_attr, num_nodes=3)
+        >>> g = from_pyg(pyg_data)
+        >>> g.num_nodes
+        3
+    """
+    edge_index = data.edge_index.cpu().numpy()
+
+    edges = list(zip(edge_index[0].tolist(), edge_index[1].tolist()))
+
+    if hasattr(data, 'edge_attr') and data.edge_attr is not None:
+        weights = data.edge_attr.cpu().numpy().flatten().tolist()
+    else:
+        weights = [default_weight] * len(edges)
+
+    directed = True
+
+    return IMGraph(edges=edges, weights=weights, directed=directed, renumber=False)

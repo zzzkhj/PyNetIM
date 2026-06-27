@@ -1,3 +1,8 @@
+"""中心性启发式算法。
+
+包含基于节点中心性的影响力最大化算法。
+"""
+
 import heapq
 from typing import List, Set, Dict, TYPE_CHECKING
 from collections import defaultdict
@@ -36,9 +41,9 @@ class DegreeCentralityAlgorithm(BaseAlgorithm):
     def run(self, k: int) -> Set[int]:
         degrees = [(self.graph.out_degree(v), v) for v in range(self.graph.num_nodes)]
         degrees.sort(reverse=True)
-        seeds = {v for _, v in degrees[:k]}
+        seeds = [v for _, v in degrees[:k]]
         self.seeds = seeds
-        return seeds
+        return set(seeds)
 
 
 class PageRankAlgorithm(BaseAlgorithm):
@@ -113,72 +118,9 @@ class PageRankAlgorithm(BaseAlgorithm):
                 break
         
         ranked = sorted(pr.items(), key=lambda x: x[1], reverse=True)
-        seeds = {v for v, _ in ranked[:k]}
+        seeds = [v for v, _ in ranked[:k]]
         self.seeds = seeds
-        return seeds
-
-
-class VoteRankAlgorithm(BaseAlgorithm):
-    """VoteRank 启发式算法。
-
-    通过投票机制选择分散的影响力节点。每个节点为其邻居投票，
-    得票最高的节点被选为种子，然后其邻居的投票能力被削弱。
-    这样可以避免选择过于聚集的种子节点。
-
-    时间复杂度: O(n * k)
-
-    Attributes:
-        graph: 输入图对象。
-        seeds: 种子节点集合。
-
-    References:
-        Zhang, J. X., Chen, D. B., Dong, Q., & Zhao, Z. D. (2016). 
-        Identifying a set of influential spreaders in complex networks 
-        by VoteRank. Physica A: Statistical Mechanics and its Applications, 
-        461, 171-182.
-
-    Example:
-        >>> from pynetim import IMGraph
-        >>> from pynetim.algorithms import VoteRankAlgorithm
-        >>> 
-        >>> graph = IMGraph(edges, weights=0.3)
-        >>> algo = VoteRankAlgorithm(graph)
-        >>> seeds = algo.run(k=10)
-    """
-
-    def __init__(self, graph: 'IMGraph', diffusion_model: str = None):
-        super().__init__(graph, diffusion_model)
-
-    def run(self, k: int) -> Set[int]:
-        n = self.graph.num_nodes
-        
-        vote_ability = {v: 1.0 for v in range(n)}
-        votes = {v: 0.0 for v in range(n)}
-        seeds: Set[int] = set()
-        
-        for _ in range(k):
-            votes = {v: 0.0 for v in range(n)}
-            
-            for v in range(n):
-                if vote_ability[v] > 0:
-                    for u, _ in self.graph.out_neighbors_with_weights(v):
-                        votes[u] += vote_ability[v]
-            
-            for v in seeds:
-                votes[v] = -1
-            
-            max_vote = max(votes.values())
-            if max_vote <= 0:
-                break
-            
-            max_node = max(votes, key=votes.get)
-            seeds.add(max_node)
-            
-            for u, _ in self.graph.out_neighbors_with_weights(max_node):
-                vote_ability[u] = max(0, vote_ability[u] - 1.0 / self.graph.out_degree(max_node))
-        
-        self.seeds = seeds
-        return seeds
+        return set(seeds)
 
 
 class KShellDecompositionAlgorithm(BaseAlgorithm):
@@ -244,9 +186,9 @@ class KShellDecompositionAlgorithm(BaseAlgorithm):
         degree = {v: self.graph.out_degree(v) for v in range(n)}
         
         ranked = sorted(k_shell.items(), key=lambda x: (x[1], degree[x[0]]), reverse=True)
-        seeds = {v for v, _ in ranked[:k]}
+        seeds = [v for v, _ in ranked[:k]]
         self.seeds = seeds
-        return seeds
+        return set(seeds)
 
 
 class BetweennessCentralityAlgorithm(BaseAlgorithm):
@@ -341,9 +283,9 @@ class BetweennessCentralityAlgorithm(BaseAlgorithm):
                 betweenness[v] *= scale
         
         ranked = sorted(betweenness.items(), key=lambda x: x[1], reverse=True)
-        seeds = {v for v, _ in ranked[:k]}
+        seeds = [v for v, _ in ranked[:k]]
         self.seeds = seeds
-        return seeds
+        return set(seeds)
 
 
 class ClosenessCentralityAlgorithm(BaseAlgorithm):
@@ -410,9 +352,9 @@ class ClosenessCentralityAlgorithm(BaseAlgorithm):
                 closeness[v] = 0.0
         
         ranked = sorted(closeness.items(), key=lambda x: x[1], reverse=True)
-        seeds = {v for v, _ in ranked[:k]}
+        seeds = [v for v, _ in ranked[:k]]
         self.seeds = seeds
-        return seeds
+        return set(seeds)
 
 
 class EigenvectorCentralityAlgorithm(BaseAlgorithm):
@@ -481,115 +423,6 @@ class EigenvectorCentralityAlgorithm(BaseAlgorithm):
                 break
         
         ranked = sorted(x.items(), key=lambda item: item[1], reverse=True)
-        seeds = {v for v, _ in ranked[:k]}
+        seeds = [v for v, _ in ranked[:k]]
         self.seeds = seeds
-        return seeds
-
-
-class SingleDiscountAlgorithm(BaseAlgorithm):
-    """简单度折扣启发式算法。
-
-    通过逐步选择具有最高度数的节点作为种子，并对其邻居节点的度数进行折扣，
-    以避免选择过多相互连接的节点。
-
-    该算法速度快，适合大规模图的快速种子选择。
-
-    Attributes:
-        graph: 输入图对象。
-        seeds: 种子节点集合。
-
-    References:
-        Chen, W., Wang, Y., & Yang, S. (2009). Efficient influence maximization 
-        in social networks. KDD, 199-208.
-
-    Example:
-        >>> from pynetim import IMGraph
-        >>> from pynetim.algorithms import SingleDiscountAlgorithm
-        >>> 
-        >>> graph = IMGraph(edges, weights=0.3)
-        >>> algo = SingleDiscountAlgorithm(graph)
-        >>> seeds = algo.run(k=10)
-    """
-
-    def __init__(self, graph: 'IMGraph', diffusion_model: str = None):
-        super().__init__(graph, diffusion_model)
-    
-    def run(self, k: int) -> Set[int]:
-        d = {v: self.graph.out_degree(v) for v in range(self.graph.num_nodes)}
-        seeds: Set[int] = set()
-        selected: Set[int] = set()
-
-        heap = [(-d[v], v) for v in range(self.graph.num_nodes)]
-        heapq.heapify(heap)
-
-        while len(seeds) < k:
-            _, u = heapq.heappop(heap)
-
-            if u in selected:
-                continue
-            seeds.add(u)
-            selected.add(u)
-
-            for v, _ in self.graph.out_neighbors_with_weights(u):
-                if v not in selected:
-                    d[v] -= 1
-                    heapq.heappush(heap, (-d[v], v))
-
-        self.seeds = seeds
-        return seeds
-
-
-class DegreeDiscountAlgorithm(BaseAlgorithm):
-    """度折扣启发式算法。
-
-    是 SingleDiscountAlgorithm 的改进版本，考虑了邻居节点之间的影响关系，
-    使用更复杂的折扣公式来更好地评估节点的边际影响力。
-
-    该算法速度快且效果较好，适合大规模图的种子选择。
-
-    Attributes:
-        graph: 输入图对象。
-        seeds: 种子节点集合。
-
-    References:
-        Chen, W., Wang, Y., & Yang, S. (2009). Efficient influence maximization 
-        in social networks. KDD, 199-208.
-
-    Example:
-        >>> from pynetim import IMGraph
-        >>> from pynetim.algorithms import DegreeDiscountAlgorithm
-        >>> 
-        >>> graph = IMGraph(edges, weights=0.3)
-        >>> algo = DegreeDiscountAlgorithm(graph, diffusion_model='IC')
-        >>> seeds = algo.run(k=10)
-    """
-
-    def __init__(self, graph: 'IMGraph', diffusion_model: str = 'IC'):
-        super().__init__(graph, diffusion_model)
-
-    def run(self, k: int) -> Set[int]:
-        d = {v: self.graph.out_degree(v) for v in range(self.graph.num_nodes)}
-        dd = d.copy()
-        t = defaultdict(int)
-        seeds: Set[int] = set()
-
-        heap = [(-dd[v], v) for v in range(self.graph.num_nodes)]
-        heapq.heapify(heap)
-        selected: Set[int] = set()
-
-        while len(seeds) < k:
-            _, u = heapq.heappop(heap)
-            if u in selected:
-                continue
-            seeds.add(u)
-            selected.add(u)
-
-            for v, weight in self.graph.out_neighbors_with_weights(u):
-                if v in selected:
-                    continue
-                t[v] += 1
-                dd[v] = d[v] - 2 * t[v] - (d[v] - t[v]) * t[v] * weight
-                heapq.heappush(heap, (-dd[v], v))
-
-        self.seeds = seeds
-        return seeds
+        return set(seeds)

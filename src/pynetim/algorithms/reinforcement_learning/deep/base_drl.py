@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import os
 from pathlib import Path
-from typing import Optional, Set, TYPE_CHECKING
+from typing import List, Optional, Set, TYPE_CHECKING
 
 import torch
 
@@ -119,7 +119,7 @@ class BaseDRLAlgorithm(BaseRLAlgorithm):
         else:
             self.seeds = self._select_iterative(k, state)
 
-        return self.seeds
+        return set(self.seeds)
 
     def _prepare_inference(self):
         """准备推理环境（子类可重写）。"""
@@ -168,7 +168,7 @@ class BaseDRLAlgorithm(BaseRLAlgorithm):
         """
         raise NotImplementedError("子类必须实现 _mask_selected 方法")
 
-    def _select_topk(self, k: int, state) -> Set[int]:
+    def _select_topk(self, k: int, state) -> List[int]:
         """一次性选择 top-k 节点。
 
         Args:
@@ -176,13 +176,13 @@ class BaseDRLAlgorithm(BaseRLAlgorithm):
             state: 初始状态。
 
         Returns:
-            Set[int]: 选择的种子节点集合。
+            List[int]: 按分数降序排列的种子节点列表。
         """
         q_values = self._compute_q_values(state)
         _, indices = torch.topk(q_values, k)
-        return set(indices.tolist())
+        return indices.tolist()
 
-    def _select_iterative(self, k: int, state) -> Set[int]:
+    def _select_iterative(self, k: int, state) -> List[int]:
         """迭代选择节点。
 
         Args:
@@ -190,16 +190,16 @@ class BaseDRLAlgorithm(BaseRLAlgorithm):
             state: 初始状态。
 
         Returns:
-            Set[int]: 选择的种子节点集合。
+            List[int]: 按选择顺序排列的种子节点列表。
         """
-        selected = set()
+        selected: List[int] = []
 
         for _ in range(k):
             q_values = self._compute_q_values(state)
             q_values = self._mask_selected(q_values, state)
 
             best_node = torch.argmax(q_values).item()
-            selected.add(best_node)
+            selected.append(best_node)
             state = self._update_state(state, best_node)
 
         return selected

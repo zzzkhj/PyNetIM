@@ -327,5 +327,5 @@ class TCQAlgorithm(BaseRLAlgorithm):
             state = action
             selected_nodes.append(self._candidate_set[state])
         
-        self.seeds = set(selected_nodes[:k])
-        return self.seeds
+        self.seeds = selected_nodes[:k]
+        return set(selected_nodes[:k])

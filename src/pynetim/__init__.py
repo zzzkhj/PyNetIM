@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-__version__ = "0.5.4.1"
+__version__ = "0.5.5"
 __author__ = "Zhang Kaijing"
 
 from . import graph
@@ -9,6 +9,8 @@ from . import algorithms
 from . import evaluation
 from . import timing
 from . import weights
+from . import embedding
+from . import random
 
 from .graph import IMGraph
 from .diffusion_model import (
@@ -25,6 +27,10 @@ from .utils import (
     to_igraph, 
     to_scipy_sparse, 
     to_pyg,
+    from_networkx,
+    from_igraph,
+    from_scipy_sparse,
+    from_pyg,
     load_edgelist,
     save_edgelist,
     shortest_path_length,
@@ -42,6 +48,7 @@ from .algorithms import (
     TIMPlusAlgorithm,
     OPIMAlgorithm,
     OPIMCAlgorithm,
+    IMInfectorAlgorithm,
 )
 from .evaluation import (
     kendall_tau,
@@ -75,6 +82,8 @@ from .timing import (
 
 from .weights import WeightManager, WEIGHTS_CONFIG
 
+from .embedding import Node2Vec, DeepWalk, Struc2Vec, Inf2Vec
+
 __all__ = [
     'graph',
     'diffusion_model',
@@ -83,6 +92,8 @@ __all__ = [
     'evaluation',
     'timing',
     'weights',
+    'embedding',
+    'random',
     'IMGraph',
     'IndependentCascadeModel',
     'LinearThresholdModel',
@@ -95,6 +106,10 @@ __all__ = [
     'to_igraph',
     'to_scipy_sparse',
     'to_pyg',
+    'from_networkx',
+    'from_igraph',
+    'from_scipy_sparse',
+    'from_pyg',
     'load_edgelist',
     'save_edgelist',
     'shortest_path_length',
@@ -110,6 +125,7 @@ __all__ = [
     'TIMPlusAlgorithm',
     'OPIMAlgorithm',
     'OPIMCAlgorithm',
+    'IMInfectorAlgorithm',
     'kendall_tau',
     'spearman_correlation',
     'monotonicity_score',
@@ -136,4 +152,8 @@ __all__ = [
     'compare_algorithms_runtime',
     'WeightManager',
     'WEIGHTS_CONFIG',
+    'Node2Vec',
+    'DeepWalk',
+    'Struc2Vec',
+    'Inf2Vec',
 ]

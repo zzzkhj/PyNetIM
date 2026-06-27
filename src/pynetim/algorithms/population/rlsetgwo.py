@@ -195,10 +195,10 @@ class RLSetGWOAlgorithm(BasePopulationAlgorithm):
             if self._check_convergence():
                 break
                 
-        self.seeds = self.leader_sets[0]
+        self.seeds = list(self.leader_sets[0])
         self.best_individual = self.leader_sets[0]
         self.best_fitness = self.leader_scores[0]
-        return self.seeds
+        return set(self.seeds)
     
     def _init_population(self, k: int):
         """初始化种群。

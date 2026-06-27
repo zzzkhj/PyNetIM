@@ -22,7 +22,7 @@ class BaseRISAlgorithm(BaseAlgorithm):
     - 使用堆优化贪心选择(O(R log k)而非O(R k))
     - 支持IC/LT模型
 
-    参考文献:
+    References:
         - Borgs, C., Brautbar, M., Chitnis, N., & Tardos, É. (2014). "Maximizing social influence in nearly optimal time."
           Proceedings of the 25th ACM-SIAM Symposium on Discrete Algorithms (SODA), 946-957.
           DOI: 10.1137/1.9781611973402.70
@@ -44,11 +44,11 @@ class BaseRISAlgorithm(BaseAlgorithm):
         初始化基础RIS算法实例。
 
         Args:
-            graph (IMGraph): 输入图对象
-            diffusion_model (str): 扩散模型，支持'IC'或'LT'，默认为'IC'
-            multi_process (bool, optional): 是否启用多进程模式，默认为False
-            processes (int, optional): 多进程模式下的进程数，为None时使用CPU核心数
-            seed (int, optional): 随机种子，默认为None
+            graph: 输入图对象。
+            diffusion_model: 扩散模型，支持'IC'或'LT'，默认为'IC'。
+            multi_process: 是否启用多进程模式，默认为False。
+            processes: 多进程模式下的进程数，为None时使用CPU核心数。
+            seed: 随机种子，默认为None。
         """
         super(BaseRISAlgorithm, self).__init__(graph, diffusion_model)
         self.graph = graph
@@ -75,10 +75,10 @@ class BaseRISAlgorithm(BaseAlgorithm):
         IC模型：从起始节点反向BFS采样可达节点。
 
         Args:
-            start_node (int): 起始节点
+            start_node: 起始节点。
 
         Returns:
-            Set[int]: 反向可达节点集合
+            Set[int]: 反向可达节点集合。
         """
         active = {start_node}
         queue = [start_node]
@@ -96,7 +96,7 @@ class BaseRISAlgorithm(BaseAlgorithm):
         LT模型：从起始节点反向随机走一条路径。
 
         Args:
-            start_node (int): 起始节点
+            start_node: 起始节点。
 
         Returns:
             Set[int]: 反向可达节点集合
@@ -123,10 +123,10 @@ class BaseRISAlgorithm(BaseAlgorithm):
         在单个进程中生成RR集合。
 
         Args:
-            num_rr_sets (int): 需要生成的RR集合数量
+            num_rr_sets: 需要生成的RR集合数量。
 
         Returns:
-            List[Set[int]]: RR集合列表
+            List[Set[int]]: RR集合列表。
         """
         rr_sets = []
         nodes = self.nodes
@@ -142,7 +142,7 @@ class BaseRISAlgorithm(BaseAlgorithm):
         生成指定数量的RR集合，支持单进程和多进程模式。
 
         Args:
-            num_rr_sets (int): 需要生成的RR集合数量
+            num_rr_sets: 需要生成的RR集合数量。
 
         Returns:
             List[Set[int]]: RR集合列表
@@ -183,11 +183,11 @@ class BaseRISAlgorithm(BaseAlgorithm):
         节点选择算法，返回选出的种子集合和覆盖比例。
 
         Args:
-            rr_sets (List[Set[int]]): RR集合列表
-            k (int): 需要选择的种子节点数量
+            rr_sets: RR集合列表。
+            k: 需要选择的种子节点数量。
 
         Returns:
-            Tuple[Set[int], float]: 选出的种子节点集合和覆盖比例
+            Tuple[Set[int], float]: 选出的种子节点集合和覆盖比例。
         """
         rr_degree = {node: 0 for node in self.graph.nodes}
         node_to_rr_idx: Dict[int, List[int]] = {}
@@ -224,11 +224,11 @@ class BaseRISAlgorithm(BaseAlgorithm):
         执行简单RIS算法。
 
         Args:
-            k (int): 种子集合大小
-            num_rr_sets (int): RR集合采样数量（越大越准）
+            k: 种子集合大小。
+            num_rr_sets: RR集合采样数量（越大越准）。
 
         Returns:
-            Set[int]: 选出的k个种子节点
+            Set[int]: 选出的k个种子节点。
         """
         if k <= 0 or num_rr_sets <= 0:
             return []
@@ -250,7 +250,7 @@ class IMMAlgorithm(BaseRISAlgorithm):
 
     支持IC和LT两种扩散模型
 
-    参考文献:
+    References:
         - Tang, Y., Xiao, X., & Shi, Y. (2015). "Influence maximization: Near-optimal time complexity meets practical efficiency."
           Proceedings of the 2015 ACM SIGMOD International Conference on Management of Data (SIGMOD), 75-86.
           DOI: 10.1145/2723372.2723734
@@ -272,13 +272,13 @@ class IMMAlgorithm(BaseRISAlgorithm):
         初始化IMM算法实例。
 
         Args:
-            graph (IMGraph): 有向带权图
-            diffusion_model (str): 扩散模型，支持'IC'或'LT'，默认为'IC'
-            eps (float): 近似参数ε，默认为0.5
-            l (int): 失败概率参数l，默认为1
-            multi_process (bool, optional): 是否启用多进程模式，默认为False
-            processes (int, optional): 多进程模式下的进程数，为None时使用CPU核心数
-            seed (int, optional): 随机种子，默认为None
+            graph: 有向带权图。
+            diffusion_model: 扩散模型，支持'IC'或'LT'，默认为'IC'。
+            eps: 近似参数ε，默认为0.5。
+            l: 失败概率参数l，默认为1。
+            multi_process: 是否启用多进程模式，默认为False。
+            processes: 多进程模式下的进程数，为None时使用CPU核心数。
+            seed: 随机种子，默认为None。
         """
         super(IMMAlgorithm, self).__init__(graph, diffusion_model, multi_process, processes, seed)
         self.eps = eps
@@ -290,11 +290,11 @@ class IMMAlgorithm(BaseRISAlgorithm):
         计算组合数的对数log(C(n,k))。
 
         Args:
-            n (int): 总数
-            k (int): 选择数
+            n: 总数。
+            k: 选择数。
 
         Returns:
-            float: 组合数的对数
+            float: 组合数的对数。
         """
         if k == 0:
             return 0.0
@@ -310,10 +310,10 @@ class IMMAlgorithm(BaseRISAlgorithm):
         IMM采样主过程。
 
         Args:
-            k (int): 需要选择的种子节点数量
+            k: 需要选择的种子节点数量。
 
         Returns:
-            List[Set[int]]: 采样得到的RR集合列表
+            List[Set[int]]: 采样得到的RR集合列表。
         """
         n = len(self.nodes)
         R: List[Set[int]] = []
@@ -356,10 +356,10 @@ class IMMAlgorithm(BaseRISAlgorithm):
         执行IMM算法，返回大小为k的种子集合。
 
         Args:
-            k (int): 需要选择的种子节点数量
+            k: 需要选择的种子节点数量。
 
         Returns:
-            Set[int]: 选出的种子节点集合
+            Set[int]: 选出的种子节点集合。
         """
         logger.info(f"开始采样阶段...")
         R = self._sampling(k)

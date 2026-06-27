@@ -19,7 +19,7 @@ class Timer:
         初始化计时器装饰器。
 
         Args:
-            repeat (int, optional): 函数每次调用时实际运行的次数，默认为1
+            repeat: 函数每次调用时实际运行的次数，默认为1。
         """
         self.repeat = repeat
         self.total_time = 0
@@ -30,7 +30,7 @@ class Timer:
         使Timer实例可调用，作为装饰器使用。
 
         Args:
-            func (Callable): 被装饰的函数
+            func: 被装饰的函数。
 
         Returns:
             Callable: 包装后的函数

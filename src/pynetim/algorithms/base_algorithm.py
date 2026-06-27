@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Set
+from typing import TYPE_CHECKING, List, Set
 
 if TYPE_CHECKING:
     from ..graph import IMGraph
@@ -15,7 +15,7 @@ class BaseAlgorithm:
 
     Attributes:
         graph: 输入图对象。
-        seeds: 种子节点集合。
+        seeds: 种子节点列表（按选择顺序排列）。
         diffusion_model: 扩散模型类。
 
     Example:
@@ -42,7 +42,7 @@ class BaseAlgorithm:
             ValueError: 当 diffusion_model 不是 'IC' 或 'LT' 时抛出。
         """
         self.graph = graph
-        self.seeds: Set[int] = set()
+        self.seeds: List[int] = []
 
         if diffusion_model is not None:
             from ..diffusion_model import IndependentCascadeModel, LinearThresholdModel
@@ -73,9 +73,17 @@ class BaseAlgorithm:
         raise NotImplementedError
 
     def get_seeds(self) -> Set[int]:
-        """获取最后一次运行选出的种子集合。
+        """获取最后一次运行选出的种子集合（无序）。
 
         Returns:
             Set[int]: 种子节点集合。
         """
-        return self.seeds
+        return set(self.seeds)
+
+    def get_seeds_ordered(self) -> List[int]:
+        """获取最后一次运行选出的种子列表（按选择顺序排列）。
+
+        Returns:
+            List[int]: 按选择顺序排列的种子节点列表。
+        """
+        return list(self.seeds)

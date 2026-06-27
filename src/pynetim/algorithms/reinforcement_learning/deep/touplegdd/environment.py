@@ -6,9 +6,6 @@ import numpy as np
 if TYPE_CHECKING:
     from ....graph import IMGraph
 
-random.seed(123)
-np.random.seed(123)
-
 
 class IMEnvironment:
     """影响力最大化强化学习环境。
