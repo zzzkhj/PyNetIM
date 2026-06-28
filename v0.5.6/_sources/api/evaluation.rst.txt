@@ -1,7 +1,0 @@
-评估指标
-========
-
-.. automodule:: pynetim.evaluation
-   :members:
-   :undoc-members:
-   :show-inheritance:

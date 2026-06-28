@@ -1,7 +1,0 @@
-随机种子控制
-============
-
-.. automodule:: pynetim.random
-   :members:
-   :undoc-members:
-   :show-inheritance:
